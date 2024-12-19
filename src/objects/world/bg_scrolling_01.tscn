@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cyq112bgifh5r"]
 
-[ext_resource type="Texture2D" uid="uid://kewyrbvflk6o" path="res://assets/img/bg-credits.png" id="1_8x7y8"]
+[ext_resource type="Texture2D" uid="uid://b5vh0nswyrv70" path="res://assets/img/bg-credits.png" id="1_8x7y8"]
 [ext_resource type="Script" path="res://objects/scripts/bg_scrolling_anim.gd" id="2_x03ne"]
 
 [node name="BG" type="Sprite2D"]
