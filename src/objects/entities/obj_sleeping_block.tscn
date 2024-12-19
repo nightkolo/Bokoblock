@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp0yxas1oob3e"]
+
+[ext_resource type="Script" path="res://objects/scripts/node_sleeping_block.gd" id="1_thiw6"]
+[ext_resource type="Texture2D" uid="uid://iio58v5rhbrs" path="res://assets/img/sleepy-block-v01.png" id="2_2c3sp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vytsv"]
+size = Vector2(45, 45)
+
+[node name="SleepingBlock" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_thiw6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vytsv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_2c3sp")
