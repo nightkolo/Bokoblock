@@ -1,6 +1,6 @@
 ## Under construction.
 extends MarginContainer
-class_name MonologText01
+class_name MonologText
 
 signal letter_showing_started()
 signal letter_showing_finished()
@@ -119,7 +119,7 @@ func show_text(text_to_show: String) -> void:
 var is_boogieing: bool = false
 var shake_code: String = "[shake rate=12.5 level=10 connected=1]"
 
-
+# TODO: make shaky_label behind label and modulate = black. and choose a good font.
 func anim_shake() -> void:
 	if is_boogieing:
 		return

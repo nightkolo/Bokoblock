@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://cs1030lgfwryf"]
+
+[ext_resource type="Script" path="res://objects/scripts/character_boko.gd" id="1_86flk"]
+[ext_resource type="Texture2D" uid="uid://ckmlhpvhaqvs1" path="res://assets/characters/boko-body-natural-packed-v01.png" id="1_jyxsy"]
+[ext_resource type="Texture2D" uid="uid://cyh45m8fhtv8i" path="res://assets/characters/boko-head.png" id="3_g54ai"]
+[ext_resource type="Texture2D" uid="uid://dxbe625mgc81e" path="res://assets/characters/boko-body-v02.png" id="3_kw4a3"]
+[ext_resource type="Texture2D" uid="uid://cpl1l3v5d6blx" path="res://assets/characters/boko-eyes-natural-v02.png" id="5_b3po1"]
+[ext_resource type="Texture2D" uid="uid://ye0iegqprtv5" path="res://assets/characters/boko-top-hat-v10.png" id="6_wbapv"]
+[ext_resource type="Texture2D" uid="uid://cr2aa4j5um1fl" path="res://assets/characters/boko-top-hat-star-v04.png" id="7_gspkm"]
+[ext_resource type="Texture2D" uid="uid://hxacoiqka51i" path="res://assets/characters/boko-hands-v02-chill-right.png" id="8_vjt58"]
+[ext_resource type="Texture2D" uid="uid://ii56ocvpmqtr" path="res://assets/characters/boko-hands-v02-chill-left.png" id="8_vq8ar"]
+
+[node name="Boko" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_86flk")
+
+[node name="Body1" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Body2" type="Node2D" parent="Body1"]
+unique_name_in_owner = true
+
+[node name="Packed" type="Sprite2D" parent="Body1/Body2"]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("1_jyxsy")
+
+[node name="AlsoBody" type="Sprite2D" parent="Body1/Body2"]
+unique_name_in_owner = true
+position = Vector2(0, -110)
+texture = ExtResource("3_kw4a3")
+
+[node name="Head" type="Node2D" parent="Body1/Body2"]
+unique_name_in_owner = true
+position = Vector2(0, -220)
+
+[node name="SpriteHead" type="Sprite2D" parent="Body1/Body2/Head"]
+unique_name_in_owner = true
+position = Vector2(0, -198)
+texture = ExtResource("3_g54ai")
+
+[node name="Eyes" type="Node2D" parent="Body1/Body2/Head"]
+unique_name_in_owner = true
+position = Vector2(0, -154)
+
+[node name="SpriteEyes" type="Sprite2D" parent="Body1/Body2/Head/Eyes"]
+unique_name_in_owner = true
+texture = ExtResource("5_b3po1")
+
+[node name="TopHat" type="Node2D" parent="Body1/Body2/Head"]
+unique_name_in_owner = true
+position = Vector2(0, -330)
+
+[node name="SpriteTopHat" type="Sprite2D" parent="Body1/Body2/Head/TopHat"]
+unique_name_in_owner = true
+position = Vector2(0, -110)
+texture = ExtResource("6_wbapv")
+
+[node name="Star" type="Sprite2D" parent="Body1/Body2/Head/TopHat/SpriteTopHat"]
+unique_name_in_owner = true
+position = Vector2(-114, -86)
+rotation = -0.174533
+texture = ExtResource("7_gspkm")
+
+[node name="RightHand" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(164, -22)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_vjt58")
+
+[node name="LeftHand" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-166, -22)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_vq8ar")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

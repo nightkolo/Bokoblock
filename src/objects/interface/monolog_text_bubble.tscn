@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg757ku1ljocd"]
+
+[ext_resource type="Script" path="res://menus/runtime/playground/code/test_monologue_text.gd" id="1_y30qj"]
+
+[node name="MonologText" type="MarginContainer"]
+offset_left = 111.0
+offset_top = 287.0
+offset_right = 739.0
+offset_bottom = 431.0
+script = ExtResource("1_y30qj")
+monologue_text = Array[String](["[b][font_size=50]Hello there, I'm [wave amp=50.0 freq=-7.5 connected=1][color=yellow]Boko!!!!!!!!!", "[b][font_size=50]This is... the next monologue line...", "[b][font_size=50]I can add [shake]many[/shake] more of these [wave amp=50.0 freq=-7.5 connected=1]fellas!!!! "])
+
+[node name="Label" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+
+[node name="ShakyLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
