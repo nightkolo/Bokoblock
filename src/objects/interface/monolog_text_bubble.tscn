@@ -1,19 +1,72 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg757ku1ljocd"]
+[gd_scene load_steps=8 format=3 uid="uid://bg757ku1ljocd"]
 
 [ext_resource type="Script" path="res://menus/runtime/playground/code/test_monologue_text.gd" id="1_y30qj"]
+[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/tutorial-bubble-r3.png" id="2_bhegs"]
+[ext_resource type="Theme" uid="uid://crery4q67k6a7" path="res://resources/theme/theme_rich_text_label.tres" id="3_pkb6w"]
+[ext_resource type="FontVariation" uid="uid://cyb57wcgd753u" path="res://theme_font_bold.tres" id="4_t5u16"]
+[ext_resource type="FontFile" uid="uid://cgp77ft8q5j4y" path="res://assets/addons/fonts/Nunito-Black.ttf" id="4_uyxy1"]
+
+[sub_resource type="FontVariation" id="FontVariation_0p01j"]
+spacing_glyph = -3
+
+[sub_resource type="LabelSettings" id="LabelSettings_cx838"]
+font = ExtResource("4_uyxy1")
+font_size = 32
+shadow_color = Color(0, 0, 0, 0.552941)
 
 [node name="MonologText" type="MarginContainer"]
-offset_left = 111.0
-offset_top = 287.0
-offset_right = 739.0
-offset_bottom = 431.0
+custom_minimum_size = Vector2(500, 200)
+offset_right = 500.0
+offset_bottom = 200.0
 script = ExtResource("1_y30qj")
-monologue_text = Array[String](["[b][font_size=50]Hello there, I'm [wave amp=50.0 freq=-7.5 connected=1][color=yellow]Boko!!!!!!!!!", "[b][font_size=50]This is... the next monologue line...", "[b][font_size=50]I can add [shake]many[/shake] more of these [wave amp=50.0 freq=-7.5 connected=1]fellas!!!! "])
+bbcode_default = "[center][b][font_size=32][outline_size=3][outline_color=#00000040]"
 
-[node name="Label" type="RichTextLabel" parent="."]
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(1, 0, 1, 1)
 layout_mode = 2
-bbcode_enabled = true
+texture = ExtResource("2_bhegs")
+region_rect = Rect2(0, 0, 144, 144)
+patch_margin_left = 48
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 48
 
-[node name="ShakyLabel" type="RichTextLabel" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 30
+
+[node name="Label" type="RichTextLabel" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_pkb6w")
+theme_override_fonts/bold_font = ExtResource("4_t5u16")
 bbcode_enabled = true
+fit_content = true
+
+[node name="Label2" type="Label" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_0p01j")
+text = "Hello there, I'm Boko!!!"
+label_settings = SubResource("LabelSettings_cx838")
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Node2D"]
+self_modulate = Color(1, 0, 1, 1)
+offset_right = 496.0
+offset_bottom = 199.0
+rotation = -0.0174533
+scale = Vector2(1.035, 1)
+pivot_offset = Vector2(248, 100)
+texture = ExtResource("2_bhegs")
+region_rect = Rect2(0, 0, 144, 144)
+patch_margin_left = 48
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 48

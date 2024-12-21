@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd2v2rntflmfo"]
+
+[ext_resource type="Script" path="res://menus/runtime/playground/code/test_monologue_scene.gd" id="1_a8o4a"]
+[ext_resource type="PackedScene" uid="uid://cs1030lgfwryf" path="res://objects/characters/character_boko.tscn" id="2_4lkct"]
+[ext_resource type="PackedScene" uid="uid://bg757ku1ljocd" path="res://objects/interface/monolog_text_bubble.tscn" id="3_ldnop"]
+
+[node name="TestArea05" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a8o4a")
+
+[node name="Boko" parent="." instance=ExtResource("2_4lkct")]
+unique_name_in_owner = true
+position = Vector2(480, 420)
+scale = Vector2(0.4, 0.4)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MonologText" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ldnop")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+monologue_text = Array[String](["[font_size=40]Why hello there!
+I'm [wave amp=50.0 freq=-7.5 connected=1][color=yellow]Boko!", "[tornado radius=2.0 freq=5.0 connected=1]Are you a puzzle type?[/tornado] I would like to play a [shake rate=10.0 level=5 connected=1][pulse freq=1.0 color=yelow ease=-2.0]game[/pulse][/shake] with you!", "[font_size=40]Don't cha worry,
+I got no mouth so I won't bite.", "I'll be your [color=pink]tutor[/color] and teach you the basics, hope I can give ya company!!!", "[font_size=40]Aha,
+This is gonna be [rainbow]fun![/rainbow]"])
+boko_poses = Array[int]([0, 1, 2, 3, 4])

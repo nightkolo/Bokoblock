@@ -11,6 +11,7 @@ signal game_end()
 
 enum TranformationType {MOVE = 0, TURN = 1, UNDO = 99} ## @experimental
 enum BokoColor {AQUA = 0, RED = 1, BLUE = 2, YELLOW = 3, GREEN = 4, PINK = 5, GREY = 99}
+enum BokoPose {NORMAL = 0, THINKING = 1, NO_WORRY = 2, HAPPY = 3, WINK = 4} ## @experimental
 
 var has_won: bool = false
 var win_checked: bool = true

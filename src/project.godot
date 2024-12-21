@@ -27,8 +27,11 @@ gdscript/warnings/unused_signal=0
 
 window/size/viewport_width=960
 window/size/viewport_height=720
-window/size/mode=3
 window/stretch/mode="canvas_items"
+
+[gui]
+
+theme/custom_font="res://assets/addons/fonts/Nunito-SemiBold.ttf"
 
 [input]
 
