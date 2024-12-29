@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyq112bgifh5r"]
+
+[ext_resource type="Texture2D" uid="uid://b5vh0nswyrv70" path="res://assets/backgrounds/bg-credits.png" id="1_8x7y8"]
+[ext_resource type="Script" path="res://object/scripts/bg_scrolling_anim.gd" id="2_x03ne"]
+
+[node name="BG" type="Sprite2D"]
+self_modulate = Color(0.372549, 0.384314, 0.498039, 1)
+texture = ExtResource("1_8x7y8")
+centered = false
+script = ExtResource("2_x03ne")
+metadata/_edit_lock_ = true

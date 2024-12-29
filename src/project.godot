@@ -16,8 +16,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameLogic="*res://scripts/autoload/mgr_game_logic.gd"
-PlayerInput="*res://scripts/autoload/mgr_player_input.gd"
+GameLogic="*res://core/autoload/mgr_game_logic.gd"
+PlayerInput="*res://core/autoload/mgr_player_input.gd"
 
 [debug]
 
@@ -27,6 +27,7 @@ gdscript/warnings/unused_signal=0
 
 window/size/viewport_width=960
 window/size/viewport_height=720
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [gui]

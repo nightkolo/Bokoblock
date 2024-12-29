@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=4 uid="uid://dfxtcqpewmn74"]
+
+[ext_resource type="Script" path="res://object/scripts/node_level.gd" id="1_hij1d"]
+[ext_resource type="Script" path="res://object/scripts/node_level_object.gd" id="2_7785f"]
+[ext_resource type="Script" path="res://object/scripts/node_world.gd" id="2_yt8yt"]
+[ext_resource type="PackedScene" uid="uid://cyq112bgifh5r" path="res://world/world/background/bg_scrolling_01.tscn" id="3_136sh"]
+[ext_resource type="TileSet" uid="uid://hxo6514lg8we" path="res://core/resources/tileset/tileset_world.tres" id="3_ll73r"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="3_rra65"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/entities/obj_block.tscn" id="4_0k356"]
+[ext_resource type="Script" path="res://object/scripts/game_cam.gd" id="8_m4b60"]
+
+[node name="TestArea01" type="Node2D"]
+script = ExtResource("1_hij1d")
+
+[node name="LevelWorld" type="Node2D" parent="."]
+script = ExtResource("2_yt8yt")
+
+[node name="BG" parent="LevelWorld" instance=ExtResource("3_136sh")]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="LevelWorld"]
+tile_map_data = PackedByteArray("AAACAAYAAAADAAQAAAACAAcAAAADAAQAAAACAAgAAAADAAQAAAADAAgAAAADAAQAAAAEAAgAAAADAAQAAAAFAAgAAAADAAQAAAAGAAgAAAADAAQAAAAGAAkAAAADAAQAAAAGAAoAAAADAAQAAAAHAAsAAAADAAQAAAAIAAsAAAADAAQAAAAJAAsAAAADAAQAAAAKAAwAAAADAAQAAAALAAwAAAADAAQAAAAMAAwAAAADAAQAAAANAAwAAAADAAQAAAAOAAwAAAADAAQAAAAPAAwAAAADAAQAAAAQAAwAAAADAAQAAAAQAAsAAAADAAQAAAAQAAoAAAADAAQAAAAQAAUAAAADAAQAAAAPAAQAAAADAAQAAAAPAAMAAAADAAQAAAANAAIAAAADAAQAAAAMAAIAAAADAAQAAAALAAIAAAADAAQAAAAKAAIAAAADAAQAAAAKAAEAAAADAAQAAAAJAAEAAAADAAQAAAAIAAEAAAADAAQAAAAHAAEAAAADAAQAAAAGAAEAAAADAAQAAAAFAAEAAAADAAQAAAAEAAEAAAADAAQAAAADAAEAAAADAAQAAAACAAIAAAADAAQAAAACAAMAAAADAAQAAAACAAQAAAADAAQAAAACAAUAAAADAAQAAAAGAAsAAAADAAQAAAAJAAwAAAADAAQAAAAQAAkAAAADAAQAAAAQAAgAAAADAAQAAAAQAAYAAAADAAQAAAAQAAcAAAADAAQAAAAPAAUAAAADAAQAAAAOAAIAAAADAAQAAAAPAAIAAAADAAQAAAACAAEAAAADAAQAAAA=")
+tile_set = ExtResource("3_ll73r")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="LevelWorld"]
+tile_set = ExtResource("3_ll73r")
+
+[node name="TileMapLayer3" type="TileMapLayer" parent="LevelWorld"]
+tile_set = ExtResource("3_ll73r")
+
+[node name="levelObject" type="Node2D" parent="."]
+script = ExtResource("2_7785f")
+
+[node name="Bokobody" type="Node2D" parent="levelObject"]
+position = Vector2(248, 203)
+script = ExtResource("3_rra65")
+
+[node name="Block" parent="levelObject/Bokobody" instance=ExtResource("4_0k356")]
+
+[node name="Block2" parent="levelObject/Bokobody" instance=ExtResource("4_0k356")]
+position = Vector2(0, -45)
+
+[node name="Block3" parent="levelObject/Bokobody" instance=ExtResource("4_0k356")]
+position = Vector2(45, 0)
+
+[node name="Block4" parent="levelObject/Bokobody" instance=ExtResource("4_0k356")]
+position = Vector2(-45, 0)
+
+[node name="Bokobody2" type="Node2D" parent="levelObject"]
+position = Vector2(428, 293)
+script = ExtResource("3_rra65")
+
+[node name="Block" parent="levelObject/Bokobody2" instance=ExtResource("4_0k356")]
+
+[node name="Block2" parent="levelObject/Bokobody2" instance=ExtResource("4_0k356")]
+position = Vector2(0, -45)
+
+[node name="Block3" parent="levelObject/Bokobody2" instance=ExtResource("4_0k356")]
+position = Vector2(45, 0)
+
+[node name="Block4" parent="levelObject/Bokobody2" instance=ExtResource("4_0k356")]
+position = Vector2(-45, 0)
+
+[node name="Bokobody3" type="Node2D" parent="levelObject"]
+position = Vector2(608, 383)
+script = ExtResource("3_rra65")
+rotation_strength = -1
+
+[node name="Block" parent="levelObject/Bokobody3" instance=ExtResource("4_0k356")]
+
+[node name="Block2" parent="levelObject/Bokobody3" instance=ExtResource("4_0k356")]
+position = Vector2(0, -45)
+
+[node name="Block3" parent="levelObject/Bokobody3" instance=ExtResource("4_0k356")]
+position = Vector2(45, 0)
+
+[node name="Block4" parent="levelObject/Bokobody3" instance=ExtResource("4_0k356")]
+position = Vector2(-45, 0)
+
+[node name="Cam" type="Camera2D" parent="."]
+position = Vector2(480, 360)
+script = ExtResource("8_m4b60")
