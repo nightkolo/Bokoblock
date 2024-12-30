@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://eyhhyen04o6i"]
+
+[ext_resource type="Texture2D" uid="uid://b5vh0nswyrv70" path="res://assets/backgrounds/bg-credits.png" id="1_6gfyo"]
+[ext_resource type="Script" path="res://world/background/level_background_02.gd" id="2_jcuha"]
+
+[node name="BG" type="CanvasLayer"]
+layer = -10
+script = ExtResource("2_jcuha")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(0.5, 0.5, 0.5, 0.5)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_6gfyo")

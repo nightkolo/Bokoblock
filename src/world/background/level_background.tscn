@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyq112bgifh5r"]
+
+[ext_resource type="Texture2D" uid="uid://b5vh0nswyrv70" path="res://assets/backgrounds/bg-credits.png" id="1_oj4rp"]
+[ext_resource type="Script" path="res://world/background/level_background.gd" id="2_ffdn4"]
+
+[node name="BG" type="Sprite2D"]
+self_modulate = Color(0.5, 0.5, 0.5, 0.5)
+texture = ExtResource("1_oj4rp")
+centered = false
+script = ExtResource("2_ffdn4")
+metadata/_edit_lock_ = true

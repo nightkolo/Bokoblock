@@ -1,5 +1,4 @@
 ## Under construction
-#@tool
 extends Node2D
 class_name Bokobody
 
@@ -13,14 +12,10 @@ signal turn_stopped()
 signal child_block_has_entered_one_way_block(is_block: Bokoblock)
 signal child_blocks_left_one_way_block()
 
-#@export_range(-360.0, 360.0, 0.5, "degrees") var rotate_degrees_to: float = 0.0:
-	#set(value):
-		#rotate_degrees_to = value
-		#rotation_degrees = value
-@export var movement_time: float = 0.1 ## Movement time.
 @export var movement_strength: int = 1 ## How many grid it'll move.
 @export var rotation_strength: int = 1 ## How many turns it'll move.
-@export var apply_color: bool = false ## @experimental
+@export_group("Modify")
+@export var movement_time: float = 0.1 ## Movement time.
 @export var just_dont: bool = false ## Don't, okay?
 
 var moves_made: Array[Variant] ## An [Array] of the Bokobody's transformation history.
@@ -36,7 +31,6 @@ var is_rotating: bool: ## Returns [code]true[/code] if [Bokobody2D] is currently
 		if !value:
 			GameLogic.bokobody_stopped.emit(self)
 
-## @experimental
 ## Tile size.
 const TILE_SIZE = 45.0 
 
@@ -48,43 +42,12 @@ var _old_pos: Vector2
 var _old_rot: float
 
 
-func anim_blocks_went_through_one_col_block(is_block: Bokoblock) -> void:
-	var dur := 1.0
-	
-	if _tween_one_col_anim:
-		_tween_one_col_anim.kill()
-		
-	_tween_one_col_anim = create_tween().set_parallel(true)
-	_tween_one_col_anim.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	
-	for block: Bokoblock in child_blocks:
-		block.sprite_block.self_modulate = GameLogic.set_boko_color(is_block.boko_color)
-		block.sprite_node_1.scale = Vector2.ONE / 4.0
-		block.anim_ghost()
-		
-		_tween_one_col_anim.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur)
-	
-	
-func anim_blocks_went_out_one_col_block() -> void:
-	var dur := 0.45
-	
-	if _tween_one_col_anim:
-		_tween_one_col_anim.kill()
-		
-	_tween_one_col_anim = create_tween().set_parallel(true)
-	_tween_one_col_anim.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
-	
-	for block: Bokoblock in child_blocks:
-		block.sprite_block.self_modulate = GameLogic.set_boko_color(block.boko_color)
-		block.sprite_node_1.scale = Vector2.ONE * 1.4
-		
-		_tween_one_col_anim.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur)
 
 func _ready() -> void:
 	if just_dont:
 		print_rich("[font_size=25.0][wave amp=50.0 freq=5.0 connected=1][color=green][b]Fart Fart Fart")
 	
-	GameLogic.current_bodies.append(self as Bokobody)
+	GameMgr.current_bodies.append(self as Bokobody)
 	
 	child_block_has_entered_one_way_block.connect(anim_blocks_went_through_one_col_block)
 		
@@ -103,8 +66,8 @@ func _ready() -> void:
 					stop_making_move()
 				)
 	
-	position = position.snapped(Vector2.ONE * TILE_SIZE)
-	position -= (Vector2.ONE * TILE_SIZE) / 2
+	position = position.snapped(Vector2.ONE * GameUtil.get_tile_size()) 
+	position += (Vector2.ONE * GameUtil.get_tile_size()) / 2
 	
 	PlayerInput.input_undo.connect(undo)
 	PlayerInput.input_move.connect(move)
@@ -171,7 +134,7 @@ func turn(rotate_deg_to: float, disable_colli: bool = false, set_record: bool = 
 ## @experimental
 ## Moves [Bokobody2D]. [br][br][param disable_colli] disables [Bokobody2D] collision during the move. [param set_record] pushes the move record to [member moves_made].
 func move(direction: Vector2, disable_colli: bool = false, set_record: bool = true) -> void:
-	var move_to: Vector2 = TILE_SIZE * direction * movement_strength
+	var move_to: Vector2 = GameUtil.get_tile_size() * direction * movement_strength
 	_old_pos = position
 	_can_set_record = set_record
 	if disable_colli: # Doing a check to avoid runtime slowdown
@@ -226,6 +189,39 @@ func stop_turning() -> void:
 		moves_made.push_front(0.0)
 	_disable_colli(false)
 	is_rotating = false
+
+
+func anim_blocks_went_through_one_col_block(is_block: Bokoblock) -> void:
+	var dur := 1.0
+	
+	if _tween_one_col_anim:
+		_tween_one_col_anim.kill()
+		
+	_tween_one_col_anim = create_tween().set_parallel(true)
+	_tween_one_col_anim.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	
+	for block: Bokoblock in child_blocks:
+		block.sprite_block.self_modulate = GameLogic.set_boko_color(is_block.boko_color)
+		block.sprite_node_1.scale = Vector2.ONE / 4.0
+		block.anim_ghost()
+		
+		_tween_one_col_anim.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur)
+	
+	
+func anim_blocks_went_out_one_col_block() -> void:
+	var dur := 0.45
+	
+	if _tween_one_col_anim:
+		_tween_one_col_anim.kill()
+		
+	_tween_one_col_anim = create_tween().set_parallel(true)
+	_tween_one_col_anim.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	
+	for block: Bokoblock in child_blocks:
+		block.sprite_block.self_modulate = GameLogic.set_boko_color(block.boko_color)
+		block.sprite_node_1.scale = Vector2.ONE * 1.4
+		
+		_tween_one_col_anim.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur)
 
 
 ## Returns [member moves_made].

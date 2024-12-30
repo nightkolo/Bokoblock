@@ -1,14 +1,14 @@
 extends Area2D
 class_name Endpoint
 
-@export var what_im_happy_with: GameLogic.BokoColor
+@export var what_im_happy_with: GameUtil.BokoColor
 @export var try_to_get_sprite: bool = true
 
 var _sprite: Sprite2D
 
 
 func _ready() -> void:
-	GameLogic.current_endpoints.append(self)
+	GameMgr.current_endpoints.append(self)
 	
 	self.modulate = Color(Color.WHITE, 1.0)
 	
@@ -16,7 +16,7 @@ func _ready() -> void:
 		_sprite = get_node_or_null("Sprite2D")
 		
 		if _sprite:
-			_sprite.self_modulate = GameLogic.set_boko_color(what_im_happy_with)
+			_sprite.self_modulate = GameUtil.set_boko_color(what_im_happy_with)
 
 
 func check_satisfaction() -> bool:

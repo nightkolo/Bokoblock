@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://1jr3hnyoqmva"]
+
+[ext_resource type="Script" path="res://core/scripts/level.gd" id="1_cfcyd"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_o4llx"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/world/level_world.tscn" id="3_lqcbe"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_2fm2q"]
+[ext_resource type="TileSet" uid="uid://hxo6514lg8we" path="res://core/resources/tileset/tileset_world.tres" id="5_aysns"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_fq2h7"]
+
+[node name="L" type="Node2D"]
+script = ExtResource("1_cfcyd")
+
+[node name="Cam" parent="." instance=ExtResource("2_o4llx")]
+
+[node name="LW" parent="." instance=ExtResource("3_lqcbe")]
+
+[node name="TM" type="Node2D" parent="LW"]
+script = ExtResource("4_2fm2q")
+
+[node name="Collision" type="TileMapLayer" parent="LW/TM"]
+tile_set = ExtResource("5_aysns")
+
+[node name="Checkerboard" type="TileMapLayer" parent="LW/TM"]
+tile_set = ExtResource("5_aysns")
+
+[node name="Outline" type="TileMapLayer" parent="LW/TM"]
+tile_set = ExtResource("5_aysns")
+
+[node name="LO" type="Node2D" parent="."]
+script = ExtResource("6_fq2h7")

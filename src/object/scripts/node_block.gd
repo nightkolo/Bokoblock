@@ -17,18 +17,17 @@ enum BokoColor {AQUA = 0, RED = 1, BLUE = 2, YELLOW = 3, GREEN = 4, PINK = 5}
 @export var sprite_star: Sprite2D
 @export var sprite_ghost: Sprite2D
 @export_subgroup("Assets")
-@export var asset_block: Texture2D = preload("res://assets/img/block-v06-greyscale.png")
-@export var asset_origin_block: Texture2D = preload("res://assets/img/block-v06-greyscale.png")
-@export var asset_eye_normal: Texture2D = preload("res://assets/img/block-eyes-v03-neutral-white.png")
-@export var asset_eye_angry: Texture2D = preload("res://assets/img/block-eyes-v03-angry-white.png")
-@export var asset_eye_scaredy: Texture2D = preload("res://assets/img/block-eyes-v03-scaredy-white.png")
-@export var asset_eye_close: Texture2D = preload("res://assets/img/block-eye-close.png")
+@export var asset_block: Texture2D = preload("res://assets/objects/block-v06-greyscale.png")
+@export var asset_origin_block: Texture2D = preload("res://assets/objects/block-v06-greyscale.png")
+@export var asset_eye_normal: Texture2D = preload("res://assets/objects/block-eyes-v03-neutral-white.png")
+@export var asset_eye_angry: Texture2D = preload("res://assets/objects/block-eyes-v03-angry-white.png")
+@export var asset_eye_scaredy: Texture2D = preload("res://assets/objects/block-eyes-v03-scaredy-white.png")
+@export var asset_eye_close: Texture2D = preload("res://assets/objects/block-eye-close.png")
 
 var parent_bokobody: Bokobody
 var is_on_endpoint: bool = false
 var limit_eye_movement: bool = true
 var texture_eyes: Texture2D
-var we_can_pass_one_color_block: bool = false
 
 var _current_transformation: Variant
 var _tween_eyes: Tween
@@ -40,14 +39,6 @@ var _tween_ghosts: Tween
 var _tween_endpoint: Tween
 
 
-func anim_entered_one_color_block() -> void:
-	if parent_bokobody:
-		parent_bokobody.child_block_has_entered_one_way_block.emit(self)
-		
-		
-func anim_exited_one_color_block() -> void:
-	if parent_bokobody:
-		parent_bokobody.child_blocks_left_one_way_block.emit()
 
 
 func _ready() -> void:
@@ -66,14 +57,14 @@ func _ready() -> void:
 		parent_bokobody.move_stopped.connect(stop_anim_move)
 		parent_bokobody.turned.connect(anim_turn)
 		
-		#if parent_bokobody.rotation_strength == abs(2):
-		texture_eyes = asset_eye_scaredy
+		if parent_bokobody.rotation_strength == abs(2):
+			texture_eyes = asset_eye_scaredy
 		
-		#elif parent_bokobody.rotation_strength < 0:
-			#texture_eyes = asset_eye_angry
-			#
-		#else:
-			#texture_eyes = asset_eye_normal
+		elif parent_bokobody.rotation_strength < 0:
+			texture_eyes = asset_eye_angry
+			
+		else:
+			texture_eyes = asset_eye_normal
 		
 		sprite_eyes.texture = texture_eyes
 		
@@ -82,7 +73,7 @@ func _ready() -> void:
 				anim_hit_block()
 			)
 	
-	GameLogic.game_end.connect(anim_complete)
+	GameLogic.level_won.connect(anim_complete)
 	GameLogic.bokobodies_stopped.connect(check_state)
 	GameLogic.bokobodies_moved.connect(anim_eyes)
 
@@ -261,6 +252,17 @@ func anim_hit_block(transformed_to: Variant = _current_transformation) -> void:
 	await get_tree().create_timer(dur/2.6).timeout
 	sprite_eyes.texture = texture_eyes
 
+
+func anim_entered_one_color_block() -> void:
+	if parent_bokobody:
+		parent_bokobody.child_block_has_entered_one_way_block.emit(self)
+		
+		
+func anim_exited_one_color_block() -> void:
+	if parent_bokobody:
+		parent_bokobody.child_blocks_left_one_way_block.emit()
+
+
 func anim_complete() -> void:
 	if !_are_nodes_assgined():
 		return
@@ -331,7 +333,7 @@ func anim_standing_endpoint() -> void:
 	if _are_nodes_assgined():
 		var dur := 0.4
 		
-		sprite_eyes.texture = preload("res://assets/img/block-eyes-v03-happy-white.png")
+		sprite_eyes.texture = preload("res://assets/objects/block-eyes-v03-happy-white.png")
 		if _tween_endpoint:
 			_tween_endpoint.kill()
 		
@@ -363,11 +365,6 @@ func stop_anim_move() -> void:
 		_tween_move.kill()
 	
 	sprite_node_2.scale = Vector2.ONE
-
-
-func call_dad_to_pass_color_block() -> void:
-	if parent_bokobody:
-		parent_bokobody.we_shall_pass_the_one_color_block = true
 
 
 func can_we_stop_moving_dad() -> bool:

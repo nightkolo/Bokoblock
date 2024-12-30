@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://world/runtime/playground/code/test_monologue_scene.gd" id="1_a8o4a"]
 [ext_resource type="PackedScene" uid="uid://cs1030lgfwryf" path="res://world/characters/character_boko.tscn" id="2_4lkct"]
-[ext_resource type="PackedScene" uid="uid://bg757ku1ljocd" path="res://world/world/interface/monolog_text_bubble.tscn" id="3_ldnop"]
+[ext_resource type="PackedScene" uid="uid://bg757ku1ljocd" path="res://world/interface/monolog_text_bubble.tscn" id="3_ldnop"]
 [ext_resource type="Texture2D" uid="uid://b5vh0nswyrv70" path="res://assets/backgrounds/bg-credits.png" id="4_spc1x"]
 [ext_resource type="Script" path="res://world/runtime/playground/bg_spinning.gd" id="5_nigvd"]
 

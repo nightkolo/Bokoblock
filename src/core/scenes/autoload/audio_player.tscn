@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnsy5pe5wp0l7"]
+
+[ext_resource type="Script" path="res://core/scripts/system_audio.gd" id="1_ukka2"]
+
+[node name="Audio" type="Node"]
+script = ExtResource("1_ukka2")

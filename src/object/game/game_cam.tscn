@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://brxyd2eqdblj4"]
+
+[ext_resource type="Script" path="res://object/scripts/game/game_cam.gd" id="1_lk4mx"]
+
+[node name="Cam" type="Camera2D"]
+position = Vector2(480, 360)
+script = ExtResource("1_lk4mx")
+dynamic_camera = true
