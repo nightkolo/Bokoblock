@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://world/runtime/playground/code/test_monologue_text.gd" id="1_lgsx7"]
 [ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/tutorial-bubble-r3.png" id="2_p0ku6"]
 [ext_resource type="Theme" uid="uid://crery4q67k6a7" path="res://core/resources/theme/theme_rich_text_label.tres" id="3_ldye4"]
-[ext_resource type="FontVariation" uid="uid://cyb57wcgd753u" path="res://theme_font_bold.tres" id="4_p0kp0"]
-[ext_resource type="FontFile" uid="uid://cgp77ft8q5j4y" path="res://assets/addons/fonts/Nunito-Black.ttf" id="5_w77be"]
+[ext_resource type="FontVariation" uid="uid://cyb57wcgd753u" path="res://core/resources/theme/font_var_dialog_box.tres" id="4_p0kp0"]
+[ext_resource type="FontFile" uid="uid://cgp77ft8q5j4y" path="res://assets/addons/fonts/Rabbitfont-Black.ttf" id="5_w77be"]
 [ext_resource type="Texture2D" uid="uid://dkrhl86nn4psk" path="res://assets/interface/text-bubble-arrow-01.png" id="6_uwvlv"]
 [ext_resource type="AudioStream" uid="uid://bge3n81uhhjjg" path="res://audio/sounds/speech_sound.ogg" id="7_b8m4m"]
 

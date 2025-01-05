@@ -2,13 +2,16 @@
 
 [ext_resource type="Script" path="res://world/containers/container_level_world.gd" id="1_lmiqu"]
 [ext_resource type="PackedScene" uid="uid://cyq112bgifh5r" path="res://world/background/level_background.tscn" id="2_8e2d6"]
-[ext_resource type="PackedScene" uid="uid://eyhhyen04o6i" path="res://world/background/level_background_02.tscn" id="3_p4qmj"]
+[ext_resource type="PackedScene" uid="uid://eyhhyen04o6i" path="res://world/background/stage_background.tscn" id="3_p4qmj"]
 
 [node name="LW" type="Node2D"]
 script = ExtResource("1_lmiqu")
+randomize_background_effect = true
 show_collision_tilemap = true
+metadata/_edit_lock_ = true
 
 [node name="BG0" parent="." instance=ExtResource("2_8e2d6")]
 visible = false
+get_up = false
 
 [node name="BG" parent="." instance=ExtResource("3_p4qmj")]

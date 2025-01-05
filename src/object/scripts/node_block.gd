@@ -5,7 +5,7 @@ class_name Bokoblock
 ## @deprecated: Use [enum GameLogic.BokoColor].
 enum BokoColor {AQUA = 0, RED = 1, BLUE = 2, YELLOW = 3, GREEN = 4, PINK = 5}
 
-@export var boko_color: GameLogic.BokoColor
+@export var boko_color: GameUtil.BokoColor
 @export_group("Modify")
 @export var auto_check_origin: bool = true
 @export var make_origin: bool = false
@@ -73,7 +73,7 @@ func _ready() -> void:
 				anim_hit_block()
 			)
 	
-	GameLogic.level_won.connect(anim_complete)
+	GameLogic.stage_won.connect(anim_complete)
 	GameLogic.bokobodies_stopped.connect(check_state)
 	GameLogic.bokobodies_moved.connect(anim_eyes)
 
@@ -115,7 +115,7 @@ func _setup_sprite() -> void:
 	sprite_block.offset.y = -45.0
 	sprite_block.position.y = 22.5
 	
-	sprite_block.self_modulate = GameLogic.set_boko_color(boko_color)
+	sprite_block.self_modulate = GameUtil.set_boko_color(boko_color)
 
 
 func _process(_delta: float) -> void:
@@ -297,8 +297,8 @@ func anim_ghost() -> void:
 	sprite.scale = Vector2.ZERO
 	sprite.position = sprite_ghost.global_position
 	sprite.z_index = 4
-	if GameLogic.current_level:
-		GameLogic.current_level.add_child(sprite)
+	if GameMgr.current_stage:
+		GameMgr.current_stage.add_child(sprite)
 	
 	if _tween_ghosts:
 		_tween_ghosts.kill()

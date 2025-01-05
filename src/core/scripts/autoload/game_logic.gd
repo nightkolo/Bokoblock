@@ -7,18 +7,17 @@ signal bokobody_stopped(is_body: Bokobody)
 # Emited when all bodies stopped transformation
 signal bokobodies_stopped()
 ## Emitted when game won.
-signal level_won()
+signal stage_won()
 
 enum TranformationType {MOVE = 0, TURN = 1, UNDO = 99} ## @experimental
-enum BokoColor {AQUA = 0, RED = 1, BLUE = 2, YELLOW = 3, GREEN = 4, PINK = 5, GREY = 99} ## @deprecated
-enum BokoPose {NORMAL = 0, THINKING = 1, NO_WORRY = 2, HAPPY = 3, WINK = 4} ## @deprecated
+enum BokoPose {NORMAL = 0, THINKING = 1, NO_WORRY = 2, HAPPY = 3, WINK = 4} ## @deprecated: TODO: use GameUtil.BokoCharacterPose
 
 var has_won: bool = false
 var win_checked: bool = true
 var are_bodies_moving: bool = false
 
 var _bodies_stopped: int = 0
-var _is_game_logic_resetting: bool = false
+#var _is_game_logic_resetting: bool = false
 
 
 func _ready() -> void:
@@ -27,14 +26,12 @@ func _ready() -> void:
 	
 	GameMgr.game_reset.connect(_reset_game_logic)
 	
-	level_won.connect(func():
+	stage_won.connect(func():
 		GameMgr.game_just_ended.emit()
 		)
 
 
 func check_if_all_bodies_stopped(_is_body: Bokobody) -> void:
-	#var b := is_body
-	
 	if GameMgr.current_bodies.is_empty():
 		return
 	
@@ -81,13 +78,13 @@ func check_win() -> void:
 	has_won = ends_satisfied == num_of_ends
 	
 	if has_won:
-		win_level()
+		win_stage()
 		
 	win_checked = true
 
 
-func win_level() -> void:
-	level_won.emit()
+func win_stage() -> void:
+	stage_won.emit()
 	print("Game over.")
 
 
@@ -95,47 +92,14 @@ func can_move() -> bool:
 	return !are_bodies_moving && win_checked && !has_won
 
 
-## @deprecated
-func set_boko_color(is_bokocolor: BokoColor) -> Color:
-	var col: Color
-	
-	match is_bokocolor:
-		
-		BokoColor.AQUA:
-			col = Color(1.0,0.77,1.0) # I lied, cry about it.
-			
-		BokoColor.RED:
-			col = Color(Color(1.0,0.5,0.5))
-		
-		BokoColor.BLUE:
-			col = Color(Color(0.5,0.5,1.0))
-			
-		BokoColor.YELLOW:
-			col = Color(Color(1.0,1.0,0.5))
-			
-		BokoColor.GREEN:
-			col = Color(Color.GREEN)
-			
-		BokoColor.PINK:
-			col = Color(Color.PINK)
-			
-		BokoColor.GREY:
-			col = Color(Color.GRAY)
-			
-	return col
-
-
 func self_detruct() -> void:
 	_reset_game_logic()
 
 
 func _reset_game_logic() -> void:
-	#if !_is_game_logic_resetting:
-		#_is_game_logic_resetting = true
 	has_won = false
 	win_checked = true
 	are_bodies_moving = false
-		#_is_game_logic_resetting = false
 
 
 func has_moved() -> void:

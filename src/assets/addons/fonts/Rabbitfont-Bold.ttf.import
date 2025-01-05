@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dkp2nxxmpuwbg"
-path="res://.godot/imported/Nunito-Bold.ttf-94648abe206ac562c1e33ab21712ed04.fontdata"
+path="res://.godot/imported/Rabbitfont-Bold.ttf-6b35e51a974175c0b931f7ccc9dac3c3.fontdata"
 
 [deps]
 
-source_file="res://assets/addons/fonts/Nunito-Bold.ttf"
-dest_files=["res://.godot/imported/Nunito-Bold.ttf-94648abe206ac562c1e33ab21712ed04.fontdata"]
+source_file="res://assets/addons/fonts/Rabbitfont-Bold.ttf"
+dest_files=["res://.godot/imported/Rabbitfont-Bold.ttf-6b35e51a974175c0b931f7ccc9dac3c3.fontdata"]
 
 [params]
 

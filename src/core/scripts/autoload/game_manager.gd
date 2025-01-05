@@ -1,19 +1,26 @@
 ## Runtime actor model
 extends Node
 
-signal level_entered(is_lvl: int)
+signal stage_entered(is_lvl: int)
+signal world_entered(is_wrld: int)
 signal game_just_ended()
 signal game_end()
 signal game_reset()
 
 var number_of_bodies: int
-var current_level: Level
-var current_level_id: int:
+var current_stage: Stage
+var current_stage_id: int:
 	get:
-		return current_level_id
+		return current_stage_id
 	set(value):
-		level_entered.emit(value)
-		current_level_id = value
+		stage_entered.emit(value)
+		current_stage_id = value
+var current_world_id: int:
+	get:
+		return current_world_id
+	set(value):
+		world_entered.emit(value)
+		current_world_id = value
 var current_bodies: Array[Bokobody]:
 	get:
 		return current_bodies
@@ -26,19 +33,19 @@ var _is_game_manager_resetting: bool = false
 
 
 func _ready() -> void:
-	game_end.connect(goto_next_level)
+	game_end.connect(goto_next_stage)
 	
 	game_reset.connect(func():
 		_reset_game_manager()
 		get_tree().reload_current_scene()
 		)
 		
-	level_entered.connect(func(_is_lvl: int):
+	stage_entered.connect(func(_is_lvl: int):
 		pass
 		)
 	
 	game_just_ended.connect(func():
-		await get_tree().create_timer(GameUtil.level_complete_anim_waittime).timeout
+		await get_tree().create_timer(GameUtil.stage_complete_anim_waittime).timeout
 		game_end.emit()
 	)
 	
@@ -46,16 +53,18 @@ func _ready() -> void:
 	number_of_bodies = current_bodies.size()
 
 
-func goto_next_level() -> void:
+func goto_next_stage() -> void:
 	_reset_game_manager()
 	GameLogic.self_detruct()
 	
-	var next_lvl_id := current_level_id + 1
-	var next_lvl_path := GameUtil.LEVEL_FILE_BEGIN + str(next_lvl_id) + GameUtil.LEVEL_FILE_END
-
-	if next_lvl_id <= GameUtil.NUMBER_OF_LEVELS:
+	var next_lvl_id := current_stage_id + 1
+	var next_lvl_path := GameUtil.STAGE_FILE_BEGIN + str(next_lvl_id) + GameUtil.STAGE_FILE_END
+	
+	#if GameUtil.check_file_exists(next_lvl_path): # doesn't work on web export for some reason
+	# on well, it's not like the final game will make use of GameUtil.check_file_exists()
+	if next_lvl_id <= GameUtil.NUMBER_OF_STAGES: 
 		get_tree().change_scene_to_file(next_lvl_path)
-		
+
 
 func reset_game() -> void:
 	game_reset.emit()

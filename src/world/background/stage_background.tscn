@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://eyhhyen04o6i"]
+
+[ext_resource type="Script" path="res://world/background/stage_background.gd" id="1_n48j3"]
+[ext_resource type="Texture2D" uid="uid://b5vh0nswyrv70" path="res://assets/backgrounds/bg-credits.png" id="2_gm0vq"]
+
+[node name="BG" type="CanvasLayer"]
+layer = -10
+script = ExtResource("1_n48j3")
+
+[node name="Texture" type="Node2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="Texture"]
+self_modulate = Color(0.5, 0.5, 0.5, 0.5)
+offset_right = 1800.0
+offset_bottom = 1440.0
+texture = ExtResource("2_gm0vq")

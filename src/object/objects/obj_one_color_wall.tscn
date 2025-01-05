@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqj66us38ebnh"]
+
+[ext_resource type="Script" path="res://object/scripts/obj_one_color_wall.gd" id="1_e2u1v"]
+[ext_resource type="Texture2D" uid="uid://cafn5ojp4kn6x" path="res://assets/objects/one-way-block-v02.png" id="1_lfawh"]
+[ext_resource type="Texture2D" uid="uid://dcrea2gpattej" path="res://assets/objects/one-way-block-v04-symbol.png" id="2_ap3i4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8umuf"]
+size = Vector2(45, 45)
+
+[node name="OneColorWall" type="CollisionShape2D"]
+shape = SubResource("RectangleShape2D_8umuf")
+script = ExtResource("1_e2u1v")
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_lfawh")
+
+[node name="Cross" type="Sprite2D" parent="Sprite"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ap3i4")

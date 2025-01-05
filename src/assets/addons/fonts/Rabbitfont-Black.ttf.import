@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://hec4akwpswov"
-path="res://.godot/imported/Nunito-ExtraBold.ttf-f2dba2d4727f64e350974a9d2cb5bf4f.fontdata"
+uid="uid://cgp77ft8q5j4y"
+path="res://.godot/imported/Rabbitfont-Black.ttf-440c20c77ccb415a184d68d29eb060cd.fontdata"
 
 [deps]
 
-source_file="res://assets/addons/fonts/Nunito-ExtraBold.ttf"
-dest_files=["res://.godot/imported/Nunito-ExtraBold.ttf-f2dba2d4727f64e350974a9d2cb5bf4f.fontdata"]
+source_file="res://assets/addons/fonts/Rabbitfont-Black.ttf"
+dest_files=["res://.godot/imported/Rabbitfont-Black.ttf-440c20c77ccb415a184d68d29eb060cd.fontdata"]
 
 [params]
 

@@ -1,19 +1,15 @@
-[gd_scene load_steps=13 format=4 uid="uid://dyn56h7n337l8"]
+[gd_scene load_steps=11 format=4 uid="uid://dyn56h7n337l8"]
 
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="1_8ma32"]
-[ext_resource type="Script" path="res://core/scripts/level.gd" id="1_o5ksr"]
+[ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_o5ksr"]
 [ext_resource type="Script" path="res://world/containers/container_level_world.gd" id="1_tv72b"]
 [ext_resource type="PackedScene" uid="uid://cyq112bgifh5r" path="res://world/background/level_background.tscn" id="2_4rbqm"]
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="2_7t8w8"]
 [ext_resource type="Script" path="res://object/scripts/game/game_cam.gd" id="2_pouf7"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="3_illg2"]
 [ext_resource type="TileSet" uid="uid://hxo6514lg8we" path="res://core/resources/tileset/tileset_world.tres" id="3_ricja"]
-[ext_resource type="Script" path="res://object/scripts/node_one_color_block.gd" id="4_rgsb4"]
-[ext_resource type="Texture2D" uid="uid://cafn5ojp4kn6x" path="res://assets/objects/one-way-block-v02.png" id="8_lmwmc"]
-[ext_resource type="Texture2D" uid="uid://dcrea2gpattej" path="res://assets/objects/one-way-block-v04-symbol.png" id="9_txyrx"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8umuf"]
-size = Vector2(45, 45)
+[ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="4_rgsb4"]
+[ext_resource type="PackedScene" uid="uid://cqj66us38ebnh" path="res://object/objects/obj_one_color_wall.tscn" id="8_pdljq"]
 
 [node name="TestArea02" type="Node2D"]
 script = ExtResource("1_o5ksr")
@@ -23,7 +19,6 @@ position = Vector2(428, 338)
 scale = Vector2(1.32959, 2.50354)
 zoom = Vector2(1.65, 1.65)
 script = ExtResource("2_pouf7")
-dynamic_camera = false
 
 [node name="LevelWorld" type="Node2D" parent="."]
 script = ExtResource("1_tv72b")
@@ -48,66 +43,19 @@ tile_set = ExtResource("3_ricja")
 [node name="LevelObject" type="Node2D" parent="."]
 script = ExtResource("1_8ma32")
 
-[node name="OneColorBlock" type="Area2D" parent="LevelObject" node_paths=PackedStringArray("nodes_sprite")]
+[node name="OneColorBlock" type="Area2D" parent="LevelObject"]
 position = Vector2(473, 248)
 collision_layer = 0
 script = ExtResource("4_rgsb4")
 im_looking_for = 2
-nodes_sprite = NodePath("Sprites")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelObject/OneColorBlock"]
-shape = SubResource("RectangleShape2D_8umuf")
+[node name="OneColorWall" parent="LevelObject/OneColorBlock" instance=ExtResource("8_pdljq")]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="LevelObject/OneColorBlock"]
-position = Vector2(0, -45)
-shape = SubResource("RectangleShape2D_8umuf")
+[node name="OneColorWall2" parent="LevelObject/OneColorBlock" instance=ExtResource("8_pdljq")]
+position = Vector2(-1, -46)
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="LevelObject/OneColorBlock"]
-position = Vector2(0, 45)
-shape = SubResource("RectangleShape2D_8umuf")
-
-[node name="Sprites" type="Node2D" parent="LevelObject/OneColorBlock"]
-modulate = Color(1, 1, 1, 0.5)
-
-[node name="Sprite" type="Node2D" parent="LevelObject/OneColorBlock/Sprites"]
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelObject/OneColorBlock/Sprites/Sprite"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_lmwmc")
-
-[node name="Cross" type="Sprite2D" parent="LevelObject/OneColorBlock/Sprites/Sprite"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_txyrx")
-
-[node name="Sprite2" type="Node2D" parent="LevelObject/OneColorBlock/Sprites"]
-position = Vector2(0, -45)
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelObject/OneColorBlock/Sprites/Sprite2"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_lmwmc")
-
-[node name="Sprite2D2" type="Sprite2D" parent="LevelObject/OneColorBlock/Sprites/Sprite2"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_txyrx")
-
-[node name="Cross" type="Sprite2D" parent="LevelObject/OneColorBlock/Sprites/Sprite2"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_txyrx")
-
-[node name="Sprite3" type="Node2D" parent="LevelObject/OneColorBlock/Sprites"]
-position = Vector2(0, 45)
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelObject/OneColorBlock/Sprites/Sprite3"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_lmwmc")
-
-[node name="Sprite2D2" type="Sprite2D" parent="LevelObject/OneColorBlock/Sprites/Sprite3"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_txyrx")
-
-[node name="Cross" type="Sprite2D" parent="LevelObject/OneColorBlock/Sprites/Sprite3"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_txyrx")
+[node name="OneColorWall3" parent="LevelObject/OneColorBlock" instance=ExtResource("8_pdljq")]
+position = Vector2(-1, 44)
 
 [node name="OneColorBlock2" type="Area2D" parent="LevelObject"]
 position = Vector2(338, 383)
@@ -115,51 +63,14 @@ collision_layer = 0
 script = ExtResource("4_rgsb4")
 im_looking_for = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelObject/OneColorBlock2"]
-shape = SubResource("RectangleShape2D_8umuf")
+[node name="OneColorWall4" parent="LevelObject/OneColorBlock2" instance=ExtResource("8_pdljq")]
+position = Vector2(-1, -46)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="LevelObject/OneColorBlock2"]
-position = Vector2(-45, 0)
-shape = SubResource("RectangleShape2D_8umuf")
+[node name="OneColorWall5" parent="LevelObject/OneColorBlock2" instance=ExtResource("8_pdljq")]
+position = Vector2(44, -46)
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="LevelObject/OneColorBlock2"]
-position = Vector2(45, 0)
-shape = SubResource("RectangleShape2D_8umuf")
-
-[node name="Sprites" type="Node2D" parent="LevelObject/OneColorBlock2"]
-modulate = Color(1, 1, 1, 0.5)
-
-[node name="Sprite" type="Node2D" parent="LevelObject/OneColorBlock2/Sprites"]
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelObject/OneColorBlock2/Sprites/Sprite"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_lmwmc")
-
-[node name="Cross" type="Sprite2D" parent="LevelObject/OneColorBlock2/Sprites/Sprite"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_txyrx")
-
-[node name="Sprite2" type="Node2D" parent="LevelObject/OneColorBlock2/Sprites"]
-position = Vector2(-45, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelObject/OneColorBlock2/Sprites/Sprite2"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_lmwmc")
-
-[node name="Cross" type="Sprite2D" parent="LevelObject/OneColorBlock2/Sprites/Sprite2"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_txyrx")
-
-[node name="Sprite3" type="Node2D" parent="LevelObject/OneColorBlock2/Sprites"]
-position = Vector2(45, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelObject/OneColorBlock2/Sprites/Sprite3"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_lmwmc")
-
-[node name="Cross" type="Sprite2D" parent="LevelObject/OneColorBlock2/Sprites/Sprite3"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_txyrx")
+[node name="OneColorWall6" parent="LevelObject/OneColorBlock2" instance=ExtResource("8_pdljq")]
+position = Vector2(-46, -46)
 
 [node name="Bokobody" type="Node2D" parent="LevelObject"]
 position = Vector2(653, 248)

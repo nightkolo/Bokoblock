@@ -1,18 +1,18 @@
-## Under construction
+## @deprecated: Go to [url]res://world/background/stage_background.gd[\url]
 extends Sprite2D
-class_name Background
+class_name BackgroundTest
 
 @export var get_up: bool = true
 
 var background_effect: GameUtil.BackgroundEffect
 
-var parent_level_world: LevelWorld
+var parent_level_world: StageWorld
 var _background_set: bool = false
 
 
 func _ready() -> void:
-	if get_up && get_parent() is LevelWorld:
-		parent_level_world = get_parent() as LevelWorld
+	if get_up && get_parent() is StageWorld:
+		parent_level_world = get_parent() as StageWorld
 	
 	if parent_level_world:
 		self_modulate = parent_level_world.background_color

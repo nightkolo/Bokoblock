@@ -2,7 +2,7 @@
 extends Node2D
 class_name Bokobody
 
-# TODO: functions turn, move need a rework.
+# TODO: Remove the damn auto-doc comments, i realized i hate how they look in the code
 signal moved(moved_to: Vector2)
 signal turned(turned_to: float)
 signal move_end(has_moved_by: Vector2)
@@ -67,7 +67,7 @@ func _ready() -> void:
 				)
 	
 	position = position.snapped(Vector2.ONE * GameUtil.get_tile_size()) 
-	position += (Vector2.ONE * GameUtil.get_tile_size()) / 2
+	position += (Vector2.ONE * GameUtil.get_tile_size()) / 2.0
 	
 	PlayerInput.input_undo.connect(undo)
 	PlayerInput.input_move.connect(move)
@@ -201,7 +201,7 @@ func anim_blocks_went_through_one_col_block(is_block: Bokoblock) -> void:
 	_tween_one_col_anim.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	
 	for block: Bokoblock in child_blocks:
-		block.sprite_block.self_modulate = GameLogic.set_boko_color(is_block.boko_color)
+		block.sprite_block.self_modulate = GameUtil.set_boko_color(is_block.boko_color)
 		block.sprite_node_1.scale = Vector2.ONE / 4.0
 		block.anim_ghost()
 		
@@ -218,7 +218,7 @@ func anim_blocks_went_out_one_col_block() -> void:
 	_tween_one_col_anim.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
 	
 	for block: Bokoblock in child_blocks:
-		block.sprite_block.self_modulate = GameLogic.set_boko_color(block.boko_color)
+		block.sprite_block.self_modulate = GameUtil.set_boko_color(block.boko_color)
 		block.sprite_node_1.scale = Vector2.ONE * 1.4
 		
 		_tween_one_col_anim.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur)

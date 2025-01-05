@@ -11,6 +11,7 @@
 size = Vector2(22, 22)
 
 [node name="Block" type="Area2D" node_paths=PackedStringArray("sprite_node_1", "sprite_node_2", "sprite_eyes", "sprite_block", "sprite_star", "sprite_ghost")]
+z_index = 2
 collision_mask = 3
 script = ExtResource("1_fox18")
 sprite_node_1 = NodePath("Sprites")

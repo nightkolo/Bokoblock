@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://1jr3hnyoqmva"]
+
+[ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_8irpk"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_47sf3"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_wpf8u"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_iuko8"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_h1c14"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="6_ts4iv"]
+
+[node name="S" type="Node2D"]
+script = ExtResource("1_8irpk")
+
+[node name="Cam" parent="." instance=ExtResource("2_47sf3")]
+
+[node name="SW" parent="." instance=ExtResource("3_wpf8u")]
+
+[node name="TM" type="Node2D" parent="SW"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_iuko8")
+
+[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("6_ts4iv")
+
+[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("6_ts4iv")
+
+[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("6_ts4iv")
+
+[node name="SO" type="Node2D" parent="."]
+script = ExtResource("6_h1c14")

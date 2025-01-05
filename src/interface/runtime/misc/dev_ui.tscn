@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dh7fpqceqlmr8"]
 
 [ext_resource type="Script" path="res://interface/runtime/misc/interactor/dev_ui.gd" id="1_psh78"]
-[ext_resource type="FontFile" uid="uid://hec4akwpswov" path="res://assets/addons/fonts/Nunito-ExtraBold.ttf" id="2_xsqv5"]
+[ext_resource type="FontFile" uid="uid://hec4akwpswov" path="res://assets/addons/fonts/Rabbitfont-ExtraBold.ttf" id="2_xsqv5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bysnx"]
 font = ExtResource("2_xsqv5")
@@ -26,6 +26,12 @@ theme_override_constants/margin_bottom = 100
 [node name="VBoxContainer" type="VBoxContainer" parent="Main"]
 layout_mode = 2
 
+[node name="Label" type="Label" parent="Main/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "GameLogic"
+label_settings = SubResource("LabelSettings_bysnx")
+
 [node name="has_wonLabel" type="Label" parent="Main/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -42,6 +48,24 @@ label_settings = SubResource("LabelSettings_bysnx")
 unique_name_in_owner = true
 layout_mode = 2
 text = "are_bodies_moving: "
+label_settings = SubResource("LabelSettings_bysnx")
+
+[node name="Label2" type="Label" parent="Main/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "GameMgr"
+label_settings = SubResource("LabelSettings_bysnx")
+
+[node name="stage_id label" type="Label" parent="Main/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "STAGE_ID:"
+label_settings = SubResource("LabelSettings_bysnx")
+
+[node name="world_id label" type="Label" parent="Main/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "WORLD_ID:"
 label_settings = SubResource("LabelSettings_bysnx")
 
 [node name="number_of_bodies label" type="Label" parent="Main/VBoxContainer"]

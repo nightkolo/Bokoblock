@@ -13,7 +13,7 @@ config_version=5
 config/name="BOKOBLOCK"
 run/main_scene="res://interface/menus/menu_start.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://assets/characters/boko/boko-top-hat-silhouette.png"
 
 [autoload]
 
@@ -37,7 +37,7 @@ UIButton=""
 
 [gui]
 
-theme/custom_font="res://assets/addons/fonts/Nunito-SemiBold.ttf"
+theme/custom_font="res://assets/addons/fonts/Rabbitfont-ExtraBold.ttf"
 
 [input]
 

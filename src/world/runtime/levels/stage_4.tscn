@@ -1,0 +1,88 @@
+[gd_scene load_steps=11 format=4 uid="uid://lgffitdp3bb5"]
+
+[ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_377xv"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_1vhod"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_xa1cw"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_s78yt"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="5_hc28s"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_5r8dw"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_hbjuo"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_dcm4r"]
+[ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_p00od"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_endpoint.tscn" id="10_621oc"]
+
+[node name="S4" type="Node2D"]
+script = ExtResource("1_377xv")
+
+[node name="Cam" parent="." instance=ExtResource("2_1vhod")]
+
+[node name="SW" parent="." instance=ExtResource("3_xa1cw")]
+
+[node name="TM" type="Node2D" parent="SW"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_s78yt")
+
+[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+tile_map_data = PackedByteArray("AAAIAAwAAQAAAAQAAAAOAAwAAQAAAAQAAAAOAAsAAQAAAAQAAAAOAAoAAQAAAAQAAAAOAAkAAQAAAAQAAAAOAAgAAQAAAAQAAAAOAAcAAQAAAAQAAAAOAAYAAQAAAAQAAAAGAAoAAQAAAAQAAAAGAAkAAQAAAAQAAAAGAAgAAQAAAAQAAAAGAAcAAQAAAAQAAAAGAAYAAQAAAAQAAAANAAYAAQAAAAQAAAAMAAQAAQAAAAQAAAALAAQAAQAAAAQAAAAKAAQAAQAAAAQAAAAJAAQAAQAAAAQAAAAIAAQAAQAAAAQAAAAHAAQAAQAAAAQAAAAGAAQAAQAAAAQAAAAGAAUAAQAAAAQAAAAJAAwAAQAAAAQAAAAKAAwAAQAAAAQAAAALAAwAAQAAAAQAAAAMAAwAAQAAAAQAAAANAAwAAQAAAAQAAAAIAAoAAQAAAAQAAAAHAAoAAQAAAAQAAAAHAAwAAQAAAAQAAAAHAAsAAQAAAAQAAAANAAUAAQAAAAQAAAANAAQAAQAAAAQAAAA=")
+tile_set = ExtResource("5_hc28s")
+
+[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("5_hc28s")
+
+[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("5_hc28s")
+
+[node name="SO" type="Node2D" parent="."]
+script = ExtResource("6_5r8dw")
+
+[node name="Bokobody" type="Node2D" parent="SO"]
+position = Vector2(427, 382)
+script = ExtResource("7_hbjuo")
+
+[node name="Block" parent="SO/Bokobody" instance=ExtResource("8_dcm4r")]
+
+[node name="Block2" parent="SO/Bokobody" instance=ExtResource("8_dcm4r")]
+position = Vector2(45, 0)
+
+[node name="Block3" parent="SO/Bokobody" instance=ExtResource("8_dcm4r")]
+position = Vector2(-45, 0)
+
+[node name="Bokobody2" type="Node2D" parent="SO"]
+position = Vector2(562, 382)
+script = ExtResource("7_hbjuo")
+rotation_strength = -1
+
+[node name="Block" parent="SO/Bokobody2" instance=ExtResource("8_dcm4r")]
+boko_color = 1
+
+[node name="Block2" parent="SO/Bokobody2" instance=ExtResource("8_dcm4r")]
+position = Vector2(0, -45)
+boko_color = 1
+
+[node name="Block3" parent="SO/Bokobody2" instance=ExtResource("8_dcm4r")]
+position = Vector2(0, 45)
+boko_color = 1
+
+[node name="Endpoints" type="Node2D" parent="SO"]
+script = ExtResource("9_p00od")
+
+[node name="Endpoint2" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(517, 517)
+what_im_happy_with = 1
+
+[node name="Endpoint4" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(562, 517)
+what_im_happy_with = 1
+
+[node name="Endpoint3" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(607, 517)
+what_im_happy_with = 1
+
+[node name="Endpoint5" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(472, 247)
+
+[node name="Endpoint6" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(517, 247)
+
+[node name="Endpoint7" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(562, 247)

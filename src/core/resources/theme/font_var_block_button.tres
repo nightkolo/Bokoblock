@@ -1,0 +1,9 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bpy0c6b217yv1"]
+
+[ext_resource type="FontFile" uid="uid://hec4akwpswov" path="res://assets/addons/fonts/Rabbitfont-ExtraBold.ttf" id="1_2ibty"]
+
+[resource]
+base_font = ExtResource("1_2ibty")
+spacing_glyph = -2
+spacing_top = -7
+spacing_bottom = -7

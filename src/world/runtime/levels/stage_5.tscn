@@ -1,0 +1,84 @@
+[gd_scene load_steps=12 format=4 uid="uid://dhmvqkbijliqf"]
+
+[ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_pb1e4"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_fvmt0"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_euyvo"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_1giat"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="5_lv4gk"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_tvaxc"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_hls8j"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_bmhxp"]
+[ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="9_rdjro"]
+[ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="10_y58fl"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_endpoint.tscn" id="11_th0if"]
+
+[node name="S5" type="Node2D"]
+script = ExtResource("1_pb1e4")
+
+[node name="Cam" parent="." instance=ExtResource("2_fvmt0")]
+
+[node name="SW" parent="." instance=ExtResource("3_euyvo")]
+
+[node name="TM" type="Node2D" parent="SW"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_1giat")
+
+[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+tile_map_data = PackedByteArray("AAADAAcAAQAAAAQAAAADAAgAAQAAAAQAAAADAAkAAQAAAAQAAAADAAoAAQAAAAQAAAADAAsAAQAAAAQAAAAFAAUAAQAAAAQAAAAFAAYAAQAAAAQAAAAFAAwAAQAAAAQAAAAGAAMAAQAAAAQAAAAGAAQAAQAAAAQAAAAGAA0AAQAAAAQAAAALAAcAAQAAAAQAAAALAAgAAQAAAAQAAAALAAkAAQAAAAQAAAALAAoAAQAAAAQAAAANAAMAAQAAAAQAAAANAAQAAQAAAAQAAAANAAUAAQAAAAQAAAANAAYAAQAAAAQAAAANAAsAAQAAAAQAAAANAAwAAQAAAAQAAAANAA0AAQAAAAQAAAADAAYAAQAAAAQAAAAEAAYAAQAAAAQAAAAEAAsAAQAAAAQAAAAFAAQAAQAAAAQAAAAFAAsAAQAAAAQAAAAGAAIAAQAAAAQAAAAGAAwAAQAAAAQAAAAHAAIAAQAAAAQAAAAHAA0AAQAAAAQAAAAIAAIAAQAAAAQAAAAIAA0AAQAAAAQAAAAJAAIAAQAAAAQAAAAJAA0AAQAAAAQAAAAKAAIAAQAAAAQAAAAKAA0AAQAAAAQAAAALAAIAAQAAAAQAAAALAAYAAQAAAAQAAAALAA0AAQAAAAQAAAAMAAIAAQAAAAQAAAAMAAYAAQAAAAQAAAAMAAoAAQAAAAQAAAAMAA0AAQAAAAQAAAANAAIAAQAAAAQAAAANAAoAAQAAAAQAAAA=")
+tile_set = ExtResource("5_lv4gk")
+
+[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("5_lv4gk")
+
+[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("5_lv4gk")
+
+[node name="SO" type="Node2D" parent="."]
+script = ExtResource("6_tvaxc")
+
+[node name="Bokobody" type="Node2D" parent="SO"]
+position = Vector2(517, 202)
+script = ExtResource("7_hls8j")
+
+[node name="Block2" parent="SO/Bokobody" instance=ExtResource("8_bmhxp")]
+position = Vector2(-45, 0)
+boko_color = 2
+
+[node name="Block3" parent="SO/Bokobody" instance=ExtResource("8_bmhxp")]
+boko_color = 2
+
+[node name="Block" parent="SO/Bokobody" instance=ExtResource("8_bmhxp")]
+position = Vector2(0, 45)
+boko_color = 5
+
+[node name="Block4" parent="SO/Bokobody" instance=ExtResource("8_bmhxp")]
+position = Vector2(45, 45)
+boko_color = 5
+
+[node name="SleepingBlock" parent="SO" instance=ExtResource("9_rdjro")]
+position = Vector2(337, 292)
+
+[node name="SleepingBlock2" parent="SO" instance=ExtResource("9_rdjro")]
+position = Vector2(427, 382)
+
+[node name="SleepingBlock3" parent="SO" instance=ExtResource("9_rdjro")]
+position = Vector2(337, 472)
+
+[node name="Endpoints" type="Node2D" parent="SO"]
+script = ExtResource("10_y58fl")
+
+[node name="Endpoint" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
+position = Vector2(562, 562)
+what_im_happy_with = 5
+
+[node name="Endpoint2" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
+position = Vector2(517, 562)
+what_im_happy_with = 5
+
+[node name="Endpoint3" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
+position = Vector2(517, 517)
+what_im_happy_with = 2
+
+[node name="Endpoint4" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
+position = Vector2(472, 517)
+what_im_happy_with = 2
