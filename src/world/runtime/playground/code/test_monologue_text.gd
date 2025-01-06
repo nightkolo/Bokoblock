@@ -27,7 +27,7 @@ var letter_index: int = 0
 var letter_time: float = 0.04
 var space_time: float = 0.08
 var punctuation_time: float = 0.32
-var speed_up_time: float = 0.01
+var speed_up_time: float = 0.005
 var speed_it_up: bool = false
 
 var current_line_index: int = 0
@@ -40,7 +40,6 @@ var shake_code: String = "[shake rate=12.5 level=10 connected=1]" ## @experiment
 const MAX_BUBBLE_WIDTH = 270.0
 
 var _tween_bubble: Tween
-var _wait_bool: bool = false
 var _letter_show_timer: Timer = Timer.new()
 var _monolog_spawn_timer: Timer
 
@@ -53,7 +52,7 @@ func _ready() -> void:
 	
 	bubble.pivot_offset = size / 2.0
 	
-	anim_bubble_bounce()
+	#anim_bubble_bounce()
 	
 	if boko && animate_boko:
 		boko_pose_set.connect(func(is_pose: GameLogic.BokoPose):
@@ -70,7 +69,7 @@ func _ready() -> void:
 		_show_letter()
 		letter_showed.emit()
 		)
-	letter_showed.connect(anim_bubble_bounce)
+	#letter_showed.connect(anim_bubble_bounce)
 	
 	if auto_start_monologue:
 		show_text(monologue_text[current_line_index])

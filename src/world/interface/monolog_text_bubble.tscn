@@ -17,14 +17,14 @@ font_size = 32
 shadow_color = Color(0, 0, 0, 0.552941)
 
 [node name="MonologText" type="MarginContainer"]
-custom_minimum_size = Vector2(500, 200)
+custom_minimum_size = Vector2(600, 200)
 offset_right = 500.0
 offset_bottom = 200.0
 script = ExtResource("1_lgsx7")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 unique_name_in_owner = true
-self_modulate = Color(1, 0.375, 1, 1)
+self_modulate = Color(1, 0.625, 1, 1)
 layout_mode = 2
 texture = ExtResource("2_p0ku6")
 region_rect = Rect2(0, 0, 144, 144)

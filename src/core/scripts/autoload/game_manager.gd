@@ -8,6 +8,8 @@ signal game_end()
 signal game_reset()
 
 var number_of_bodies: int
+var number_of_blocks: int ## @experimental
+var number_of_endpoints: int ## @experimental
 var current_stage: Stage
 var current_stage_id: int:
 	get:
@@ -27,7 +29,18 @@ var current_bodies: Array[Bokobody]:
 	set(value):
 		number_of_bodies = value.size() # doesn't work, bummer
 		current_bodies = value
-var current_endpoints: Array[Endpoint]
+var current_blocks: Array[Bokoblock]:
+	get:
+		return current_blocks
+	set(value):
+		number_of_blocks = value.size()
+		current_blocks = value
+var current_endpoints: Array[Endpoint]:
+	get:
+		return current_endpoints
+	set(value):
+		number_of_endpoints = value.size()
+		current_endpoints = value
 
 var _is_game_manager_resetting: bool = false
 
@@ -51,9 +64,17 @@ func _ready() -> void:
 	
 	await get_tree().create_timer(0.1).timeout
 	number_of_bodies = current_bodies.size()
-
-
-func goto_next_stage() -> void:
+	
+	
+func goto_next_stage(force_progression: bool = false) -> void:
+	if current_stage:
+		if !current_stage.stage_progression && !force_progression:
+			print("current_stage.stage_progression is true, progression stopped.")
+			return
+			
+		elif force_progression:
+			print("param force_progression at goto_next_stage is true, current_stage.stage_progression ignored.")
+	
 	_reset_game_manager()
 	GameLogic.self_detruct()
 	

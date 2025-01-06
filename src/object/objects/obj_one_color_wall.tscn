@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cqj66us38ebnh"]
 
 [ext_resource type="Script" path="res://object/scripts/obj_one_color_wall.gd" id="1_e2u1v"]
-[ext_resource type="Texture2D" uid="uid://cafn5ojp4kn6x" path="res://assets/objects/one-way-block-v02.png" id="1_lfawh"]
-[ext_resource type="Texture2D" uid="uid://dcrea2gpattej" path="res://assets/objects/one-way-block-v04-symbol.png" id="2_ap3i4"]
+[ext_resource type="Texture2D" uid="uid://bff5brsyoo0i2" path="res://assets/objects/one-color-wall-v03.png" id="2_qxm26"]
+[ext_resource type="Texture2D" uid="uid://c4i4qyjwbbeo6" path="res://assets/world/one-color-wall-ghost-v01.png" id="3_w0g3p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8umuf"]
 size = Vector2(45, 45)
@@ -15,8 +15,9 @@ script = ExtResource("1_e2u1v")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite"]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_lfawh")
+texture = ExtResource("2_qxm26")
 
 [node name="Cross" type="Sprite2D" parent="Sprite"]
+visible = false
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_ap3i4")
+texture = ExtResource("3_w0g3p")

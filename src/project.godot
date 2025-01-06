@@ -13,7 +13,7 @@ config_version=5
 config/name="BOKOBLOCK"
 run/main_scene="res://interface/menus/menu_start.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-config/icon="res://assets/characters/boko/boko-top-hat-silhouette.png"
+config/icon="res://assets/engine/icon.svg"
 
 [autoload]
 
@@ -104,5 +104,4 @@ game_next_monolog={
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"

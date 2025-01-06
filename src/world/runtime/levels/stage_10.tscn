@@ -1,0 +1,124 @@
+[gd_scene load_steps=11 format=4 uid="uid://by5fnsb2iire2"]
+
+[ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_4b02d"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_floxk"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_exubf"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_63vw8"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="5_sfx32"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_1o7en"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_1oby1"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_qqm86"]
+[ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_ootyh"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_endpoint.tscn" id="10_odjib"]
+
+[node name="S10" type="Node2D"]
+script = ExtResource("1_4b02d")
+win_condition = 1
+
+[node name="Cam" parent="." instance=ExtResource("2_floxk")]
+
+[node name="SW" parent="." instance=ExtResource("3_exubf")]
+
+[node name="TM" type="Node2D" parent="SW"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_63vw8")
+
+[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+tile_map_data = PackedByteArray("AAAEAAoAAQAAAAQAAAAGAAgAAQAAAAQAAAAGAAcAAQAAAAQAAAAGAAYAAQAAAAQAAAAGAAUAAQAAAAQAAAAGAAQAAQAAAAQAAAAIAAMAAQAAAAQAAAAJAAMAAQAAAAQAAAAKAAMAAQAAAAQAAAALAAMAAQAAAAQAAAAHAAEAAQAAAAQAAAAIAAEAAQAAAAQAAAAIAAIAAQAAAAQAAAAEAAsAAQAAAAQAAAAFAAkAAQAAAAQAAAAGAAkAAQAAAAQAAAAEAAkAAQAAAAQAAAAHAAsAAQAAAAQAAAAIAAsAAQAAAAQAAAAJAAsAAQAAAAQAAAAKAAsAAQAAAAQAAAALAAsAAQAAAAQAAAAMAAsAAQAAAAQAAAAMAAwAAQAAAAQAAAAMAA0AAQAAAAQAAAANAA0AAQAAAAQAAAAOAA0AAQAAAAQAAAAOAAoAAQAAAAQAAAAOAAkAAQAAAAQAAAAOAAgAAQAAAAQAAAAOAAcAAQAAAAQAAAAOAAYAAQAAAAQAAAAOAAUAAQAAAAQAAAAPAAUAAQAAAAQAAAAQAAUAAQAAAAQAAAAQAAQAAQAAAAQAAAAQAAMAAQAAAAQAAAANAAMAAQAAAAQAAAAMAAMAAQAAAAQAAAAFAAwAAQAAAAQAAAAEAAwAAQAAAAQAAAAGAAwAAQAAAAQAAAAHAAwAAQAAAAQAAAAPAAoAAQAAAAQAAAAPAAsAAQAAAAQAAAAPAAwAAQAAAAQAAAAPAA0AAQAAAAQAAAAFAAQAAQAAAAQAAAAFAAMAAQAAAAQAAAAFAAIAAQAAAAQAAAAFAAEAAQAAAAQAAAAGAAEAAQAAAAQAAAANAAIAAQAAAAQAAAAOAAIAAQAAAAQAAAAPAAIAAQAAAAQAAAAQAAIAAQAAAAQAAAA=")
+tile_set = ExtResource("5_sfx32")
+
+[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("5_sfx32")
+
+[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("5_sfx32")
+
+[node name="SO" type="Node2D" parent="."]
+script = ExtResource("6_1o7en")
+
+[node name="Bokobody" type="Node2D" parent="SO"]
+position = Vector2(427, 292)
+script = ExtResource("7_1oby1")
+
+[node name="Block" parent="SO/Bokobody" instance=ExtResource("8_qqm86")]
+
+[node name="Block2" parent="SO/Bokobody" instance=ExtResource("8_qqm86")]
+position = Vector2(0, 45)
+
+[node name="Bokobody2" type="Node2D" parent="SO"]
+position = Vector2(427, 382)
+script = ExtResource("7_1oby1")
+
+[node name="Block" parent="SO/Bokobody2" instance=ExtResource("8_qqm86")]
+
+[node name="Block2" parent="SO/Bokobody2" instance=ExtResource("8_qqm86")]
+position = Vector2(45, 0)
+
+[node name="Bokobody3" type="Node2D" parent="SO"]
+position = Vector2(517, 382)
+script = ExtResource("7_1oby1")
+
+[node name="Block" parent="SO/Bokobody3" instance=ExtResource("8_qqm86")]
+
+[node name="Block2" parent="SO/Bokobody3" instance=ExtResource("8_qqm86")]
+position = Vector2(0, -45)
+
+[node name="Bokobody4" type="Node2D" parent="SO"]
+position = Vector2(517, 292)
+script = ExtResource("7_1oby1")
+
+[node name="Block" parent="SO/Bokobody4" instance=ExtResource("8_qqm86")]
+
+[node name="Block2" parent="SO/Bokobody4" instance=ExtResource("8_qqm86")]
+position = Vector2(-45, 0)
+
+[node name="Endpoints" type="Node2D" parent="SO"]
+script = ExtResource("9_ootyh")
+
+[node name="Endpoint" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(247, 472)
+
+[node name="Endpoint2" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(247, 517)
+
+[node name="Endpoint3" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(607, 562)
+
+[node name="Endpoint4" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(652, 562)
+
+[node name="Endpoint5" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(697, 202)
+
+[node name="Endpoint6" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(697, 157)
+
+[node name="Endpoint7" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(337, 112)
+
+[node name="Endpoint8" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(292, 112)
+
+[node name="Endpoint9" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(292, 157)
+
+[node name="Endpoint11" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(652, 517)
+
+[node name="Endpoint12" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(607, 517)
+
+[node name="Endpoint13" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(652, 157)
+
+[node name="Endpoint14" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(652, 202)
+
+[node name="Endpoint15" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(292, 472)
+
+[node name="Endpoint16" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(292, 517)
+
+[node name="Endpoint17" parent="SO/Endpoints" instance=ExtResource("10_odjib")]
+position = Vector2(337, 157)

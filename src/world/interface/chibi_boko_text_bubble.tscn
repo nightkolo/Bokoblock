@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://7vplxcgsvlvh"]
+
+[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/tutorial-bubble-r3.png" id="2_j6m3c"]
+[ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="8_7krbw"]
+
+[node name="ChibiBoko" type="MarginContainer"]
+offset_right = 48.0
+offset_bottom = 48.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_j6m3c")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="CharacterChibiBoko" parent="." instance=ExtResource("8_7krbw")]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=black] "
+fit_content = true
+autowrap_mode = 0

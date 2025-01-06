@@ -9,8 +9,18 @@ signal bokobodies_stopped()
 ## Emitted when game won.
 signal stage_won()
 
-enum TranformationType {MOVE = 0, TURN = 1, UNDO = 99} ## @experimental
+enum WinCondition {
+	MATCH_ALL_ENDPOINTS = 0,
+	MATCH_ALL_BLOCKS = 1
+}
+enum TranformationType { ## @experimental
+	MOVE = 0,
+	TURN = 1,
+	UNDO = 99
+}
 enum BokoPose {NORMAL = 0, THINKING = 1, NO_WORRY = 2, HAPPY = 3, WINK = 4} ## @deprecated: TODO: use GameUtil.BokoCharacterPose
+
+var win_condition: WinCondition
 
 var has_won: bool = false
 var win_checked: bool = true
@@ -18,6 +28,10 @@ var are_bodies_moving: bool = false
 
 var _bodies_stopped: int = 0
 #var _is_game_logic_resetting: bool = false
+
+
+func set_win_condition(win_cond: WinCondition) -> void:
+	win_condition = win_cond
 
 
 func _ready() -> void:
@@ -66,8 +80,16 @@ func check_win() -> void:
 		win_checked = true
 		return
 	
-	var num_of_ends: int = GameMgr.current_endpoints.size()
+	var match_amount: int = 0
 	var ends_satisfied: int = 0
+	
+	match win_condition:
+		
+		WinCondition.MATCH_ALL_ENDPOINTS:
+			match_amount = GameMgr.current_endpoints.size()
+			
+		WinCondition.MATCH_ALL_BLOCKS:
+			match_amount = GameMgr.current_blocks.size()
 	
 	for endpoint: Endpoint in GameMgr.current_endpoints:
 		var is_happy := endpoint.check_satisfaction()
@@ -75,7 +97,7 @@ func check_win() -> void:
 		if is_happy:
 			ends_satisfied += 1
 	
-	has_won = ends_satisfied == num_of_ends
+	has_won = ends_satisfied == match_amount
 	
 	if has_won:
 		win_stage()
@@ -92,6 +114,11 @@ func can_move() -> bool:
 	return !are_bodies_moving && win_checked && !has_won
 
 
+func has_moved() -> void:
+	are_bodies_moving = true
+	win_checked = false
+
+
 func self_detruct() -> void:
 	_reset_game_logic()
 
@@ -100,8 +127,3 @@ func _reset_game_logic() -> void:
 	has_won = false
 	win_checked = true
 	are_bodies_moving = false
-
-
-func has_moved() -> void:
-	are_bodies_moving = true
-	win_checked = false

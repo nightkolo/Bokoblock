@@ -1,3 +1,4 @@
+@icon("res://assets/objects/endpoint-star-v01.png")
 extends Area2D
 class_name Endpoint
 

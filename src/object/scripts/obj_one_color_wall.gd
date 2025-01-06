@@ -2,6 +2,8 @@ class_name OneColorWall
 extends CollisionShape2D
 
 @onready var node_sprites: Node2D = $Sprite
+@onready var sprite_2d: Sprite2D = $Sprite/Sprite2D
+@onready var cross: Sprite2D = $Sprite/Cross
 
 var parent_one_color_walls: OneColorWalls
 
@@ -15,4 +17,6 @@ func _setup() -> void:
 		parent_one_color_walls = get_parent() as OneColorWalls
 	
 	if parent_one_color_walls:
-		node_sprites.modulate = GameUtil.set_boko_color(parent_one_color_walls.im_looking_for)
+		node_sprites.modulate = Color(Color.WHITE, 0.9)
+		sprite_2d.self_modulate = GameUtil.set_boko_color(parent_one_color_walls.im_looking_for)
+		cross.self_modulate = GameUtil.set_boko_color(parent_one_color_walls.im_looking_for)

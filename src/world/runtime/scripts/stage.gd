@@ -15,14 +15,18 @@ class_name Stage
 	set(value):
 		GameMgr.current_world_id = value
 		world_id = value
+@export_group("Modify")
+@export var win_condition: GameLogic.WinCondition
+@export var stage_progression: bool = true
 @export_group("Miscellanous")
-@export var show_dev_ui: bool = true
+@export var show_dev_ui: bool = false
 
 var _dev_ui: PackedScene = preload("res://interface/runtime/misc/dev_ui.tscn")
 
 
 func _ready() -> void:
 	GameMgr.current_stage = self
+	GameLogic.set_win_condition(win_condition)
 
 	if auto_assign_ids:
 		var num := self.scene_file_path.to_int()

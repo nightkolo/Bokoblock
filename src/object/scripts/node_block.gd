@@ -1,4 +1,4 @@
-## Under construction
+## Use [url]res://object/objects/obj_block.tscn[\url].
 extends Area2D
 class_name Bokoblock
 
@@ -23,13 +23,19 @@ enum BokoColor {AQUA = 0, RED = 1, BLUE = 2, YELLOW = 3, GREEN = 4, PINK = 5}
 @export var asset_eye_angry: Texture2D = preload("res://assets/objects/block-eyes-v03-angry-white.png")
 @export var asset_eye_scaredy: Texture2D = preload("res://assets/objects/block-eyes-v03-scaredy-white.png")
 @export var asset_eye_close: Texture2D = preload("res://assets/objects/block-eye-close.png")
+@export var asset_eye_happy: Texture2D = preload("res://assets/objects/block-eyes-v03-happy-white.png")
+
+@onready var particles_dust: CPUParticles2D = $Dust
 
 var parent_bokobody: Bokobody
 var is_on_endpoint: bool = false
 var limit_eye_movement: bool = true
 var texture_eyes: Texture2D
+#var sprites: Array[Sprite2D] = [sprite_eyes, sprite_block, sprite_ghost, sprite_star]
 
+#var _initial_texture_eyes: Texture2D
 var _current_transformation: Variant
+var _tween_pulse: Tween
 var _tween_eyes: Tween
 var _tween_move: Tween
 var _tween_turn: Tween
@@ -39,12 +45,12 @@ var _tween_ghosts: Tween
 var _tween_endpoint: Tween
 
 
-
-
 func _ready() -> void:
 	_setup_node()
 	_setup_sprite()
 	check_state()
+	
+	GameMgr.current_blocks.append(self as Bokoblock)
 	
 	if get_parent() is Bokobody:
 		parent_bokobody = (get_parent() as Bokobody)
@@ -53,9 +59,14 @@ func _ready() -> void:
 		push_warning("Recommended that " + str(self) + " must be a child of Bokobody.")
 	
 	if parent_bokobody:
+		parent_bokobody.child_blocks.append(self as Bokoblock)
+		
 		parent_bokobody.moved.connect(anim_move)
 		parent_bokobody.move_stopped.connect(stop_anim_move)
-		parent_bokobody.turned.connect(anim_turn)
+		parent_bokobody.turned.connect(func(turned_to: float):
+			anim_pulse()
+			anim_turn(turned_to)
+			)
 		
 		if parent_bokobody.rotation_strength == abs(2):
 			texture_eyes = asset_eye_scaredy
@@ -66,6 +77,7 @@ func _ready() -> void:
 		else:
 			texture_eyes = asset_eye_normal
 		
+		#_initial_texture_eyes = texture_eyes
 		sprite_eyes.texture = texture_eyes
 		
 		body_entered.connect(func(body: Node2D):
@@ -125,6 +137,24 @@ func _process(_delta: float) -> void:
 		sprite_eyes.position.y = clamp(sprite_eyes.position.y,-7.0,7.0)
 
 
+func anim_pulse() -> void:
+	if !_are_nodes_assgined():
+		return
+	
+	var dur := 1.0
+	var ease_in := dur/16.0
+	var ease_out := (dur/16.0)*15.0
+	
+	_tween_pulse = create_tween()
+	
+	if _tween_pulse:
+		_tween_pulse.kill()
+	_tween_pulse = create_tween()
+	#_tween_pulse
+	_tween_pulse.tween_property(sprite_node_2,"modulate",Color(Color.WHITE*2.0),ease_in).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART)
+	_tween_pulse.tween_property(sprite_node_2,"modulate",Color(Color.WHITE),ease_out).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+
+
 func anim_turn(turned_by: float) -> void:
 	if !_are_nodes_assgined():
 		return
@@ -142,8 +172,8 @@ func anim_turn(turned_by: float) -> void:
 	if _tween_turn:
 		_tween_turn.kill()
 	_tween_turn = create_tween()
-	_tween_turn.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	_tween_turn.tween_property(sprite_block,"skew",0.0,dur)
+	_tween_turn.set_ease(Tween.EASE_OUT)
+	_tween_turn.tween_property(sprite_block,"skew",0.0,dur).set_trans(Tween.TRANS_ELASTIC)
 	
 	
 func anim_move(moved_to: Vector2) -> void:
@@ -159,6 +189,8 @@ func anim_move(moved_to: Vector2) -> void:
 		dur = parent_bokobody.movement_time * 5.0
 	
 	_current_transformation = moved_to
+	particles_dust.direction = moved_to
+	particles_dust.emitting = true
 	
 	match moved_to:
 		Vector2.RIGHT:
@@ -250,7 +282,11 @@ func anim_hit_block(transformed_to: Variant = _current_transformation) -> void:
 			pass
 
 	await get_tree().create_timer(dur/2.6).timeout
-	sprite_eyes.texture = texture_eyes
+	if is_on_endpoint:
+		sprite_eyes.texture = asset_eye_happy
+	else:
+		sprite_eyes.texture = texture_eyes
+	print("texture_eyes")
 
 
 func anim_entered_one_color_block() -> void:
@@ -333,7 +369,7 @@ func anim_standing_endpoint() -> void:
 	if _are_nodes_assgined():
 		var dur := 0.4
 		
-		sprite_eyes.texture = preload("res://assets/objects/block-eyes-v03-happy-white.png")
+		sprite_eyes.texture = asset_eye_happy
 		if _tween_endpoint:
 			_tween_endpoint.kill()
 		

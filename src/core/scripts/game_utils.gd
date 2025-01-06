@@ -16,10 +16,6 @@ const STAGE_FILE_BEGIN = "res://world/runtime/levels/stage_"
 const STAGE_FILE_END = ".tscn"
 
 
-static func get_tile_size() -> float:
-	return TILE_SIZE
-
-
 static func set_boko_color(is_bokocolor: BokoColor) -> Color:
 	var col: Color
 	

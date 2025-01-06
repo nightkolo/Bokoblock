@@ -2,7 +2,6 @@
 extends Node2D
 class_name Bokobody
 
-# TODO: Remove the damn auto-doc comments, i realized i hate how they look in the code
 signal moved(moved_to: Vector2)
 signal turned(turned_to: float)
 signal move_end(has_moved_by: Vector2)
@@ -12,26 +11,27 @@ signal turn_stopped()
 signal child_block_has_entered_one_way_block(is_block: Bokoblock)
 signal child_blocks_left_one_way_block()
 
-@export var movement_strength: int = 1 ## How many grid it'll move.
-@export var rotation_strength: int = 1 ## How many turns it'll move.
+@export var movement_strength: int = 1
+@export var rotation_strength: int = 1
 @export_group("Modify")
-@export var movement_time: float = 0.1 ## Movement time.
-@export var just_dont: bool = false ## Don't, okay?
+@export var show_blocks: bool = true
+@export var movement_time: float = 0.1
+@export var just_dont: bool = false ## @experimental
 
-var moves_made: Array[Variant] ## An [Array] of the Bokobody's transformation history.
-var child_blocks: Array[Bokoblock] ## An [Array] of child [Bokoblock] nodes. Assigned at runtime.
-var is_moving: bool: ## Returns [code]true[/code] if [Bokobody2D] is currently moving, [code]false[/code] if otherwise.
+var moves_made: Array[Variant]
+var child_blocks: Array[Bokoblock]
+var is_moving: bool:
 	set(value):
 		is_moving = value
 		if !value:
 			GameLogic.bokobody_stopped.emit(self)
-var is_rotating: bool: ## Returns [code]true[/code] if [Bokobody2D] is currently turning, [code]false[/code] if otherwise.
+var is_rotating: bool:
 	set(value):
 		is_rotating = value
 		if !value:
 			GameLogic.bokobody_stopped.emit(self)
 
-## Tile size.
+## @deprecated
 const TILE_SIZE = 45.0 
 
 var _tween_move: Tween
@@ -53,35 +53,28 @@ func _ready() -> void:
 		
 	child_blocks_left_one_way_block.connect(anim_blocks_went_out_one_col_block)
 	
-	for child: Node in get_children():
-		if child is Bokoblock:
-			child_blocks.append(child as Bokoblock)
-			
-			(child as Area2D).area_entered.connect(func(area: Area2D):
-				if area is Bokoblock:
-					stop_making_move()
-				)
-			(child as Area2D).body_entered.connect(func(body: Node2D):
-				if (body is TileMapLayer || body is SleepingBlock):
-					stop_making_move()
-				)
-	
-	position = position.snapped(Vector2.ONE * GameUtil.get_tile_size()) 
-	position += (Vector2.ONE * GameUtil.get_tile_size()) / 2.0
+	position = position.snapped(Vector2.ONE * GameUtil.TILE_SIZE)
+	position += (Vector2.ONE * GameUtil.TILE_SIZE) / 2.0
 	
 	PlayerInput.input_undo.connect(undo)
 	PlayerInput.input_move.connect(move)
 	PlayerInput.input_turn.connect(turn)
 
+	await get_tree().create_timer(0.1).timeout
+	for block: Bokoblock in child_blocks:
+		for sprite: Sprite2D in [block.sprite_block, block.sprite_eyes]:
+			sprite.visible = show_blocks
+		
+		block.area_entered.connect(func(area: Area2D):
+			if area is Bokoblock:
+				stop_making_move()
+			)
+		block.body_entered.connect(func(body: Node2D):
+			if (body is TileMapLayer || body is SleepingBlock):
+				stop_making_move()
+			)
 
-func _process(_delta: float) -> void:
-	if rotation_degrees > 360.0: # ehh?
-		rotation_degrees += -360.0
-	elif rotation_degrees < -360.0:
-		rotation_degrees += 360.0
 
-
-## Undos previous moves.
 func undo() -> void:
 	if moves_made.is_empty():
 		await get_tree().create_timer(0.1).timeout
@@ -103,8 +96,6 @@ func undo() -> void:
 	GameLogic.bokobody_stopped.emit(self)
 
 
-## @experimental
-## Turns [Bokobody2D]. [br][br][param disable_colli] disables [Bokobody2D] collision during the turn. [param set_record] pushes the turn record to [member moves_made].
 func turn(rotate_deg_to: float, disable_colli: bool = false, set_record: bool = true) -> void:
 	var rot_to := deg_to_rad(rotate_deg_to) * rotation_strength
 	_old_rot = rotation
@@ -131,10 +122,8 @@ func turn(rotate_deg_to: float, disable_colli: bool = false, set_record: bool = 
 	is_rotating = false
 	
 
-## @experimental
-## Moves [Bokobody2D]. [br][br][param disable_colli] disables [Bokobody2D] collision during the move. [param set_record] pushes the move record to [member moves_made].
 func move(direction: Vector2, disable_colli: bool = false, set_record: bool = true) -> void:
-	var move_to: Vector2 = GameUtil.get_tile_size() * direction * movement_strength
+	var move_to: Vector2 = GameUtil.TILE_SIZE * direction * movement_strength
 	_old_pos = position
 	_can_set_record = set_record
 	if disable_colli: # Doing a check to avoid runtime slowdown
@@ -158,7 +147,6 @@ func move(direction: Vector2, disable_colli: bool = false, set_record: bool = tr
 	is_moving = false
 
 
-## Stops current [Bokobody2D] movement, and returns to previous position.[br][br] This function is called by [signal Bokoblock.area_entered], [signal Bokoblock.body_entered].
 func stop_moving() -> void:
 	if _tween_move:
 		_tween_move.kill()
@@ -172,8 +160,6 @@ func stop_moving() -> void:
 	is_moving = false
 	
 
-## Stops current [Bokobody2D] rotation, and returns to previous position.[br][br]
-## This function is called by [signal Bokoblock.area_entered], [signal Bokoblock.body_entered].
 func stop_turning() -> void:
 	if _tween_rot:
 		_tween_rot.kill()
@@ -181,7 +167,7 @@ func stop_turning() -> void:
 	turn_stopped.emit()
 	
 	_tween_rot = create_tween()
-	_tween_rot.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	_tween_rot.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	_tween_rot.tween_property(self,"rotation",_old_rot,movement_time*2.0)
 	await _tween_rot.finished
 	
@@ -224,17 +210,14 @@ func anim_blocks_went_out_one_col_block() -> void:
 		_tween_one_col_anim.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur)
 
 
-## Returns [member moves_made].
 func get_tranformation_history() -> Array:
 	return moves_made
 
 
-## Returns [code]true[/code] if [Bokobody2D] is not making a move/turn, [code]false[/code] if otherwise.
 func is_idle() -> bool:
 	return !(is_moving || is_rotating)
 
 
-## Returns [code]true[/code] if [Bokobody2D] is making a move/turn (transform), [code]false[/code] if otherwise.[br][br] Similar to [method is_idle] but reversed.
 func is_transforming() -> bool:
 	return (is_moving || is_rotating)
 

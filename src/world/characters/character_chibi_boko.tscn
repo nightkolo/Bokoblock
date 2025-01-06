@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkpq6f8l2i2t3"]
+
+[ext_resource type="Texture2D" uid="uid://csigabd6jjqit" path="res://assets/characters/chibi-boko/boko-chibi-block.png" id="1_fq20e"]
+[ext_resource type="Script" path="res://world/characters/character_chibi_boko.gd" id="1_wqlmh"]
+[ext_resource type="Texture2D" uid="uid://ioml21an21s6" path="res://assets/characters/chibi-boko/boko-chibi-eyes.png" id="2_gmrsf"]
+[ext_resource type="Texture2D" uid="uid://bpvlxt5ncn66f" path="res://assets/characters/chibi-boko/boko-chibi-top-hat.png" id="3_er1rd"]
+[ext_resource type="Texture2D" uid="uid://b46ycimuhecdt" path="res://assets/characters/chibi-boko/boko-chibi-star.png" id="4_7g1fj"]
+[ext_resource type="Texture2D" uid="uid://csrqbmnxd726y" path="res://assets/characters/chibi-boko/boko-chibi-eyes-blink.png" id="5_rdvuw"]
+[ext_resource type="Script" path="res://world/characters/character_chibi_boko_top_hat.gd" id="6_y4ahi"]
+[ext_resource type="Texture2D" uid="uid://drd85qkdwej3k" path="res://assets/characters/boko/boko-hands-thinking.png" id="9_35rk2"]
+
+[node name="CharacterChibiBoko" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_wqlmh")
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("1_fq20e")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D/Sprite2D"]
+texture = ExtResource("2_gmrsf")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Node2D/Sprite2D"]
+position = Vector2(0, -64)
+texture = ExtResource("3_er1rd")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Node2D/Sprite2D"]
+position = Vector2(-36, -46)
+texture = ExtResource("4_7g1fj")
+
+[node name="Head" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="SpriteHead" type="Sprite2D" parent="Head"]
+unique_name_in_owner = true
+texture = ExtResource("1_fq20e")
+
+[node name="Eyes" type="Node2D" parent="Head"]
+unique_name_in_owner = true
+
+[node name="SpriteEyes" type="Sprite2D" parent="Head/Eyes"]
+unique_name_in_owner = true
+texture = ExtResource("2_gmrsf")
+
+[node name="SpriteClosedEyes" type="Sprite2D" parent="Head/Eyes"]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("5_rdvuw")
+
+[node name="TopHat" type="Node2D" parent="Head"]
+unique_name_in_owner = true
+script = ExtResource("6_y4ahi")
+
+[node name="SpriteTopHat" type="Sprite2D" parent="Head/TopHat"]
+unique_name_in_owner = true
+position = Vector2(0, -60)
+texture = ExtResource("3_er1rd")
+
+[node name="Star" type="Sprite2D" parent="Head/TopHat/SpriteTopHat"]
+unique_name_in_owner = true
+position = Vector2(-36, 14)
+texture = ExtResource("4_7g1fj")
+
+[node name="ThinkingHand" type="Sprite2D" parent="Head"]
+visible = false
+position = Vector2(-108, 2.00001)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("9_35rk2")

@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://dix7ul7nrnefh"]
+
+[ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_fhnfk"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_jikcl"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_o4jeq"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_0axbj"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="5_ryy84"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_76c0x"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_cyc72"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_dekbh"]
+
+[node name="S" type="Node2D"]
+script = ExtResource("1_fhnfk")
+
+[node name="Cam" parent="." instance=ExtResource("2_jikcl")]
+
+[node name="SW" parent="." instance=ExtResource("3_o4jeq")]
+
+[node name="TM" type="Node2D" parent="SW"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_0axbj")
+
+[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("5_ryy84")
+
+[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("5_ryy84")
+
+[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("5_ryy84")
+
+[node name="SO" type="Node2D" parent="."]
+script = ExtResource("6_76c0x")
+
+[node name="Bokobody" type="Node2D" parent="SO"]
+position = Vector2(382, 337)
+script = ExtResource("7_cyc72")
+
+[node name="Block" parent="SO/Bokobody" instance=ExtResource("8_dekbh")]
+
+[node name="Block2" parent="SO/Bokobody" instance=ExtResource("8_dekbh")]
+position = Vector2(0, -45)
+
+[node name="Block3" parent="SO/Bokobody" instance=ExtResource("8_dekbh")]
+position = Vector2(0, 45)
+
+[node name="Block4" parent="SO/Bokobody" instance=ExtResource("8_dekbh")]
+position = Vector2(-45, 0)
+
+[node name="Bokobody2" type="Node2D" parent="SO"]
+position = Vector2(517, 337)
+script = ExtResource("7_cyc72")
+
+[node name="Block" parent="SO/Bokobody2" instance=ExtResource("8_dekbh")]
+
+[node name="Block2" parent="SO/Bokobody2" instance=ExtResource("8_dekbh")]
+position = Vector2(0, -45)
+
+[node name="Block3" parent="SO/Bokobody2" instance=ExtResource("8_dekbh")]
+position = Vector2(0, 45)
