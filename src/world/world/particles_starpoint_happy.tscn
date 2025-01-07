@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://besi6yfnrdfl8"]
+
+[ext_resource type="Texture2D" uid="uid://bic6b6u43h37h" path="res://assets/world/particle_rabbitstar_02.png" id="1_hauap"]
+
+[sub_resource type="Curve" id="Curve_e5qsn"]
+_data = [Vector2(0, 0.7), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_p2oce"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.182243, 0.359813, 0.551402)
+colors = PackedColorArray(1, 1, 1, 1, 0.75, 0.75, 0.75, 1, 1, 1, 1, 1, 0.751, 0.75, 0.75, 1)
+
+[node name="ParticlesStar" type="CPUParticles2D"]
+z_index = 2
+emitting = false
+amount = 2
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_hauap")
+emission_shape = 1
+emission_sphere_radius = 25.0
+direction = Vector2(0, 1)
+gravity = Vector2(0, 100)
+angular_velocity_min = 30.0
+angular_velocity_max = 180.0
+angle_min = -120.9
+angle_max = 197.9
+scale_amount_curve = SubResource("Curve_e5qsn")
+color_ramp = SubResource("Gradient_p2oce")

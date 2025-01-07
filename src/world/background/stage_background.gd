@@ -43,9 +43,17 @@ func _setup_node() -> void:
 	if parent_level_world:
 		if !parent_level_world.apply_modifications:
 			return
-			
-		texture_bg.self_modulate = parent_level_world.background_color
+		
 		_effect_lengths_multiplier = parent_level_world.effect_lengths_multiplier
+		
+		match parent_level_world.background_color:
+			
+			StageWorld.StageWorldBGColorPreset.CUSTOM:
+				texture_bg.self_modulate = parent_level_world.custom_background_color
+			
+			_:
+				@warning_ignore("static_called_on_instance")
+				texture_bg.self_modulate = parent_level_world.set_background_color(parent_level_world.background_color)
 		
 		if parent_level_world.randomize_background_effect:
 			_background_effect = GameUtil.BackgroundEffect.values()[randi() % GameUtil.BackgroundEffect.size()]

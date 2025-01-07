@@ -9,91 +9,127 @@ enum BokoColor {AQUA = 0, RED = 1, BLUE = 2, YELLOW = 3, GREEN = 4, PINK = 5}
 @export_group("Modify")
 @export var auto_check_origin: bool = true
 @export var make_origin: bool = false
-@export_group("Objects to Assign")
-@export var sprite_node_1: Node2D
-@export var sprite_node_2: Node2D
-@export var sprite_eyes: Sprite2D
-@export var sprite_block: Sprite2D
-@export var sprite_star: Sprite2D
-@export var sprite_ghost: Sprite2D
-@export_subgroup("Assets")
+@export_group("Assets")
 @export var asset_block: Texture2D = preload("res://assets/objects/block-v06-greyscale.png")
-@export var asset_origin_block: Texture2D = preload("res://assets/objects/block-v06-greyscale.png")
+@export var asset_origin_block: Texture2D = preload("res://assets/objects/block-v06-greyscale-origin.png")
 @export var asset_eye_normal: Texture2D = preload("res://assets/objects/block-eyes-v03-neutral-white.png")
 @export var asset_eye_angry: Texture2D = preload("res://assets/objects/block-eyes-v03-angry-white.png")
 @export var asset_eye_scaredy: Texture2D = preload("res://assets/objects/block-eyes-v03-scaredy-white.png")
 @export var asset_eye_close: Texture2D = preload("res://assets/objects/block-eye-close.png")
 @export var asset_eye_happy: Texture2D = preload("res://assets/objects/block-eyes-v03-happy-white.png")
 
+@onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var particles_dust: CPUParticles2D = $Dust
+@onready var sprite_node_1: Node2D = $Sprites
+@onready var sprite_node_2: Node2D = $Sprites/SpritesMove
+@onready var sprite_eyes: Sprite2D = $Sprites/SpritesMove/Eyes
+@onready var sprite_block: Sprite2D = $Sprites/SpritesMove/Block
+@onready var sprite_star: Sprite2D = $Star
+@onready var sprite_ghost: Sprite2D = $Ghost
 
 var parent_bokobody: Bokobody
 var is_on_endpoint: bool = false
 var limit_eye_movement: bool = true
 var texture_eyes: Texture2D
-#var sprites: Array[Sprite2D] = [sprite_eyes, sprite_block, sprite_ghost, sprite_star]
 
-#var _initial_texture_eyes: Texture2D
-var _current_transformation: Variant
 var _tween_pulse: Tween
 var _tween_eyes: Tween
 var _tween_move: Tween
 var _tween_turn: Tween
 var _tween_hit_block: Tween
-var _tween_complete: Tween
 var _tween_ghosts: Tween
 var _tween_endpoint: Tween
 
 
 func _ready() -> void:
 	_setup_node()
-	_setup_sprite()
 	check_state()
 	
 	GameMgr.current_blocks.append(self as Bokoblock)
 	
+	GameLogic.stage_won.connect(anim_complete)
+	GameLogic.bokobodies_stopped.connect(check_state)
+	
 	if get_parent() is Bokobody:
-		parent_bokobody = (get_parent() as Bokobody)
+		parent_bokobody = get_parent() as Bokobody
 		
 	else:
 		push_warning("Recommended that " + str(self) + " must be a child of Bokobody.")
 	
 	if parent_bokobody:
+		_setup_parent()
+		
 		parent_bokobody.child_blocks.append(self as Bokoblock)
 		
-		parent_bokobody.moved.connect(anim_move)
 		parent_bokobody.move_stopped.connect(stop_anim_move)
-		parent_bokobody.turned.connect(func(turned_to: float):
+		parent_bokobody.has_moved.connect(func(moved_to: Vector2):
+			particles_dust.direction = moved_to * -1
+			
+			anim_eyes(moved_to)
+			anim_move(moved_to)
+			)
+		parent_bokobody.has_turned.connect(func(turned_to: float):
 			anim_pulse()
 			anim_turn(turned_to)
 			)
 		
-		if parent_bokobody.rotation_strength == abs(2):
+		body_entered.connect(func(body: Node2D):
+			if (body is TileMapLayer || body is SleepingBlock):
+				anim_hit_block(parent_bokobody.current_last_transform)
+			)
+
+
+func _process(_delta: float) -> void:
+	if limit_eye_movement && sprite_eyes:
+		sprite_eyes.global_rotation = 0.0
+		sprite_eyes.position.x = clamp(sprite_eyes.position.x,-7.0,7.0)
+		sprite_eyes.position.y = clamp(sprite_eyes.position.y,-7.0,7.0)
+	
+	if parent_bokobody:
+		particles_dust.emitting = parent_bokobody.is_moving
+		particles_dust.global_rotation = 0.0
+
+
+func _setup_node() -> void:
+	collision_layer = 1
+	collision_mask = 7
+	
+	sprite_block.self_modulate = GameUtil.set_boko_color(boko_color)
+	
+	if auto_check_origin:
+		_set_as_origin_block(self.position == Vector2.ZERO)
+	else:
+		_set_as_origin_block(make_origin)
+
+
+func _setup_parent() -> void:
+	if parent_bokobody:
+		if parent_bokobody.turning_strength == abs(2):
 			texture_eyes = asset_eye_scaredy
 		
-		elif parent_bokobody.rotation_strength < 0:
+		elif parent_bokobody.turning_strength < 0:
 			texture_eyes = asset_eye_angry
 			
 		else:
 			texture_eyes = asset_eye_normal
 		
-		#_initial_texture_eyes = texture_eyes
 		sprite_eyes.texture = texture_eyes
-		
-		body_entered.connect(func(body: Node2D):
-			if (body is TileMapLayer || body is SleepingBlock):
-				anim_hit_block()
-			)
-	
-	GameLogic.stage_won.connect(anim_complete)
-	GameLogic.bokobodies_stopped.connect(check_state)
-	GameLogic.bokobodies_moved.connect(anim_eyes)
 
 
 func check_state() -> void:
+	# TODO: Removes this code over-generalization when not needed in final build.
 	var areas := get_overlapping_areas()
-	var has_stood_on_endpoint := areas.size() == 1 && areas[0] is Endpoint
-	var is_on_happy_endpoint: bool = false
+	var bodies := get_overlapping_bodies()
+	
+	var is_on_tile := areas.size() == 1
+	var is_on_object := bodies.size() == 1
+	
+	var has_stood_on_endpoint := is_on_tile && areas[0] is Endpoint
+	var out_of_bounds := is_on_object && bodies[0] is TileMapLayer
+	var is_on_happy_endpoint := false
+	
+	if out_of_bounds:
+		im_out_of_bounds()
 	
 	if has_stood_on_endpoint:
 		is_on_happy_endpoint = (areas[0] as Endpoint).what_im_happy_with == boko_color
@@ -107,145 +143,114 @@ func check_state() -> void:
 		is_on_endpoint = false
 
 
-func _setup_node() -> void:
-	collision_layer = 1
-	collision_mask = 7
+func im_out_of_bounds() -> void: ## @experimental
+	pass
+
+
+func can_we_stop_moving_dad() -> bool:
+	var yes: bool
 	
-	if !_are_nodes_assgined():
-		return
-		
-	if auto_check_origin:
-		_set_as_origin_block(self.position == Vector2.ZERO)
+	if parent_bokobody:
+		parent_bokobody.stop_transforming()
+		yes = true
 	else:
-		_set_as_origin_block(make_origin)
-
-
-func _setup_sprite() -> void:
-	if !_are_nodes_assgined():
-		return 
+		yes = false
 		
-	sprite_block.offset.y = -45.0
-	sprite_block.position.y = 22.5
-	
-	sprite_block.self_modulate = GameUtil.set_boko_color(boko_color)
-
-
-func _process(_delta: float) -> void:
-	if limit_eye_movement && sprite_eyes:
-		sprite_eyes.global_rotation = 0.0
-		sprite_eyes.position.x = clamp(sprite_eyes.position.x,-7.0,7.0)
-		sprite_eyes.position.y = clamp(sprite_eyes.position.y,-7.0,7.0)
+	return yes
 
 
 func anim_pulse() -> void:
-	if !_are_nodes_assgined():
-		return
+	var dur := 0.6
 	
-	var dur := 1.0
-	var ease_in := dur/16.0
-	var ease_out := (dur/16.0)*15.0
+	sprite_node_2.modulate = Color(Color.WHITE*2.4)
 	
+	_reset_tween(_tween_pulse)
+		
 	_tween_pulse = create_tween()
-	
-	if _tween_pulse:
-		_tween_pulse.kill()
-	_tween_pulse = create_tween()
-	#_tween_pulse
-	_tween_pulse.tween_property(sprite_node_2,"modulate",Color(Color.WHITE*2.0),ease_in).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART)
-	_tween_pulse.tween_property(sprite_node_2,"modulate",Color(Color.WHITE),ease_out).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	_tween_pulse.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	_tween_pulse.tween_property(sprite_node_2,"modulate",Color(Color.WHITE),dur)
 
 
 func anim_turn(turned_by: float) -> void:
-	if !_are_nodes_assgined():
-		return
-	
 	var dur := 10.0
 	var wobble_to: float = deg_to_rad(20.0) * sign(turned_by)
 	
 	if parent_bokobody:
 		dur = parent_bokobody.movement_time * 8.0
 	
-	_current_transformation = turned_by
-	
 	sprite_block.skew = wobble_to
 	
-	if _tween_turn:
-		_tween_turn.kill()
+	_reset_tween(_tween_turn)
 	_tween_turn = create_tween()
 	_tween_turn.set_ease(Tween.EASE_OUT)
 	_tween_turn.tween_property(sprite_block,"skew",0.0,dur).set_trans(Tween.TRANS_ELASTIC)
 	
 	
 func anim_move(moved_to: Vector2) -> void:
-	if !_are_nodes_assgined():
-		return
-	
 	var anim_to: Vector2
-	var squash := 0.65
-	var stretch := 1.35
 	var dur := 0.5
+	var high := 1.35
+	var low := 0.65
+	var squash : float
+	var stretch : float
 	
 	if parent_bokobody:
-		dur = parent_bokobody.movement_time * 5.0
-	
-	_current_transformation = moved_to
-	particles_dust.direction = moved_to
-	particles_dust.emitting = true
-	
+		match parent_bokobody.get_current_turn():
+			1, 3:
+				squash = low
+				stretch = high
+			2, 4:
+				squash = high
+				stretch = low
+	else:
+		squash = low
+		stretch = high
+
 	match moved_to:
-		Vector2.RIGHT:
+		Vector2.RIGHT, Vector2.LEFT:
 			anim_to = Vector2(stretch,squash)
-		Vector2.LEFT:
-			anim_to = Vector2(stretch,squash)
-		Vector2.UP:
-			anim_to = Vector2(squash,stretch)
-		Vector2.DOWN:
+		Vector2.UP, Vector2.DOWN:
 			anim_to = Vector2(squash,stretch)
 		_:
 			anim_to = Vector2.ONE
 	
-	if _tween_move:
-		_tween_move.kill()
+	_reset_tween(_tween_move)
 	_tween_move = create_tween()
 	_tween_move.set_ease(Tween.EASE_OUT)
 	_tween_move.tween_property(sprite_node_2,"scale",anim_to,dur/6.0)
 	_tween_move.tween_property(sprite_node_2,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
 
 
-func anim_eyes(transformed_to: Variant) -> void:
-	if !_are_nodes_assgined() || parent_bokobody == null:
+func anim_eyes(moved_to: Vector2) -> void:
+	if parent_bokobody == null:
 		return
 
 	var move_eyes_to := 7.0
+
+	sprite_eyes.global_position += (moved_to as Vector2) * move_eyes_to
 	
-	match typeof(transformed_to):
-		
-		Variant.Type.TYPE_VECTOR2:
-			sprite_eyes.global_position += (transformed_to as Vector2) * move_eyes_to
-			if _tween_eyes:
-				_tween_eyes.kill()
-			_tween_eyes = create_tween()
-			_tween_eyes.tween_property(sprite_eyes,"position",Vector2.ZERO,parent_bokobody.movement_time*4.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+	_reset_tween(_tween_eyes)
+	_tween_eyes = create_tween()
+	_tween_eyes.tween_property(sprite_eyes,"position",Vector2.ZERO,parent_bokobody.movement_time*4.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 
 
-func anim_hit_block(transformed_to: Variant = _current_transformation) -> void:
-	if !_are_nodes_assgined():
-		return
-	
+func anim_hit_block(transformed_to: Variant = Vector2.ZERO) -> void:
 	var dur := 0.9
 	var anim_to: Vector2
 	
+	_reset_tween(_tween_turn)
+	
+	sprite_block.skew = deg_to_rad(0.0)
 	sprite_eyes.texture = asset_eye_close
+	sprite_node_2.modulate = Color(Color.WHITE)
 	
 	match typeof(transformed_to):
 		
 		Variant.Type.TYPE_FLOAT: # Turn
 			anim_to = Vector2.ONE/3.0
 			
-			if _tween_move:
-				_tween_move.kill()
-			if _tween_hit_block:
-				_tween_hit_block.kill()
+			_reset_tween(_tween_move)
+			_reset_tween(_tween_hit_block)
 			
 			_tween_hit_block = create_tween()
 			_tween_hit_block.set_ease(Tween.EASE_OUT)
@@ -253,26 +258,33 @@ func anim_hit_block(transformed_to: Variant = _current_transformation) -> void:
 			_tween_hit_block.tween_property(sprite_node_2,"scale",Vector2.ONE,dur/1.1).set_trans(Tween.TRANS_ELASTIC)
 			
 		Variant.Type.TYPE_VECTOR2: # Move
-			var squash := 0.65
-			var stretch := 1.35
+			var high := 1.35
+			var low := 0.65
+			var squash : float
+			var stretch : float
+
+			if parent_bokobody:
+				match parent_bokobody.get_current_turn():
+					1, 3:
+						squash = low
+						stretch = high
+					2, 4:
+						squash = high
+						stretch = low
+			else:
+				squash = low
+				stretch = high
 			
 			match transformed_to:
-				Vector2.UP:
+				Vector2.UP, Vector2.DOWN:
 					anim_to = Vector2(stretch,squash)
-				Vector2.DOWN:
-					anim_to = Vector2(stretch,squash)
-				Vector2.RIGHT:
-					anim_to = Vector2(squash,stretch)
-				Vector2.LEFT:
+				Vector2.RIGHT, Vector2.LEFT:
 					anim_to = Vector2(squash,stretch)
 				_:
 					anim_to = Vector2.ONE 
 				
-			if _tween_move:
-				_tween_move.kill()
-			if _tween_hit_block:
-				_tween_hit_block.kill()
-			
+			_reset_tween(_tween_move)
+			_reset_tween(_tween_hit_block)
 			_tween_hit_block = create_tween()
 			_tween_hit_block.set_ease(Tween.EASE_OUT)
 			_tween_hit_block.tween_property(sprite_node_2,"scale",anim_to,dur/10.0)
@@ -286,46 +298,39 @@ func anim_hit_block(transformed_to: Variant = _current_transformation) -> void:
 		sprite_eyes.texture = asset_eye_happy
 	else:
 		sprite_eyes.texture = texture_eyes
-	print("texture_eyes")
 
 
-func anim_entered_one_color_block() -> void:
+func anim_entered_one_color_wall() -> void:
 	if parent_bokobody:
-		parent_bokobody.child_block_has_entered_one_way_block.emit(self)
+		parent_bokobody.child_block_entered_one_col_block.emit(self)
 		
 		
-func anim_exited_one_color_block() -> void:
+func anim_exited_one_color_wall() -> void:
 	if parent_bokobody:
-		parent_bokobody.child_blocks_left_one_way_block.emit()
+		parent_bokobody.child_blocks_exited_one_col_block.emit()
 
 
 func anim_complete() -> void:
-	if !_are_nodes_assgined():
-		return
-	
 	var first_anim_dur := 0.5
 	var sec_anim_dur := 0.6
 	var zoom_to := Vector2.ONE * 1.25
-	var modulate_to := Color(2.0,2.0,2.0)
+	var modulate_to := Color.WHITE*2.0
 	var rot_to := rad_to_deg(PI)
 	
 	limit_eye_movement = false
-	sprite_node_2.modulate = Color(Color(2.0,2.0,2.0))
+	sprite_node_2.modulate = Color(Color.WHITE*2.0)
 	
-	_tween_complete = create_tween().set_parallel(true)
+	var tween := create_tween().set_parallel(true)
 	
 	# Oh dear, lord. Please just Alt+Z. 
-	_tween_complete.tween_property(sprite_node_2,"scale",zoom_to,first_anim_dur).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	_tween_complete.tween_property(sprite_node_2,"modulate",modulate_to,first_anim_dur).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	_tween_complete.tween_property(sprite_node_2,"scale",Vector2.ZERO,sec_anim_dur).set_delay(first_anim_dur).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-	_tween_complete.tween_property(sprite_node_2,"rotation_degrees",rot_to,sec_anim_dur).set_delay(first_anim_dur).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-	_tween_complete.tween_callback(anim_star).set_delay(first_anim_dur*2.0)
+	tween.tween_property(sprite_node_2,"scale",zoom_to,first_anim_dur).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(sprite_node_2,"modulate",modulate_to,first_anim_dur).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(sprite_node_2,"scale",Vector2.ZERO,sec_anim_dur).set_delay(first_anim_dur).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(sprite_node_2,"rotation_degrees",rot_to,sec_anim_dur).set_delay(first_anim_dur).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_callback(anim_star).set_delay(first_anim_dur*2.0)
 
 
 func anim_ghost() -> void:
-	if !_are_nodes_assgined():
-		pass
-
 	var dur := 0.6
 	var zoom_to := 0.75
 	
@@ -347,9 +352,6 @@ func anim_ghost() -> void:
 
 
 func anim_star() -> void:
-	if !_are_nodes_assgined():
-		pass
-
 	var rand := randf()/3.0
 	var dur := 0.4
 	
@@ -366,58 +368,44 @@ func anim_star() -> void:
 
 
 func anim_standing_endpoint() -> void:
-	if _are_nodes_assgined():
-		var dur := 0.4
-		
-		sprite_eyes.texture = asset_eye_happy
-		if _tween_endpoint:
-			_tween_endpoint.kill()
-		
-		sprite_node_1.scale = Vector2.ONE/2.0
-		
-		_tween_endpoint = create_tween().set_parallel(true)
-		_tween_endpoint.set_ease(Tween.EASE_OUT)
-		_tween_endpoint.tween_property(sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
-		_tween_endpoint.tween_property(sprite_node_1,"modulate",Color(Color(1.25,1.25,1.25)),dur/2.0)
+	var dur := 0.4
+	
+	sprite_eyes.texture = asset_eye_happy
+	if _tween_endpoint:
+		_tween_endpoint.kill()
+	
+	sprite_node_1.scale = Vector2.ZERO
+	
+	_tween_endpoint = create_tween().set_parallel(true)
+	_tween_endpoint.set_ease(Tween.EASE_OUT)
+	_tween_endpoint.tween_property(sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
+	_tween_endpoint.tween_property(sprite_node_1,"modulate",Color(Color(1.25,1.25,1.25)),dur/2.0)
 		
 
 func anim_left_endpoint() -> void:
-	if _are_nodes_assgined():
-		var dur := 0.8
-		
-		sprite_eyes.texture = texture_eyes
-		sprite_node_1.scale = Vector2.ONE / 2.0
-		
-		if _tween_endpoint:
-			_tween_endpoint.kill()
-		_tween_endpoint = create_tween().set_parallel(true)
-		_tween_endpoint.set_ease(Tween.EASE_OUT)
-		_tween_endpoint.tween_property(sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_ELASTIC)
-		_tween_endpoint.tween_property(sprite_node_1,"modulate",Color(Color.WHITE),dur/4.0)
+	var dur := 1.0
+	
+	sprite_eyes.texture = texture_eyes
+	sprite_node_1.scale = Vector2.ONE / 4.0
+	
+	if _tween_endpoint:
+		_tween_endpoint.kill()
+	_tween_endpoint = create_tween().set_parallel(true)
+	_tween_endpoint.set_ease(Tween.EASE_OUT)
+	_tween_endpoint.tween_property(sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_ELASTIC)
+	_tween_endpoint.tween_property(sprite_node_1,"modulate",Color(Color.WHITE),dur/4.0)
 
 
 func stop_anim_move() -> void:
-	if _tween_move:
-		_tween_move.kill()
+	_reset_tween(_tween_move)
 	
 	sprite_node_2.scale = Vector2.ONE
 
 
-func can_we_stop_moving_dad() -> bool:
-	var yes: bool
-	
-	if parent_bokobody:
-		parent_bokobody.stop_making_move()
-		yes = true
-	else:
-		yes = false
-		
-	return yes
+func _reset_tween(t: Tween) -> void:
+	if t != null:
+		t.kill()
 
-
-func _are_nodes_assgined() -> bool:
-	return sprite_node_1 != null && sprite_node_2 != null && sprite_block != null && sprite_eyes != null && sprite_star != null
-	
 
 func _set_as_origin_block(is_origin: bool) -> void:
 	if is_origin:
@@ -426,9 +414,3 @@ func _set_as_origin_block(is_origin: bool) -> void:
 	else:
 		sprite_block.texture = asset_block
 		self.z_index = 0
-
-
-func _rad_to_vector(rad: float) -> Vector2:
-	var x = cos(rad)
-	var y = sin(rad)
-	return Vector2(x, y)

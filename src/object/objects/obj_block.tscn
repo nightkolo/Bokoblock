@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://object/scripts/node_block.gd" id="1_fox18"]
 [ext_resource type="Texture2D" uid="uid://6gfr648a4tde" path="res://assets/objects/block-v06-greyscale.png" id="2_vu6u0"]
-[ext_resource type="Texture2D" uid="uid://b12hsyrgrsj0g" path="res://assets/objects/block-v06-greyscale-origin.png" id="3_5ir7d"]
 [ext_resource type="Texture2D" uid="uid://dy7ec8pych8ve" path="res://assets/objects/block-eyes-v03-neutral-white.png" id="3_7bp01"]
 [ext_resource type="Texture2D" uid="uid://58erdrgwqcbw" path="res://assets/objects/block-ghost-v02.png" id="4_cmisq"]
 [ext_resource type="Texture2D" uid="uid://fht8ceno2w63" path="res://assets/world/star_v01.png" id="4_u4fx5"]
@@ -15,16 +14,12 @@ size = Vector2(22, 22)
 _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="Block" type="Area2D" node_paths=PackedStringArray("sprite_node_1", "sprite_node_2", "sprite_eyes", "sprite_block", "sprite_star", "sprite_ghost")]
+[sub_resource type="Gradient" id="Gradient_lipoc"]
+colors = PackedColorArray(1, 1, 1, 0.25, 1, 1, 1, 0)
+
+[node name="Block" type="Area2D"]
 collision_mask = 3
 script = ExtResource("1_fox18")
-sprite_node_1 = NodePath("Sprites")
-sprite_node_2 = NodePath("Sprites/SpritesMove")
-sprite_eyes = NodePath("Sprites/SpritesMove/Eyes")
-sprite_block = NodePath("Sprites/SpritesMove/Block")
-sprite_star = NodePath("Star")
-sprite_ghost = NodePath("Ghost")
-asset_origin_block = ExtResource("3_5ir7d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_13485")
@@ -55,15 +50,12 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_7bp01")
 
 [node name="Dust" type="CPUParticles2D" parent="."]
-emitting = false
-amount = 2
-one_shot = true
-explosiveness = 1.0
+amount = 4
 texture = ExtResource("7_jtedv")
 emission_shape = 3
 emission_rect_extents = Vector2(20, 1)
-direction = Vector2(-2, 0)
-gravity = Vector2(0, 14)
-initial_velocity_min = 20.0
-initial_velocity_max = 20.0
+gravity = Vector2(0, 10)
+initial_velocity_min = 75.0
+initial_velocity_max = 75.0
 scale_amount_curve = SubResource("Curve_yn0ju")
+color_ramp = SubResource("Gradient_lipoc")

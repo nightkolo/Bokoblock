@@ -50,6 +50,25 @@ script = ExtResource("7_syf41")
 [node name="SO" type="Node2D" parent="."]
 script = ExtResource("6_tvaxc")
 
+[node name="Endpoints" type="Node2D" parent="SO"]
+script = ExtResource("10_y58fl")
+
+[node name="Endpoint" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
+position = Vector2(562, 562)
+what_im_happy_with = 5
+
+[node name="Endpoint2" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
+position = Vector2(517, 562)
+what_im_happy_with = 5
+
+[node name="Endpoint3" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
+position = Vector2(517, 517)
+what_im_happy_with = 2
+
+[node name="Endpoint4" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
+position = Vector2(472, 517)
+what_im_happy_with = 2
+
 [node name="Bokobody" type="Node2D" parent="SO"]
 position = Vector2(517, 202)
 script = ExtResource("7_hls8j")
@@ -77,22 +96,3 @@ position = Vector2(427, 382)
 
 [node name="SleepingBlock3" parent="SO" instance=ExtResource("9_rdjro")]
 position = Vector2(337, 472)
-
-[node name="Endpoints" type="Node2D" parent="SO"]
-script = ExtResource("10_y58fl")
-
-[node name="Endpoint" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
-position = Vector2(562, 562)
-what_im_happy_with = 5
-
-[node name="Endpoint2" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
-position = Vector2(517, 562)
-what_im_happy_with = 5
-
-[node name="Endpoint3" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
-position = Vector2(517, 517)
-what_im_happy_with = 2
-
-[node name="Endpoint4" parent="SO/Endpoints" instance=ExtResource("11_th0if")]
-position = Vector2(472, 517)
-what_im_happy_with = 2

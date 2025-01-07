@@ -15,6 +15,7 @@
 
 [node name="S8" type="Node2D"]
 script = ExtResource("1_3uste")
+show_dev_ui = true
 
 [node name="Cam" parent="." instance=ExtResource("2_uxq7o")]
 position = Vector2(562, 359)
@@ -53,7 +54,7 @@ script = ExtResource("6_oc2sw")
 [node name="Bokobody" type="Node2D" parent="SO"]
 position = Vector2(652, 247)
 script = ExtResource("7_eplui")
-rotation_strength = -1
+turning_strength = -1
 
 [node name="Block" parent="SO/Bokobody" instance=ExtResource("8_ghctb")]
 boko_color = 3

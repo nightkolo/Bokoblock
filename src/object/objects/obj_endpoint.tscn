@@ -1,17 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc3cprf4ks4be"]
+[gd_scene load_steps=6 format=3 uid="uid://dc3cprf4ks4be"]
 
 [ext_resource type="Script" path="res://object/scripts/node_endpoint.gd" id="1_mwqlu"]
-[ext_resource type="Texture2D" uid="uid://csgu26s7edc8" path="res://assets/objects/endpoint-star-v02.png" id="2_h8opa"]
+[ext_resource type="Texture2D" uid="uid://cuibm0pkclu2y" path="res://assets/objects/starpoint-v06.png" id="2_6hu3d"]
+[ext_resource type="Texture2D" uid="uid://ymrgpw8mlvmd" path="res://core/resources/visuals/gradient_starpoint_shadow.tres" id="3_hcarx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ilm6"]
-size = Vector2(22, 22)
+size = Vector2(40, 40)
 
-[node name="Endpoint" type="Area2D"]
+[sub_resource type="Gradient" id="Gradient_riy83"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Endpoint" type="Area2D" node_paths=PackedStringArray("sprite_star", "particles_idle")]
 script = ExtResource("1_mwqlu")
+sprite_star = NodePath("Sprite2D")
+particles_idle = NodePath("CPUParticles2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_2ilm6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_h8opa")
+texture = ExtResource("2_6hu3d")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-0.5, -0.5)
+scale = Vector2(0.703125, 0.703125)
+energy = 2.0
+blend_mode = 1
+range_item_cull_mask = 2
+texture = ExtResource("3_hcarx")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 6
+lifetime = 0.4
+speed_scale = 0.13
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 200)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angle_min = 45.0
+angle_max = 45.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_riy83")

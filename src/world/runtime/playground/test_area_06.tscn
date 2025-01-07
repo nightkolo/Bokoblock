@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cvkb418n18utf"]
+[gd_scene load_steps=14 format=4 uid="uid://cvkb418n18utf"]
 
 [ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_dac7l"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_rxhwv"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="7_ylxd2"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_knnin"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_endpoint.tscn" id="8_r1ndp"]
+[ext_resource type="Texture2D" uid="uid://ymrgpw8mlvmd" path="res://core/resources/visuals/gradient_starpoint_shadow.tres" id="8_x3est"]
 
 [node name="S" type="Node2D"]
 position = Vector2(22, 22)
@@ -49,6 +50,13 @@ scale = Vector2(9.84375, 5.625)
 range_item_cull_mask = 2
 texture = ExtResource("6_5tsl8")
 script = ExtResource("7_6a7vt")
+
+[node name="PointLight2D" type="PointLight2D" parent="SW"]
+position = Vector2(360, 315)
+energy = 2.0
+blend_mode = 1
+range_item_cull_mask = 2
+texture = ExtResource("8_x3est")
 
 [node name="SO" type="Node2D" parent="."]
 script = ExtResource("6_ro43g")

@@ -26,10 +26,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_call_input_undo()
 	
 	if event.is_action_pressed("move_turn_down"):
-		_call_input_turn(-90.0)
+		_call_input_turn(-1)
 		
 	if event.is_action_pressed("move_turn_up"):
-		_call_input_turn(90.0)
+		_call_input_turn(1)
 	
 	if event.is_action_pressed("move_right"):
 		_call_input_move(Vector2.RIGHT)

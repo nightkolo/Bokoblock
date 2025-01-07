@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://bhc6i68yuyepe"]
+[gd_scene load_steps=14 format=4 uid="uid://bhc6i68yuyepe"]
 
 [ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_e763k"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_ndlth"]
@@ -6,27 +6,32 @@
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_a6dm7"]
 [ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="4_jrwep"]
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="5_juify"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="5_m3le4"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_5iy4h"]
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_k7m3b"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_bs8w4"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_g4uye"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_endpoint.tscn" id="10_vh82p"]
+[ext_resource type="PackedScene" uid="uid://ddl1okpm8yv8" path="res://world/world/particles_bokoblock_stage_complete.tscn" id="12_w3uf1"]
 
 [node name="S1" type="Node2D"]
 script = ExtResource("1_e763k")
+win_condition = 1
+show_dev_ui = true
 
 [node name="Cam" parent="." instance=ExtResource("2_ndlth")]
 position = Vector2(520, 382)
 zoom = Vector2(1.25, 1.25)
 
 [node name="LW" parent="." instance=ExtResource("3_jha47")]
-background_color = Color(0.372549, 0.384314, 0.498039, 1)
+custom_background_color = Color(0.37, 0.37, 0.5, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="LW"]
 position = Vector2(517, 382)
 scale = Vector2(5.625, 7.03125)
 range_item_cull_mask = 2
 texture = ExtResource("4_jrwep")
+script = ExtResource("5_m3le4")
 
 [node name="TM" type="Node2D" parent="LW"]
 scale = Vector2(0.5, 0.5)
@@ -62,11 +67,14 @@ position = Vector2(427, 247)
 [node name="Endpoint2D3" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
 position = Vector2(472, 292)
 
+[node name="Endpoint2D5" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
+position = Vector2(382, 292)
+
 [node name="Endpoint2D4" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
 position = Vector2(427, 337)
 
 [node name="Bokobody" type="Node2D" parent="LO"]
-position = Vector2(562, 472)
+position = Vector2(562, 427)
 script = ExtResource("7_k7m3b")
 
 [node name="Block" parent="LO/Bokobody" instance=ExtResource("8_bs8w4")]
@@ -79,3 +87,5 @@ position = Vector2(0, -45)
 
 [node name="Block5" parent="LO/Bokobody" instance=ExtResource("8_bs8w4")]
 position = Vector2(0, 45)
+
+[node name="Particles" parent="LO/Bokobody" instance=ExtResource("12_w3uf1")]

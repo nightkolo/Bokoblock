@@ -28,7 +28,6 @@ texture = ExtResource("3_wmh2a")
 script = ExtResource("4_0fhx6")
 
 [node name="SW" parent="." instance=ExtResource("3_1vy0w")]
-background_color = Color(0.372549, 0.498039, 0.372549, 1)
 
 [node name="TM" type="Node2D" parent="SW"]
 scale = Vector2(0.5, 0.5)
@@ -51,21 +50,6 @@ tile_set = ExtResource("5_l5xau")
 [node name="LO" type="Node2D" parent="."]
 script = ExtResource("7_jinqd")
 
-[node name="Bokobody" type="Node2D" parent="LO"]
-position = Vector2(697, 247)
-script = ExtResource("8_koq42")
-
-[node name="Block" parent="LO/Bokobody" instance=ExtResource("9_ihgog")]
-boko_color = 3
-
-[node name="Block2" parent="LO/Bokobody" instance=ExtResource("9_ihgog")]
-position = Vector2(45, 0)
-boko_color = 3
-
-[node name="Block3" parent="LO/Bokobody" instance=ExtResource("9_ihgog")]
-position = Vector2(-45, 0)
-boko_color = 3
-
 [node name="Endpoints" type="Node2D" parent="LO"]
 script = ExtResource("10_3mwa6")
 
@@ -80,3 +64,18 @@ what_im_happy_with = 3
 [node name="Endpoint3" parent="LO/Endpoints" instance=ExtResource("11_r6my6")]
 position = Vector2(292, 427)
 what_im_happy_with = 3
+
+[node name="Bokobody" type="Node2D" parent="LO"]
+position = Vector2(697, 247)
+script = ExtResource("8_koq42")
+
+[node name="Block" parent="LO/Bokobody" instance=ExtResource("9_ihgog")]
+boko_color = 3
+
+[node name="Block2" parent="LO/Bokobody" instance=ExtResource("9_ihgog")]
+position = Vector2(45, 0)
+boko_color = 3
+
+[node name="Block3" parent="LO/Bokobody" instance=ExtResource("9_ihgog")]
+position = Vector2(-45, 0)
+boko_color = 3

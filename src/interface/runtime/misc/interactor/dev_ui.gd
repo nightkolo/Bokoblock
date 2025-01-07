@@ -18,8 +18,8 @@ extends CanvasLayer
 func _ready() -> void:
 	#main.modulate = Color(Color.WHITE, 0.5)
 	
-	for label: Label in labels_container.get_children():
-		label.self_modulate = Color(Color.WHITE, 0.35)
+	for l: Label in labels_container.get_children():
+		l.self_modulate = Color(Color.WHITE, 0.35)
 		
 	label.self_modulate = Color(Color.WHITE, 0.55)
 	label_2.self_modulate = Color(Color.WHITE, 0.55)

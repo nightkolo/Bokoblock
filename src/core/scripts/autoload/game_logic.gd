@@ -4,7 +4,7 @@ extends Node
 signal bokobodies_moved(transformed_to: Variant)
 ## Emitted when a bokobody stops
 signal bokobody_stopped(is_body: Bokobody)
-# Emited when all bodies stopped transformation
+## Emited when all bodies stopped transformation
 signal bokobodies_stopped()
 ## Emitted when game won.
 signal stage_won()
@@ -27,11 +27,6 @@ var win_checked: bool = true
 var are_bodies_moving: bool = false
 
 var _bodies_stopped: int = 0
-#var _is_game_logic_resetting: bool = false
-
-
-func set_win_condition(win_cond: WinCondition) -> void:
-	win_condition = win_cond
 
 
 func _ready() -> void:
@@ -45,34 +40,39 @@ func _ready() -> void:
 		)
 
 
+func set_win_condition(win_cond: WinCondition) -> void:
+	win_condition = win_cond
+
+
 func check_if_all_bodies_stopped(_is_body: Bokobody) -> void:
 	if GameMgr.current_bodies.is_empty():
 		return
 	
 	var num_of_bodies := GameMgr.current_bodies.size()
 	
-	if are_bodies_moving:
-		_bodies_stopped += 1
-		
-		if _bodies_stopped == num_of_bodies:
-			check_if_body_moving(num_of_bodies)
-			_bodies_stopped = 0
+	_bodies_stopped += 1
+	
+	if _bodies_stopped == num_of_bodies:
+		are_bodies_moving = false
+		bokobodies_stopped.emit()
+		_bodies_stopped = 0
 		
 
-func check_if_body_moving(num_of_bodies: int = GameMgr.current_bodies.size()) -> void:
-	if GameMgr.current_bodies.is_empty():
-		return
-	
-	var bodies_stopped: int = 0
-	
-	for body: Bokobody in GameMgr.current_bodies:
-		if !body.is_transforming():
-			bodies_stopped += 1
-	
-	are_bodies_moving = bodies_stopped != num_of_bodies
-	
-	if !are_bodies_moving:
-		bokobodies_stopped.emit()
+#func check_if_body_moving(num_of_bodies: int = GameMgr.current_bodies.size()) -> void:
+	#if GameMgr.current_bodies.is_empty():
+		#return
+	#
+	#var bodies_stopped: int = 0
+	#
+	#for body: Bokobody in GameMgr.current_bodies:
+		#if !body.is_transforming_real():
+			#bodies_stopped += 1
+	#
+	#print_debug(bodies_stopped)
+	##are_bodies_moving = bodies_stopped != num_of_bodies
+	#
+	#if !are_bodies_moving:
+		#bokobodies_stopped.emit()
 
 
 func check_win() -> void:

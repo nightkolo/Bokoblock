@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddl1okpm8yv8"]
+
+[ext_resource type="Texture2D" uid="uid://bic6b6u43h37h" path="res://assets/world/particle_rabbitstar_02.png" id="1_qm5nj"]
+
+[sub_resource type="Curve" id="Curve_barkj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494505), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ol1ck"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.182243, 0.359813, 0.551402)
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1)
+
+[node name="Particles" type="CPUParticles2D"]
+z_index = 3
+emitting = false
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_qm5nj")
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 500)
+initial_velocity_min = 150.0
+initial_velocity_max = 400.0
+angular_velocity_max = 500.0
+orbit_velocity_min = 0.1
+orbit_velocity_max = 0.1
+damping_min = 120.0
+damping_max = 120.0
+scale_amount_curve = SubResource("Curve_barkj")
+color_ramp = SubResource("Gradient_ol1ck")

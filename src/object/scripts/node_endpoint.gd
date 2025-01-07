@@ -1,31 +1,81 @@
-@icon("res://assets/objects/endpoint-star-v01.png")
 extends Area2D
 class_name Endpoint
 
 @export var what_im_happy_with: GameUtil.BokoColor
-@export var try_to_get_sprite: bool = true
+@export_group("Object to Assign")
+@export var sprite_star: Sprite2D
+@export var particles_idle: CPUParticles2D
+@export var particles_star: PackedScene = preload("res://world/world/particles_starpoint_happy.tscn")
 
-var _sprite: Sprite2D
+var is_happy: bool = false:
+	get:
+		return is_happy
+	set(value):
+		if value:
+			anim_happy()
+		is_happy = value
 
 
 func _ready() -> void:
 	GameMgr.current_endpoints.append(self)
+	_set_up()
+
+
+func _process(_delta: float) -> void:
+	if particles_idle:
+		particles_idle.global_rotation = 0.0
+
 	
-	self.modulate = Color(Color.WHITE, 1.0)
+func _set_up() -> void:
+	check_satisfaction()
+	anim_pulse()
+	anim_star()
 	
-	if try_to_get_sprite:
-		_sprite = get_node_or_null("Sprite2D")
-		
-		if _sprite:
-			_sprite.self_modulate = GameUtil.set_boko_color(what_im_happy_with)
+	if sprite_star:
+		sprite_star.self_modulate = GameUtil.set_boko_color(what_im_happy_with)
+	
+	if particles_idle:
+		particles_idle.self_modulate = GameUtil.set_boko_color(what_im_happy_with,2.0,0.5)
 
 
 func check_satisfaction() -> bool:
-	var is_happy: bool
+	var value: bool
 	var areas: Array[Area2D] = get_overlapping_areas()
 	var is_what_im_looking_for: bool = areas.size() == 1 && areas[0] is Bokoblock
 	
 	if is_what_im_looking_for:
-		is_happy = (areas[0] as Bokoblock).boko_color == what_im_happy_with
+		value = (areas[0] as Bokoblock).boko_color == what_im_happy_with
+	
+	is_happy = value
+	
+	return value
+
+
+func anim_star() -> void:
+	if sprite_star:
+		var dur := 2.0
 		
-	return is_happy
+		var _tween: Tween = create_tween().set_loops()
+		_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+		_tween.tween_property(sprite_star,"rotation",deg_to_rad(-10.0),dur/2.0)
+		_tween.tween_property(sprite_star,"rotation",deg_to_rad(10.0),dur/2.0)
+
+
+func anim_pulse() -> void:
+	if sprite_star:
+		var dur := 3.0
+		
+		var _tween: Tween = create_tween().set_loops()
+		_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+		_tween.tween_property(sprite_star,"self_modulate",GameUtil.set_boko_color(what_im_happy_with,1.25),dur/2.0)
+		_tween.tween_property(sprite_star,"self_modulate",GameUtil.set_boko_color(what_im_happy_with),dur/2.0)
+
+
+func anim_happy() -> void:
+	if particles_star:
+		var p := particles_star.instantiate() as CPUParticles2D
+		p.self_modulate = GameUtil.set_boko_color(what_im_happy_with,2.0,0.75)
+		add_child(p)
+		p.emitting = true
+		await p.finished
+		p.queue_free()

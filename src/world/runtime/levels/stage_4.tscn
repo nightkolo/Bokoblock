@@ -87,7 +87,6 @@ position = Vector2(-45, 0)
 [node name="Bokobody2" type="Node2D" parent="SO"]
 position = Vector2(562, 382)
 script = ExtResource("7_hbjuo")
-rotation_strength = -1
 
 [node name="Block" parent="SO/Bokobody2" instance=ExtResource("8_dcm4r")]
 boko_color = 1

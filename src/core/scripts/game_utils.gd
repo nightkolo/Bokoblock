@@ -1,5 +1,4 @@
 ## Game utility/helper script
-## @experimental
 extends Node
 class_name GameUtil
 
@@ -10,46 +9,44 @@ enum BackgroundEffect {SCROLL = 0, ROTATE = 1, ZOOM = 2, SKEW = 3} ## @experimen
 static var stage_complete_anim_waittime: float = 2.0
 
 const GAME_SCREEN_SIZE = Vector2(960,720)
+const BOKOBODY_TURN_DEGREE = 90.0
 const TILE_SIZE = 45.0 
 const NUMBER_OF_STAGES = 69
 const STAGE_FILE_BEGIN = "res://world/runtime/levels/stage_"
 const STAGE_FILE_END = ".tscn"
+	
 
 
-static func set_boko_color(is_bokocolor: BokoColor) -> Color:
+static func set_boko_color(is_bokocolor: BokoColor, set_strength: float = 1.0, set_alpha: float = 1.0) -> Color:
 	var col: Color
+	var s := set_strength
+	var a := set_alpha
 	
 	match is_bokocolor:
 		
 		BokoColor.AQUA:
-			col = Color(1.0,0.77,1.0) # I lied, cry about it.
+			col = Color(Color(1.0,0.77,1.0)*s,a) # I lied, cry about it.
 			
 		BokoColor.RED:
-			col = Color(Color(1.0,0.5,0.5))
+			col = Color(Color(1.0,0.5,0.5)*s,a)
 		
 		BokoColor.BLUE:
-			col = Color(Color(0.5,0.5,1.0))
+			col = Color(Color(0.5,0.5,1.0)*s,a)
 			
 		BokoColor.YELLOW:
-			col = Color(Color(1.0,1.0,0.5))
+			col = Color(Color(1.0,1.0,0.5)*s,a)
 			
 		BokoColor.GREEN:
-			col = Color(Color.GREEN)
+			col = Color(Color.GREEN*s,a)
 			
 		BokoColor.PINK:
-			col = Color(Color.PINK)
+			col = Color(Color.PINK*s,a)
 			
 		BokoColor.GREY:
-			col = Color(Color.GRAY)
+			col = Color(Color.GRAY*s,a)
 			
 	return col
 
 
 static func check_file_exists(file_path: String) -> bool:
 	return FileAccess.file_exists(file_path)
-
-
-static func rad_to_vector(rad: float) -> Vector2:
-	var x = cos(rad)
-	var y = sin(rad)
-	return Vector2(x, y)

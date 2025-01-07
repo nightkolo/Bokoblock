@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3y7ahtk7vqog"]
+
+[ext_resource type="Texture2D" uid="uid://ci5ud5an8nfu6" path="res://core/resources/visuals/gradient_bokoblock_glow.tres" id="1_622d8"]
+
+[node name="PointLight2D" type="PointLight2D"]
+scale = Vector2(2.8, 2.8)
+range_item_cull_mask = 2
+texture = ExtResource("1_622d8")
