@@ -117,19 +117,15 @@ func _setup_parent() -> void:
 
 
 func check_state() -> void:
-	# TODO: Removes this code over-generalization when not needed in final build.
 	var areas := get_overlapping_areas()
-	var bodies := get_overlapping_bodies()
+	#var bodies := get_overlapping_bodies()
 	
-	var is_on_tile := areas.size() == 1
-	var is_on_object := bodies.size() == 1
+	#var is_on_tile := areas.size() == 1
+	#var is_on_object := bodies.size() == 1
 	
-	var has_stood_on_endpoint := is_on_tile && areas[0] is Endpoint
-	var out_of_bounds := is_on_object && bodies[0] is TileMapLayer
+	var has_stood_on_endpoint := areas.size() == 1 && areas[0] is Endpoint
+
 	var is_on_happy_endpoint := false
-	
-	if out_of_bounds:
-		im_out_of_bounds()
 	
 	if has_stood_on_endpoint:
 		is_on_happy_endpoint = (areas[0] as Endpoint).what_im_happy_with == boko_color
@@ -141,10 +137,6 @@ func check_state() -> void:
 	elif !is_on_happy_endpoint && is_on_endpoint:
 		anim_left_endpoint()
 		is_on_endpoint = false
-
-
-func im_out_of_bounds() -> void: ## @experimental
-	pass
 
 
 func can_we_stop_moving_dad() -> bool:

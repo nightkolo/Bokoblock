@@ -15,8 +15,6 @@ signal child_blocks_exited_one_col_block()
 @export var movement_strength: int = 1
 @export var turning_strength: int = 1
 @export_group("Modify")
-## @experimental: Due to how the game is developed, [member no_turn_delay] can't be achieved without bugs.
-## Removes artificial turn delay to handle over-turning, and avoid glitches.
 @export var no_turn_delay: bool = false
 @export var no_move: bool = false
 @export var movement_time: float = 0.1
@@ -24,9 +22,7 @@ signal child_blocks_exited_one_col_block()
 @export var show_light: bool = true
 @export var light_scale: Vector2 = Vector2.ONE * 2.8
 @export_subgroup("...")
-## @deprecated: I should probably remove this extremely useless property, but I can't because... it's very a legacy property.
-## For the funny.
-@export var just_dont: bool = false
+@export var just_dont: bool = false ## @deprecated
 @export_group("Objects to Assign")
 @export var particles_win: PackedScene = preload("res://world/world/particles_bokoblock_stage_complete.tscn")
 @export var light_glow: PackedScene = preload("res://world/world/point_light_bokobody_glow.tscn")
@@ -74,7 +70,6 @@ func _ready() -> void:
 		PlayerInput.input_move.connect(move)
 		PlayerInput.input_turn.connect(turn)
 	else:
-		# Bruh.
 		PlayerInput.input_undo.connect(func():
 			await get_tree().create_timer(movement_time).timeout
 			GameLogic.bokobody_stopped.emit(self)
