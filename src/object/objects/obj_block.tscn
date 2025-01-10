@@ -15,7 +15,7 @@ _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_lipoc"]
-colors = PackedColorArray(1, 1, 1, 0.25, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 0.35, 1, 1, 1, 0)
 
 [node name="Block" type="Area2D"]
 collision_mask = 3

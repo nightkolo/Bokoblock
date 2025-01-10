@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://eyhhyen04o6i"]
+[gd_scene load_steps=4 format=3 uid="uid://eyhhyen04o6i"]
 
 [ext_resource type="Script" path="res://world/background/stage_background.gd" id="1_n48j3"]
 [ext_resource type="Texture2D" uid="uid://b5vh0nswyrv70" path="res://assets/backgrounds/bg-credits.png" id="2_gm0vq"]
+[ext_resource type="Texture2D" uid="uid://bjf01m4j30qhm" path="res://core/resources/visuals/stage_background_dimmer.tres" id="3_blukp"]
 
 [node name="BG" type="CanvasLayer"]
 layer = -10
@@ -11,6 +12,13 @@ script = ExtResource("1_n48j3")
 
 [node name="TextureRect" type="TextureRect" parent="Texture"]
 self_modulate = Color(0.5, 0.5, 0.5, 0.5)
+light_mask = 4
 offset_right = 1800.0
 offset_bottom = 1440.0
 texture = ExtResource("2_gm0vq")
+
+[node name="BGDim" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.25)
+position = Vector2(494.5, 359.5)
+scale = Vector2(4.04297, 765)
+texture = ExtResource("3_blukp")

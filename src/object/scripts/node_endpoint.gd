@@ -1,5 +1,6 @@
 extends Area2D
 class_name Endpoint
+# TODO: Change class_name to Starpoint... why am i like this
 
 @export var what_im_happy_with: GameUtil.BokoColor
 @export_group("Object to Assign")
@@ -11,7 +12,7 @@ var is_happy: bool = false:
 	get:
 		return is_happy
 	set(value):
-		if value:
+		if value && value != is_happy:
 			anim_happy()
 		is_happy = value
 

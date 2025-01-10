@@ -3,11 +3,6 @@
 extends Area2D
 class_name OneColorWalls
 
-# I don't wanna look at this damn code again...
-# one thing i'm confused by is
-# how the hell is this unreadable ass code bug-free and works perfectly.
-# what the heck was i writing
-
 # TODO: Haven't tested two Bokoblock interacting
 # TODO: Better collision layers management needed.
 
@@ -69,7 +64,7 @@ func bokoblocks_area_entered(areas: Array[Area2D]) -> void:
 		
 		if (areas[0] as Bokoblock).boko_color == im_looking_for && !can_pass_through:
 			can_pass_through = true
-			(areas[0] as Bokoblock).anim_entered_one_color_block()
+			(areas[0] as Bokoblock).anim_entered_one_color_wall()
 			
 		elif !can_pass_through:
 			anim_hit()
@@ -79,11 +74,7 @@ func bokoblocks_area_entered(areas: Array[Area2D]) -> void:
 
 func bokoblocks_area_exited(area: Area2D) -> void:
 	if can_pass_through && area is Bokoblock && get_overlapping_areas().is_empty():
-		(area as Bokoblock).anim_exited_one_color_block()
-
-
-func anim_hit() -> void:
-	pass
+		(area as Bokoblock).anim_exited_one_color_wall()
 
 
 func _are_all_areas_bokoblocks(array: Array[Area2D]) -> bool:

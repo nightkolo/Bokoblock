@@ -15,13 +15,14 @@ enum StageWorldBGColorPreset {
 }
 
 @export var randomize_background_effect: bool = false
-@export var background_effect: GameUtil.BackgroundEffect = GameUtil.BackgroundEffect.SCROLL ## @experimental
+@export var background_effect: GameUtil.BackgroundEffect = GameUtil.BackgroundEffect.SCROLL
 @export var background_color: StageWorldBGColorPreset
 @export var custom_background_color: Color = Color(Color.GRAY, 1.0)
 @export var checkerboard_color: Color = Color(Color.WHITE / 1.3, 1.0)
 @export_group("Modify")
 @export var apply_modifications: bool = true
-@export_range(0.0, 2.0, 0.05, "or_greater") var effect_lengths_multiplier: float = 1.0
+@export_range(0.0, 1.0, 0.05) var background_dim: float = 0.25
+@export_range(0.0, 2.0, 0.05, "or_greater", "or_less") var effect_lengths_multiplier: float = 1.0
 @export var show_collision_tilemap: bool = false
 
 

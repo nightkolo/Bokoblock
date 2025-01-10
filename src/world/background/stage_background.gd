@@ -4,17 +4,25 @@ class_name Background
 
 @export var apply_parent_values: bool = true
 @export var background_effect: GameUtil.BackgroundEffect
+@export_range(0.0, 1.0, 0.05) var background_dim: float = 0.25
 @export_range(0.0, 2.0, 0.05, "or_greater", "or_less") var effect_lengths_multiplier: float = 1.0 ## @experimental
 
 @onready var texture_bg: TextureRect = $Texture/TextureRect
 @onready var texture_node: Node2D = $Texture
+@onready var bg_dim: Sprite2D = $BGDim
 
-var parent_level_world: StageWorld
+var parent_stage_world: StageWorld
 
 var _tween_a: Tween
 var _tween_b: Tween
 var _background_effect: GameUtil.BackgroundEffect
 var _effect_lengths_multiplier: float
+var _background_dim: float:
+	get:
+		return _background_dim
+	set(value):
+		bg_dim.self_modulate = Color(Color.WHITE, value)
+		_background_dim = value
 var _process_bg_fx: bool = false:
 	get:
 		return _process_bg_fx
@@ -32,35 +40,36 @@ func _setup_node() -> void:
 	#print(GameUtil.BackgroundEffect.values())
 	
 	if (apply_parent_values && get_parent() is StageWorld):
-		parent_level_world = get_parent() as StageWorld
+		parent_stage_world = get_parent() as StageWorld
 	
 	elif !apply_parent_values:
 		_background_effect = background_effect
 		_effect_lengths_multiplier = effect_lengths_multiplier
+		_background_dim = background_dim
 		set_background_effect(_background_effect)
 		return
 	
-	if parent_level_world:
-		if !parent_level_world.apply_modifications:
+	if parent_stage_world:
+		if !parent_stage_world.apply_modifications:
 			return
 		
-		_effect_lengths_multiplier = parent_level_world.effect_lengths_multiplier
+		_effect_lengths_multiplier = parent_stage_world.effect_lengths_multiplier
+		_background_dim = parent_stage_world.background_dim
 		
-		match parent_level_world.background_color:
+		match parent_stage_world.background_color:
 			
 			StageWorld.StageWorldBGColorPreset.CUSTOM:
-				texture_bg.self_modulate = parent_level_world.custom_background_color
+				texture_bg.self_modulate = parent_stage_world.custom_background_color
 			
 			_:
 				@warning_ignore("static_called_on_instance")
-				texture_bg.self_modulate = parent_level_world.set_background_color(parent_level_world.background_color)
+				texture_bg.self_modulate = parent_stage_world.set_background_color(parent_stage_world.background_color)
 		
-		if parent_level_world.randomize_background_effect:
+		if parent_stage_world.randomize_background_effect:
 			_background_effect = GameUtil.BackgroundEffect.values()[randi() % GameUtil.BackgroundEffect.size()]
 		else:
-			_background_effect = parent_level_world.background_effect
+			_background_effect = parent_stage_world.background_effect
 		
-		#print_debug(_background_effect)
 		set_background_effect(_background_effect)
 		return
 	

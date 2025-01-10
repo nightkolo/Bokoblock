@@ -18,6 +18,7 @@ signal child_blocks_exited_one_col_block()
 ## @experimental: Due to how the game is developed, [member no_turn_delay] can't be achieved without bugs.
 ## Removes artificial turn delay to handle over-turning, and avoid glitches.
 @export var no_turn_delay: bool = false
+@export var no_move: bool = false
 @export var movement_time: float = 0.1
 @export var show_blocks: bool = true
 @export var show_light: bool = true
@@ -49,7 +50,7 @@ var is_turning: bool:
 
 const TILE_SIZE = 45.0 ## @deprecated
 
-var _normalized_rotation_degrees: float ## @experimental
+var _normalized_rotation_degrees: float
 var _current_turn: int
 var _tween_move: Tween
 var _tween_rot: Tween
@@ -62,15 +63,30 @@ var _old_rot: float
 func _ready() -> void:
 	_setup_node()
 	
-	GameMgr.current_bodies.append(self as Bokobody)
+	GameMgr.current_bodies.append(self)
 	
 	GameLogic.stage_won.connect(anim_complete)
 	child_block_entered_one_col_block.connect(anim_blocks_entered_one_col_wall)
 	child_blocks_exited_one_col_block.connect(anim_blocks_exited_one_col_wall)
 	
-	PlayerInput.input_undo.connect(undo)
-	PlayerInput.input_move.connect(move)
-	PlayerInput.input_turn.connect(turn)
+	if !no_move:
+		PlayerInput.input_undo.connect(undo)
+		PlayerInput.input_move.connect(move)
+		PlayerInput.input_turn.connect(turn)
+	else:
+		# Bruh.
+		PlayerInput.input_undo.connect(func():
+			await get_tree().create_timer(movement_time).timeout
+			GameLogic.bokobody_stopped.emit(self)
+			)
+		PlayerInput.input_move.connect(func(_move_to: Vector2):
+			await get_tree().create_timer(movement_time).timeout
+			GameLogic.bokobody_stopped.emit(self)
+			)
+		PlayerInput.input_turn.connect(func(_turn_to: float):
+			await get_tree().create_timer(movement_time).timeout
+			GameLogic.bokobody_stopped.emit(self)
+			)
 	
 	has_moved.connect(_on_transform)
 	has_turned.connect(_on_transform)
@@ -89,7 +105,7 @@ func _ready() -> void:
 		block.body_entered.connect(func(body: Node2D):
 			if (body is TileMapLayer || body is SleepingBlock):
 				stop_transforming()
-			)
+			) 
 
 
 func _process(_delta: float) -> void:
@@ -149,7 +165,9 @@ func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true
 	is_actually_turning = true
 	has_turned.emit(sign(p_turn_to))
 	
-	var turn_to := GameUtil.BOKOBODY_TURN_DEGREE * deg_to_rad(sign(p_turn_to)) * turning_strength
+	# TODO: Come to think of it, use rotation_degrees instead of rotation for turning
+
+	var turn_to := deg_to_rad(GameUtil.BOKOBODY_TURN_DEGREE * sign(p_turn_to) * turning_strength)
 	
 	_old_rot = rotation
 	_can_set_record = set_record
@@ -258,22 +276,7 @@ func stop_transforming() -> void:
 
 
 func normalize_bokobody_rotation() -> void:
-	var angle: float
-	
-	# Experimental code
-	#if no_turn_delay:
-		#for block: Bokoblock in child_blocks:
-			#block.force_update_transform()
-			#
-			#if block.get_overlapping_bodies().size() > 0:
-				#var last_turn: Variant = turns_made[0]
-				#
-				#angle = BokoMath.normalize_angle(GameUtil.BOKOBODY_TURN_DEGREE * last_turn * rotation_degrees * -1)
-				#rotation_degrees = BokoMath.round_to_nearest_90(angle)
-				#return
-	
-	angle = BokoMath.normalize_angle(rotation_degrees)
-	
+	var angle := BokoMath.normalize_angle(rotation_degrees)
 	rotation_degrees = BokoMath.round_to_nearest_90(angle)
 
 

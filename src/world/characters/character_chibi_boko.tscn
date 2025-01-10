@@ -1,70 +1,395 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkpq6f8l2i2t3"]
+[gd_scene load_steps=16 format=3 uid="uid://dkpq6f8l2i2t3"]
 
-[ext_resource type="Texture2D" uid="uid://csigabd6jjqit" path="res://assets/characters/chibi-boko/boko-chibi-block.png" id="1_fq20e"]
 [ext_resource type="Script" path="res://world/characters/character_chibi_boko.gd" id="1_wqlmh"]
-[ext_resource type="Texture2D" uid="uid://ioml21an21s6" path="res://assets/characters/chibi-boko/boko-chibi-eyes.png" id="2_gmrsf"]
-[ext_resource type="Texture2D" uid="uid://bpvlxt5ncn66f" path="res://assets/characters/chibi-boko/boko-chibi-top-hat.png" id="3_er1rd"]
-[ext_resource type="Texture2D" uid="uid://b46ycimuhecdt" path="res://assets/characters/chibi-boko/boko-chibi-star.png" id="4_7g1fj"]
-[ext_resource type="Texture2D" uid="uid://csrqbmnxd726y" path="res://assets/characters/chibi-boko/boko-chibi-eyes-blink.png" id="5_rdvuw"]
+[ext_resource type="Texture2D" uid="uid://cm1103elsnxjn" path="res://assets/characters/chibi-boko/boko-chibi-block-upscale.png" id="2_kf2bi"]
+[ext_resource type="Texture2D" uid="uid://bybhhbt8bks47" path="res://assets/characters/chibi-boko/boko-chibi-eyes-upscale.png" id="3_4wble"]
+[ext_resource type="Texture2D" uid="uid://bhhjechuek4jx" path="res://assets/characters/chibi-boko/boko-chibi-top-hat-upscale.png" id="5_cj45q"]
+[ext_resource type="Texture2D" uid="uid://c8nynhbor8ohn" path="res://assets/characters/chibi-boko/boko-chibi-star-upscale.png" id="6_jtyel"]
 [ext_resource type="Script" path="res://world/characters/character_chibi_boko_top_hat.gd" id="6_y4ahi"]
-[ext_resource type="Texture2D" uid="uid://drd85qkdwej3k" path="res://assets/characters/boko/boko-hands-thinking.png" id="9_35rk2"]
+[ext_resource type="Texture2D" uid="uid://u5w03rdthrph" path="res://assets/characters/chibi-boko/boko-chibi-star-ghost-upscale.png" id="7_8kdi8"]
+[ext_resource type="Texture2D" uid="uid://binu8obp7qvsi" path="res://assets/characters/chibi-boko/boko-eyes-blink-upscale.png" id="7_rq6tq"]
+
+[sub_resource type="Gradient" id="Gradient_ol7pp"]
+offsets = PackedFloat32Array(0.25, 0.75)
+colors = PackedColorArray(0, 0, 0, 0.4, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iiald"]
+gradient = SubResource("Gradient_ol7pp")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_a1rbr"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_ky8t7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_4wble")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body1/Body2/Head/Node2D/Eyes:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:flip_v")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body1/Body2/Head/Node2D/Eyes:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_0cl3v"]
+resource_name = "blinking"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_4wble"), ExtResource("7_rq6tq"), ExtResource("3_4wble")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body1/Body2/Head/Node2D/Eyes:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.433333, 0.5),
+"transitions": PackedFloat32Array(3, 3, 0.5, 3),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 24), Vector2(0, -12), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body1/Body2/Head/Node2D/Eyes:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.433333, 0.533333, 0.6, 0.733333),
+"transitions": PackedFloat32Array(1, 0.25, 3, 0.25, 3, 0.25, 2),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(1.5, 2.5), Vector2(2.4, 1.6), Vector2(1.7, 2.3), Vector2(2.1, 1.9), Vector2(1.976, 2.026), Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_f05vq"]
+resource_name = "happy"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_rq6tq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body1/Body2/Head/Node2D/Eyes:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_orsp2"]
+_data = {
+"RESET": SubResource("Animation_ky8t7"),
+"blinking": SubResource("Animation_0cl3v"),
+"happy": SubResource("Animation_f05vq")
+}
 
 [node name="CharacterChibiBoko" type="Node2D"]
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_wqlmh")
+speaking_speed = 0.095
 
-[node name="Node2D" type="Node2D" parent="."]
-visible = false
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(6.5, 6.5)
+texture = SubResource("GradientTexture2D_iiald")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
-texture = ExtResource("1_fq20e")
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 2
+speed_scale = 0.25
+emission_shape = 1
+emission_sphere_radius = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 360.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+damping_min = 400.0
+damping_max = 460.0
+angle_min = 45.0
+angle_max = 45.0
+scale_amount_min = 10.0
+scale_amount_max = 30.0
+color = Color(1, 0.5, 1, 1)
+color_ramp = SubResource("Gradient_a1rbr")
+hue_variation_max = 1.0
 
-[node name="Sprite2D2" type="Sprite2D" parent="Node2D/Sprite2D"]
-texture = ExtResource("2_gmrsf")
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+amount = 2
+speed_scale = 0.25
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(-1, 0)
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 360.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+damping_min = 400.0
+damping_max = 460.0
+angle_min = 45.0
+angle_max = 45.0
+scale_amount_min = 10.0
+scale_amount_max = 30.0
+color = Color(1, 0.5, 1, 1)
+color_ramp = SubResource("Gradient_a1rbr")
+hue_variation_max = 1.0
 
-[node name="Sprite2D5" type="Sprite2D" parent="Node2D/Sprite2D"]
-position = Vector2(0, -64)
-texture = ExtResource("3_er1rd")
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
+amount = 2
+speed_scale = 0.25
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, 1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 360.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+damping_min = 400.0
+damping_max = 460.0
+angle_min = 45.0
+angle_max = 45.0
+scale_amount_min = 10.0
+scale_amount_max = 30.0
+color = Color(1, 0.5, 1, 1)
+color_ramp = SubResource("Gradient_a1rbr")
+hue_variation_max = 1.0
 
-[node name="Sprite2D4" type="Sprite2D" parent="Node2D/Sprite2D"]
-position = Vector2(-36, -46)
-texture = ExtResource("4_7g1fj")
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="."]
+amount = 2
+speed_scale = 0.25
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 360.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+damping_min = 400.0
+damping_max = 460.0
+angle_min = 45.0
+angle_max = 45.0
+scale_amount_min = 10.0
+scale_amount_max = 30.0
+color = Color(1, 0.5, 1, 1)
+color_ramp = SubResource("Gradient_a1rbr")
+hue_variation_max = 1.0
 
-[node name="Head" type="Node2D" parent="."]
+[node name="CPUParticles2D5" type="CPUParticles2D" parent="."]
+amount = 2
+speed_scale = 0.25
+emission_shape = 1
+emission_sphere_radius = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 360.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+damping_min = 400.0
+damping_max = 460.0
+angle_min = 45.0
+angle_max = 45.0
+scale_amount_min = 10.0
+scale_amount_max = 30.0
+color = Color(1, 1, 0.5, 1)
+color_ramp = SubResource("Gradient_a1rbr")
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D6" type="CPUParticles2D" parent="."]
+amount = 2
+speed_scale = 0.25
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(-1, 0)
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 360.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+damping_min = 400.0
+damping_max = 460.0
+angle_min = 45.0
+angle_max = 45.0
+scale_amount_min = 10.0
+scale_amount_max = 30.0
+color = Color(1, 1, 0.5, 1)
+color_ramp = SubResource("Gradient_a1rbr")
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D7" type="CPUParticles2D" parent="."]
+amount = 2
+speed_scale = 0.25
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, 1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 360.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+damping_min = 400.0
+damping_max = 460.0
+angle_min = 45.0
+angle_max = 45.0
+scale_amount_min = 10.0
+scale_amount_max = 30.0
+color = Color(1, 1, 0.5, 1)
+color_ramp = SubResource("Gradient_a1rbr")
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D8" type="CPUParticles2D" parent="."]
+amount = 2
+speed_scale = 0.25
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 360.0
+angular_velocity_min = -15.0
+angular_velocity_max = 15.0
+damping_min = 400.0
+damping_max = 460.0
+angle_min = 45.0
+angle_max = 45.0
+scale_amount_min = 10.0
+scale_amount_max = 30.0
+color = Color(1, 1, 0.5, 1)
+color_ramp = SubResource("Gradient_a1rbr")
+hue_variation_max = 1.0
+
+[node name="Body1" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 48)
+
+[node name="Body2" type="Node2D" parent="Body1"]
 unique_name_in_owner = true
 
-[node name="SpriteHead" type="Sprite2D" parent="Head"]
+[node name="Head" type="Node2D" parent="Body1/Body2"]
 unique_name_in_owner = true
-texture = ExtResource("1_fq20e")
+position = Vector2(0, -48)
 
-[node name="Eyes" type="Node2D" parent="Head"]
+[node name="SpriteHead" type="Sprite2D" parent="Body1/Body2/Head"]
 unique_name_in_owner = true
+texture = ExtResource("2_kf2bi")
 
-[node name="SpriteEyes" type="Sprite2D" parent="Head/Eyes"]
-unique_name_in_owner = true
-texture = ExtResource("2_gmrsf")
+[node name="Node2D" type="Node2D" parent="Body1/Body2/Head"]
+scale = Vector2(0.5, 0.5)
 
-[node name="SpriteClosedEyes" type="Sprite2D" parent="Head/Eyes"]
+[node name="Eyes" type="Node2D" parent="Body1/Body2/Head/Node2D"]
 unique_name_in_owner = true
-visible = false
-texture = ExtResource("5_rdvuw")
+scale = Vector2(2, 2)
 
-[node name="TopHat" type="Node2D" parent="Head"]
+[node name="SpriteEyes" type="Sprite2D" parent="Body1/Body2/Head/Node2D/Eyes"]
 unique_name_in_owner = true
+texture = ExtResource("3_4wble")
+
+[node name="TopHat" type="Node2D" parent="Body1/Body2/Head" node_paths=PackedStringArray("parent")]
+unique_name_in_owner = true
+position = Vector2(0, -62.5)
 script = ExtResource("6_y4ahi")
+parent = NodePath("../../../..")
 
-[node name="SpriteTopHat" type="Sprite2D" parent="Head/TopHat"]
+[node name="SpriteTopHat" type="Sprite2D" parent="Body1/Body2/Head/TopHat"]
 unique_name_in_owner = true
 position = Vector2(0, -60)
-texture = ExtResource("3_er1rd")
+texture = ExtResource("5_cj45q")
 
-[node name="Star" type="Sprite2D" parent="Head/TopHat/SpriteTopHat"]
+[node name="StarDark" type="Sprite2D" parent="Body1/Body2/Head/TopHat/SpriteTopHat"]
 unique_name_in_owner = true
-position = Vector2(-36, 14)
-texture = ExtResource("4_7g1fj")
-
-[node name="ThinkingHand" type="Sprite2D" parent="Head"]
 visible = false
-position = Vector2(-108, 2.00001)
-scale = Vector2(1.25, 1.25)
-texture = ExtResource("9_35rk2")
+self_modulate = Color(0, 0, 0, 0.5)
+position = Vector2(-68, 5)
+texture = ExtResource("6_jtyel")
+
+[node name="Star" type="Sprite2D" parent="Body1/Body2/Head/TopHat/SpriteTopHat"]
+unique_name_in_owner = true
+position = Vector2(-68, 5)
+texture = ExtResource("6_jtyel")
+
+[node name="StarGhost" type="Sprite2D" parent="Body1/Body2/Head/TopHat/SpriteTopHat"]
+unique_name_in_owner = true
+position = Vector2(-68, 5)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("7_8kdi8")
+
+[node name="AnimEyes" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_orsp2")
+}
