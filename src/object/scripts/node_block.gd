@@ -2,9 +2,6 @@
 extends Area2D
 class_name Bokoblock
 
-## @deprecated: Use [enum GameLogic.BokoColor].
-enum BokoColor {AQUA = 0, RED = 1, BLUE = 2, YELLOW = 3, GREEN = 4, PINK = 5}
-
 @export var boko_color: GameUtil.BokoColor
 @export_group("Modify")
 @export var auto_check_origin: bool = true
@@ -28,7 +25,7 @@ enum BokoColor {AQUA = 0, RED = 1, BLUE = 2, YELLOW = 3, GREEN = 4, PINK = 5}
 @onready var sprite_ghost: Sprite2D = $Ghost
 
 var parent_bokobody: Bokobody
-var is_on_endpoint: bool = false
+var is_on_starpoint: bool
 var limit_eye_movement: bool = true
 var texture_eyes: Texture2D
 
@@ -38,14 +35,14 @@ var _tween_move: Tween
 var _tween_turn: Tween
 var _tween_hit_block: Tween
 var _tween_ghosts: Tween
-var _tween_endpoint: Tween
+var _tween_starpoint: Tween
 
 
 func _ready() -> void:
 	_setup_node()
 	check_state()
 	
-	GameMgr.current_blocks.append(self as Bokoblock)
+	GameMgr.current_blocks.append(self)
 	
 	GameLogic.stage_won.connect(anim_complete)
 	GameLogic.bokobodies_stopped.connect(check_state)
@@ -54,24 +51,20 @@ func _ready() -> void:
 		parent_bokobody = get_parent() as Bokobody
 		
 	else:
-		push_warning("Recommended that " + str(self) + " must be a child of Bokobody.")
+		push_warning("Recommended that %s must be a child of Bokobody." % str(self))
 	
 	if parent_bokobody:
 		_setup_parent()
 		
-		parent_bokobody.child_blocks.append(self as Bokoblock)
+		parent_bokobody.child_blocks.append(self)
 		
-		parent_bokobody.move_stopped.connect(stop_anim_move)
 		parent_bokobody.has_moved.connect(func(moved_to: Vector2):
 			particles_dust.direction = moved_to * -1
 			
-			anim_eyes(moved_to)
 			anim_move(moved_to)
 			)
-		parent_bokobody.has_turned.connect(func(turned_to: float):
-			anim_pulse()
-			anim_turn(turned_to)
-			)
+		parent_bokobody.has_turned.connect(anim_turn)
+		parent_bokobody.move_stopped.connect(stop_anim_move)
 		
 		body_entered.connect(func(body: Node2D):
 			if (body is TileMapLayer || body is SleepingBlock):
@@ -123,20 +116,20 @@ func check_state() -> void:
 	#var is_on_tile := areas.size() == 1
 	#var is_on_object := bodies.size() == 1
 	
-	var has_stood_on_endpoint := areas.size() == 1 && areas[0] is Endpoint
+	var has_stood_on_starpoint := areas.size() == 1 && areas[0] is Starpoint
 
-	var is_on_happy_endpoint := false
+	var is_on_happy_starpoint := false
 	
-	if has_stood_on_endpoint:
-		is_on_happy_endpoint = (areas[0] as Endpoint).what_im_happy_with == boko_color
+	if has_stood_on_starpoint:
+		is_on_happy_starpoint = (areas[0] as Starpoint).what_im_happy_with == boko_color
 	
-	if is_on_happy_endpoint && !is_on_endpoint:
-		anim_standing_endpoint()
-		is_on_endpoint = true
+	if is_on_happy_starpoint && !is_on_starpoint:
+		anim_entered_starpoint()
+		is_on_starpoint = true
 		
-	elif !is_on_happy_endpoint && is_on_endpoint:
-		anim_left_endpoint()
-		is_on_endpoint = false
+	elif !is_on_happy_starpoint && is_on_starpoint:
+		anim_exited_starpoint()
+		is_on_starpoint = false
 
 
 func can_we_stop_moving_dad() -> bool:
@@ -151,19 +144,7 @@ func can_we_stop_moving_dad() -> bool:
 	return yes
 
 
-func anim_pulse() -> void:
-	var dur := 0.6
-	
-	sprite_node_2.modulate = Color(Color.WHITE*2.4)
-	
-	_reset_tween(_tween_pulse)
-		
-	_tween_pulse = create_tween()
-	_tween_pulse.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
-	_tween_pulse.tween_property(sprite_node_2,"modulate",Color(Color.WHITE),dur)
-
-
-func anim_turn(turned_by: float) -> void:
+func anim_turn(turned_by: float, pulse: bool = true) -> void:
 	var dur := 10.0
 	var wobble_to: float = deg_to_rad(20.0) * sign(turned_by)
 	
@@ -172,13 +153,16 @@ func anim_turn(turned_by: float) -> void:
 	
 	sprite_block.skew = wobble_to
 	
-	_reset_tween(_tween_turn)
+	if pulse:
+		anim_pulse()
+	
+	GameUtil.reset_tween(_tween_turn)
 	_tween_turn = create_tween()
 	_tween_turn.set_ease(Tween.EASE_OUT)
 	_tween_turn.tween_property(sprite_block,"skew",0.0,dur).set_trans(Tween.TRANS_ELASTIC)
 	
 	
-func anim_move(moved_to: Vector2) -> void:
+func anim_move(moved_to: Vector2, p_anim_eyes: bool = true) -> void:
 	var anim_to: Vector2
 	var dur := 0.5
 	var high := 1.35
@@ -206,7 +190,10 @@ func anim_move(moved_to: Vector2) -> void:
 		_:
 			anim_to = Vector2.ONE
 	
-	_reset_tween(_tween_move)
+	if p_anim_eyes:
+		anim_eyes(moved_to)
+	
+	GameUtil.reset_tween(_tween_move)
 	_tween_move = create_tween()
 	_tween_move.set_ease(Tween.EASE_OUT)
 	_tween_move.tween_property(sprite_node_2,"scale",anim_to,dur/6.0)
@@ -221,7 +208,7 @@ func anim_eyes(moved_to: Vector2) -> void:
 
 	sprite_eyes.global_position += (moved_to as Vector2) * move_eyes_to
 	
-	_reset_tween(_tween_eyes)
+	GameUtil.reset_tween(_tween_eyes)
 	_tween_eyes = create_tween()
 	_tween_eyes.tween_property(sprite_eyes,"position",Vector2.ZERO,parent_bokobody.movement_time*4.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 
@@ -230,7 +217,7 @@ func anim_hit_block(transformed_to: Variant = Vector2.ZERO) -> void:
 	var dur := 0.9
 	var anim_to: Vector2
 	
-	_reset_tween(_tween_turn)
+	GameUtil.reset_tween(_tween_turn)
 	
 	sprite_block.skew = deg_to_rad(0.0)
 	sprite_eyes.texture = asset_eye_close
@@ -241,8 +228,8 @@ func anim_hit_block(transformed_to: Variant = Vector2.ZERO) -> void:
 		Variant.Type.TYPE_FLOAT: # Turn
 			anim_to = Vector2.ONE/3.0
 			
-			_reset_tween(_tween_move)
-			_reset_tween(_tween_hit_block)
+			GameUtil.reset_tween(_tween_move)
+			GameUtil.reset_tween(_tween_hit_block)
 			
 			_tween_hit_block = create_tween()
 			_tween_hit_block.set_ease(Tween.EASE_OUT)
@@ -275,8 +262,8 @@ func anim_hit_block(transformed_to: Variant = Vector2.ZERO) -> void:
 				_:
 					anim_to = Vector2.ONE 
 				
-			_reset_tween(_tween_move)
-			_reset_tween(_tween_hit_block)
+			GameUtil.reset_tween(_tween_move)
+			GameUtil.reset_tween(_tween_hit_block)
 			_tween_hit_block = create_tween()
 			_tween_hit_block.set_ease(Tween.EASE_OUT)
 			_tween_hit_block.tween_property(sprite_node_2,"scale",anim_to,dur/10.0)
@@ -286,7 +273,7 @@ func anim_hit_block(transformed_to: Variant = Vector2.ZERO) -> void:
 			pass
 
 	await get_tree().create_timer(dur/2.6).timeout
-	if is_on_endpoint:
+	if is_on_starpoint:
 		sprite_eyes.texture = asset_eye_happy
 	else:
 		sprite_eyes.texture = texture_eyes
@@ -294,12 +281,12 @@ func anim_hit_block(transformed_to: Variant = Vector2.ZERO) -> void:
 
 func anim_entered_one_color_wall() -> void:
 	if parent_bokobody:
-		parent_bokobody.child_block_entered_one_col_block.emit(self)
+		parent_bokobody.child_block_entered_one_col_wall.emit(self)
 		
 		
 func anim_exited_one_color_wall() -> void:
 	if parent_bokobody:
-		parent_bokobody.child_blocks_exited_one_col_block.emit()
+		parent_bokobody.child_block_exited_one_col_wall.emit()
 
 
 func anim_complete() -> void:
@@ -320,6 +307,18 @@ func anim_complete() -> void:
 	tween.tween_property(sprite_node_2,"scale",Vector2.ZERO,sec_anim_dur).set_delay(first_anim_dur).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(sprite_node_2,"rotation_degrees",rot_to,sec_anim_dur).set_delay(first_anim_dur).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_callback(anim_star).set_delay(first_anim_dur*2.0)
+
+
+func anim_pulse() -> void:
+	var dur := 0.6
+	
+	sprite_node_2.modulate = Color(Color.WHITE*2.4)
+	
+	GameUtil.reset_tween(_tween_pulse)
+
+	_tween_pulse = create_tween()
+	_tween_pulse.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	_tween_pulse.tween_property(sprite_node_2,"modulate",Color(Color.WHITE),dur)
 
 
 func anim_ghost() -> void:
@@ -359,44 +358,39 @@ func anim_star() -> void:
 	_tween_ghosts.tween_property(sprite_star,"self_modulate",Color(Color.WHITE,0.0),dur*1.25).set_delay(dur)
 
 
-func anim_standing_endpoint() -> void:
+func anim_entered_starpoint() -> void:
 	var dur := 0.4
 	
 	sprite_eyes.texture = asset_eye_happy
-	if _tween_endpoint:
-		_tween_endpoint.kill()
+	if _tween_starpoint:
+		_tween_starpoint.kill()
 	
 	sprite_node_1.scale = Vector2.ZERO
 	
-	_tween_endpoint = create_tween().set_parallel(true)
-	_tween_endpoint.set_ease(Tween.EASE_OUT)
-	_tween_endpoint.tween_property(sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
-	_tween_endpoint.tween_property(sprite_node_1,"modulate",Color(Color(1.25,1.25,1.25)),dur/2.0)
+	_tween_starpoint = create_tween().set_parallel(true)
+	_tween_starpoint.set_ease(Tween.EASE_OUT)
+	_tween_starpoint.tween_property(sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
+	_tween_starpoint.tween_property(sprite_node_1,"modulate",Color(Color(1.25,1.25,1.25)),dur/2.0)
 		
 
-func anim_left_endpoint() -> void:
+func anim_exited_starpoint() -> void:
 	var dur := 1.0
 	
 	sprite_eyes.texture = texture_eyes
 	sprite_node_1.scale = Vector2.ONE / 4.0
 	
-	if _tween_endpoint:
-		_tween_endpoint.kill()
-	_tween_endpoint = create_tween().set_parallel(true)
-	_tween_endpoint.set_ease(Tween.EASE_OUT)
-	_tween_endpoint.tween_property(sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_ELASTIC)
-	_tween_endpoint.tween_property(sprite_node_1,"modulate",Color(Color.WHITE),dur/4.0)
+	if _tween_starpoint:
+		_tween_starpoint.kill()
+	_tween_starpoint = create_tween().set_parallel(true)
+	_tween_starpoint.set_ease(Tween.EASE_OUT)
+	_tween_starpoint.tween_property(sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_ELASTIC)
+	_tween_starpoint.tween_property(sprite_node_1,"modulate",Color(Color.WHITE),dur/4.0)
 
 
 func stop_anim_move() -> void:
-	_reset_tween(_tween_move)
+	GameUtil.reset_tween(_tween_move)
 	
 	sprite_node_2.scale = Vector2.ONE
-
-
-func _reset_tween(t: Tween) -> void:
-	if t != null:
-		t.kill()
 
 
 func _set_as_origin_block(is_origin: bool) -> void:

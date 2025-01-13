@@ -2,7 +2,7 @@
 extends Node2D
 class_name CharacterBoko
 
-signal pose_changed(is_pose: GameLogic.BokoPose)
+signal pose_changed(is_pose: GameUtil.BokoCharacterPose)
 
 @onready var node_body_1: Node2D = %Body1
 @onready var node_body_2: Node2D = %Body2
@@ -59,28 +59,28 @@ func _ready() -> void:
 	pose_changed.connect(anim_pose_changed)
 
 
-func anim_change_pose(to_pose: GameLogic.BokoPose) -> void:
+func anim_change_pose(to_pose: GameUtil.BokoCharacterPose) -> void:
 	pose_changed.emit(to_pose)
 	
 	match to_pose:
 		
-		GameLogic.BokoPose.NORMAL:
+		GameUtil.BokoCharacterPose.NORMAL:
 			pose_normal()
 			
-		GameLogic.BokoPose.THINKING:
+		GameUtil.BokoCharacterPose.THINKING:
 			pose_thinking()
 			
-		GameLogic.BokoPose.NO_WORRY:
+		GameUtil.BokoCharacterPose.NO_WORRY:
 			pose_no_worry()
 			
-		GameLogic.BokoPose.WINK:
+		GameUtil.BokoCharacterPose.WINK:
 			pose_wink()
 			
-		GameLogic.BokoPose.HAPPY:
+		GameUtil.BokoCharacterPose.HAPPY:
 			pose_excited()
 
 
-func anim_pose_changed(_is_pose: GameLogic.BokoPose) -> void:
+func anim_pose_changed(_is_pose: GameUtil.BokoCharacterPose) -> void:
 	anim_bounce()
 
 

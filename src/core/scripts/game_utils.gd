@@ -49,3 +49,8 @@ static func set_boko_color(is_bokocolor: BokoColor, set_strength: float = 1.0, s
 
 static func check_file_exists(file_path: String) -> bool:
 	return FileAccess.file_exists(file_path)
+
+
+static func reset_tween(t: Tween) -> void:
+	if t:
+		t.kill()

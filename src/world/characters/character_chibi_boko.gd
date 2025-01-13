@@ -1,10 +1,13 @@
 ## Under construction
 extends Node2D
-class_name ChibiBoko
+class_name CharacterChibiBoko
 
 @export var bounce_dur: float = 0.5
 @export var speaking_speed: float = 1.0 ## Somehow adjusts the speed, but my math is admittedly not staight forward... wip
 @export var texture_eyes_open: Texture2D = preload("res://assets/characters/chibi-boko/boko-chibi-eyes.png")
+@export var texture_4_star: Texture2D = preload("res://assets/characters/chibi-boko/boko-chibi-star-upscale.png")
+@export var texture_5_star: Texture2D = preload("res://assets/characters/chibi-boko/boko-top-hat-real-star.png")
+
 
 @onready var anim: AnimationPlayer = $AnimEyes
 @onready var node_body_1: Node2D = $Body1
@@ -28,16 +31,21 @@ var tween_speak: Tween
 var tween_wobble: Tween
 var _tween_star_rot: Tween
 var _tween_star_bounce: Tween
-var _tween_star_spinning: Tween
 var _tween_star_ghost: Tween
 var _tween_wobble_top_hat: Tween
 var _process_star_spinning: bool
 
 
+
+func _ready() -> void:
+	#start_speaking()
+	pass
+
+
 func _process(delta: float) -> void:
 	if _process_star_spinning:
-		sprite_star.rotation += delta * PI
-		star_dark.rotation += -1 * delta * PI
+		sprite_star.rotation += delta * (PI/2.0)
+		star_dark.rotation += -1 * delta * (PI/2.0)
 
 
 func eyes_happy() -> void:
@@ -45,13 +53,15 @@ func eyes_happy() -> void:
 
 
 func start_breathing() -> void:
+	var dur := 1.0
+	var factor := 1.04
 	reset_tween(_tween_breathe)
 	
 	_tween_breathe = create_tween().set_loops()
 	
 	_tween_breathe.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
-	_tween_breathe.tween_property(node_body_1,"scale",Vector2(1.05,0.9),1.0)
-	_tween_breathe.tween_property(node_body_1,"scale",Vector2.ONE,1.0)
+	_tween_breathe.tween_property(node_body_1,"scale",Vector2(1.01*factor,0.87/factor),dur)
+	_tween_breathe.tween_property(node_body_1,"scale",Vector2.ONE,dur)
 
 
 ## Don't worry, chibi boko has no lungs, the breathing is just an illusion.
@@ -61,7 +71,7 @@ func stop_breathing() -> void:
 
 
 func start_speaking() -> void:
-	var bounce_to := 1.2
+	var bounce_to := 1.25
 	
 	stop_blinking()
 	stop_breathing()
@@ -79,8 +89,8 @@ func start_speaking() -> void:
 	
 	
 func wobble_while_speaking() -> void:
-	var wobble_min := 4.0 
-	var wobble_rand_max := 4.0
+	var wobble_min := 5.0 
+	var wobble_rand_max := 5.0
 	_seed = sign(randf()-0.5)
 	var rot_to: float = (wobble_min + (randf() * wobble_rand_max)) * _seed
 	
@@ -90,20 +100,22 @@ func wobble_while_speaking() -> void:
 	tween_wobble = create_tween()
 	tween_wobble.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	tween_wobble.tween_property(node_head,"rotation_degrees",0.0,speaking_speed*20.0)
-
-
-## If you wanna scream at chibi boko instead...
-func shut_up() -> void:
-	stop_speaking()
 	
 
+func pause_speaking() -> void:
+	if tween_speak:
+		reset_tween(tween_speak)
+		
+		tween_speak = create_tween()
+		tween_speak.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+		tween_speak.tween_property(node_head,"scale",Vector2.ONE,speaking_speed/2.0)
+
+
 func stop_speaking() -> void:
-	# TODO: Chibi boko does not blink after stop_speaking
 	if tween_speak:
 		anim_star_bounce(0.6)
-		anim_star_spin(45.0)
-		anim_wobble_top_hat(-_seed * 10.0, 2.2)
-		start_breathing()
+		#anim_star_spin(45.0)
+		anim_wobble_top_hat(-_seed * 15.0, 3.4)
 		
 		reset_tween(tween_speak)
 		
@@ -121,8 +133,6 @@ func stop_blinking() -> void:
 	
 
 func start_star_spinning() -> void:
-	reset_tween(_tween_star_spinning)
-	
 	star_dark.visible = true
 	_process_star_spinning = true
 
@@ -155,9 +165,10 @@ func be_happy() -> void:
 	node_top_hat.scale = Vector2.ONE
 	
 	anim_bounce()
+	stop_blinking()
 	eyes_happy()
 	anim_star_ghost()
-	anim_star_bounce(0.25, 1.4)
+	anim_star_bounce(0.25, 1.8)
 	start_star_spinning()
 	stop_breathing()
 	
@@ -166,6 +177,31 @@ func be_happy() -> void:
 	
 	tween_happy = create_tween()
 	tween_happy.tween_property(sprite_head,"self_modulate",Color(Color.WHITE),dur)
+
+
+func anim_excited() -> void:
+	var dur := 0.75
+	var stretch_to := Vector2(0.875,1.25)
+	var stretch_from := Vector2(1.25,0.75)
+	
+	sprite_star.scale = Vector2.ZERO
+	sprite_star.texture = texture_5_star
+	start_star_spinning()
+	anim_star_ghost()
+	
+	node_body_2.scale = stretch_from
+	reset_tween(tween_bounce)
+	
+	tween_bounce = create_tween().set_parallel(true)
+	tween_bounce.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween_bounce.tween_property(node_body_2,"scale",stretch_to,dur)
+	tween_bounce.tween_property(sprite_star,"scale",Vector2.ONE,dur*2.0)
+	tween_bounce.tween_property(node_body_2,"scale",Vector2.ONE,dur/1.5).set_delay(dur/1.25)
+
+
+func anim_unexcited() -> void:
+	stop_star_spinning()
+	sprite_star.texture = texture_4_star
 
 
 func anim_star_ghost() -> void:

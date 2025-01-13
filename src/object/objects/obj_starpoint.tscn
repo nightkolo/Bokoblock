@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dc3cprf4ks4be"]
 
-[ext_resource type="Script" path="res://object/scripts/node_endpoint.gd" id="1_mwqlu"]
+[ext_resource type="Script" path="res://object/scripts/node_starpoint.gd" id="1_mwqlu"]
 [ext_resource type="Texture2D" uid="uid://cuibm0pkclu2y" path="res://assets/objects/starpoint-v06.png" id="2_6hu3d"]
 [ext_resource type="Texture2D" uid="uid://ymrgpw8mlvmd" path="res://core/resources/visuals/gradient_starpoint_shadow.tres" id="3_hcarx"]
 
@@ -10,7 +10,7 @@ size = Vector2(40, 40)
 [sub_resource type="Gradient" id="Gradient_riy83"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Endpoint" type="Area2D" node_paths=PackedStringArray("sprite_star", "particles_idle")]
+[node name="Starpoint" type="Area2D" node_paths=PackedStringArray("sprite_star", "particles_idle")]
 script = ExtResource("1_mwqlu")
 sprite_star = NodePath("Sprite2D")
 particles_idle = NodePath("CPUParticles2D")

@@ -13,7 +13,7 @@
 
 [sub_resource type="Gradient" id="Gradient_ol7pp"]
 offsets = PackedFloat32Array(0.25, 0.75)
-colors = PackedColorArray(0, 0, 0, 0.35, 0, 0, 0, 0)
+colors = PackedColorArray(0, 0, 0, 0.5, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_iiald"]
 gradient = SubResource("Gradient_ol7pp")
@@ -76,7 +76,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_0cl3v"]
 resource_name = "blinking"
-length = 1.5
+length = 2.5
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -154,6 +154,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(2, 2)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body1/Body2/Head/Node2D/Eyes:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_orsp2"]
 _data = {
@@ -163,189 +175,119 @@ _data = {
 }
 
 [node name="CharacterChibiBoko" type="Node2D"]
+scale = Vector2(0.3, 0.3)
 script = ExtResource("1_wqlmh")
 speaking_speed = 0.095
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(8.5, 8.5)
+scale = Vector2(9.5, 9.5)
 texture = SubResource("GradientTexture2D_iiald")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-amount = 2
+amount = 4
 speed_scale = 0.25
+randomness = 1.0
 emission_shape = 1
-emission_sphere_radius = 10.0
+emission_sphere_radius = 40.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 360.0
+initial_velocity_min = 600.0
+initial_velocity_max = 720.0
 angular_velocity_min = -15.0
 angular_velocity_max = 15.0
-damping_min = 400.0
-damping_max = 460.0
+orbit_velocity_min = 0.1
+orbit_velocity_max = 0.1
+damping_min = 300.0
+damping_max = 400.0
 angle_min = 45.0
 angle_max = 45.0
-scale_amount_min = 10.0
-scale_amount_max = 30.0
+scale_amount_min = 6.0
+scale_amount_max = 21.0
 color = Color(1, 0.5, 1, 1)
 color_ramp = SubResource("Gradient_a1rbr")
 hue_variation_max = 1.0
 
 [node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
-amount = 2
+amount = 4
 speed_scale = 0.25
+randomness = 1.0
 emission_shape = 1
-emission_sphere_radius = 10.0
+emission_sphere_radius = 40.0
 direction = Vector2(-1, 0)
 gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 360.0
+initial_velocity_min = 600.0
+initial_velocity_max = 720.0
 angular_velocity_min = -15.0
 angular_velocity_max = 15.0
-damping_min = 400.0
-damping_max = 460.0
+orbit_velocity_min = 0.1
+orbit_velocity_max = 0.1
+damping_min = 300.0
+damping_max = 400.0
 angle_min = 45.0
 angle_max = 45.0
-scale_amount_min = 10.0
-scale_amount_max = 30.0
+scale_amount_min = 6.0
+scale_amount_max = 21.0
 color = Color(1, 0.5, 1, 1)
-color_ramp = SubResource("Gradient_a1rbr")
-hue_variation_max = 1.0
-
-[node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
-amount = 2
-speed_scale = 0.25
-emission_shape = 1
-emission_sphere_radius = 10.0
-direction = Vector2(0, 1)
-gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 360.0
-angular_velocity_min = -15.0
-angular_velocity_max = 15.0
-damping_min = 400.0
-damping_max = 460.0
-angle_min = 45.0
-angle_max = 45.0
-scale_amount_min = 10.0
-scale_amount_max = 30.0
-color = Color(1, 0.5, 1, 1)
-color_ramp = SubResource("Gradient_a1rbr")
-hue_variation_max = 1.0
-
-[node name="CPUParticles2D4" type="CPUParticles2D" parent="."]
-amount = 2
-speed_scale = 0.25
-emission_shape = 1
-emission_sphere_radius = 10.0
-direction = Vector2(0, -1)
-gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 360.0
-angular_velocity_min = -15.0
-angular_velocity_max = 15.0
-damping_min = 400.0
-damping_max = 460.0
-angle_min = 45.0
-angle_max = 45.0
-scale_amount_min = 10.0
-scale_amount_max = 30.0
-color = Color(1, 0.5, 1, 1)
-color_ramp = SubResource("Gradient_a1rbr")
-hue_variation_max = 1.0
-
-[node name="CPUParticles2D5" type="CPUParticles2D" parent="."]
-amount = 2
-speed_scale = 0.25
-emission_shape = 1
-emission_sphere_radius = 10.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 360.0
-angular_velocity_min = -15.0
-angular_velocity_max = 15.0
-damping_min = 400.0
-damping_max = 460.0
-angle_min = 45.0
-angle_max = 45.0
-scale_amount_min = 10.0
-scale_amount_max = 30.0
-color = Color(1, 1, 0.5, 1)
-color_ramp = SubResource("Gradient_a1rbr")
-hue_variation_max = 1.0
-
-[node name="CPUParticles2D6" type="CPUParticles2D" parent="."]
-amount = 2
-speed_scale = 0.25
-emission_shape = 1
-emission_sphere_radius = 10.0
-direction = Vector2(-1, 0)
-gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 360.0
-angular_velocity_min = -15.0
-angular_velocity_max = 15.0
-damping_min = 400.0
-damping_max = 460.0
-angle_min = 45.0
-angle_max = 45.0
-scale_amount_min = 10.0
-scale_amount_max = 30.0
-color = Color(1, 1, 0.5, 1)
 color_ramp = SubResource("Gradient_a1rbr")
 hue_variation_max = 1.0
 
 [node name="CPUParticles2D7" type="CPUParticles2D" parent="."]
-amount = 2
+amount = 4
 speed_scale = 0.25
+randomness = 1.0
 emission_shape = 1
-emission_sphere_radius = 10.0
+emission_sphere_radius = 40.0
 direction = Vector2(0, 1)
 gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 360.0
+initial_velocity_min = 600.0
+initial_velocity_max = 720.0
 angular_velocity_min = -15.0
 angular_velocity_max = 15.0
-damping_min = 400.0
-damping_max = 460.0
+orbit_velocity_min = 0.1
+orbit_velocity_max = 0.1
+damping_min = 300.0
+damping_max = 400.0
 angle_min = 45.0
 angle_max = 45.0
-scale_amount_min = 10.0
-scale_amount_max = 30.0
+scale_amount_min = 6.0
+scale_amount_max = 21.0
 color = Color(1, 1, 0.5, 1)
 color_ramp = SubResource("Gradient_a1rbr")
 hue_variation_max = 1.0
 
 [node name="CPUParticles2D8" type="CPUParticles2D" parent="."]
-amount = 2
+amount = 4
 speed_scale = 0.25
+randomness = 1.0
 emission_shape = 1
-emission_sphere_radius = 10.0
+emission_sphere_radius = 40.0
 direction = Vector2(0, -1)
 gravity = Vector2(0, 0)
-initial_velocity_min = 300.0
-initial_velocity_max = 360.0
+initial_velocity_min = 600.0
+initial_velocity_max = 720.0
 angular_velocity_min = -15.0
 angular_velocity_max = 15.0
-damping_min = 400.0
-damping_max = 460.0
+orbit_velocity_min = 0.1
+orbit_velocity_max = 0.1
+damping_min = 300.0
+damping_max = 400.0
 angle_min = 45.0
 angle_max = 45.0
-scale_amount_min = 10.0
-scale_amount_max = 30.0
+scale_amount_min = 6.0
+scale_amount_max = 21.0
 color = Color(1, 1, 0.5, 1)
 color_ramp = SubResource("Gradient_a1rbr")
 hue_variation_max = 1.0
 
 [node name="Body1" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, 48)
+position = Vector2(0, 83)
 
 [node name="Body2" type="Node2D" parent="Body1"]
 unique_name_in_owner = true
 
 [node name="Head" type="Node2D" parent="Body1/Body2"]
 unique_name_in_owner = true
-position = Vector2(0, -48)
+position = Vector2(0, -83)
 
 [node name="SpriteHead" type="Sprite2D" parent="Body1/Body2/Head"]
 unique_name_in_owner = true

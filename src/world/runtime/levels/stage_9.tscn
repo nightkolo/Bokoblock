@@ -1,28 +1,44 @@
-[gd_scene load_steps=13 format=4 uid="uid://msyhthusferw"]
+[gd_scene load_steps=17 format=4 uid="uid://msyhthusferw"]
 
 [ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_n8o7v"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_dt5wt"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_6mte0"]
+[ext_resource type="Texture2D" uid="uid://do785tshvy7hl" path="res://assets/backgrounds/bg-v16.png" id="4_anbg7"]
 [ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="4_uk3r2"]
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_y73r0"]
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="5_1mso0"]
 [ext_resource type="Script" path="res://world/world/stage_light.gd" id="5_g6sdf"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_nexix"]
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_g74s3"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="8_7xvra"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_wqpg2"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_wmyis"]
-[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_endpoint.tscn" id="10_ebrfq"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_ebrfq"]
+
+[sub_resource type="Gradient" id="Gradient_5ehm8"]
+offsets = PackedFloat32Array(0, 0.75)
+colors = PackedColorArray(0, 0, 0, 0.55, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fgan8"]
+gradient = SubResource("Gradient_5ehm8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="S" type="Node2D"]
 script = ExtResource("1_n8o7v")
+stage_progression = false
 
 [node name="Cam" parent="." instance=ExtResource("2_dt5wt")]
 position = Vector2(480, 310)
 zoom = Vector2(1.35, 1.35)
 
 [node name="SW" parent="." instance=ExtResource("3_6mte0")]
-background_color = Color(0.75, 0.502, 0.75, 1)
+randomize_background_effect = false
 checkerboard_color = Color(0.75, 0.75, 0.75, 1)
+background_dim = 0.35
+
+[node name="TextureRect" parent="SW/BG/Texture" index="0"]
+texture = ExtResource("4_anbg7")
 
 [node name="StageLight" type="PointLight2D" parent="SW"]
 position = Vector2(494.5, 314.5)
@@ -30,6 +46,11 @@ scale = Vector2(7.73437, 6.32813)
 range_item_cull_mask = 2
 texture = ExtResource("4_uk3r2")
 script = ExtResource("5_g6sdf")
+
+[node name="Sprite2D" type="Sprite2D" parent="SW"]
+position = Vector2(494.5, 359.5)
+scale = Vector2(10.5469, 6.32813)
+texture = SubResource("GradientTexture2D_fgan8")
 
 [node name="TM" type="Node2D" parent="SW"]
 scale = Vector2(0.5, 0.5)
@@ -48,6 +69,11 @@ tile_set = ExtResource("5_1mso0")
 [node name="Outline" type="TileMapLayer" parent="SW/TM"]
 tile_map_data = PackedByteArray("AAAJAAkAAQAIAAAAAAAJAAoAAQAIAAEAAAAJAAsAAQAFAAEAAAAIAAsAAQAKAAAAAAAHAAsAAQAKAAAAAAAGAAsAAQAKAAAAAAAFAAsAAQAGAAEAAAAFAAoAAQALAAIAAAAFAAkAAQALAAIAAAAFAAgAAQALAAIAAAAFAAcAAQAGAAIAAAAGAAcAAQAJAAMAAAAHAAcAAQALAAMAAAAHAAYAAQALAAAAAAAGAAYAAQAKAAAAAAAFAAYAAQAGAAEAAAAFAAUAAQALAAIAAAAFAAQAAQALAAIAAAAFAAMAAQALAAIAAAAFAAIAAQAGAAIAAAAGAAIAAQAJAAMAAAAHAAIAAQAJAAMAAAAIAAIAAQAJAAMAAAAJAAIAAQAFAAIAAAAJAAMAAQAIAAEAAAAJAAQAAQAIAAEAAAAJAAUAAQAIAAEAAAAJAAYAAQAIAAEAAAAJAAcAAQAIAAMAAAAKAAcAAQAJAAMAAAALAAcAAQALAAMAAAALAAYAAQALAAIAAAALAAUAAQALAAIAAAALAAQAAQALAAIAAAALAAMAAQALAAIAAAALAAIAAQAGAAIAAAAMAAIAAQAJAAMAAAANAAIAAQAFAAIAAAANAAMAAQAIAAMAAAAOAAMAAQAFAAIAAAAOAAQAAQAIAAMAAAAPAAQAAQAFAAIAAAAPAAUAAQAIAAMAAAAQAAUAAQAFAAIAAAAQAAYAAQAIAAEAAAAQAAcAAQAIAAEAAAAQAAgAAQAIAAEAAAAQAAkAAQAFAAEAAAAPAAkAAQAKAAAAAAAOAAkAAQAKAAAAAAANAAkAAQAKAAAAAAAMAAkAAQAKAAAAAAALAAkAAQAKAAAAAAAKAAkAAQAKAAAAAAAKAAoAAQAJAAIAAAAKAAsAAQAJAAIAAAAKAAwAAQAJAAIAAAAJAAwAAQAJAAIAAAAIAAwAAQAJAAIAAAAHAAwAAQAJAAIAAAAGAAwAAQAJAAIAAAAFAAwAAQAJAAIAAAAEAAwAAQAJAAIAAAAEAAsAAQAJAAIAAAAEAAkAAQAJAAIAAAAEAAoAAQAJAAIAAAAEAAgAAQAJAAIAAAAEAAcAAQAJAAIAAAAEAAYAAQAJAAIAAAAEAAUAAQAJAAIAAAAEAAQAAQAJAAIAAAAEAAMAAQAJAAIAAAAEAAIAAQAJAAIAAAAEAAEAAQAJAAIAAAAFAAEAAQAJAAIAAAAGAAEAAQAJAAIAAAAHAAEAAQAJAAIAAAAIAAEAAQAJAAIAAAAJAAEAAQAJAAIAAAAKAAEAAQAJAAIAAAAKAAIAAQAJAAIAAAAKAAMAAQAJAAIAAAAKAAQAAQAJAAIAAAAKAAUAAQAJAAIAAAAKAAYAAQAJAAIAAAALAAEAAQAJAAIAAAAMAAEAAQAJAAIAAAANAAEAAQAJAAIAAAAOAAEAAQAJAAIAAAAOAAIAAQAJAAIAAAAPAAIAAQAJAAIAAAAPAAMAAQAJAAIAAAAQAAMAAQAJAAIAAAAQAAQAAQAJAAIAAAARAAQAAQAJAAIAAAARAAUAAQAJAAIAAAARAAYAAQAJAAIAAAARAAcAAQAJAAIAAAARAAgAAQAJAAIAAAARAAkAAQAJAAIAAAARAAoAAQAJAAIAAAAQAAoAAQAJAAIAAAAPAAoAAQAJAAIAAAAOAAoAAQAJAAIAAAANAAoAAQAJAAIAAAAMAAoAAQAJAAIAAAALAAoAAQAJAAIAAAASAAcAAQAJAAIAAAASAAYAAQAJAAIAAAASAAUAAQAJAAIAAAASAAQAAQAJAAIAAAA=")
 tile_set = ExtResource("5_1mso0")
+
+[node name="ChibiBoko" parent="SW" instance=ExtResource("8_7xvra")]
+position = Vector2(472, 472)
+info_text = "Try to make all
+ the Blocks [color=yellow][outline_size=3][outline_color=black][wave radius=2.0 freq=6.0]happy!"
 
 [node name="SO" type="Node2D" parent="."]
 script = ExtResource("6_nexix")
@@ -102,3 +128,6 @@ boko_color = 5
 [node name="Block3" parent="SO/Bokobody2" instance=ExtResource("8_wqpg2")]
 position = Vector2(45, 0)
 boko_color = 5
+
+[editable path="SW"]
+[editable path="SW/BG"]

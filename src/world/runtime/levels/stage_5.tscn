@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_bmhxp"]
 [ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="9_rdjro"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="10_y58fl"]
-[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_endpoint.tscn" id="11_th0if"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="11_th0if"]
 
 [node name="S5" type="Node2D"]
 script = ExtResource("1_pb1e4")

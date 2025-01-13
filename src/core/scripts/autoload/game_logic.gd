@@ -6,11 +6,13 @@ signal bokobodies_moved(transformed_to: Variant)
 signal bokobody_stopped(is_body: Bokobody)
 ## Emited when all bodies stopped transformation
 signal bokobodies_stopped()
+signal bokobody_entered_starpoint()
+signal bokobody_exited_starpoint()
 ## Emitted when game won.
 signal stage_won()
 
 enum WinCondition {
-	MATCH_ALL_ENDPOINTS = 0,
+	MATCH_ALL_STARPOINTS = 0,
 	MATCH_ALL_BLOCKS = 1
 }
 enum TranformationType { ## @experimental
@@ -18,13 +20,13 @@ enum TranformationType { ## @experimental
 	TURN = 1,
 	UNDO = 99
 }
-enum BokoPose {NORMAL = 0, THINKING = 1, NO_WORRY = 2, HAPPY = 3, WINK = 4} ## @deprecated: TODO: use GameUtil.BokoCharacterPose
 
 var win_condition: WinCondition
 
 var has_won: bool = false
 var win_checked: bool = true
 var are_bodies_moving: bool = false
+var is_a_block_on_starpoint: bool = false
 
 var _bodies_stopped: int = 0
 
@@ -32,12 +34,24 @@ var _bodies_stopped: int = 0
 func _ready() -> void:
 	bokobody_stopped.connect(check_if_all_bodies_stopped)
 	bokobodies_stopped.connect(check_win)
+	bokobodies_stopped.connect(check_bodies)
 	
 	GameMgr.game_reset.connect(_reset_game_logic)
 	
 	stage_won.connect(func():
 		GameMgr.game_just_ended.emit()
 		)
+
+
+func check_bodies() -> void:
+	await GameMgr.process_waittime()
+
+	if check_if_block_on_starpoint(GameMgr.current_blocks) && !is_a_block_on_starpoint:
+		is_a_block_on_starpoint = true
+		bokobody_entered_starpoint.emit()
+	elif !check_if_block_on_starpoint(GameMgr.current_blocks) && is_a_block_on_starpoint:
+		is_a_block_on_starpoint = false
+		bokobody_exited_starpoint.emit()
 
 
 func set_win_condition(win_cond: WinCondition) -> void:
@@ -76,7 +90,7 @@ func check_if_all_bodies_stopped(_is_body: Bokobody) -> void:
 
 
 func check_win() -> void:
-	if GameMgr.current_endpoints.is_empty():
+	if GameMgr.current_starpoints.is_empty():
 		win_checked = true
 		return
 	
@@ -85,14 +99,14 @@ func check_win() -> void:
 	
 	match win_condition:
 		
-		WinCondition.MATCH_ALL_ENDPOINTS:
-			match_amount = GameMgr.current_endpoints.size()
+		WinCondition.MATCH_ALL_STARPOINTS:
+			match_amount = GameMgr.current_starpoints.size()
 			
 		WinCondition.MATCH_ALL_BLOCKS:
 			match_amount = GameMgr.current_blocks.size()
 	
-	for endpoint: Endpoint in GameMgr.current_endpoints:
-		var is_happy := endpoint.check_satisfaction()
+	for starpoint: Starpoint in GameMgr.current_starpoints:
+		var is_happy := starpoint.check_satisfaction()
 		
 		if is_happy:
 			ends_satisfied += 1
@@ -127,3 +141,12 @@ func _reset_game_logic() -> void:
 	has_won = false
 	win_checked = true
 	are_bodies_moving = false
+
+
+func check_if_block_on_starpoint(blocks: Array[Bokoblock]) -> bool:
+	if blocks.is_empty():
+		return false
+	for block: Bokoblock in blocks:
+		if block.is_on_starpoint:
+			return true
+	return false

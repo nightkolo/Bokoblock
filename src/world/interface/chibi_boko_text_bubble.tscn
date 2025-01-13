@@ -27,6 +27,6 @@ theme_override_constants/margin_bottom = 10
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[color=black] "
+text = "[color=black] Try to match all the Blocks to their Starpoints!"
 fit_content = true
 autowrap_mode = 0

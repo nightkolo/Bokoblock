@@ -1,5 +1,5 @@
 extends Area2D
-class_name Endpoint
+class_name Starpoint
 # TODO: Change class_name to Starpoint... why am i like this
 
 @export var what_im_happy_with: GameUtil.BokoColor
@@ -12,14 +12,15 @@ var is_happy: bool = false:
 	get:
 		return is_happy
 	set(value):
-		if value && value != is_happy:
+		if value:
 			anim_happy()
 		is_happy = value
 
 
 func _ready() -> void:
-	GameMgr.current_endpoints.append(self)
 	_set_up()
+	
+	GameMgr.current_starpoints.append(self)
 
 
 func _process(_delta: float) -> void:
@@ -56,20 +57,20 @@ func anim_star() -> void:
 	if sprite_star:
 		var dur := 2.0
 		
-		var _tween: Tween = create_tween().set_loops()
-		_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-		_tween.tween_property(sprite_star,"rotation",deg_to_rad(-10.0),dur/2.0)
-		_tween.tween_property(sprite_star,"rotation",deg_to_rad(10.0),dur/2.0)
+		var tween := create_tween().set_loops()
+		tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(sprite_star,"rotation",deg_to_rad(-10.0),dur/2.0)
+		tween.tween_property(sprite_star,"rotation",deg_to_rad(10.0),dur/2.0)
 
 
 func anim_pulse() -> void:
 	if sprite_star:
 		var dur := 3.0
 		
-		var _tween: Tween = create_tween().set_loops()
-		_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-		_tween.tween_property(sprite_star,"self_modulate",GameUtil.set_boko_color(what_im_happy_with,1.25),dur/2.0)
-		_tween.tween_property(sprite_star,"self_modulate",GameUtil.set_boko_color(what_im_happy_with),dur/2.0)
+		var tween := create_tween().set_loops()
+		tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(sprite_star,"self_modulate",GameUtil.set_boko_color(what_im_happy_with,1.25),dur/2.0)
+		tween.tween_property(sprite_star,"self_modulate",GameUtil.set_boko_color(what_im_happy_with),dur/2.0)
 
 
 func anim_happy() -> void:

@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="9_qu2pp"]
 [ext_resource type="PackedScene" uid="uid://cqj66us38ebnh" path="res://object/objects/obj_one_color_wall.tscn" id="10_mjm4v"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="11_e2on0"]
-[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_endpoint.tscn" id="12_b2n4e"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="12_b2n4e"]
 
 [node name="S" type="Node2D"]
 script = ExtResource("1_6a3rv")

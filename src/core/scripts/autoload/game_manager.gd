@@ -9,7 +9,7 @@ signal game_reset()
 
 var number_of_bodies: int
 var number_of_blocks: int ## @experimental
-var number_of_endpoints: int ## @experimental
+var number_of_starpoints: int ## @experimental
 var current_stage: Stage
 var current_stage_id: int:
 	get:
@@ -35,12 +35,12 @@ var current_blocks: Array[Bokoblock]:
 	set(value):
 		number_of_blocks = value.size()
 		current_blocks = value
-var current_endpoints: Array[Endpoint]:
+var current_starpoints: Array[Starpoint]:
 	get:
-		return current_endpoints
+		return current_starpoints
 	set(value):
-		number_of_endpoints = value.size()
-		current_endpoints = value
+		number_of_starpoints = value.size()
+		current_starpoints = value
 
 var _is_game_manager_resetting: bool = false
 
@@ -91,6 +91,10 @@ func reset_game() -> void:
 	game_reset.emit()
 
 
+func process_waittime(wait: float = 0.1) -> void:
+	await get_tree().create_timer(wait).timeout
+
+
 func self_detruct() -> void:
 	_reset_game_manager()
 	
@@ -99,7 +103,8 @@ func _reset_game_manager() -> void:
 	if !_is_game_manager_resetting:
 		_is_game_manager_resetting = true
 		current_bodies = []
-		current_endpoints = []
+		current_blocks = []
+		current_starpoints = []
 		number_of_bodies = 0
 		
 		await get_tree().create_timer(0.1).timeout

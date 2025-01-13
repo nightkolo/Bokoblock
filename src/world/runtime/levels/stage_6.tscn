@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_catd7"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_uqj2n"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_yn7rw"]
-[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_endpoint.tscn" id="10_imbd3"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_imbd3"]
 [ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="11_f77q7"]
 
 [node name="S" type="Node2D"]

@@ -1,16 +1,15 @@
 extends Node2D
 class_name Bokobody
 
-signal has_tranformed(trans_to: Variant)
 signal has_moved(moved_to: Vector2)
 signal has_turned(turned_to: float)
 signal move_end(has_moved_by: Vector2)
 signal turn_end(has_turned_by: float)
 signal move_stopped()
 signal turn_stopped()
-signal turn_full_stopped()
-signal child_block_entered_one_col_block(is_block: Bokoblock)
-signal child_blocks_exited_one_col_block()
+signal starpoint_entered(entered: bool)
+signal child_block_entered_one_col_wall(is_block: Bokoblock)
+signal child_block_exited_one_col_wall()
 
 @export var movement_strength: int = 1
 @export var turning_strength: int = 1
@@ -21,30 +20,25 @@ signal child_blocks_exited_one_col_block()
 @export var show_blocks: bool = true
 @export var show_light: bool = true
 @export var light_scale: Vector2 = Vector2.ONE * 2.8
-@export_subgroup("...")
-@export var just_dont: bool = false ## @deprecated
 @export_group("Objects to Assign")
 @export var particles_win: PackedScene = preload("res://world/world/particles_bokoblock_stage_complete.tscn")
 @export var light_glow: PackedScene = preload("res://world/world/point_light_bokobody_glow.tscn")
 
-var current_last_transform: Variant ## @experimental
-var transforms_made: Array[Variant]
+var current_last_transform: Variant ## Used for [method Bokoblock.anim_hit_block].
+var transforms_made: Array ## Dynamic array.
 var turns_made: Array[float]
 var moves_made: Array[Vector2]
 var child_blocks: Array[Bokoblock]
+var is_on_starpoint: bool
 var is_moving: bool:
 	set(value):
+		_has_stopped(value)
 		is_moving = value
-		if !value:
-			GameLogic.bokobody_stopped.emit(self)
 var is_actually_turning: bool
 var is_turning: bool:
 	set(value):
+		_has_stopped(value)
 		is_turning = value
-		if !value:
-			GameLogic.bokobody_stopped.emit(self)
-
-const TILE_SIZE = 45.0 ## @deprecated
 
 var _normalized_rotation_degrees: float
 var _current_turn: int
@@ -62,8 +56,9 @@ func _ready() -> void:
 	GameMgr.current_bodies.append(self)
 	
 	GameLogic.stage_won.connect(anim_complete)
-	child_block_entered_one_col_block.connect(anim_blocks_entered_one_col_wall)
-	child_blocks_exited_one_col_block.connect(anim_blocks_exited_one_col_wall)
+	
+	child_block_entered_one_col_wall.connect(anim_blocks_entered_one_col_wall)
+	child_block_exited_one_col_wall.connect(anim_blocks_exited_one_col_wall)
 	
 	if !no_move:
 		PlayerInput.input_undo.connect(undo)
@@ -85,9 +80,8 @@ func _ready() -> void:
 	
 	has_moved.connect(_on_transform)
 	has_turned.connect(_on_transform)
-	turn_full_stopped.connect(normalize_bokobody_rotation)
 	
-	await get_tree().create_timer(0.1).timeout
+	await GameMgr.process_waittime()
 	for block: Bokoblock in child_blocks:
 		if !show_blocks:
 			for sprite: Sprite2D in [block.sprite_block, block.sprite_eyes]:
@@ -120,24 +114,34 @@ func _setup_node() -> void:
 		tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 		tween.tween_property(light,"energy",2.0,2.0)
 		tween.tween_property(light,"energy",1.0,2.0)
-	
-	if just_dont:
-		print_rich("[font_size=25.0][wave amp=50.0 freq=5.0 connected=1][color=green][b]Fart Fart Fart")
 
 
 func _set_rotation_values() -> void:
 	@warning_ignore("narrowing_conversion")
 	_current_turn = BokoMath.simplify_angle(rotation_degrees) + 1
 	_normalized_rotation_degrees = BokoMath.normalize_angle(rotation_degrees)
-	
 
+
+func check_state() -> void:
+	await GameMgr.process_waittime()
+	
+	var has_stood_on_starpoint := GameLogic.check_if_block_on_starpoint(child_blocks)
+	
+	if has_stood_on_starpoint && !is_on_starpoint:
+		is_on_starpoint = true
+		starpoint_entered.emit(has_stood_on_starpoint)
+	elif !has_stood_on_starpoint && is_on_starpoint:
+		is_on_starpoint = false
+		starpoint_entered.emit(has_stood_on_starpoint)
+
+	
 func undo() -> void:
 	if transforms_made.is_empty():
 		await get_tree().create_timer(0.1).timeout
 		GameLogic.bokobody_stopped.emit(self)
 		return
 	
-	var last_move = transforms_made[0]
+	var last_move = transforms_made[0] # dynamic.
 	
 	match typeof(last_move):
 	
@@ -159,20 +163,17 @@ func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true
 	is_turning = true
 	is_actually_turning = true
 	has_turned.emit(sign(p_turn_to))
-	
-	# TODO: Come to think of it, use rotation_degrees instead of rotation for turning
-
-	var turn_to := deg_to_rad(GameUtil.BOKOBODY_TURN_DEGREE * sign(p_turn_to) * turning_strength)
-	
 	_old_rot = rotation
 	_can_set_record = set_record
+
+	var turn_to: float = GameUtil.BOKOBODY_TURN_DEGREE * sign(p_turn_to) * turning_strength
 	
 	if disable_colli: # Doing a check to avoid runtime slowdown
 		_disable_colli(true)
-	
-	_tween_rot = get_tree().create_tween()
+	GameUtil.reset_tween(_tween_rot)
+	_tween_rot = create_tween()
 	_tween_rot.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	_tween_rot.tween_property(self,"rotation",rotation + turn_to,movement_time)
+	_tween_rot.tween_property(self,"rotation_degrees",rotation_degrees + turn_to,movement_time*2.0)
 	
 	await _tween_rot.finished
 	
@@ -188,7 +189,7 @@ func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true
 	
 	await _turn_delay()
 	is_turning = false
-	turn_full_stopped.emit()
+	normalize_bokobody_rotation()
 
 
 func move(p_move_to: Vector2, disable_colli: bool = false, set_record: bool = true) -> void:
@@ -197,16 +198,16 @@ func move(p_move_to: Vector2, disable_colli: bool = false, set_record: bool = tr
 	
 	is_moving = true
 	has_moved.emit(p_move_to.sign())
-	
-	var move_to: Vector2 = GameUtil.TILE_SIZE * p_move_to.sign() * movement_strength
-	
 	_old_pos = position
 	_can_set_record = set_record
+	
+	var move_to: Vector2 = GameUtil.TILE_SIZE * p_move_to.sign() * movement_strength
 	
 	if disable_colli: # Doing a check to avoid runtime slowdown
 		_disable_colli(true)
 	
-	_tween_move = get_tree().create_tween()
+	GameUtil.reset_tween(_tween_move)
+	_tween_move = create_tween()
 	_tween_move.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	_tween_move.tween_property(self,"position",position + move_to,movement_time)
 	
@@ -226,8 +227,7 @@ func move(p_move_to: Vector2, disable_colli: bool = false, set_record: bool = tr
 func stop_moving() -> void:
 	move_stopped.emit()
 	
-	if _tween_move:
-		_tween_move.kill()
+	GameUtil.reset_tween(_tween_move)
 	
 	is_moving = false
 	_disable_colli(false)
@@ -258,7 +258,7 @@ func stop_turning() -> void:
 		transforms_made.push_front(0.0)
 		
 	await _turn_delay()
-	turn_full_stopped.emit()
+	normalize_bokobody_rotation()
 	is_turning = false
 
 
@@ -278,8 +278,7 @@ func normalize_bokobody_rotation() -> void:
 func anim_blocks_entered_one_col_wall(is_block: Bokoblock) -> void:
 	var dur := 1.0
 	
-	if _tween_one_col_anim:
-		_tween_one_col_anim.kill()
+	GameUtil.reset_tween(_tween_one_col_anim)
 		
 	_tween_one_col_anim = create_tween().set_parallel(true)
 	_tween_one_col_anim.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
@@ -295,8 +294,7 @@ func anim_blocks_entered_one_col_wall(is_block: Bokoblock) -> void:
 func anim_blocks_exited_one_col_wall() -> void:
 	var dur := 0.45
 	
-	if _tween_one_col_anim:
-		_tween_one_col_anim.kill()
+	GameUtil.reset_tween(_tween_one_col_anim)
 		
 	_tween_one_col_anim = create_tween().set_parallel(true)
 	_tween_one_col_anim.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
@@ -337,8 +335,15 @@ func get_current_turn() -> int:
 
 
 func _on_transform(trans_to: Variant) -> void:
-	has_tranformed.emit(trans_to)
 	current_last_transform = trans_to
+
+
+func _has_stopped(not_stopped: bool = false) -> void:
+	if not_stopped:
+		return
+	
+	check_state()
+	GameLogic.bokobody_stopped.emit(self)
 
 
 func _turn_delay() -> void:
