@@ -61,7 +61,7 @@ func stop_breathing() -> void:
 
 
 func start_speaking() -> void:
-	var bounce_to := 1.225
+	var bounce_to := 1.2
 	
 	stop_blinking()
 	stop_breathing()
@@ -79,8 +79,8 @@ func start_speaking() -> void:
 	
 	
 func wobble_while_speaking() -> void:
-	var wobble_min := 6.0 
-	var wobble_rand_max := 5.0
+	var wobble_min := 4.0 
+	var wobble_rand_max := 4.0
 	_seed = sign(randf()-0.5)
 	var rot_to: float = (wobble_min + (randf() * wobble_rand_max)) * _seed
 	
@@ -102,7 +102,7 @@ func stop_speaking() -> void:
 	if tween_speak:
 		anim_star_bounce(0.6)
 		anim_star_spin(45.0)
-		anim_wobble_top_hat(-_seed * 10.0, 2.0)
+		anim_wobble_top_hat(-_seed * 10.0, 2.2)
 		start_breathing()
 		
 		reset_tween(tween_speak)
@@ -142,7 +142,7 @@ func be_neutral() -> void:
 	start_blinking()
 	start_breathing()
 	stop_star_spinning()
-	anim_wobble_top_hat(11.0)
+	anim_wobble_top_hat(13.0, 1.2)
 	
 	sprite_eyes.texture = texture_eyes_open
 	sprite_eyes.flip_v = false
@@ -157,7 +157,7 @@ func be_happy() -> void:
 	anim_bounce()
 	eyes_happy()
 	anim_star_ghost()
-	anim_star_bounce(0.25)
+	anim_star_bounce(0.25, 1.4)
 	start_star_spinning()
 	stop_breathing()
 	
@@ -214,8 +214,8 @@ func anim_star_spin(spin_to: float = randf_range(25.0,90.0)) -> void:
 	_tween_star_rot.tween_property(sprite_star,"rotation",0.0,dur)
 
 
-func anim_star_bounce(bounce_down_to: float = 0.75) -> void:
-	var dur := 1.25
+func anim_star_bounce(bounce_down_to: float = 0.75, duration: float = 1.25) -> void:
+	var dur := duration
 	var delay := dur / 13.33
 	
 	reset_tween(_tween_star_bounce)

@@ -22,7 +22,7 @@ position = Vector2(480, 395)
 zoom = Vector2(1.1, 1.1)
 
 [node name="BG" type="TextureRect" parent="."]
-self_modulate = Color(0.4, 0.4, 0.4, 1)
+self_modulate = Color(0.4, 0.4, 0.45, 1)
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1440.0

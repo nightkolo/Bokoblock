@@ -1,17 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://dkpq6f8l2i2t3"]
+[gd_scene load_steps=18 format=3 uid="uid://dkpq6f8l2i2t3"]
 
 [ext_resource type="Script" path="res://world/characters/character_chibi_boko.gd" id="1_wqlmh"]
 [ext_resource type="Texture2D" uid="uid://cm1103elsnxjn" path="res://assets/characters/chibi-boko/boko-chibi-block-upscale.png" id="2_kf2bi"]
 [ext_resource type="Texture2D" uid="uid://bybhhbt8bks47" path="res://assets/characters/chibi-boko/boko-chibi-eyes-upscale.png" id="3_4wble"]
+[ext_resource type="Texture2D" uid="uid://ckb36hquf56im" path="res://assets/characters/chibi-boko/boko-chibi-eyes-straight-upscale.png" id="3_5sl3f"]
 [ext_resource type="Texture2D" uid="uid://bhhjechuek4jx" path="res://assets/characters/chibi-boko/boko-chibi-top-hat-upscale.png" id="5_cj45q"]
 [ext_resource type="Texture2D" uid="uid://c8nynhbor8ohn" path="res://assets/characters/chibi-boko/boko-chibi-star-upscale.png" id="6_jtyel"]
 [ext_resource type="Script" path="res://world/characters/character_chibi_boko_top_hat.gd" id="6_y4ahi"]
 [ext_resource type="Texture2D" uid="uid://u5w03rdthrph" path="res://assets/characters/chibi-boko/boko-chibi-star-ghost-upscale.png" id="7_8kdi8"]
 [ext_resource type="Texture2D" uid="uid://binu8obp7qvsi" path="res://assets/characters/chibi-boko/boko-eyes-blink-upscale.png" id="7_rq6tq"]
+[ext_resource type="Texture2D" uid="uid://ch1rbwrtp72o3" path="res://assets/characters/chibi-boko/boko-chibi-eyes-happy-upscale.png" id="10_llbsn"]
 
 [sub_resource type="Gradient" id="Gradient_ol7pp"]
 offsets = PackedFloat32Array(0.25, 0.75)
-colors = PackedColorArray(0, 0, 0, 0.4, 0, 0, 0, 0)
+colors = PackedColorArray(0, 0, 0, 0.35, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_iiald"]
 gradient = SubResource("Gradient_ol7pp")
@@ -33,7 +35,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_4wble")]
+"values": [ExtResource("3_5sl3f")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -86,7 +88,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [ExtResource("3_4wble"), ExtResource("7_rq6tq"), ExtResource("3_4wble")]
+"values": [ExtResource("3_5sl3f"), ExtResource("7_rq6tq"), ExtResource("3_4wble")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -98,7 +100,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.233333, 0.433333, 0.5),
 "transitions": PackedFloat32Array(3, 3, 0.5, 3),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, 24), Vector2(0, -12), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(0, 48), Vector2(0, -12), Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -126,7 +128,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_rq6tq")]
+"values": [ExtResource("10_llbsn")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -138,7 +140,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -165,7 +167,7 @@ script = ExtResource("1_wqlmh")
 speaking_speed = 0.095
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(6.5, 6.5)
+scale = Vector2(8.5, 8.5)
 texture = SubResource("GradientTexture2D_iiald")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -358,7 +360,7 @@ scale = Vector2(2, 2)
 
 [node name="SpriteEyes" type="Sprite2D" parent="Body1/Body2/Head/Node2D/Eyes"]
 unique_name_in_owner = true
-texture = ExtResource("3_4wble")
+texture = ExtResource("3_5sl3f")
 
 [node name="TopHat" type="Node2D" parent="Body1/Body2/Head" node_paths=PackedStringArray("parent")]
 unique_name_in_owner = true

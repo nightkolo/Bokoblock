@@ -77,6 +77,11 @@ func bokoblocks_area_exited(area: Area2D) -> void:
 		(area as Bokoblock).anim_exited_one_color_wall()
 
 
+
+func anim_hit() -> void:
+	pass
+	
+
 func _are_all_areas_bokoblocks(array: Array[Area2D]) -> bool:
 	if array.size() == 0:
 		return false
