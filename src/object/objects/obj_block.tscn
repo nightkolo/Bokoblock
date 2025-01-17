@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dbvbelcosunmx"]
+[gd_scene load_steps=11 format=3 uid="uid://dbvbelcosunmx"]
 
 [ext_resource type="Script" path="res://object/scripts/node_block.gd" id="1_fox18"]
 [ext_resource type="Texture2D" uid="uid://6gfr648a4tde" path="res://assets/objects/block-v06-greyscale.png" id="2_vu6u0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://58erdrgwqcbw" path="res://assets/objects/block-ghost-v02.png" id="4_cmisq"]
 [ext_resource type="Texture2D" uid="uid://fht8ceno2w63" path="res://assets/world/star_v01.png" id="4_u4fx5"]
 [ext_resource type="Texture2D" uid="uid://dqcbjuirvq776" path="res://assets/world/particle_circle_02.png" id="7_jtedv"]
+[ext_resource type="Script" path="res://object/scripts/components/component_bokoblock_animation.gd" id="7_u5igv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13485"]
 size = Vector2(22, 22)
@@ -17,39 +18,50 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_lipoc"]
 colors = PackedColorArray(1, 1, 1, 0.35, 1, 1, 1, 0)
 
-[node name="Block" type="Area2D"]
+[node name="Block" type="Area2D" node_paths=PackedStringArray("animator")]
 collision_mask = 3
 script = ExtResource("1_fox18")
+animator = NodePath("BokoblockAnimationComponent")
+
+[node name="BokoblockAnimationComponent" type="Node" parent="."]
+script = ExtResource("7_u5igv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_13485")
 
 [node name="Star" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("4_u4fx5")
 
 [node name="Ghost" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("4_cmisq")
 
 [node name="Sprites" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="SpritesMove" type="Node2D" parent="Sprites"]
+unique_name_in_owner = true
 
 [node name="Block" type="Sprite2D" parent="Sprites/SpritesMove"]
+unique_name_in_owner = true
 self_modulate = Color(1, 0.77, 1, 1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_vu6u0")
 
 [node name="Eyes" type="Sprite2D" parent="Sprites/SpritesMove"]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.8)
 z_index = 1
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_7bp01")
 
 [node name="Dust" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
 amount = 4
 texture = ExtResource("7_jtedv")
 emission_shape = 3

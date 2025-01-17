@@ -6,25 +6,25 @@ class_name BokoMath # MathUtil
 
 
 static func rad_to_vector(rad: float) -> Vector2:
-	var x = cos(rad)
-	var y = sin(rad)
+	var x: float = cos(rad)
+	var y: float = sin(rad)
 	return Vector2(x, y)
 
 
 static func normalize_angle(angle: float) -> float:
-	var value := fmod(angle, 360.0)
+	var value: float = fmod(angle, 360.0)
 	if value < 0.0:
 		value += 360.0
 	return value
 
 
 static func simplify_angle(angle: float) -> int:
-	var ang := fmod(angle, 360.0)
+	var ang: float = fmod(angle, 360.0)
 	if ang < 0.0:
 		ang += 360.0
 	ang = abs(roundf(ang / 90.0))
 	
-	var value := mini(int(ang), 3) 
+	var value: int = mini(int(ang), 3) 
 	return value
 
 

@@ -6,10 +6,13 @@ signal letter_showing_started()
 signal letter_showing_finished()
 signal letter_showed()
 
-enum BubbleAlign {LEFT = 0, RIGHT = 1}
+enum BubbleAlign { ## @experimental
+	LEFT = 0, 
+	RIGHT = 1
+}
 
 @export_multiline var info_text: String
-@export var bubble_align: BubbleAlign
+@export var bubble_align: BubbleAlign ## @experimental
 @export_group("Modify")
 @export var animate_boko: bool = true
 @export var await_time: float = 0.75
@@ -27,24 +30,26 @@ var letter_time: float = 0.05
 var space_time: float = 0.09
 var punctuation_time: float = 0.4
 
+var is_info_active: bool = false
 var is_chibi_boko_speaking: bool = false:
+	get:
+		return is_chibi_boko_speaking
 	set(value):
 		if value != is_chibi_boko_speaking:
 			if value && chibi_boko:
 				chibi_boko.start_speaking()
 			else:
 				chibi_boko.pause_speaking()
-			is_chibi_boko_speaking = value
-var is_info_active: bool = false
-var monolog_texts_size: int
+		is_chibi_boko_speaking = value
 
 const STAGE_COMPLETE_TEXT = "Well done!"
-const MAX_BUBBLE_WIDTH = 270.0
-const _BUBBLE_MARGIN = Vector2.ONE * 35.0
-const _LABEL_MARGIN = Vector2.ONE * 10.0
+const MAX_BUBBLE_WIDTH = 270.0 ## @experimental
 
 var _tween_bubble: Tween
 var _letter_show_timer: Timer = Timer.new()
+
+const _BUBBLE_MARGIN = Vector2.ONE * 35.0
+const _LABEL_MARGIN = Vector2.ONE * 10.0
 
 
 func _ready() -> void:
@@ -54,42 +59,44 @@ func _ready() -> void:
 	bubble.visible = false
 	label.scale = Vector2(0.95,1.0)
 	
-	GameLogic.bokobody_entered_starpoint.connect(func():
-		if !GameLogic.has_won:
-			chibi_boko.anim_excited()
-		)
-	GameLogic.bokobody_exited_starpoint.connect(func():
-		if !GameLogic.has_won:
-			chibi_boko.anim_unexcited()
-		)
-	GameMgr.game_just_ended.connect(func():
-		show_text(STAGE_COMPLETE_TEXT)
+	if chibi_boko && animate_boko:
+		GameLogic.bokobody_entered_starpoint.connect(func():
+			if !GameLogic.has_won:
+				chibi_boko.anim_excited()
+			)
+		GameLogic.bokobody_exited_starpoint.connect(func():
+			if !GameLogic.has_won:
+				chibi_boko.anim_unexcited()
+			)
+			
+		GameMgr.game_just_ended.connect(func():
+			show_text(STAGE_COMPLETE_TEXT)
+			
+			if GameLogic.has_won:
+				chibi_boko.stop_speaking()
+				chibi_boko.be_happy()
+			)
 		
-		if chibi_boko && animate_boko && GameLogic.has_won:
-			chibi_boko.stop_speaking()
-			chibi_boko.be_happy()
-		)
-	
-	letter_showing_started.connect(func():
-		if chibi_boko && animate_boko && !GameLogic.has_won:
-			chibi_boko.start_speaking()
-		)
-	
-	letter_showing_finished.connect(func():
-		is_info_active = false
+		letter_showing_started.connect(func():
+			if !GameLogic.has_won:
+				chibi_boko.start_speaking()
+			)
 		
-		if chibi_boko && animate_boko && !GameLogic.has_won:
-			chibi_boko.stop_speaking()
-			chibi_boko.be_neutral()
-		
-		label.size += _LABEL_MARGIN
-		anim_bubble_bounce()
-		)
-		
-	_letter_show_timer.timeout.connect(func():
-		_show_letter()
-		letter_showed.emit()
-		)
+		letter_showing_finished.connect(func():
+			is_info_active = false
+			
+			if !GameLogic.has_won:
+				chibi_boko.stop_speaking()
+				chibi_boko.be_neutral()
+			
+			label.size += _LABEL_MARGIN
+			anim_bubble_bounce()
+			)
+			
+		_letter_show_timer.timeout.connect(func():
+			_show_letter()
+			letter_showed.emit()
+			)
 	
 	if auto_start_text && info_text != "":
 		await get_tree().create_timer(await_time).timeout
@@ -97,8 +104,6 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	#print(label.size)
-	
 	bubble.size = label.size + _BUBBLE_MARGIN
 
 
@@ -189,6 +194,7 @@ func anim_bubble_bounce():
 	_tween_bubble.tween_property(bubble,"scale",Vector2.ONE,dur)
 
 
+## @experimental
 func play_speech(letter: String = "") -> void:
 	var aud := audio.duplicate() as AudioStreamPlayer
 	aud.volume_db = -30.0

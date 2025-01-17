@@ -1,6 +1,5 @@
 extends Area2D
 class_name Starpoint
-# TODO: Change class_name to Starpoint... why am i like this
 
 @export var what_im_happy_with: GameUtil.BokoColor
 @export_group("Object to Assign")

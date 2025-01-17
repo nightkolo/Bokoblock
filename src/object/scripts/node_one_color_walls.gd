@@ -56,7 +56,7 @@ func bokoblocks_area_entered(areas: Array[Area2D]) -> void:
 			var child_blocks := (areas[0] as Bokoblock).parent_bokobody.child_blocks
 			
 			for block: Bokoblock in child_blocks:
-				block.anim_hit_block()
+				block.anim_hit_block(Vector2.ZERO)
 				
 		return
 	
@@ -68,7 +68,7 @@ func bokoblocks_area_entered(areas: Array[Area2D]) -> void:
 			
 		elif !can_pass_through:
 			anim_hit()
-			(areas[0] as Bokoblock).anim_hit_block()
+			(areas[0] as Bokoblock).anim_hit_block(Vector2.ZERO)
 			(areas[0] as Bokoblock).can_we_stop_moving_dad() # maybe i need to think about this method name
 
 

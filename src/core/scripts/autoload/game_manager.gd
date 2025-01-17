@@ -69,11 +69,8 @@ func _ready() -> void:
 func goto_next_stage(force_progression: bool = false) -> void:
 	if current_stage:
 		if !current_stage.stage_progression && !force_progression:
-			print("current_stage.stage_progression is true, progression stopped.")
+			print("current_stage.stage_progression is false, progression stopped.")
 			return
-			
-		elif force_progression:
-			print("param force_progression at goto_next_stage is true, current_stage.stage_progression ignored.")
 	
 	_reset_game_manager()
 	GameLogic.self_detruct()
@@ -81,8 +78,6 @@ func goto_next_stage(force_progression: bool = false) -> void:
 	var next_lvl_id := current_stage_id + 1
 	var next_lvl_path := GameUtil.STAGE_FILE_BEGIN + str(next_lvl_id) + GameUtil.STAGE_FILE_END
 	
-	#if GameUtil.check_file_exists(next_lvl_path): # doesn't work on web export for some reason
-	# on well, it's not like the final game will make use of GameUtil.check_file_exists()
 	if next_lvl_id <= GameUtil.NUMBER_OF_STAGES: 
 		get_tree().change_scene_to_file(next_lvl_path)
 
@@ -91,7 +86,7 @@ func reset_game() -> void:
 	game_reset.emit()
 
 
-func process_waittime(wait: float = 0.1) -> void:
+func process_waittime(wait: float = 0.05) -> void:
 	await get_tree().create_timer(wait).timeout
 
 

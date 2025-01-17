@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bmxxgykupcrdu"]
+[gd_scene load_steps=16 format=4 uid="uid://bmxxgykupcrdu"]
 
 [ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_6a3rv"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_3pi1d"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cqj66us38ebnh" path="res://object/objects/obj_one_color_wall.tscn" id="10_mjm4v"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="11_e2on0"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="12_b2n4e"]
+[ext_resource type="Script" path="res://object/scripts/components/component_bokobody_animation.gd" id="15_75b88"]
 
 [node name="S" type="Node2D"]
 script = ExtResource("1_6a3rv")
@@ -22,7 +23,6 @@ script = ExtResource("1_6a3rv")
 zoom = Vector2(1.25, 1.25)
 
 [node name="SW" parent="." instance=ExtResource("3_5sbo3")]
-background_color = Color(0.5, 0.75, 0.5, 1)
 checkerboard_color = Color(0.8, 0.8, 0.8, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="SW"]
@@ -125,3 +125,6 @@ boko_color = 1
 [node name="Block4" parent="SO/Bokobody" instance=ExtResource("8_wkx6h")]
 position = Vector2(-45, 0)
 boko_color = 5
+
+[node name="BokobodyAnimationComponent" type="Node" parent="SO/Bokobody"]
+script = ExtResource("15_75b88")

@@ -37,8 +37,6 @@ func _ready() -> void:
 	
 
 func _setup_node() -> void:
-	#print(GameUtil.BackgroundEffect.values())
-	
 	if (apply_parent_values && get_parent() is StageWorld):
 		parent_stage_world = get_parent() as StageWorld
 	
@@ -62,8 +60,7 @@ func _setup_node() -> void:
 				texture_bg.self_modulate = parent_stage_world.custom_background_color
 			
 			_:
-				@warning_ignore("static_called_on_instance")
-				texture_bg.self_modulate = parent_stage_world.set_background_color(parent_stage_world.background_color)
+				texture_bg.self_modulate = StageWorld.set_background_color(parent_stage_world.background_color)
 		
 		if parent_stage_world.randomize_background_effect:
 			_background_effect = GameUtil.BackgroundEffect.values()[randi() % GameUtil.BackgroundEffect.size()]

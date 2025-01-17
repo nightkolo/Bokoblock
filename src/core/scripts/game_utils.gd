@@ -8,7 +8,7 @@ enum BackgroundEffect {SCROLL = 0, ROTATE = 1, ZOOM = 2, SKEW = 3}
 
 static var stage_complete_anim_waittime: float = 2.0
 
-const GAME_SCREEN_SIZE = Vector2(960,720)
+const GAME_SCREEN_SIZE = Vector2(960.0,720.0)
 const BOKOBODY_TURN_DEGREE = 90.0
 const TILE_SIZE = 45.0 
 const NUMBER_OF_STAGES = 69
