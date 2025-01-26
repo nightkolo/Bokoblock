@@ -73,7 +73,7 @@ func goto_next_stage(force_progression: bool = false) -> void:
 			return
 	
 	_reset_game_manager()
-	GameLogic.self_detruct()
+	GameLogic.self_destruct()
 	
 	var next_lvl_id := current_stage_id + 1
 	var next_lvl_path := GameUtil.STAGE_FILE_BEGIN + str(next_lvl_id) + GameUtil.STAGE_FILE_END
@@ -90,7 +90,7 @@ func process_waittime(wait: float = 0.05) -> void:
 	await get_tree().create_timer(wait).timeout
 
 
-func self_detruct() -> void:
+func self_destruct() -> void:
 	_reset_game_manager()
 	
 

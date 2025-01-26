@@ -133,7 +133,7 @@ func check_if_block_on_starpoint(blocks: Array[Bokoblock]) -> bool:
 	return false
 
 
-func self_detruct() -> void:
+func self_destruct() -> void:
 	_reset_game_logic()
 
 

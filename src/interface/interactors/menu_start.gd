@@ -13,8 +13,8 @@ func _ready() -> void:
 
 func start_game() -> void:
 	start_btn.disabled = true
-	GameMgr.self_detruct()
-	GameLogic.self_detruct()
+	GameMgr.self_destruct()
+	GameLogic.self_destruct()
 	await get_tree().create_timer(0.5).timeout
 	
 	get_tree().change_scene_to_file("res://world/runtime/levels/stage_1.tscn")
