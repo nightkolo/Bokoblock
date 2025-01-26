@@ -28,7 +28,7 @@ func anim_blocks_entered_one_col_wall(is_block: Bokoblock) -> void:
 	for block: Bokoblock in bokobody.child_blocks:
 		block.sprite_block.self_modulate = GameUtil.set_boko_color(is_block.boko_color)
 		block.sprite_node_1.scale = Vector2.ONE / 4.0
-		block.anim_ghost()
+		block.animator.anim_ghost()
 		
 		tween_one_col_wall.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur)
 	

@@ -184,7 +184,7 @@ func anim_hit_block(transformed_to) -> void:
 
 func anim_entered_one_color_wall() -> void:
 	if block.parent_bokobody:
-		block.parent_bokobody.child_block_entered_one_col_wall.emit(self)
+		block.parent_bokobody.child_block_entered_one_col_wall.emit(block)
 		
 		
 func anim_exited_one_color_wall() -> void:

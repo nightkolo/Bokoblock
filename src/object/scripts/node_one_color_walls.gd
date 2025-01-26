@@ -56,7 +56,7 @@ func bokoblocks_area_entered(areas: Array[Area2D]) -> void:
 			var child_blocks := (areas[0] as Bokoblock).parent_bokobody.child_blocks
 			
 			for block: Bokoblock in child_blocks:
-				block.anim_hit_block(Vector2.ZERO)
+				block.animator.anim_hit_block(Vector2.ZERO)
 				
 		return
 	
@@ -64,17 +64,17 @@ func bokoblocks_area_entered(areas: Array[Area2D]) -> void:
 		
 		if (areas[0] as Bokoblock).boko_color == im_looking_for && !can_pass_through:
 			can_pass_through = true
-			(areas[0] as Bokoblock).anim_entered_one_color_wall()
+			(areas[0] as Bokoblock).animator.anim_entered_one_color_wall()
 			
 		elif !can_pass_through:
 			anim_hit()
-			(areas[0] as Bokoblock).anim_hit_block(Vector2.ZERO)
+			(areas[0] as Bokoblock).animator.anim_hit_block(Vector2.ZERO)
 			(areas[0] as Bokoblock).can_we_stop_moving_dad() # maybe i need to think about this method name
 
 
 func bokoblocks_area_exited(area: Area2D) -> void:
 	if can_pass_through && area is Bokoblock && get_overlapping_areas().is_empty():
-		(area as Bokoblock).anim_exited_one_color_wall()
+		(area as Bokoblock).animator.anim_exited_one_color_wall()
 
 
 
