@@ -2,3 +2,6 @@
 src/.godot/
 src/export/
 src/export_presets.cfg
+.vscode/
+*.log  # Ignore all .log files
+*.tmp  # Ignore all .tmp files

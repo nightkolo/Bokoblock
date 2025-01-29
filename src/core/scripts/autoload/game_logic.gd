@@ -28,7 +28,7 @@ var _bodies_stopped: int = 0
 
 
 func _ready() -> void:
-	bokobody_stopped.connect(check_if_all_bodies_stopped)
+	bokobody_stopped.connect(check_if_bodies_stopped)
 	bokobodies_stopped.connect(check_win)
 	bokobodies_stopped.connect(check_bodies)
 	
@@ -56,7 +56,7 @@ func check_bodies() -> void:
 		is_block_on_starpoint = false
 
 
-func check_if_all_bodies_stopped() -> void:
+func check_if_bodies_stopped() -> void:
 	var num_of_bodies: int = GameMgr.current_bodies.size()
 	
 	if num_of_bodies == 0:
@@ -118,7 +118,7 @@ func has_moved() -> void:
 func get_current_win_condition() -> WinCondition:
 	if GameMgr.current_stage:
 		return GameMgr.current_stage.win_condition
-		
+	
 	return 0
 
 
