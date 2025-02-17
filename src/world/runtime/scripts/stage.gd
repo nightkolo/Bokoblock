@@ -32,7 +32,7 @@ func _ready() -> void:
 		var num := self.scene_file_path.to_int()
 
 		stage_id = num
-		world_id = floori(num / 10.0) + 1
+		world_id = ceili(num / 10.0)
 	
 	if show_dev_ui:
 		var dev_ui := _dev_ui.instantiate()

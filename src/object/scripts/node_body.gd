@@ -16,7 +16,7 @@ signal child_block_exited_one_col_wall()
 @export_range(0, 4) var turning_strength: int = 1
 @export var no_move: bool = false
 @export var no_turn_delay: bool = false
-@export_range(0.0, 1.0, 0.025, "or_greater") var movement_time: float = 0.1
+@export_range(0.0, 1.0, 0.025, "or_greater") var movement_time: float = 0.08
 @export_group("Modify")
 @export var animator: BokobodyAnimationComponent
 @export var show_blocks: bool = true
@@ -91,11 +91,11 @@ func _setup_node() -> void:
 	position += (Vector2.ONE * GameUtil.TILE_SIZE) / 2.0
 	
 	if show_light:
-		var light := light_glow.instantiate() as PointLight2D
+		var light: PointLight2D = light_glow.instantiate() as PointLight2D
 		light.scale = light_scale
 		add_child(light)
 		
-		var tween := create_tween().set_loops()
+		var tween: Tween = create_tween().set_loops()
 		tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 		tween.tween_property(light,"energy",2.0,2.0)
 		tween.tween_property(light,"energy",1.0,2.0)
@@ -116,7 +116,7 @@ func check_state() -> void:
 	
 func undo() -> void:
 	if transforms_made.is_empty():
-		await get_tree().create_timer(0.1).timeout
+		#await GameMgr.process_waittime(0.025)
 		GameLogic.bokobody_stopped.emit(self)
 		return
 	
@@ -132,7 +132,7 @@ func undo() -> void:
 			transforms_made.pop_front()
 			await turn(last_move * signf(turning_strength) * -1, true, false)
 			
-	GameLogic.bokobody_stopped.emit(self)
+	GameLogic.bokobody_stopped.emit()
 
 
 func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true) -> void:
@@ -254,9 +254,9 @@ func stop_transforming() -> void:
 
 
 func normalize_bokobody_rotation() -> void:
-	var angle: float = BokoMath.normalize_angle(rotation_degrees)
+	#var angle: float = BokoMath.normalize_angle(rotation_degrees)
 	
-	rotation_degrees = BokoMath.round_to_nearest_90(angle)
+	rotation_degrees = BokoMath.round_to_nearest_90(BokoMath.normalize_angle(rotation_degrees))
 
 
 func is_transforming() -> bool:

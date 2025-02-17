@@ -17,7 +17,7 @@ var is_happy: bool = false:
 
 
 func _ready() -> void:
-	_set_up()
+	_setup_node()
 	
 	GameMgr.current_starpoints.append(self)
 
@@ -27,7 +27,7 @@ func _process(_delta: float) -> void:
 		particles_idle.global_rotation = 0.0
 
 	
-func _set_up() -> void:
+func _setup_node() -> void:
 	check_satisfaction()
 	anim_pulse()
 	anim_star()
@@ -42,11 +42,11 @@ func _set_up() -> void:
 func check_satisfaction() -> bool:
 	var value: bool
 	var areas: Array[Area2D] = get_overlapping_areas()
-	var is_what_im_looking_for: bool = areas.size() == 1 && areas[0] is Bokoblock
+	#var is_what_im_looking_for: bool = areas.size() == 1 && areas[0] is Bokoblock
 	
-	if is_what_im_looking_for:
+	if areas.size() == 1 && areas[0] is Bokoblock:
 		value = (areas[0] as Bokoblock).boko_color == what_im_happy_with
-	
+		
 	is_happy = value
 	
 	return value

@@ -75,7 +75,7 @@ func _setup_node() -> void:
 
 func _setup_parent() -> void:
 	if parent_bokobody:
-		if parent_bokobody.turning_strength == abs(2):
+		if parent_bokobody.turning_strength == absi(2):
 			texture_eyes = asset_eye_scaredy
 		
 		elif parent_bokobody.turning_strength < 0:
@@ -94,11 +94,11 @@ func check_state() -> void:
 	#var is_on_tile := areas.size() == 1
 	#var is_on_object := bodies.size() == 1
 	
-	var has_stood_on_starpoint: bool = areas.size() == 1 && areas[0] is Starpoint
+	#var has_stood_on_starpoint: bool = areas.size() == 1 && areas[0] is Starpoint
 
 	var is_on_happy_starpoint: bool = false
 	
-	if has_stood_on_starpoint:
+	if areas.size() == 1 && areas[0] is Starpoint:
 		is_on_happy_starpoint = (areas[0] as Starpoint).what_im_happy_with == boko_color
 	
 	if is_on_happy_starpoint && !is_on_starpoint:

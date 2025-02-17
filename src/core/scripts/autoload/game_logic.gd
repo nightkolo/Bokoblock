@@ -88,9 +88,7 @@ func check_win() -> void:
 		return
 	
 	for starpoint: Starpoint in GameMgr.current_starpoints:
-		var is_happy: bool = starpoint.check_satisfaction()
-		
-		if is_happy:
+		if starpoint.check_satisfaction():
 			objects_happy += 1
 	
 	has_won = objects_happy == match_amount
@@ -127,8 +125,9 @@ func check_if_block_on_starpoint(blocks: Array[Bokoblock]) -> bool:
 		return false
 		
 	for block: Bokoblock in blocks:
-		if block.is_on_starpoint:
-			return true
+		return block.is_on_starpoint
+		#if block.is_on_starpoint:
+			#return true
 	
 	return false
 
