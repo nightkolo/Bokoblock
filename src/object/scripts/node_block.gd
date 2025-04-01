@@ -88,9 +88,13 @@ func _setup_parent() -> void:
 
 
 func check_state() -> void:
-	var areas: Array[Area2D] = get_overlapping_areas()
-	#var bodies := get_overlapping_bodies()
+	var areas: Array[Area2D]
 	
+	if (monitoring && monitorable):
+		areas = get_overlapping_areas()
+	#var bodies := get_overlapping_bodies()
+	if areas.is_empty():
+		return
 	#var is_on_tile := areas.size() == 1
 	#var is_on_object := bodies.size() == 1
 	

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcym5mmxg2uv7"]
+
+[ext_resource type="Texture2D" uid="uid://bat8ifohqdgwa" path="res://icon.svg" id="1_d2y1a"]
+[ext_resource type="Script" path="res://world/runtime/playground/util_card.gd" id="1_umnra"]
+
+[node name="Card" type="CenterContainer"]
+custom_minimum_size = Vector2(128, 153.6)
+pivot_offset = Vector2(64, 115.2)
+script = ExtResource("1_umnra")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(64, 76.8)
+
+[node name="Texture" type="Sprite2D" parent="Node2D"]
+scale = Vector2(1, 1.2)
+texture = ExtResource("1_d2y1a")
