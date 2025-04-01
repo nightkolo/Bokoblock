@@ -109,7 +109,7 @@ position = Vector2(607, 517)
 what_im_happy_with = 1
 
 [node name="Bokobody" type="Node2D" parent="SO"]
-position = Vector2(517, 247)
+position = Vector2(518, 248)
 script = ExtResource("7_jowka")
 
 [node name="Block" parent="SO/Bokobody" instance=ExtResource("8_wkx6h")]

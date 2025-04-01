@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_dekbh"]
 
 [node name="S" type="Node2D"]
+editor_description = "I just lost this level lol
+this is why git is so important."
 script = ExtResource("1_fhnfk")
 
 [node name="Cam" parent="." instance=ExtResource("2_jikcl")]

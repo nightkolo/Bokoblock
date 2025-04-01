@@ -39,6 +39,10 @@ func _setup_node() -> void:
 		particles_idle.self_modulate = GameUtil.set_boko_color(what_im_happy_with,2.0,0.5)
 
 
+func setup_node() -> void:
+	_setup_node()
+
+
 func check_satisfaction() -> bool:
 	var value: bool
 	var areas: Array[Area2D] = get_overlapping_areas()

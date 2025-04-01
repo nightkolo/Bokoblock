@@ -73,7 +73,7 @@ position = Vector2(517, 247)
 position = Vector2(562, 247)
 
 [node name="Bokobody" type="Node2D" parent="SO"]
-position = Vector2(427, 382)
+position = Vector2(428, 383)
 script = ExtResource("7_hbjuo")
 
 [node name="Block" parent="SO/Bokobody" instance=ExtResource("8_dcm4r")]
@@ -85,7 +85,7 @@ position = Vector2(45, 0)
 position = Vector2(-45, 0)
 
 [node name="Bokobody2" type="Node2D" parent="SO"]
-position = Vector2(562, 382)
+position = Vector2(563, 383)
 script = ExtResource("7_hbjuo")
 
 [node name="Block" parent="SO/Bokobody2" instance=ExtResource("8_dcm4r")]

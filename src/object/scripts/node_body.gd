@@ -13,7 +13,7 @@ signal child_block_exited_one_col_wall()
 
 @export_group("Transformation")
 @export var movement_strength: int = 1
-@export_range(0, 4) var turning_strength: int = 1
+@export_range(-4, 4) var turning_strength: int = 1
 @export var no_move: bool = false
 @export var no_turn_delay: bool = false
 @export_range(0.0, 1.0, 0.025, "or_greater") var movement_time: float = 0.08
@@ -88,7 +88,7 @@ func _ready() -> void:
 
 func _setup_node() -> void:
 	position = position.snapped(Vector2.ONE * GameUtil.TILE_SIZE)
-	position += (Vector2.ONE * GameUtil.TILE_SIZE) / 2.0
+	position -= (Vector2.ONE * GameUtil.TILE_SIZE) / 2.0
 	
 	if show_light:
 		var light: PointLight2D = light_glow.instantiate() as PointLight2D

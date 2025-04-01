@@ -27,7 +27,6 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="S" type="Node2D"]
 script = ExtResource("1_n8o7v")
-stage_progression = false
 
 [node name="Cam" parent="." instance=ExtResource("2_dt5wt")]
 position = Vector2(480, 310)
@@ -40,6 +39,7 @@ background_dim = 0.35
 
 [node name="TextureRect" parent="SW/BG/Texture" index="0"]
 texture = ExtResource("4_anbg7")
+metadata/_edit_use_anchors_ = true
 
 [node name="StageLight" type="PointLight2D" parent="SW"]
 position = Vector2(494.5, 314.5)
@@ -104,7 +104,7 @@ position = Vector2(607, 337)
 position = Vector2(652, 337)
 
 [node name="Bokobody" type="Node2D" parent="SO"]
-position = Vector2(337, 202)
+position = Vector2(338, 203)
 script = ExtResource("7_g74s3")
 
 [node name="Block" parent="SO/Bokobody" instance=ExtResource("8_wqpg2")]
@@ -119,7 +119,7 @@ position = Vector2(45, 0)
 script = ExtResource("15_mdjg5")
 
 [node name="Bokobody2" type="Node2D" parent="SO"]
-position = Vector2(607, 292)
+position = Vector2(608, 293)
 script = ExtResource("7_g74s3")
 
 [node name="Block" parent="SO/Bokobody2" instance=ExtResource("8_wqpg2")]

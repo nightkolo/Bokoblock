@@ -49,9 +49,8 @@ tile_map_data = PackedByteArray("AAALAAoAAQALAAAAAAAKAAoAAQAKAAAAAAAJAAoAAQAKAAA
 tile_set = ExtResource("5_l5xau")
 
 [node name="ChibiBoko" parent="SW" instance=ExtResource("14_4v2wt")]
-position = Vector2(472, 202)
-info_text = "Try to make all Blocks [color=yellow][tornado radius=2.0 freq=3.0]happy![/tornado][/color]
- C'mon, I know ya can do it!"
+position = Vector2(248, 203)
+info_text = "Turn!"
 
 [node name="LO" type="Node2D" parent="."]
 script = ExtResource("7_jinqd")
@@ -72,16 +71,16 @@ position = Vector2(292, 427)
 what_im_happy_with = 3
 
 [node name="Bokobody" type="Node2D" parent="LO"]
-position = Vector2(382, 382)
+position = Vector2(698, 248)
 script = ExtResource("8_koq42")
 
 [node name="Block" parent="LO/Bokobody" instance=ExtResource("9_ihgog")]
 boko_color = 3
 
 [node name="Block2" parent="LO/Bokobody" instance=ExtResource("9_ihgog")]
-position = Vector2(0, 45)
+position = Vector2(45, 0)
 boko_color = 3
 
 [node name="Block3" parent="LO/Bokobody" instance=ExtResource("9_ihgog")]
-position = Vector2(0, -45)
+position = Vector2(-45, 0)
 boko_color = 3

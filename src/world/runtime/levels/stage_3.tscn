@@ -88,7 +88,7 @@ position = Vector2(697, 337)
 what_im_happy_with = 1
 
 [node name="Bokobody" type="Node2D" parent="LO"]
-position = Vector2(292, 427)
+position = Vector2(293, 428)
 script = ExtResource("8_dxav2")
 
 [node name="Block" parent="LO/Bokobody" instance=ExtResource("9_0jy2d")]
@@ -103,7 +103,7 @@ position = Vector2(-45, 0)
 boko_color = 2
 
 [node name="Bokobody2" type="Node2D" parent="LO"]
-position = Vector2(562, 427)
+position = Vector2(563, 428)
 script = ExtResource("8_dxav2")
 
 [node name="Block" parent="LO/Bokobody2" instance=ExtResource("9_0jy2d")]

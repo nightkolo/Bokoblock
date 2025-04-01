@@ -17,6 +17,7 @@ script = ExtResource("1_yn2bl")
 [node name="Cam" parent="." instance=ExtResource("2_gber3")]
 
 [node name="SW" parent="." instance=ExtResource("3_mfujq")]
+show_collision_tilemap = true
 
 [node name="TM" type="Node2D" parent="SW"]
 scale = Vector2(0.5, 0.5)
