@@ -93,8 +93,7 @@ func check_state() -> void:
 	if (monitoring && monitorable):
 		areas = get_overlapping_areas()
 	#var bodies := get_overlapping_bodies()
-	if areas.is_empty():
-		return
+
 	#var is_on_tile := areas.size() == 1
 	#var is_on_object := bodies.size() == 1
 	
@@ -113,7 +112,7 @@ func check_state() -> void:
 		is_on_starpoint = false
 
 
-# TODO: ...change this function name.
+# TODO: ...change this function name. Or keep it i dunno
 func can_we_stop_moving_dad() -> bool:
 	var yes: bool
 	
@@ -124,6 +123,41 @@ func can_we_stop_moving_dad() -> bool:
 		yes = false
 		
 	return yes
+
+
+func change_bokocolor_of_dad() -> void: ## @experimental
+	if parent_bokobody:
+		for block: Bokoblock in parent_bokobody.child_blocks:
+			block.change_bokocolor()
+
+
+func change_bokocolor() -> void: ## @experimental
+	animator.anim_bokocolor_changed()
+	
+	@warning_ignore("int_as_enum_without_cast")
+	boko_color = boko_color + 1
+	
+	# TODO: uhhh
+	if boko_color > GameUtil.BokoColor.PINK:
+		boko_color = GameUtil.BokoColor.GREY
+	elif boko_color == GameUtil.BokoColor.GREY:
+		boko_color = GameUtil.BokoColor.AQUA
+	
+	_setup_node()
+	check_state()
+
+## @experimental
+##
+## Such blessed method names
+func get_out() -> void:
+	if animator:
+		#await animator.anim_removed() # Dumbass await wouldn't work suddenly
+		animator.anim_removed()
+		await get_tree().create_timer(0.55).timeout
+		visible = false
+		monitorable = false
+		monitoring = false
+	
 
 
 func _set_as_origin_block(is_origin: bool) -> void:

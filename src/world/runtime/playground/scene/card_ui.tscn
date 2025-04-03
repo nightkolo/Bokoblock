@@ -10,7 +10,7 @@ script = ExtResource("1_t0nvi")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 offset_left = 284.0
-offset_top = 525.0
+offset_top = 473.0
 offset_right = 676.0
 offset_bottom = 717.0
 pivot_offset = Vector2(196, 128)
@@ -26,6 +26,18 @@ layout_mode = 2
 
 [node name="Card2" parent="UI/MarginContainer/VBoxContainer" instance=ExtResource("2_10tfh")]
 layout_mode = 2
+card_type = 1
 
 [node name="Card3" parent="UI/MarginContainer/VBoxContainer" instance=ExtResource("2_10tfh")]
 layout_mode = 2
+card_type = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
+z_index = -1
+offset_left = 698.0
+offset_top = 563.0
+offset_right = 1090.0
+offset_bottom = 653.0
+bbcode_enabled = true
+text = "[font_size=35][wave]Debugging
+Cards"

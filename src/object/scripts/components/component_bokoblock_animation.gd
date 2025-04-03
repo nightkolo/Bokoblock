@@ -295,3 +295,40 @@ func anim_landed_starpoint(has_landed: bool) -> void:
 		anim_entered_starpoint()
 	else:
 		anim_exited_starpoint()
+
+
+var tween_bokocolor: Tween ## @experimental
+var _is_being_removed: bool = false
+
+
+func anim_bokocolor_changed() -> void: ## @experimental
+	var dur: float = 0.75
+	
+	block.sprite_eyes.texture = block.texture_eyes
+	block.sprite_node_1.scale = Vector2.ONE / 1.385
+	
+	if tween_bokocolor:
+		tween_bokocolor.kill()
+	tween_bokocolor = create_tween().set_parallel(true)
+	tween_bokocolor.set_ease(Tween.EASE_OUT)
+	tween_bokocolor.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_ELASTIC)
+	tween_bokocolor.tween_property(block.sprite_node_1,"modulate",Color(Color.WHITE),dur/4.0)
+
+
+func anim_removed() -> void: ## @experimental
+	if _is_being_removed:
+		return
+	
+	_is_being_removed = true
+	
+	var dur: float = 0.3
+	var rot_to: float = PI * signf(randf() - 0.5)
+	
+	block.sprite_eyes.texture = asset_eye_close
+	block.modulate = Color(Color.WHITE/2)
+	
+	var tween := create_tween().set_parallel(true)
+	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(block.sprite_node_1,"scale",Vector2.ZERO,dur)
+	tween.tween_property(block.sprite_node_1,"rotation",rot_to,dur)
+	

@@ -82,6 +82,13 @@ func goto_next_stage(force_progression: bool = false) -> void:
 		get_tree().change_scene_to_file(next_lvl_path)
 
 
+var current_card_ui: TestCardUI ## @experimental
+
+
+func get_card_type() -> TestCardUI.CardType: ## @experimental
+	return current_card_ui.current_card_type
+
+
 func reset_game() -> void:
 	game_reset.emit()
 

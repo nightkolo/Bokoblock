@@ -20,6 +20,8 @@ class_name Stage
 @export var stage_progression: bool = true
 @export_group("Miscellanous")
 @export var show_dev_ui: bool = false
+@export var custom_block_match: int = -1 ## @experimental
+
 
 var _dev_ui: PackedScene = preload("res://interface/runtime/misc/dev_ui.tscn")
 

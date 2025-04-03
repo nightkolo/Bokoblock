@@ -81,7 +81,10 @@ func check_win() -> void:
 			match_amount = GameMgr.current_starpoints.size()
 			
 		WinCondition.MATCH_ALL_BLOCKS:
-			match_amount = GameMgr.current_blocks.size()
+			if GameMgr.current_stage.custom_block_match < 0:
+				match_amount = GameMgr.current_blocks.size()
+			else:
+				match_amount = GameMgr.current_stage.custom_block_match
 	
 	if match_amount == 0:
 		win_checked = true
