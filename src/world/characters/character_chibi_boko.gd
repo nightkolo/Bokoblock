@@ -21,6 +21,7 @@ class_name CharacterChibiBoko
 @onready var sprite_star: Sprite2D = %Star
 @onready var star_dark: Sprite2D = %StarDark
 @onready var sprite_star_ghost: Sprite2D = %StarGhost
+@onready var particle_z: CPUParticles2D = $Z
 
 var _seed: float
 var _tween_breathe: Tween
@@ -54,7 +55,7 @@ func eyes_happy() -> void:
 
 func start_breathing() -> void:
 	var dur := 1.0
-	var factor := 1.04
+	var factor := 1.01
 	reset_tween(_tween_breathe)
 	
 	_tween_breathe = create_tween().set_loops()
@@ -145,6 +146,14 @@ func stop_star_spinning() -> void:
 	anim_star_bounce(0.3)
 
 
+func start_zeing() -> void:
+	particle_z.emitting = true
+
+
+func stop_zeing() -> void:
+	particle_z.emitting = false
+
+
 func be_neutral() -> void:
 	node_top_hat.set_process(true)
 	
@@ -177,6 +186,19 @@ func be_happy() -> void:
 	
 	tween_happy = create_tween()
 	tween_happy.tween_property(sprite_head,"self_modulate",Color(Color.WHITE),dur)
+
+
+func be_asleep() -> void: ## @experimental
+	start_breathing()
+	
+	anim.play(&"asleep")
+	
+	
+func wake_up() -> void: ## @experimental
+	anim_bounce()
+	anim_wobble_top_hat()
+	
+	anim.play(&"woke_up")
 
 
 func anim_excited() -> void:

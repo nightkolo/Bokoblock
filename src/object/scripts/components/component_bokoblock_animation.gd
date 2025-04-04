@@ -14,6 +14,9 @@ var tween_turn: Tween
 var tween_hit_block: Tween
 var tween_ghosts: Tween
 var tween_starpoint: Tween
+var tween_bokocolor: Tween ## @experimental
+
+var _is_being_removed: bool = false
 
 
 func _ready() -> void:
@@ -295,10 +298,6 @@ func anim_landed_starpoint(has_landed: bool) -> void:
 		anim_entered_starpoint()
 	else:
 		anim_exited_starpoint()
-
-
-var tween_bokocolor: Tween ## @experimental
-var _is_being_removed: bool = false
 
 
 func anim_bokocolor_changed() -> void: ## @experimental

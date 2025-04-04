@@ -21,15 +21,17 @@
 offsets = PackedFloat32Array(0.4, 0.7, 1)
 colors = PackedColorArray(0.5, 0.5, 0.5, 1, 0.1, 0.1, 0.1, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_nugeh"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d53c4"]
 gradient = SubResource("Gradient_1gdm8")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.814103, 0.224359)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_v0i7w"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f0bu0"]
 gradient = SubResource("Gradient_1gdm8")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.837607, 0.185897)
 
 [node name="S" type="Node2D"]
 script = ExtResource("1_holue")
@@ -41,8 +43,8 @@ custom_block_match = 4
 [node name="CardUI" parent="." instance=ExtResource("2_g1sjl")]
 
 [node name="Cam" parent="." instance=ExtResource("2_2dh26")]
-position = Vector2(518, 428)
-zoom = Vector2(1.45, 1.45)
+position = Vector2(503, 405)
+zoom = Vector2(1.55, 1.55)
 
 [node name="SW" parent="." instance=ExtResource("3_plg7f")]
 randomize_background_effect = false
@@ -52,14 +54,14 @@ background_color = 1
 position = Vector2(563, 383)
 scale = Vector2(8.4375, 7.03125)
 range_item_cull_mask = 2
-texture = SubResource("GradientTexture2D_nugeh")
+texture = SubResource("GradientTexture2D_d53c4")
 script = ExtResource("5_66rhv")
 
 [node name="StageLight2" type="PointLight2D" parent="SW"]
 position = Vector2(248, 608)
 scale = Vector2(9.088, 7.573)
 range_item_cull_mask = 2
-texture = SubResource("GradientTexture2D_v0i7w")
+texture = SubResource("GradientTexture2D_f0bu0")
 script = ExtResource("5_66rhv")
 
 [node name="TM" type="Node2D" parent="SW"]
@@ -81,8 +83,9 @@ tile_map_data = PackedByteArray("AAAEAAoAAQALAAAAAAAEAAsAAQALAAMAAAADAAoAAQAIAAA
 tile_set = ExtResource("7_e5dif")
 
 [node name="ChibiBoko" parent="SW" instance=ExtResource("8_8jf76")]
-position = Vector2(591, 267)
+position = Vector2(591, 260)
 info_text = "Hello."
+sleep = true
 
 [node name="SO" type="Node2D" parent="."]
 script = ExtResource("8_hktit")
@@ -93,6 +96,24 @@ script = ExtResource("13_ya8a2")
 [node name="Starpoint" parent="SO/Endpoints" instance=ExtResource("14_tfowe")]
 position = Vector2(608, 383)
 what_im_happy_with = 2
+
+[node name="Starpoint5" parent="SO/Endpoints" instance=ExtResource("14_tfowe")]
+position = Vector2(923, 383)
+
+[node name="Starpoint6" parent="SO/Endpoints" instance=ExtResource("14_tfowe")]
+position = Vector2(923, 338)
+
+[node name="Starpoint7" parent="SO/Endpoints" instance=ExtResource("14_tfowe")]
+position = Vector2(923, 293)
+
+[node name="Starpoint8" parent="SO/Endpoints" instance=ExtResource("14_tfowe")]
+position = Vector2(878, 383)
+
+[node name="Starpoint9" parent="SO/Endpoints" instance=ExtResource("14_tfowe")]
+position = Vector2(923, 473)
+
+[node name="Starpoint10" parent="SO/Endpoints" instance=ExtResource("14_tfowe")]
+position = Vector2(923, 428)
 
 [node name="Starpoint2" parent="SO/Endpoints" instance=ExtResource("14_tfowe")]
 position = Vector2(653, 383)

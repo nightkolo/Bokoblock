@@ -14,9 +14,10 @@ enum BubbleAlign { ## @experimental
 @export_multiline var info_text: String
 @export var bubble_align: BubbleAlign ## @experimental
 @export_group("Modify")
-@export var animate_boko: bool = true
-@export var await_time: float = 0.75
+@export var sleep: bool = false ## @experimental
+@export var animate: bool = true
 @export var auto_start_text: bool = true
+@export_range(0, 1, 0.05, "or_greater") var await_time: float = 0.75
 
 @onready var bubble: NinePatchRect = $NinePatchRect
 @onready var label: RichTextLabel = $RichTextLabel
@@ -36,17 +37,20 @@ var is_chibi_boko_speaking: bool = false:
 		return is_chibi_boko_speaking
 	set(value):
 		if value != is_chibi_boko_speaking:
-			if value && chibi_boko:
+			if value && chibi_boko && !_boko_just_woke_up:
 				chibi_boko.start_speaking()
 			else:
 				chibi_boko.pause_speaking()
 		is_chibi_boko_speaking = value
 
+const WAKE_UP_CALL = "wa- Huh?" ## @experimental
 const STAGE_COMPLETE_TEXT = "Well done!"
 const MAX_BUBBLE_WIDTH = 270.0 ## @experimental
 
-var _tween_bubble: Tween
+var _tween_bubble_a: Tween
+var _tween_bubble_b: Tween
 var _letter_show_timer: Timer = Timer.new()
+var _boko_just_woke_up: bool = false
 
 const _BUBBLE_MARGIN = Vector2.ONE * 35.0
 const _LABEL_MARGIN = Vector2.ONE * 10.0
@@ -57,9 +61,10 @@ func _ready() -> void:
 	add_child(_letter_show_timer)
 	
 	bubble.visible = false
+	bubble.modulate = Color(Color.WHITE, 0.0)
 	label.scale = Vector2(0.95,1.0)
 	
-	if chibi_boko && animate_boko:
+	if chibi_boko && animate && !sleep:
 		GameLogic.bokobody_entered_starpoint.connect(func():
 			if !GameLogic.has_won:
 				chibi_boko.anim_excited()
@@ -92,13 +97,25 @@ func _ready() -> void:
 			label.size += _LABEL_MARGIN
 			anim_bubble_bounce()
 			)
+	elif sleep:
+		chibi_boko.be_asleep()
+		
+		GameMgr.game_just_ended.connect(func():
+			_boko_just_woke_up = true
 			
-		_letter_show_timer.timeout.connect(func():
-			_show_letter()
-			letter_showed.emit()
+			show_text(WAKE_UP_CALL)
+			
+			if GameLogic.has_won:
+				chibi_boko.wake_up()
+			
 			)
 	
-	if auto_start_text && info_text != "":
+	_letter_show_timer.timeout.connect(func():
+		_show_letter()
+		letter_showed.emit()
+		)
+	
+	if auto_start_text && info_text != "" && !sleep:
 		await get_tree().create_timer(await_time).timeout
 		show_text(info_text)
 
@@ -138,6 +155,7 @@ func show_text(text_to_show: String) -> void:
 	label.modulate = Color(Color.WHITE,1.0)
 	label.visible = true
 	bubble.visible = true
+	anim_bubble_pop_up()
 
 
 func _show_letter() -> void:
@@ -169,7 +187,23 @@ func _show_letter() -> void:
 		letter_showing_finished.emit()
 
 
-func anim_bubble_bounce():
+## @experimental
+func anim_bubble_pop_up() -> void:
+	var dur := 0.45
+	
+	if _tween_bubble_b:
+		_tween_bubble_b.kill()
+		
+	bubble.scale = -Vector2.ONE
+	bubble.modulate = Color(Color.WHITE, 0.0)
+	
+	_tween_bubble_b = create_tween().set_parallel(true)
+	_tween_bubble_b.set_ease(Tween.EASE_OUT)
+	_tween_bubble_b.tween_property(bubble,"modulate",Color(Color.WHITE, 1.0),dur/1.8)
+	_tween_bubble_b.tween_property(bubble,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
+
+
+func anim_bubble_bounce() -> void:
 	var dur := 1.0
 	var bounce_to := 1.3
 	
@@ -185,13 +219,13 @@ func anim_bubble_bounce():
 	bubble.pivot_offset = offset
 	bubble.scale = Vector2.ONE * bounce_to
 	
-	if _tween_bubble:
-		_tween_bubble.kill()
+	if _tween_bubble_a:
+		_tween_bubble_a.kill()
 	
-	_tween_bubble = create_tween()
-	_tween_bubble.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	_tween_bubble_a = create_tween()
+	_tween_bubble_a.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	
-	_tween_bubble.tween_property(bubble,"scale",Vector2.ONE,dur)
+	_tween_bubble_a.tween_property(bubble,"scale",Vector2.ONE,dur)
 
 
 ## @experimental
