@@ -1,0 +1,14 @@
+[gd_resource type="Theme" format=3 uid="uid://bw14mtcn80nwt"]
+
+[resource]
+RichTextLabel/colors/default_color = Color(0.125, 0.125, 0.125, 1)
+RichTextLabel/colors/font_outline_color = Color(0.125, 0.125, 0.125, 0.368)
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.1)
+RichTextLabel/constants/outline_size = 2
+RichTextLabel/constants/shadow_offset_x = 2
+RichTextLabel/constants/shadow_offset_y = 4
+RichTextLabel/font_sizes/bold_font_size = 22
+RichTextLabel/font_sizes/bold_italics_font_size = 22
+RichTextLabel/font_sizes/italics_font_size = 22
+RichTextLabel/font_sizes/mono_font_size = 22
+RichTextLabel/font_sizes/normal_font_size = 22

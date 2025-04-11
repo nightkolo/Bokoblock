@@ -1,6 +1,7 @@
 ## Under construction.
 extends Node2D
 class_name ChibiBoko
+# TODO: change to StageInfo
 
 signal letter_showing_started()
 signal letter_showing_finished()
@@ -19,8 +20,8 @@ enum BubbleAlign { ## @experimental
 @export var auto_start_text: bool = true
 @export_range(0, 1, 0.05, "or_greater") var await_time: float = 0.75
 
-@onready var bubble: NinePatchRect = $NinePatchRect
-@onready var label: RichTextLabel = $RichTextLabel
+@onready var bubble: NinePatchRect = $SpeechBubble
+@onready var label: RichTextLabel = $TextBubble
 @onready var chibi_boko: CharacterChibiBoko = $CharacterChibiBoko
 @onready var audio: AudioStreamPlayer = $Speech
 
@@ -107,7 +108,6 @@ func _ready() -> void:
 			
 			if GameLogic.has_won:
 				chibi_boko.wake_up()
-			
 			)
 	
 	_letter_show_timer.timeout.connect(func():

@@ -11,10 +11,12 @@
 
 [node name="S" type="Node2D"]
 script = ExtResource("1_8irpk")
+stage_progression = false
 
 [node name="Cam" parent="." instance=ExtResource("2_47sf3")]
 
 [node name="SW" parent="." instance=ExtResource("3_wpf8u")]
+show_collision_tilemap = true
 
 [node name="StageLight" type="PointLight2D" parent="SW"]
 position = Vector2(517, 382)

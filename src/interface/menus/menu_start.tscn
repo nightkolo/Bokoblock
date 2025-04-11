@@ -1,17 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpujkicds0iny"]
+[gd_scene load_steps=11 format=3 uid="uid://dpujkicds0iny"]
 
+[ext_resource type="Theme" uid="uid://cls5uwn5pwpbx" path="res://core/resources/theme/theme_button_sided.tres" id="1_4fjpl"]
 [ext_resource type="FontFile" uid="uid://cgp77ft8q5j4y" path="res://assets/addons/fonts/Rabbitfont-Black.ttf" id="1_kq2sv"]
-[ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_wnlm0"]
 [ext_resource type="Script" path="res://interface/interactors/menu_start.gd" id="1_wuuvm"]
 [ext_resource type="Script" path="res://interface/animators/notice_text.gd" id="2_ajo37"]
-[ext_resource type="StyleBox" uid="uid://bsppk7f7j58hb" path="res://core/resources/theme/theme_button_block.tres" id="4_y7clw"]
-[ext_resource type="FontVariation" uid="uid://bpy0c6b217yv1" path="res://core/resources/theme/font_var_block_button.tres" id="5_yn3ap"]
+[ext_resource type="StyleBox" uid="uid://bsppk7f7j58hb" path="res://core/resources/theme/style_box_flat_button_block.tres" id="4_y7clw"]
+[ext_resource type="FontVariation" uid="uid://bpy0c6b217yv1" path="res://core/resources/theme/font_var_button.tres" id="5_yn3ap"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_block.gd" id="6_2qulo"]
+[ext_resource type="LabelSettings" uid="uid://d3sghgdnruyqg" path="res://core/resources/ui/label_set_game_title_demo.tres" id="7_gmans"]
+[ext_resource type="PackedScene" uid="uid://wcao18gadugm" path="res://interface/elements/game_title_demo.tscn" id="8_pnkpd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_djo7m"]
 font = ExtResource("1_kq2sv")
 font_size = 100
-shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.313726)
 shadow_offset = Vector2(8, 1)
 
@@ -22,7 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_wnlm0")
+theme = ExtResource("1_4fjpl")
 script = ExtResource("1_wuuvm")
 
 [node name="BG" type="ColorRect" parent="."]
@@ -55,6 +56,7 @@ clip_contents = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 theme_override_fonts/font = ExtResource("5_yn3ap")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = ExtResource("4_y7clw")
@@ -62,67 +64,28 @@ theme_override_styles/disabled = ExtResource("4_y7clw")
 theme_override_styles/hover = ExtResource("4_y7clw")
 theme_override_styles/pressed = ExtResource("4_y7clw")
 theme_override_styles/normal = ExtResource("4_y7clw")
-text = "Start?
-(enter)"
-script = ExtResource("6_2qulo")
-
-[node name="Testing" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
-visible = false
-layout_mode = 2
-
-[node name="StartButton" type="Button" parent="MarginContainer/CenterContainer/Testing" groups=["UIButton"]]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("5_yn3ap")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = ExtResource("4_y7clw")
-theme_override_styles/disabled = ExtResource("4_y7clw")
-theme_override_styles/hover = ExtResource("4_y7clw")
-theme_override_styles/pressed = ExtResource("4_y7clw")
-theme_override_styles/normal = ExtResource("4_y7clw")
-text = "Start?
-(enter)"
-script = ExtResource("6_2qulo")
-
-[node name="StartButton2" type="Button" parent="MarginContainer/CenterContainer/Testing" groups=["UIButton"]]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("5_yn3ap")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = ExtResource("4_y7clw")
-theme_override_styles/disabled = ExtResource("4_y7clw")
-theme_override_styles/hover = ExtResource("4_y7clw")
-theme_override_styles/pressed = ExtResource("4_y7clw")
-theme_override_styles/normal = ExtResource("4_y7clw")
-text = "Start?
-(enter)"
-script = ExtResource("6_2qulo")
-
-[node name="StartButton3" type="Button" parent="MarginContainer/CenterContainer/Testing" groups=["UIButton"]]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("5_yn3ap")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = ExtResource("4_y7clw")
-theme_override_styles/disabled = ExtResource("4_y7clw")
-theme_override_styles/hover = ExtResource("4_y7clw")
-theme_override_styles/pressed = ExtResource("4_y7clw")
-theme_override_styles/normal = ExtResource("4_y7clw")
-text = "Start?
-(enter)"
+text = "Start?"
 script = ExtResource("6_2qulo")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="GameTitle" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "BOKOBLOCK"
 label_settings = SubResource("LabelSettings_djo7m")
 horizontal_alignment = 1
+
+[node name="GameTitle2" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "BOKOBLOCK"
+label_settings = ExtResource("7_gmans")
+horizontal_alignment = 1
+
+[node name="GameTitle3" parent="MarginContainer/VBoxContainer" instance=ExtResource("8_pnkpd")]
+layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -135,7 +98,7 @@ bbcode_default = "[center][font_size=24.0][color=#FFFFFFBF]"
 layout_mode = 2
 size_flags_vertical = 8
 bbcode_enabled = true
-text = "© 2024"
+text = "© 2024-2025"
 fit_content = true
 
 [node name="Author" type="RichTextLabel" parent="MarginContainer/VBoxContainer2"]

@@ -36,6 +36,11 @@ func _ready() -> void:
 	_setup_node()
 	
 
+func _process(delta: float) -> void:
+	if _process_bg_fx:
+		_process_background_effect(delta, _background_effect)
+
+
 func _setup_node() -> void:
 	if (apply_parent_values && get_parent() is StageWorld):
 		parent_stage_world = get_parent() as StageWorld
@@ -53,6 +58,8 @@ func _setup_node() -> void:
 		
 		_effect_lengths_multiplier = parent_stage_world.effect_lengths_multiplier
 		_background_dim = parent_stage_world.background_dim
+		
+		print(_effect_lengths_multiplier)
 		
 		match parent_stage_world.background_color:
 			
@@ -73,20 +80,16 @@ func _setup_node() -> void:
 	set_background_effect(_background_effect)
 
 
-func _process(delta: float) -> void:
-	if _process_bg_fx:
-		_process_background_effect(delta, _background_effect)
-
-
 func set_background_effect(effect: GameUtil.BackgroundEffect) -> void:
 	match effect:
 			
 		GameUtil.BackgroundEffect.ZOOM:
+			var dur := 5.0
+			
 			_process_bg_fx = false
 			
 			_center_nodes()
 			texture_node.rotation = PI / 4.0 
-			# to be honest, i use "rotation" instead of "rotation_degrees" cause it looks fancier
 			
 			if _tween_a:
 				_tween_a.kill()
@@ -94,11 +97,14 @@ func set_background_effect(effect: GameUtil.BackgroundEffect) -> void:
 			_tween_a = create_tween().set_loops()
 			_tween_a.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 
-			_tween_a.tween_property(texture_node,"scale",Vector2.ONE/1.5,7.0*_effect_lengths_multiplier)
-			_tween_a.tween_property(texture_node,"scale",Vector2.ONE*1.5,7.0*_effect_lengths_multiplier)
+			_tween_a.tween_property(texture_node,"scale",Vector2.ONE/1.5,dur*(1.0/_effect_lengths_multiplier))
+			_tween_a.tween_property(texture_node,"scale",Vector2.ONE*1.5,dur*(1.0/_effect_lengths_multiplier))
 		
 		GameUtil.BackgroundEffect.SKEW:
 			_process_bg_fx = false
+			
+			var skew_dur := 8.0
+			var rot_dur := 23.5
 			
 			_center_nodes()
 			texture_node.rotation = PI / 4.0
@@ -113,11 +119,11 @@ func set_background_effect(effect: GameUtil.BackgroundEffect) -> void:
 			_tween_a.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 			_tween_b.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 			
-			_tween_a.tween_property(texture_node,"skew",deg_to_rad(-25.0),4.0*_effect_lengths_multiplier)
-			_tween_a.tween_property(texture_node,"skew",deg_to_rad(25.0),4.0*_effect_lengths_multiplier)
+			_tween_a.tween_property(texture_node,"skew",deg_to_rad(-25.0),skew_dur*(1.0/_effect_lengths_multiplier))
+			_tween_a.tween_property(texture_node,"skew",deg_to_rad(25.0),skew_dur*(1.0/_effect_lengths_multiplier))
 
-			_tween_b.tween_property(texture_node,"rotation",deg_to_rad(-45.0),13.0*_effect_lengths_multiplier)
-			_tween_b.tween_property(texture_node,"rotation",deg_to_rad(45.0),13.0*_effect_lengths_multiplier)
+			_tween_b.tween_property(texture_node,"rotation",deg_to_rad(-45.0),rot_dur*(1.0/_effect_lengths_multiplier))
+			_tween_b.tween_property(texture_node,"rotation",deg_to_rad(45.0),rot_dur*(1.0/_effect_lengths_multiplier))
 		
 		GameUtil.BackgroundEffect.SCROLL:
 			texture_bg.position = Vector2.ZERO
@@ -142,9 +148,9 @@ func _center_nodes() -> void:
 func _process_background_effect(delta: float, effect: GameUtil.BackgroundEffect) -> void:
 	match effect:
 		GameUtil.BackgroundEffect.SCROLL:
-			texture_bg.position += delta * 10.0 * -Vector2.ONE * _effect_lengths_multiplier
+			texture_bg.position += delta * 20.0 * -Vector2.ONE * _effect_lengths_multiplier
 	
-			if abs(texture_bg.position.x) > 480.0:
+			if absf(texture_bg.position.x) > 480.0:
 				texture_bg.position = Vector2.ZERO
 		
 		GameUtil.BackgroundEffect.ROTATE:

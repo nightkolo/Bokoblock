@@ -13,7 +13,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		GameMgr.reset_game()
 	
 	if event.is_action_pressed("game_pause"):
-		get_tree().change_scene_to_file("res://interface/menus/menu_start.tscn")
+		get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")
 	
 	if event.is_action_pressed("move_undo"):
 		_call_input_undo()

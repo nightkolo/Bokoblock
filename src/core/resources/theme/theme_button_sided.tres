@@ -1,0 +1,33 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cls5uwn5pwpbx"]
+
+[ext_resource type="FontFile" uid="uid://hec4akwpswov" path="res://assets/addons/fonts/Rabbitfont-ExtraBold.ttf" id="1_vagax"]
+[ext_resource type="StyleBox" uid="uid://b3fugvs48rxlp" path="res://core/resources/theme/style_box_flat_button.tres" id="2_1qahn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfrew"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 0.85)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 36
+Button/fonts/font = ExtResource("1_vagax")
+Button/styles/disabled = SubResource("StyleBoxFlat_nfrew")
+Button/styles/focus = ExtResource("2_1qahn")
+Button/styles/hover = ExtResource("2_1qahn")
+Button/styles/normal = ExtResource("2_1qahn")
+Button/styles/pressed = ExtResource("2_1qahn")

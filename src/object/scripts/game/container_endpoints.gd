@@ -2,7 +2,7 @@ extends Node2D
 class_name Endpoints
 # TODO: change to Starpoints
 
-@export var overwrite: bool = false ## @experimental
+@export var overwrite: bool = false
 @export var what_theyre_happy_with: GameUtil.BokoColor
 
 @onready var child_starpoints: Array[Node] = get_children()

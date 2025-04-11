@@ -10,6 +10,9 @@ var parent_level_world: StageWorld
 var checkerboard_color: Color = Color.WHITE
 var show_collision_tilemap: bool = false
 
+# A 1 0.77 0.77 0.8
+# A 2 0.8 0.8 0.7
+# Area 3 0.8, 0.7, 0.7
 
 func _ready() -> void:
 	_setup_nodes()
