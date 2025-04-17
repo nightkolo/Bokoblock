@@ -59,8 +59,6 @@ func _setup_node() -> void:
 		_effect_lengths_multiplier = parent_stage_world.effect_lengths_multiplier
 		_background_dim = parent_stage_world.background_dim
 		
-		print(_effect_lengths_multiplier)
-		
 		match parent_stage_world.background_color:
 			
 			StageWorld.StageWorldBGColorPreset.CUSTOM:

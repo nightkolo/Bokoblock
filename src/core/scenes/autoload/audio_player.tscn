@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnsy5pe5wp0l7"]
+[gd_scene load_steps=3 format=3 uid="uid://bnsy5pe5wp0l7"]
 
 [ext_resource type="Script" path="res://core/scripts/system_audio.gd" id="1_ukka2"]
+[ext_resource type="AudioStream" uid="uid://cej2m55vuaqcf" path="res://audio/music/1370709_Celestial-Canopy.mp3" id="2_lagqa"]
 
 [node name="Audio" type="Node"]
 script = ExtResource("1_ukka2")
+
+[node name="Music" type="Node" parent="."]
+
+[node name="StageMusic" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("2_lagqa")
+volume_db = -40.0
+bus = &"Music"

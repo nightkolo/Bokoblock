@@ -3,44 +3,35 @@ extends Node
 
 signal stage_entered(is_lvl: int)
 signal world_entered(is_wrld: int)
+signal game_entered(entered: bool)
 signal game_just_ended()
 signal game_end()
 signal game_reset()
 
 var number_of_bodies: int
-var number_of_blocks: int ## @experimental
-var number_of_starpoints: int ## @experimental
+var current_ui_handler: GameplayUI
 var current_stage: Stage
-var current_stage_id: int:
+var in_game: bool = false:
+	get: 
+		return in_game
+	set(value):
+		game_entered.emit(value)
+		in_game = value
+var current_stage_id: int = -1:
 	get:
 		return current_stage_id
 	set(value):
 		stage_entered.emit(value)
 		current_stage_id = value
-var current_world_id: int:
+var current_world_id: int = -1:
 	get:
 		return current_world_id
 	set(value):
 		world_entered.emit(value)
 		current_world_id = value
-var current_bodies: Array[Bokobody]:
-	get:
-		return current_bodies
-	set(value):
-		number_of_bodies = value.size() # doesn't work, bummer
-		current_bodies = value
-var current_blocks: Array[Bokoblock]:
-	get:
-		return current_blocks
-	set(value):
-		number_of_blocks = value.size()
-		current_blocks = value
-var current_starpoints: Array[Starpoint]:
-	get:
-		return current_starpoints
-	set(value):
-		number_of_starpoints = value.size()
-		current_starpoints = value
+var current_bodies: Array[Bokobody]
+var current_blocks: Array[Bokoblock]
+var current_starpoints: Array[Starpoint]
 
 var _is_game_manager_resetting: bool = false
 
@@ -76,6 +67,20 @@ func goto_next_stage(force_progression: bool = false) -> void:
 	GameLogic.self_destruct()
 	
 	var next_lvl_id := current_stage_id + 1
+	var next_lvl_path := GameUtil.STAGE_FILE_BEGIN + str(next_lvl_id) + GameUtil.STAGE_FILE_END
+	
+	if next_lvl_id <= GameUtil.NUMBER_OF_STAGES: 
+		get_tree().change_scene_to_file(next_lvl_path)
+
+
+func goto_prev_stage() -> void:
+	if current_stage:
+		return
+	
+	_reset_game_manager()
+	GameLogic.self_destruct()
+	
+	var next_lvl_id := current_stage_id - 1
 	var next_lvl_path := GameUtil.STAGE_FILE_BEGIN + str(next_lvl_id) + GameUtil.STAGE_FILE_END
 	
 	if next_lvl_id <= GameUtil.NUMBER_OF_STAGES: 

@@ -8,12 +8,12 @@ enum TranformationType {MOVE = 0, TURN = 1, UNDO = 99} ## @experimental
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("game_reset"):
+	#if event.is_action_pressed("game_reset"):
 		# TODO: Move to UI display
-		GameMgr.reset_game()
+		#GameMgr.reset_game()
 	
-	if event.is_action_pressed("game_pause"):
-		get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")
+	#if event.is_action_pressed("game_pause"):
+		#get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")
 	
 	if event.is_action_pressed("move_undo"):
 		_call_input_undo()

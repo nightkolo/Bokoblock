@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://cgp77ft8q5j4y" path="res://assets/addons/fonts/Rabbitfont-Black.ttf" id="1_kq2sv"]
 [ext_resource type="Script" path="res://interface/interactors/menu_start.gd" id="1_wuuvm"]
 [ext_resource type="Script" path="res://interface/animators/notice_text.gd" id="2_ajo37"]
-[ext_resource type="StyleBox" uid="uid://bsppk7f7j58hb" path="res://core/resources/theme/style_box_flat_button_block.tres" id="4_y7clw"]
+[ext_resource type="StyleBox" uid="uid://bsppk7f7j58hb" path="res://world/runtime/levels/style_box_flat_button_block.tres" id="4_y7clw"]
 [ext_resource type="FontVariation" uid="uid://bpy0c6b217yv1" path="res://core/resources/theme/font_var_button.tres" id="5_yn3ap"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_block.gd" id="6_2qulo"]
 [ext_resource type="LabelSettings" uid="uid://d3sghgdnruyqg" path="res://core/resources/ui/label_set_game_title_demo.tres" id="7_gmans"]

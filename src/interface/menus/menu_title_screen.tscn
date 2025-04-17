@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2hyhl2j3cera"]
+[gd_scene load_steps=8 format=3 uid="uid://d2hyhl2j3cera"]
 
+[ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_5vas1"]
 [ext_resource type="Theme" uid="uid://cls5uwn5pwpbx" path="res://core/resources/theme/theme_button_sided.tres" id="1_my005"]
 [ext_resource type="PackedScene" uid="uid://wcao18gadugm" path="res://interface/elements/game_title_demo.tscn" id="2_imu71"]
 [ext_resource type="Script" path="res://interface/interactors/menu_title_screen.gd" id="2_qjgxv"]
@@ -25,7 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_my005")
+theme = ExtResource("1_5vas1")
 script = ExtResource("2_qjgxv")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -78,6 +79,8 @@ theme_override_constants/separation = 20
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../CreditsButton")
+theme = ExtResource("1_my005")
 theme_override_fonts/font = ExtResource("3_mt7dq")
 text = "Start"
 
@@ -85,6 +88,7 @@ text = "Start"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("1_my005")
 theme_override_fonts/font = ExtResource("3_mt7dq")
 text = "Select Stage"
 
@@ -92,6 +96,8 @@ text = "Select Stage"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_bottom = NodePath("../StartButton")
+theme = ExtResource("1_my005")
 theme_override_fonts/font = ExtResource("3_mt7dq")
 text = "Credits"
 
@@ -100,8 +106,15 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = -5
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2"]
+[node name="CR" type="Label" parent="MarginContainer/VBoxContainer2"]
+visible = false
 layout_mode = 2
 text = "© 2025
 Night Kolo"
+label_settings = SubResource("LabelSettings_de2am")
+
+[node name="DemoInfo" type="Label" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Alpha 0
+by Night Kolo"
 label_settings = SubResource("LabelSettings_de2am")

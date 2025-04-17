@@ -1,0 +1,153 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0nbdjl7inkmr"]
+
+[ext_resource type="Script" path="res://interface/runtime/ui_menu_pause.gd" id="1_e5gcu"]
+[ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_x2cp5"]
+[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/tutorial-bubble-r3.png" id="2_i606c"]
+[ext_resource type="Theme" uid="uid://d4fajpwpc4rx" path="res://core/resources/theme/theme_button_pause_menu.tres" id="3_w78lq"]
+[ext_resource type="Script" path="res://interface/animators/anim_button_pause.gd" id="5_b1ou4"]
+
+[sub_resource type="FontVariation" id="FontVariation_q0gsl"]
+spacing_glyph = -2
+spacing_space = 1
+
+[node name="PauseMenu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e5gcu")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.2)
+
+[node name="PauseMenuAgain" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_x2cp5")
+theme_override_constants/margin_bottom = 50
+
+[node name="GodILoveControlNodes" type="NinePatchRect" parent="PauseMenuAgain"]
+custom_minimum_size = Vector2(450, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("2_i606c")
+region_rect = Rect2(0, 0, 144, 144)
+patch_margin_left = 48
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 48
+
+[node name="Content" type="MarginContainer" parent="PauseMenuAgain/GodILoveControlNodes"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuAgain/GodILoveControlNodes/Content"]
+layout_mode = 2
+
+[node name="PauseInfo" type="RichTextLabel" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/normal_font = SubResource("FontVariation_q0gsl")
+bbcode_enabled = true
+text = "[center][color=#232323][font_size=37][wave amp=10.0 freq=4.0][tornado radius=1.5 freq=1.0]=Stage 0-00 Paused="
+fit_content = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 10
+
+[node name="ResumeButton" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../HBoxContainer/Music")
+focus_neighbor_bottom = NodePath("../ResetButton")
+mouse_filter = 2
+theme = ExtResource("3_w78lq")
+text = "Continue"
+script = ExtResource("5_b1ou4")
+
+[node name="ResetButton" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../ResumeButton")
+focus_neighbor_bottom = NodePath("../ReturnButton")
+mouse_filter = 2
+theme = ExtResource("3_w78lq")
+text = "Reset"
+script = ExtResource("5_b1ou4")
+
+[node name="ReturnButton" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../ResetButton")
+focus_neighbor_bottom = NodePath("../HBoxContainer/Music")
+mouse_filter = 2
+theme = ExtResource("3_w78lq")
+text = "Quit"
+script = ExtResource("5_b1ou4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SFX" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../Misc")
+focus_neighbor_top = NodePath("../../ReturnButton")
+focus_neighbor_right = NodePath("../Music")
+focus_neighbor_bottom = NodePath("../../ResumeButton")
+theme = ExtResource("3_w78lq")
+theme_override_font_sizes/font_size = 25
+text = "SFX"
+
+[node name="Music" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../SFX")
+focus_neighbor_top = NodePath("../../ReturnButton")
+focus_neighbor_right = NodePath("../Misc")
+focus_neighbor_bottom = NodePath("../../ResumeButton")
+theme = ExtResource("3_w78lq")
+theme_override_font_sizes/font_size = 25
+text = "Music"
+
+[node name="Misc" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../Music")
+focus_neighbor_top = NodePath("../../ReturnButton")
+focus_neighbor_right = NodePath("../SFX")
+focus_neighbor_bottom = NodePath("../../ResumeButton")
+theme = ExtResource("3_w78lq")
+theme_override_font_sizes/font_size = 25
+text = "Effects"

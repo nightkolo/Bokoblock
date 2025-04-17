@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=4 uid="uid://bfsqrn04fq7ns"]
+[gd_scene load_steps=14 format=4 uid="uid://bfsqrn04fq7ns"]
 
 [ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_3uste"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_tmq3k"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_uxq7o"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_15i07"]
 [ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="4_exwuv"]
@@ -15,6 +16,8 @@
 
 [node name="S8" type="Node2D"]
 script = ExtResource("1_3uste")
+
+[node name="UI" parent="." instance=ExtResource("2_tmq3k")]
 
 [node name="Cam" parent="." instance=ExtResource("2_uxq7o")]
 position = Vector2(562, 359)

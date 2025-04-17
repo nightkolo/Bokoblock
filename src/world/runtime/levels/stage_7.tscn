@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=4 uid="uid://bmxxgykupcrdu"]
+[gd_scene load_steps=17 format=4 uid="uid://bmxxgykupcrdu"]
 
 [ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_6a3rv"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_3pi1d"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_gtytt"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_5sbo3"]
 [ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="4_bky8a"]
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_nq7mt"]
@@ -18,6 +19,8 @@
 
 [node name="S" type="Node2D"]
 script = ExtResource("1_6a3rv")
+
+[node name="UI" parent="." instance=ExtResource("2_gtytt")]
 
 [node name="Cam" parent="." instance=ExtResource("2_3pi1d")]
 zoom = Vector2(1.25, 1.25)

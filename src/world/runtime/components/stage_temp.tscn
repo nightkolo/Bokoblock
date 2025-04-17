@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://1jr3hnyoqmva"]
+[gd_scene load_steps=10 format=3 uid="uid://1jr3hnyoqmva"]
 
 [ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_8irpk"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_47sf3"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_qc2u3"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_wpf8u"]
 [ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="4_5fvqa"]
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_iuko8"]
@@ -12,6 +13,9 @@
 [node name="S" type="Node2D"]
 script = ExtResource("1_8irpk")
 stage_progression = false
+show_dev_ui = true
+
+[node name="UI" parent="." instance=ExtResource("2_qc2u3")]
 
 [node name="Cam" parent="." instance=ExtResource("2_47sf3")]
 

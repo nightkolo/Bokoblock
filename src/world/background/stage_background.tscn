@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bjf01m4j30qhm" path="res://core/resources/visuals/stage_background_dimmer.tres" id="3_blukp"]
 
 [node name="BG" type="CanvasLayer"]
+process_mode = 3
 layer = -10
 script = ExtResource("1_n48j3")
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dix7ul7nrnefh"]
+[gd_scene load_steps=10 format=3 uid="uid://dix7ul7nrnefh"]
 
 [ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_fhnfk"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_hnxwb"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_jikcl"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_o4jeq"]
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_0axbj"]
@@ -13,6 +14,8 @@
 editor_description = "I just lost this level lol
 this is why git is so important."
 script = ExtResource("1_fhnfk")
+
+[node name="UI" parent="." instance=ExtResource("2_hnxwb")]
 
 [node name="Cam" parent="." instance=ExtResource("2_jikcl")]
 

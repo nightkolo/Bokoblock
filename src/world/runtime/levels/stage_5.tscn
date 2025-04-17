@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=4 uid="uid://dhmvqkbijliqf"]
+[gd_scene load_steps=16 format=4 uid="uid://dhmvqkbijliqf"]
 
 [ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_pb1e4"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_fvmt0"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_wo7hu"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_euyvo"]
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_1giat"]
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="5_lv4gk"]
@@ -15,8 +16,10 @@
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="10_y58fl"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="11_th0if"]
 
-[node name="Stage" type="Node2D"]
+[node name="S5" type="Node2D"]
 script = ExtResource("1_pb1e4")
+
+[node name="UI" parent="." instance=ExtResource("2_wo7hu")]
 
 [node name="Cam" parent="." instance=ExtResource("2_fvmt0")]
 position = Vector2(563, 338)

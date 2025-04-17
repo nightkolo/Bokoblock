@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=4 uid="uid://by5fnsb2iire2"]
+[gd_scene load_steps=12 format=4 uid="uid://by5fnsb2iire2"]
 
 [ext_resource type="Script" path="res://world/runtime/scripts/stage.gd" id="1_4b02d"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_floxk"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_ikhdm"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_exubf"]
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_63vw8"]
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="5_sfx32"]
@@ -14,6 +15,8 @@
 [node name="S10" type="Node2D"]
 script = ExtResource("1_4b02d")
 win_condition = 1
+
+[node name="UI" parent="." instance=ExtResource("2_ikhdm")]
 
 [node name="Cam" parent="." instance=ExtResource("2_floxk")]
 

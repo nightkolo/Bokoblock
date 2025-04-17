@@ -7,17 +7,12 @@ extends Control
 @onready var btns: Array[Node] = get_tree().get_nodes_in_group("UIButton")
 
 
-
 func _ready() -> void:
+	start_btn.grab_focus()
+	
 	start_btn.pressed.connect(start_game)
-		
-	select_stage_btn.pressed.connect(func():
-		pass
-		)
-		
-	credits_btn.pressed.connect(func():
-		pass
-		)
+	select_stage_btn.pressed.connect(goto_select_stage)
+	credits_btn.pressed.connect(goto_credits)
 		
 
 func start_game() -> void:
@@ -27,6 +22,16 @@ func start_game() -> void:
 	await get_tree().create_timer(0.5).timeout
 	
 	get_tree().change_scene_to_file("res://world/runtime/levels/stage_1.tscn")
+
+
+func goto_select_stage() -> void:
+	#_disable_buttons(btns)
+	get_tree().change_scene_to_file("res://interface/menus/menu_stage_select.tscn")
+
+
+func goto_credits() -> void:
+	#_disable_buttons(btns)
+	get_tree().change_scene_to_file("res://interface/menus/menu_credits.tscn")
 
 
 func _disable_buttons(p_btns: Array[Node], disable: bool = true) -> void:

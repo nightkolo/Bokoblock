@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://di8et7u8v2hel"]
+
+[ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_dg448"]
+[ext_resource type="Script" path="res://interface/interactors/menu_credits.gd" id="1_m2fj4"]
+[ext_resource type="LabelSettings" uid="uid://bvj46p6mlit00" path="res://core/resources/ui/label_set_credit_author.tres" id="1_ol87i"]
+[ext_resource type="Theme" uid="uid://cls5uwn5pwpbx" path="res://core/resources/theme/theme_button_sided.tres" id="4_64h4q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vltc8"]
+font_size = 24
+
+[node name="MenuCredits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_dg448")
+script = ExtResource("1_m2fj4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25, 0.1, 0.25, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = -5
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "programming, level design, game idea by:"
+label_settings = SubResource("LabelSettings_vltc8")
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Night Kolo"
+label_settings = ExtResource("1_ol87i")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = -5
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+text = "music by:"
+label_settings = SubResource("LabelSettings_vltc8")
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+text = "Avizura"
+label_settings = ExtResource("1_ol87i")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = -5
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer3"]
+visible = false
+layout_mode = 2
+text = "music by:"
+label_settings = SubResource("LabelSettings_vltc8")
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+text = ":)"
+label_settings = ExtResource("1_ol87i")
+
+[node name="BackButton" type="Button" parent="MarginContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("4_64h4q")
+text = "Back to Title"
