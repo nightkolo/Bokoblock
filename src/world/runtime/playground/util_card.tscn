@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bcym5mmxg2uv7"]
 
-[ext_resource type="Script" path="res://world/runtime/playground/util_card.gd" id="1_umnra"]
+[ext_resource type="Script" path="res://world/runtime/playground/code/util_card.gd" id="1_umnra"]
 [ext_resource type="Texture2D" uid="uid://bus2us3uf1n13" path="res://assets/interface/card-ui-remove-v01.png" id="2_ggs7a"]
 
 [node name="Card" type="CenterContainer"]

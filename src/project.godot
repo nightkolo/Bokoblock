@@ -120,6 +120,13 @@ prev_level={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="Block"
+2d_physics/layer_3="Starpoint"
+2d_physics/layer_4="Object"
+
 [rendering]
 
 renderer/rendering_method="mobile"

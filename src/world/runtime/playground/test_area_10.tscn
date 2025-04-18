@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=4 uid="uid://dyqiyeqrx0nvr"]
 
-[ext_resource type="Script" path="res://world/runtime/playground/test_area_10.gd" id="1_pk0ah"]
+[ext_resource type="Script" path="res://world/runtime/playground/code/test_area_10.gd" id="1_pk0ah"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_77m02"]
 [ext_resource type="Texture2D" uid="uid://v0t4f0f678y6" path="res://assets/interface/why.png" id="2_ymvdo"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/runtime/components/level_world.tscn" id="3_ds712"]

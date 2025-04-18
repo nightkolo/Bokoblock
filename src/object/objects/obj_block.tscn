@@ -19,7 +19,8 @@ point_count = 2
 colors = PackedColorArray(1, 1, 1, 0.35, 1, 1, 1, 0)
 
 [node name="Block" type="Area2D" node_paths=PackedStringArray("animator")]
-collision_mask = 3
+collision_layer = 2
+collision_mask = 15
 script = ExtResource("1_fox18")
 animator = NodePath("BokoblockAnimationComponent")
 

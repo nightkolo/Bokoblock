@@ -8,7 +8,7 @@
 [ext_resource type="FontVariation" uid="uid://bpy0c6b217yv1" path="res://core/resources/theme/font_var_button.tres" id="5_yn3ap"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_block.gd" id="6_2qulo"]
 [ext_resource type="LabelSettings" uid="uid://d3sghgdnruyqg" path="res://core/resources/ui/label_set_game_title_demo.tres" id="7_gmans"]
-[ext_resource type="PackedScene" uid="uid://wcao18gadugm" path="res://interface/elements/game_title_demo.tscn" id="8_pnkpd"]
+[ext_resource type="PackedScene" uid="uid://wcao18gadugm" path="res://interface/ui/game_title_demo.tscn" id="8_pnkpd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_djo7m"]
 font = ExtResource("1_kq2sv")

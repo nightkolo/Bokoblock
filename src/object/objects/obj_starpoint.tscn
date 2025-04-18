@@ -11,6 +11,8 @@ size = Vector2(40, 40)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Starpoint" type="Area2D" node_paths=PackedStringArray("sprite_star", "particles_idle")]
+collision_layer = 4
+collision_mask = 15
 script = ExtResource("1_mwqlu")
 sprite_star = NodePath("Sprite2D")
 particles_idle = NodePath("CPUParticles2D")
