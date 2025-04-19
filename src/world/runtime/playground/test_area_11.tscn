@@ -57,16 +57,16 @@ tile_set = ExtResource("8_0wmn2")
 script = ExtResource("9_dwo2k")
 
 [node name="Bokobody" type="Node2D" parent="SO"]
-position = Vector2(563, 428)
+position = Vector2(428, 383)
 script = ExtResource("10_1pas6")
 
 [node name="Block2" parent="SO/Bokobody" instance=ExtResource("11_rkhok")]
 
 [node name="Block3" parent="SO/Bokobody" instance=ExtResource("11_rkhok")]
-position = Vector2(0, 45)
+position = Vector2(45, 0)
 
 [node name="Bokobody2" type="Node2D" parent="SO"]
-position = Vector2(473, 428)
+position = Vector2(518, 428)
 script = ExtResource("10_1pas6")
 
 [node name="Block" parent="SO/Bokobody2" instance=ExtResource("11_rkhok")]

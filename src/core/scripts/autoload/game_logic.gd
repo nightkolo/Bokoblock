@@ -3,7 +3,7 @@ extends Node
 signal bokobodies_moved(transformed_to)
 signal button_held(is_bokocolor: GameUtil.BokoColor) ## @experimental
 signal button_released(is_bokocolor: GameUtil.BokoColor) ## @experimental
-signal bokobody_stopped()
+signal bokobody_stopped(is_bokobody: Bokobody)
 signal bokobodies_stopped()
 signal bokobody_entered_starpoint()
 signal bokobody_exited_starpoint()
@@ -58,7 +58,7 @@ func check_bodies() -> void:
 		is_block_on_starpoint = false
 
 
-func check_if_bodies_stopped() -> void:
+func check_if_bodies_stopped(_is_bokobody: Bokobody) -> void:
 	var num_of_bodies: int = GameMgr.current_bodies.size()
 	
 	if num_of_bodies == 0:

@@ -267,9 +267,15 @@ func is_transforming_real() -> bool:
 	return (is_moving || is_actually_turning)
 
 
-func has_hit_area(area: Area2D) -> bool:
-	return area is Bokoblock || area is SwitchBlocks
+var is_on_top_switch_block: bool ## @experimental
 
+# It works but it's so hacky...
+func has_hit_area(area: Area2D) -> bool:
+	if is_on_top_switch_block:
+		return area is Bokoblock
+	else:
+		return area is Bokoblock || area is SwitchBlocks
+		
 
 func has_hit_object(body: Node2D) -> bool:
 	return body is TileMapLayer || body is SleepingBlock
@@ -288,7 +294,7 @@ func get_current_turn() -> int:
 
 
 func _has_stopped() -> void:
-	GameLogic.bokobody_stopped.emit()
+	GameLogic.bokobody_stopped.emit(self)
 
 
 func _on_transform(trans_to) -> void:
