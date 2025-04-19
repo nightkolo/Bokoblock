@@ -7,11 +7,11 @@ signal starpoint_entered(has_entered: bool)
 @export var boko_color: GameUtil.BokoColor
 @export_group("Modify")
 @export var animator: BokoblockAnimationComponent
-@export var auto_check_origin: bool = true
-@export var set_as_origin: bool = false
+@export var auto_check_center: bool = true
+@export var set_as_center: bool = false
 @export_group("Assets")
 @export var asset_block: Texture2D = preload("res://assets/objects/block-v06-greyscale.png")
-@export var asset_origin_block: Texture2D = preload("res://assets/objects/block-v06-greyscale-origin.png")
+@export var asset_center_block: Texture2D = preload("res://assets/objects/block-v06-greyscale-center.png")
 @export var asset_eye_normal: Texture2D = preload("res://assets/objects/block-eyes-v03-neutral-white.png")
 @export var asset_eye_angry: Texture2D = preload("res://assets/objects/block-eyes-v03-angry-white.png")
 @export var asset_eye_scaredy: Texture2D = preload("res://assets/objects/block-eyes-v03-scaredy-white.png")
@@ -67,10 +67,10 @@ func _setup_node() -> void:
 	
 	sprite_block.self_modulate = GameUtil.set_boko_color(boko_color)
 	
-	if auto_check_origin:
-		_set_as_origin_block(self.position == Vector2.ZERO)
+	if auto_check_center:
+		_set_as_center_block(self.position == Vector2.ZERO)
 	else:
-		_set_as_origin_block(set_as_origin)
+		_set_as_center_block(set_as_center)
 
 
 func _setup_parent() -> void:
@@ -160,9 +160,9 @@ func get_out() -> void:
 	
 
 
-func _set_as_origin_block(is_origin: bool) -> void:
-	if is_origin:
-		sprite_block.texture = asset_origin_block
+func _set_as_center_block(is_center: bool) -> void:
+	if is_center:
+		sprite_block.texture = asset_center_block
 		self.z_index = 1
 	else:
 		sprite_block.texture = asset_block

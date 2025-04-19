@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b12hsyrgrsj0g"
-path="res://.godot/imported/block-v06-greyscale-origin.png-d35dc48403b8b557881803a79050917a.ctex"
+uid="uid://dgu8qf60kqiqy"
+path="res://.godot/imported/block-v07-greyscale-center.png-b7ec749d75db2d1c3de2d97c3c49bd5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/block-v06-greyscale-origin.png"
-dest_files=["res://.godot/imported/block-v06-greyscale-origin.png-d35dc48403b8b557881803a79050917a.ctex"]
+source_file="res://assets/objects/block-v07-greyscale-center.png"
+dest_files=["res://.godot/imported/block-v07-greyscale-center.png-b7ec749d75db2d1c3de2d97c3c49bd5c.ctex"]
 
 [params]
 
