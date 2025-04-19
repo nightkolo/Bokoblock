@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://18nk25lcwcc7"]
+
+[ext_resource type="Script" path="res://object/scripts/obj_switch_block.gd" id="1_vislj"]
+[ext_resource type="Texture2D" uid="uid://bat8ifohqdgwa" path="res://icon.svg" id="2_u0sdk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tw0cg"]
+size = Vector2(45, 45)
+
+[node name="SwitchBlock" type="CollisionShape2D"]
+shape = SubResource("RectangleShape2D_tw0cg")
+script = ExtResource("1_vislj")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_u0sdk")

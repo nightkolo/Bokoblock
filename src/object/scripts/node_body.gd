@@ -73,11 +73,11 @@ func _ready() -> void:
 	await GameMgr.process_waittime()
 	for block: Bokoblock in child_blocks:
 		block.area_entered.connect(func(area: Area2D):
-			if area is Bokoblock:
+			if has_hit_area(area):
 				stop_transforming()
 			)
 		block.body_entered.connect(func(body: Node2D):
-			if (body is TileMapLayer || body is SleepingBlock):
+			if has_hit_object(body):
 				stop_transforming()
 			) 
 		
@@ -265,6 +265,14 @@ func is_transforming() -> bool:
 	
 func is_transforming_real() -> bool:
 	return (is_moving || is_actually_turning)
+
+
+func has_hit_area(area: Area2D) -> bool:
+	return area is Bokoblock || area is SwitchBlocks
+
+
+func has_hit_object(body: Node2D) -> bool:
+	return body is TileMapLayer || body is SleepingBlock
 
 
 func get_current_last_transform():

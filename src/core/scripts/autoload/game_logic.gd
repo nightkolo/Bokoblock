@@ -1,6 +1,8 @@
 extends Node
 
 signal bokobodies_moved(transformed_to)
+signal button_held(is_bokocolor: GameUtil.BokoColor) ## @experimental
+signal button_released(is_bokocolor: GameUtil.BokoColor) ## @experimental
 signal bokobody_stopped()
 signal bokobodies_stopped()
 signal bokobody_entered_starpoint()

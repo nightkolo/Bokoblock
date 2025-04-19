@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://8xo052jhkfuk"]
+
+[ext_resource type="Script" path="res://object/scripts/node_button.gd" id="1_2xau5"]
+[ext_resource type="Texture2D" uid="uid://bat8ifohqdgwa" path="res://icon.svg" id="2_2jflf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ob1tt"]
+
+[node name="Button" type="Area2D" node_paths=PackedStringArray("node_sprite", "sprite")]
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("1_2xau5")
+switch_blocks_to_activate = 1
+node_sprite = NodePath("Node2D")
+sprite = NodePath("Node2D/Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ob1tt")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_2jflf")
