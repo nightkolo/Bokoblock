@@ -132,7 +132,7 @@ func undo() -> void:
 			transforms_made.pop_front()
 			await turn(last_move * signf(turning_strength) * -1, true, false)
 			
-	GameLogic.bokobody_stopped.emit()
+	GameLogic.bokobody_stopped.emit(self)
 
 
 func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true) -> void:

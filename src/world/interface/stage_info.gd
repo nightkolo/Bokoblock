@@ -187,7 +187,6 @@ func _show_letter() -> void:
 		letter_showing_finished.emit()
 
 
-## @experimental
 func anim_bubble_pop_up() -> void:
 	var dur := 0.45
 	
@@ -204,8 +203,8 @@ func anim_bubble_pop_up() -> void:
 
 
 func anim_bubble_bounce() -> void:
-	var dur := 1.0
-	var bounce_to := 1.3
+	var dur := 0.4
+	var bounce_to := 1.1
 	
 	var p_size := label.size
 	var offset: Vector2
@@ -223,7 +222,7 @@ func anim_bubble_bounce() -> void:
 		_tween_bubble_a.kill()
 	
 	_tween_bubble_a = create_tween()
-	_tween_bubble_a.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	_tween_bubble_a.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	
 	_tween_bubble_a.tween_property(bubble,"scale",Vector2.ONE,dur)
 

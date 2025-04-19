@@ -1,11 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://bp0yxas1oob3e"]
+[gd_scene load_steps=8 format=3 uid="uid://bp0yxas1oob3e"]
 
 [ext_resource type="Script" path="res://object/scripts/node_sleeping_block.gd" id="1_thiw6"]
 [ext_resource type="Texture2D" uid="uid://6gfr648a4tde" path="res://assets/objects/block-v06-greyscale.png" id="2_xugsw"]
 [ext_resource type="Texture2D" uid="uid://cxqxrupx28s0s" path="res://assets/objects/block-eyes-v03-blink-white.png" id="3_b7jpx"]
+[ext_resource type="Texture2D" uid="uid://b21qpdjshhmgn" path="res://assets/world/particle-zzz-sleepy.png" id="4_d6h2u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vytsv"]
 size = Vector2(45, 45)
+
+[sub_resource type="Curve" id="Curve_fv42t"]
+_data = [Vector2(0, 0.535891), 0.0, 4.15387, 0, 0, Vector2(0.26009, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.508735), -1.16219, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_3lfne"]
+offsets = PackedFloat32Array(0, 0.225, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 0.75, 0.75, 0)
 
 [node name="SleepingBlock" type="StaticBody2D"]
 collision_layer = 4
@@ -16,9 +25,32 @@ script = ExtResource("1_thiw6")
 shape = SubResource("RectangleShape2D_vytsv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 24)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_xugsw")
+offset = Vector2(0, -49)
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_b7jpx")
+
+[node name="Z" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(9, -13)
+amount = 3
+speed_scale = 0.25
+randomness = 0.13
+texture = ExtResource("4_d6h2u")
+direction = Vector2(1, -1)
+spread = 0.0
+gravity = Vector2(24, -24)
+initial_velocity_min = 35.0
+initial_velocity_max = 35.0
+angular_velocity_min = -25.0
+angular_velocity_max = 25.0
+angle_min = -10.0
+angle_max = 10.0
+scale_amount_min = 0.25
+scale_amount_max = 0.25
+scale_amount_curve = SubResource("Curve_fv42t")
+color_ramp = SubResource("Gradient_3lfne")

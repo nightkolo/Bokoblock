@@ -1,4 +1,4 @@
-## @experimental: Under Construction
+## Under Construction
 extends Area2D
 class_name SwitchBlocks
 
@@ -24,14 +24,14 @@ var is_open: bool:
 func _ready() -> void:
 	_setup_node()
 	
-	has_opened.connect(func(is_open: bool):
-		if is_open:
+	has_opened.connect(func(p_is_open: bool):
+		if p_is_open:
 			anim_open()
 		else:
 			anim_close()
 		)
 	
-	# problematic code
+	# Possibly problematic code
 	GameLogic.button_held.connect(func(is_color: GameUtil.BokoColor):
 		if is_color == my_color:
 			open(true)

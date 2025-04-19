@@ -131,8 +131,6 @@ func check_if_block_on_starpoint(blocks: Array[Bokoblock]) -> bool:
 		
 	for block: Bokoblock in blocks:
 		return block.is_on_starpoint
-		#if block.is_on_starpoint:
-			#return true
 	
 	return false
 

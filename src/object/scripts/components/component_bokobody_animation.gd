@@ -53,7 +53,7 @@ func anim_complete() -> void:
 	
 	if bokobody.particles_win:
 		var p := bokobody.particles_win.instantiate() as CPUParticles2D
-		add_child(p)
+		bokobody.add_child(p)
 		p.global_rotation = 0.0
 		p.emitting = true
 		_tween = create_tween()

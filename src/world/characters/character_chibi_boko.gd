@@ -90,8 +90,8 @@ func start_speaking() -> void:
 	
 	
 func wobble_while_speaking() -> void:
-	var wobble_min := 5.0 
-	var wobble_rand_max := 5.0
+	var wobble_min := 2.5
+	var wobble_rand_max := 3.5
 	_seed = sign(randf()-0.5)
 	var rot_to: float = (wobble_min + (randf() * wobble_rand_max)) * _seed
 	

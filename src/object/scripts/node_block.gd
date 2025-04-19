@@ -3,6 +3,7 @@ extends Area2D
 class_name Bokoblock
 
 signal starpoint_entered(has_entered: bool)
+signal button_entered(has_entered: bool)
 
 @export var boko_color: GameUtil.BokoColor
 @export_group("Modify")
@@ -27,6 +28,7 @@ signal starpoint_entered(has_entered: bool)
 
 var parent_bokobody: Bokobody
 var is_on_starpoint: bool
+var is_on_button: bool
 var limit_eye_movement: bool = true
 var texture_eyes: Texture2D
 
@@ -89,27 +91,40 @@ func _setup_parent() -> void:
 
 func check_state() -> void:
 	var areas: Array[Area2D]
+	var l_is_on_starpoint: bool = false
+	var l_is_on_button: bool = false
 	
-	if (monitoring && monitorable):
+	# Error cleansing for the debug cards test area
+	# Umm, hey godot github contributers
+	# why is it even an error, could you just... give me a warning?
+	# ...or just pretend like nothing happened and return an empty array on get_overlapping_areas
+	if (monitoring && monitorable): 
 		areas = get_overlapping_areas()
+		
 	#var bodies := get_overlapping_bodies()
 
 	#var is_on_tile := areas.size() == 1
 	#var is_on_object := bodies.size() == 1
 	
-	#var has_stood_on_starpoint: bool = areas.size() == 1 && areas[0] is Starpoint
-
-	var is_on_happy_starpoint: bool = false
+	if areas.size() == 1:
+		if areas[0] is Starpoint:
+			l_is_on_starpoint = (areas[0] as Starpoint).what_im_happy_with == boko_color
+		
+		l_is_on_button = areas[0] is ButtonObj
 	
-	if areas.size() == 1 && areas[0] is Starpoint:
-		is_on_happy_starpoint = (areas[0] as Starpoint).what_im_happy_with == boko_color
-	
-	if is_on_happy_starpoint && !is_on_starpoint:
-		starpoint_entered.emit(is_on_happy_starpoint)
+	if l_is_on_starpoint && !is_on_starpoint:
+		starpoint_entered.emit(l_is_on_starpoint)
 		is_on_starpoint = true
-	elif !is_on_happy_starpoint && is_on_starpoint:
-		starpoint_entered.emit(is_on_happy_starpoint)
+	elif !l_is_on_starpoint && is_on_starpoint:
+		starpoint_entered.emit(l_is_on_starpoint)
 		is_on_starpoint = false
+		
+	if l_is_on_button && !is_on_button:
+		button_entered.emit(l_is_on_button)
+		is_on_button = true
+	elif !l_is_on_button && is_on_button:
+		button_entered.emit(l_is_on_button)
+		is_on_button = false
 
 
 # TODO: ...change this function name. Or keep it i dunno
@@ -125,13 +140,13 @@ func can_we_stop_moving_dad() -> bool:
 	return yes
 
 
-func change_bokocolor_of_dad() -> void: ## @experimental
+func change_bokocolor_of_dad() -> void: ## @experimental: For the Debug Cards test area
 	if parent_bokobody:
 		for block: Bokoblock in parent_bokobody.child_blocks:
 			block.change_bokocolor()
 
 
-func change_bokocolor() -> void: ## @experimental
+func change_bokocolor() -> void: ## @experimental: For the Debug Cards test area
 	animator.anim_bokocolor_changed()
 	
 	@warning_ignore("int_as_enum_without_cast")
@@ -146,7 +161,7 @@ func change_bokocolor() -> void: ## @experimental
 	_setup_node()
 	check_state()
 
-## @experimental
+## @experimental: For the Debug Cards test area
 ##
 ## Such blessed method names
 func get_out() -> void:
@@ -157,7 +172,6 @@ func get_out() -> void:
 		visible = false
 		monitorable = false
 		monitoring = false
-	
 
 
 func _set_as_center_block(is_center: bool) -> void:

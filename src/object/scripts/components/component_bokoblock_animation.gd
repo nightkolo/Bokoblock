@@ -65,8 +65,8 @@ func anim_turn(turned_by: float, pulse: bool = true) -> void:
 func anim_move(moved_to: Vector2, p_anim_eyes: bool = true) -> void:
 	var anim_to: Vector2
 	var dur: float = 0.5
-	var high := 1.35
-	var low := 0.65
+	var high := 1.25
+	var low := 0.75
 	var squash: float
 	var stretch: float
 	
@@ -132,7 +132,7 @@ func anim_hit_block(transformed_to) -> void:
 	match typeof(transformed_to):
 		
 		Variant.Type.TYPE_FLOAT: # Turn
-			anim_to = Vector2.ONE/3.0
+			anim_to = Vector2.ONE/1.75
 			
 			GameUtil.reset_tween(tween_move)
 			GameUtil.reset_tween(tween_hit_block)
@@ -143,8 +143,8 @@ func anim_hit_block(transformed_to) -> void:
 			tween_hit_block.tween_property(block.sprite_node_2,"scale",Vector2.ONE,dur/1.1).set_trans(Tween.TRANS_ELASTIC)
 			
 		Variant.Type.TYPE_VECTOR2: # Move
-			var high := 1.35
-			var low := 0.65
+			var high := 1.2
+			var low := 0.8
 			var squash : float
 			var stretch : float
 
@@ -283,7 +283,7 @@ func anim_exited_starpoint() -> void:
 	var dur: float = 1.0
 	
 	block.sprite_eyes.texture = block.texture_eyes
-	block.sprite_node_1.scale = Vector2.ONE / 4.0
+	block.sprite_node_1.scale = Vector2.ONE / 2.0
 	
 	if tween_starpoint:
 		tween_starpoint.kill()
