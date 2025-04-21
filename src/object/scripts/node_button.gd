@@ -2,6 +2,8 @@
 extends Area2D
 class_name ButtonObj
 
+# TODO: not sure if it should be global or local
+
 signal button_held(is_held: bool) ## @experimental
 
 @export var switch_blockss_to_trigger: Array[SwitchBlocks]
@@ -10,6 +12,9 @@ signal button_held(is_held: bool) ## @experimental
 @export var node_sprites: Node2D
 @export var sprite_head: Sprite2D
 @export var sprite_base: Sprite2D
+@export_group("Assets")
+@export var texture_cross: Texture = preload("res://assets/objects/button-v02-head-cross.png")
+@export var texture_square: Texture = preload("res://assets/objects/button-v02-head-square.png")
 
 #@onready var sprite_base: Sprite2D = $Node2D/SpriteBase
 #@onready var sprite_top: Sprite2D = $Node2D/SpriteTop
@@ -44,12 +49,20 @@ func _ready() -> void:
 	
 
 func _setup_node():
+	anim_idle()
+	
 	# TODO: should be collision_layer = 8 (Object) but Godot is acting strange
+	
 	collision_layer = 4
 	collision_mask = 15
 	
 	match switch_type_decorator:
-		pass
+		
+		GameUtil.SwitchTypeDecorator.Cross:
+			sprite_head.texture = texture_cross
+			
+		GameUtil.SwitchTypeDecorator.Square:
+			sprite_head.texture = texture_square
 	#node_sprites.modulate = GameUtil.set_boko_color(switch_type_decorator)
 	
 
@@ -63,6 +76,20 @@ func check_state() -> bool:
 
 
 var tween_button: Tween
+
+
+func anim_idle() -> void:
+	var dur := 0.8
+	var dur_pulse := 1.2
+	var pulse_to := 1.35
+	
+	var tween_spin := create_tween().set_loops()
+	tween_spin.tween_property(sprite_head,"rotation",PI/4.0,dur).as_relative()
+	
+	var tween_pulse := create_tween().set_loops()
+	tween_pulse.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	tween_pulse.tween_property(sprite_head,"self_modulate",Color(Color.WHITE*pulse_to),dur_pulse)
+	tween_pulse.tween_property(sprite_head,"self_modulate",Color(Color.WHITE),dur_pulse)
 
 
 func anim_button_held() -> void:

@@ -9,6 +9,9 @@ class_name SwitchBlocks
 signal has_opened(is_open: bool)
 
 @export var switch_type_decorator: GameUtil.SwitchTypeDecorator
+@export_group("Assets")
+@export var texture_cross: Texture = preload("res://assets/objects/switch-block-head-cross.png")
+@export var texture_square: Texture = preload("res://assets/objects/switch-block-head-square.png")
 
 @onready var child_switch_blocks: Array[Node] = get_children()
 
@@ -22,16 +25,14 @@ var is_open: bool:
 			has_opened.emit(value)
 		is_open = value
 
+var _tween: Tween
+var _tween_pulse: Tween
+
 
 func _ready() -> void:
 	_setup_node()
 	
-	has_opened.connect(func(p_is_open: bool):
-		if p_is_open:
-			anim_open()
-		else:
-			anim_close()
-		)
+	has_opened.connect(anim_open_or_close)
 	
 	# Possibly problematic code
 	#GameLogic.button_held.connect(func(is_color: GameUtil.BokoColor):
@@ -49,7 +50,12 @@ func _setup_node():
 	for switch_block: SwitchBlock in child_switch_blocks:
 		
 		match switch_type_decorator:
-			pass
+		
+			GameUtil.SwitchTypeDecorator.Cross:
+				switch_block.sprite_head.texture = texture_cross
+				
+			GameUtil.SwitchTypeDecorator.Square:
+				switch_block.sprite_head.texture = texture_square
 			
 		#if switch_block.sprite:
 			#switch_block.sprite.self_modulate = GameUtil.set_boko_color(switch_type_decorator)
@@ -66,6 +72,41 @@ func open(open_or_close: bool = !is_open) -> void:
 		
 		if is_open == false:
 			check_intersects()
+
+	
+func anim_open_or_close(open_or_close: bool) -> void:
+	var dur_bounce := 0.95
+	var dur_open := 0.05
+	var up := Vector2.ONE / 2.0
+	var down := Vector2.ONE * 1.5
+	var pulse_to := 1.75
+	var op: float
+	
+	if _tween:
+		_tween.kill()
+	if _tween_pulse:
+		_tween_pulse.kill
+		
+	_tween = create_tween().set_parallel(true)
+	_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	_tween_pulse = create_tween().set_parallel(!open_or_close)
+	_tween_pulse.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	
+	for switch_block: SwitchBlock in child_switch_blocks:
+		if open_or_close:
+			switch_block.sprite_base.scale = down
+			switch_block.sprite_head.scale = up
+			op = 0.5
+		else:
+			switch_block.sprite_base.scale = up
+			switch_block.sprite_head.scale = down
+			op = 1.0
+		
+		_tween.tween_property(switch_block.sprite_base,"scale",Vector2.ONE,dur_bounce)
+		_tween.tween_property(switch_block.sprite_head,"scale",Vector2.ONE,dur_bounce)
+		
+		_tween_pulse.tween_property(switch_block.node_sprite,"modulate",Color(Color.WHITE*pulse_to, 1.0),dur_open)
+		_tween_pulse.tween_property(switch_block.node_sprite,"modulate",Color(Color.WHITE, op),dur_open)
 
 
 # only works with one body
@@ -86,7 +127,7 @@ func check_intersects() -> bool:
 	return value
 
 
-func _on_intersecting_bokobody_stopped(is_body: Bokobody):
+func _on_intersecting_bokobody_stopped(is_body: Bokobody) -> void:
 	# Checks if intersecting body has exited
 	if is_body == body_intersecting && get_overlapping_areas().is_empty():
 		is_body_intersecting = false
@@ -95,15 +136,3 @@ func _on_intersecting_bokobody_stopped(is_body: Bokobody):
 		body_intersecting = null
 		
 		GameLogic.bokobody_stopped.disconnect(_on_intersecting_bokobody_stopped)
-
-	
-func anim_open() -> void:
-	for switch_block: SwitchBlock in child_switch_blocks:
-		if switch_block.node_sprite:
-			switch_block.node_sprite.modulate = Color(Color.WHITE, 0.5)
-	
-	
-func anim_close() -> void:
-	for switch_block: SwitchBlock in child_switch_blocks:
-		if switch_block.node_sprite:
-			switch_block.node_sprite.modulate = Color(Color.WHITE, 1.0)

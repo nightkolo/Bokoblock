@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu6jnn2yb0q4p"]
+
+[sub_resource type="Gradient" id="Gradient_6837v"]
+offsets = PackedFloat32Array(0, 0.30212, 0.318021, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(45, 45, 270, 90, 540, 180, 810, 225)
+gradient = SubResource("Gradient_6837v")

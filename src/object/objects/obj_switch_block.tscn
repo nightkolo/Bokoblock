@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://18nk25lcwcc7"]
+[gd_scene load_steps=5 format=3 uid="uid://18nk25lcwcc7"]
 
 [ext_resource type="Script" path="res://object/scripts/obj_switch_block.gd" id="1_vislj"]
-[ext_resource type="Texture2D" uid="uid://bat8ifohqdgwa" path="res://icon.svg" id="2_u0sdk"]
+[ext_resource type="Texture2D" uid="uid://dh3kyemrje0qk" path="res://assets/objects/switch-block-base.png" id="2_6xhka"]
+[ext_resource type="Texture2D" uid="uid://bvghhy5hxyuqs" path="res://assets/objects/switch-block-head-cross.png" id="3_45wxe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tw0cg"]
 size = Vector2(45, 45)
@@ -10,8 +11,11 @@ size = Vector2(45, 45)
 shape = SubResource("RectangleShape2D_tw0cg")
 script = ExtResource("1_vislj")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Sprites" type="Node2D" parent="."]
+scale = Vector2(0.5, 0.5)
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_u0sdk")
+[node name="Base" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("2_6xhka")
+
+[node name="Head" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("3_45wxe")

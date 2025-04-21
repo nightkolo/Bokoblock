@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmats5eekiwof"
-path="res://.godot/imported/button-top-v01.png-c706f66a764bdb7e27694b97fb10968a.ctex"
+uid="uid://bamv2a30g38yq"
+path="res://.godot/imported/switch-block-packed-cross.png-05d55741ee15704374374166d2f5c02e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/button-top-v01.png"
-dest_files=["res://.godot/imported/button-top-v01.png-c706f66a764bdb7e27694b97fb10968a.ctex"]
+source_file="res://assets/objects/switch-block-packed-cross.png"
+dest_files=["res://.godot/imported/switch-block-packed-cross.png-05d55741ee15704374374166d2f5c02e.ctex"]
 
 [params]
 

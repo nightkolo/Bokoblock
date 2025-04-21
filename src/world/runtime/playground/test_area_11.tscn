@@ -69,7 +69,7 @@ tile_set = ExtResource("8_0wmn2")
 
 [node name="ChibiBoko" parent="SW" instance=ExtResource("9_plfjy")]
 position = Vector2(653, 338)
-info_text = "BUUUUUTTOOOOOONNNNNnnnNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNSSSSSSSSSSSSS"
+info_text = "Buttons"
 
 [node name="SO" type="Node2D" parent="."]
 script = ExtResource("9_dwo2k")
@@ -90,33 +90,6 @@ position = Vector2(653, 203)
 
 [node name="Starpoint4" parent="SO/Endpoints" instance=ExtResource("13_rwbwo")]
 position = Vector2(653, 248)
-
-[node name="Bokobody" type="Node2D" parent="SO"]
-position = Vector2(428, 473)
-script = ExtResource("10_1pas6")
-turning_strength = -1
-
-[node name="Block2" parent="SO/Bokobody" instance=ExtResource("11_rkhok")]
-boko_color = 1
-
-[node name="Block3" parent="SO/Bokobody" instance=ExtResource("11_rkhok")]
-position = Vector2(0, 45)
-boko_color = 1
-
-[node name="BokobodyAnimationComponent" type="Node" parent="SO/Bokobody"]
-script = ExtResource("16_0p2r2")
-
-[node name="Bokobody2" type="Node2D" parent="SO"]
-position = Vector2(563, 428)
-script = ExtResource("10_1pas6")
-
-[node name="Block" parent="SO/Bokobody2" instance=ExtResource("11_rkhok")]
-
-[node name="Block3" parent="SO/Bokobody2" instance=ExtResource("11_rkhok")]
-position = Vector2(0, 45)
-
-[node name="BokobodyAnimationComponent2" type="Node" parent="SO/Bokobody2"]
-script = ExtResource("16_0p2r2")
 
 [node name="Button" parent="SO" node_paths=PackedStringArray("switch_blockss_to_trigger") instance=ExtResource("12_7ub5p")]
 position = Vector2(383, 383)
@@ -155,6 +128,33 @@ switch_type_decorator = 1
 position = Vector2(0, 45)
 
 [node name="SwitchBlock2" parent="SO/SwitchBlocks2" instance=ExtResource("16_avsvt")]
+
+[node name="Bokobody" type="Node2D" parent="SO"]
+position = Vector2(563, 428)
+script = ExtResource("10_1pas6")
+turning_strength = -1
+
+[node name="Block2" parent="SO/Bokobody" instance=ExtResource("11_rkhok")]
+boko_color = 1
+
+[node name="Block3" parent="SO/Bokobody" instance=ExtResource("11_rkhok")]
+position = Vector2(0, 45)
+boko_color = 1
+
+[node name="BokobodyAnimationComponent" type="Node" parent="SO/Bokobody"]
+script = ExtResource("16_0p2r2")
+
+[node name="Bokobody2" type="Node2D" parent="SO"]
+position = Vector2(428, 473)
+script = ExtResource("10_1pas6")
+
+[node name="Block" parent="SO/Bokobody2" instance=ExtResource("11_rkhok")]
+
+[node name="Block3" parent="SO/Bokobody2" instance=ExtResource("11_rkhok")]
+position = Vector2(0, 45)
+
+[node name="BokobodyAnimationComponent2" type="Node" parent="SO/Bokobody2"]
+script = ExtResource("16_0p2r2")
 
 [node name="SleepingBlock" parent="SO" instance=ExtResource("17_0uv5v")]
 position = Vector2(428, 158)

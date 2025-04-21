@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1hv460c8t4m8"
-path="res://.godot/imported/button-height-v02.png-568dc478668a88757ad1935569da6289.ctex"
+uid="uid://dv8ue4qhawvfm"
+path="res://.godot/imported/button-v02-head-cross.png-b276cc7d4dfb63a75084a0381455858d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/button-height-v02.png"
-dest_files=["res://.godot/imported/button-height-v02.png-568dc478668a88757ad1935569da6289.ctex"]
+source_file="res://assets/objects/button-v02-head-cross.png"
+dest_files=["res://.godot/imported/button-v02-head-cross.png-b276cc7d4dfb63a75084a0381455858d.ctex"]
 
 [params]
 
