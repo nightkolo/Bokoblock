@@ -2,9 +2,29 @@
 extends Node
 class_name GameUtil
 
-enum BokoColor {AQUA = 0, RED = 1, BLUE = 2, YELLOW = 3, GREEN = 4, PINK = 5, GREY = 99}
-enum BokoCharacterPose {NORMAL = 0, THINKING = 1, NO_WORRY = 2, HAPPY = 3, WINK = 4}
-enum BackgroundEffect {SCROLL = 0, ROTATE = 1, ZOOM = 2, SKEW = 3}
+enum BokoColor {
+	AQUA = 0,
+	RED = 1,
+	BLUE = 2,
+	YELLOW = 3,
+	GREEN = 4,
+	PINK = 5,
+	GREY = 99}
+enum BokoCharacterPose {
+	NORMAL = 0,
+	THINKING = 1,
+	NO_WORRY = 2,
+	HAPPY = 3,
+	WINK = 4}
+enum BackgroundEffect {
+	SCROLL = 0,
+	ROTATE = 1,
+	ZOOM = 2,
+	SKEW = 3}
+enum SwitchTypeDecorator {
+	Cross = 0,
+	Square = 1
+}
 
 static var stage_complete_anim_waittime: float = 2.0
 

@@ -1,3 +1,5 @@
+## Opened by [ButtonObj]
+##
 ## Under Construction
 extends Area2D
 class_name SwitchBlocks
@@ -6,7 +8,7 @@ class_name SwitchBlocks
 
 signal has_opened(is_open: bool)
 
-@export var my_color: GameUtil.BokoColor
+@export var switch_type_decorator: GameUtil.SwitchTypeDecorator
 
 @onready var child_switch_blocks: Array[Node] = get_children()
 
@@ -32,24 +34,28 @@ func _ready() -> void:
 		)
 	
 	# Possibly problematic code
-	GameLogic.button_held.connect(func(is_color: GameUtil.BokoColor):
-		if is_color == my_color:
-			open(true)
-		)
-		
-	GameLogic.button_released.connect(func(is_color: GameUtil.BokoColor):
-		if is_color == my_color:
-			open(false)
-		)
+	#GameLogic.button_held.connect(func(is_color: GameUtil.BokoColor):
+		#if is_color == switch_type_decorator:
+			#open(true)
+		#)
+		#
+	#GameLogic.button_released.connect(func(is_color: GameUtil.BokoColor):
+		#if is_color == switch_type_decorator:
+			#open(false)
+		#)
 
 
 func _setup_node():
 	for switch_block: SwitchBlock in child_switch_blocks:
-		if switch_block.sprite:
-			switch_block.sprite.self_modulate = GameUtil.set_boko_color(my_color)
+		
+		match switch_type_decorator:
+			pass
+			
+		#if switch_block.sprite:
+			#switch_block.sprite.self_modulate = GameUtil.set_boko_color(switch_type_decorator)
 
 
-func open(open_or_close: bool) -> void:
+func open(open_or_close: bool = !is_open) -> void:
 	if open_or_close != is_open:
 		is_open = open_or_close
 		
