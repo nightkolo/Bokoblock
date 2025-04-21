@@ -29,12 +29,12 @@ stage_progression = false
 
 [node name="Cam" parent="." instance=ExtResource("3_jn2vr")]
 position = Vector2(494, 337)
-zoom = Vector2(1.3, 1.3)
+zoom = Vector2(1.35, 1.35)
 
 [node name="SW" parent="." instance=ExtResource("4_53g33")]
 randomize_background_effect = false
 background_effect = 1
-background_color = 3
+background_color = 2
 background_dim = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="SW"]
@@ -68,8 +68,9 @@ tile_map_data = PackedByteArray("AAAIABEAAQALAAMAAAAIABAAAQALAAIAAAAIAA8AAQALAAI
 tile_set = ExtResource("8_0wmn2")
 
 [node name="ChibiBoko" parent="SW" instance=ExtResource("9_plfjy")]
-position = Vector2(653, 338)
-info_text = "Buttons"
+position = Vector2(653, 337)
+info_text = "Buttons,
+ Try 'em"
 
 [node name="SO" type="Node2D" parent="."]
 script = ExtResource("9_dwo2k")

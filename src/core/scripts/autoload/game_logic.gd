@@ -13,7 +13,7 @@ enum WinCondition {
 	MATCH_ALL_STARPOINTS = 0,
 	MATCH_ALL_BLOCKS = 1
 }
-enum TranformationType { ## @experimental
+enum TranformationType { ## @deprecated
 	MOVE = 0,
 	TURN = 1,
 	UNDO = 99

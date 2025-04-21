@@ -2,9 +2,9 @@
 extends Area2D
 class_name ButtonObj
 
-# TODO: not sure if it should be global or local
+# TODO: Not sure if it should be global or local..
 
-signal button_held(is_held: bool) ## @experimental
+signal button_held(is_held: bool)
 
 @export var switch_blockss_to_trigger: Array[SwitchBlocks]
 @export var switch_type_decorator: GameUtil.SwitchTypeDecorator
@@ -38,14 +38,14 @@ var is_held: bool = false:
 func _ready() -> void:
 	_setup_node()
 	
-	button_held.connect(func(is_held: bool):
-		if is_held:
+	GameLogic.bokobodies_stopped.connect(check_state)
+	
+	button_held.connect(func(p_is_held: bool):
+		if p_is_held:
 			anim_button_held()
 		else:
 			anim_button_rest()
 		)
-	
-	GameLogic.bokobodies_stopped.connect(check_state)
 	
 
 func _setup_node():
@@ -63,8 +63,7 @@ func _setup_node():
 			
 		GameUtil.SwitchTypeDecorator.Square:
 			sprite_head.texture = texture_square
-	#node_sprites.modulate = GameUtil.set_boko_color(switch_type_decorator)
-	
+
 
 func check_state() -> bool:
 	var areas: Array[Area2D] = get_overlapping_areas()
@@ -73,9 +72,6 @@ func check_state() -> bool:
 	is_held = value
 	
 	return value
-
-
-var tween_button: Tween
 
 
 func anim_idle() -> void:
@@ -90,6 +86,9 @@ func anim_idle() -> void:
 	tween_pulse.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 	tween_pulse.tween_property(sprite_head,"self_modulate",Color(Color.WHITE*pulse_to),dur_pulse)
 	tween_pulse.tween_property(sprite_head,"self_modulate",Color(Color.WHITE),dur_pulse)
+
+
+#var tween_button: Tween
 
 
 func anim_button_held() -> void:
