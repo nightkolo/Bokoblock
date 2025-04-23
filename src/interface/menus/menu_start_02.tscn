@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://interface/interactors/menu_start.gd" id="1_hibdm"]
 [ext_resource type="FontVariation" uid="uid://bpy0c6b217yv1" path="res://core/resources/theme/font_var_button.tres" id="2_h3hha"]
 [ext_resource type="FontFile" uid="uid://cgp77ft8q5j4y" path="res://assets/addons/fonts/Rabbitfont-Black.ttf" id="2_ol5op"]
-[ext_resource type="StyleBox" uid="uid://bsppk7f7j58hb" path="res://core/resources/theme/style_box_flat_button_block.tres" id="3_6a4uj"]
+[ext_resource type="StyleBox" uid="uid://bsppk7f7j58hb" path="res://core/resources/style_box_flat_button_block.tres" id="3_6a4uj"]
 [ext_resource type="Script" path="res://interface/animators/notice_text.gd" id="3_pmbw5"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_block.gd" id="4_0kbvk"]
 

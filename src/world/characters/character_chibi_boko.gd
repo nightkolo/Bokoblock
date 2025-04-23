@@ -4,9 +4,9 @@ class_name CharacterChibiBoko
 
 @export var bounce_dur: float = 0.5
 @export var speaking_speed: float = 1.0 ## Somehow adjusts the speed, but my math is admittedly not staight forward... wip
-@export var texture_eyes_open: Texture2D = preload("res://assets/characters/chibi-boko/boko-chibi-eyes.png")
-@export var texture_4_star: Texture2D = preload("res://assets/characters/chibi-boko/boko-chibi-star-upscale.png")
-@export var texture_5_star: Texture2D = preload("res://assets/characters/chibi-boko/boko-top-hat-real-star.png")
+@export var texture_eyes_open: Texture2D = preload("res://assets/characters/boko-chibi-eyes.png")
+@export var texture_4_star: Texture2D = preload("res://assets/characters/boko-chibi-star-upscale.png")
+@export var texture_5_star: Texture2D = preload("res://assets/characters/boko-top-hat-real-star.png")
 
 
 @onready var anim: AnimationPlayer = $AnimEyes

@@ -35,7 +35,7 @@ const GAME_SCREEN_SIZE = Vector2(960.0,720.0)
 const BOKOBODY_TURN_DEGREE = 90.0
 const TILE_SIZE = 45.0 
 const NUMBER_OF_STAGES = 69
-const STAGE_FILE_BEGIN = "res://world/runtime/levels/stage_"
+const STAGE_FILE_BEGIN = "res://world/game/levels/stage_"
 const STAGE_FILE_END = ".tscn"
 	
 

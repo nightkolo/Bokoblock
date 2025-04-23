@@ -1,0 +1,119 @@
+[gd_scene load_steps=15 format=4 uid="uid://cwxihp0lhs57f"]
+
+[ext_resource type="Script" path="res://world/game/scripts/stage.gd" id="1_6clqj"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_8qnau"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_lkf32"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="3_nqs6y"]
+[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="4_ah63j"]
+[ext_resource type="Texture2D" uid="uid://br0vxd7hjy01" path="res://core/resources/visuals/gradient_stage_checkboard_shadow_02.tres" id="4_w0bpj"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="5_axyke"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="6_off3h"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="7_sfi41"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_xriy7"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="8_g1upv"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_ss3kg"]
+[ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_n10y3"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_6oqhf"]
+
+[node name="S" type="Node2D"]
+script = ExtResource("1_6clqj")
+stage_progression = false
+
+[node name="UI" parent="." instance=ExtResource("2_lkf32")]
+
+[node name="Cam" parent="." instance=ExtResource("2_8qnau")]
+position = Vector2(473, 338)
+zoom = Vector2(1.3, 1.3)
+
+[node name="SW" parent="." instance=ExtResource("3_nqs6y")]
+randomize_background_effect = false
+
+[node name="Sprite2D" type="Sprite2D" parent="SW"]
+position = Vector2(495.5, 338)
+scale = Vector2(6.32813, 5.625)
+texture = ExtResource("4_w0bpj")
+
+[node name="StageLight" type="PointLight2D" parent="SW"]
+position = Vector2(495.5, 338)
+scale = Vector2(6.32812, 5.625)
+range_item_cull_mask = 2
+texture = ExtResource("4_ah63j")
+script = ExtResource("5_axyke")
+
+[node name="TM" type="Node2D" parent="SW"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("6_off3h")
+
+[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+tile_map_data = PackedByteArray("AAANAAoAAQAAAAQAAAAOAAoAAQAAAAQAAAAPAAoAAQAAAAQAAAAPAAYAAQAAAAQAAAAOAAYAAQAAAAQAAAANAAYAAQAAAAQAAAAMAAoAAQAAAAQAAAANAAMAAQAAAAQAAAAGAAMAAQAAAAQAAAAGAAQAAQAAAAQAAAAGAAUAAQAAAAQAAAAGAAYAAQAAAAQAAAAHAAcAAQAAAAQAAAAMAAsAAQAAAAQAAAALAAsAAQAAAAQAAAAKAAsAAQAAAAQAAAAJAAsAAQAAAAQAAAAIAAsAAQAAAAQAAAAIAAcAAQAAAAQAAAAPAAcAAQAAAAQAAAAPAAgAAQAAAAQAAAAPAAkAAQAAAAQAAAANAAUAAQAAAAQAAAANAAQAAQAAAAQAAAAGAAcAAQAAAAQAAAAIAAgAAQAAAAQAAAAIAAkAAQAAAAQAAAAIAAoAAQAAAAQAAAAMAAMAAQAAAAQAAAALAAMAAQAAAAQAAAAKAAMAAQAAAAQAAAAJAAMAAQAAAAQAAAAIAAMAAQAAAAQAAAAHAAMAAQAAAAQAAAA=")
+tile_set = ExtResource("7_sfi41")
+
+[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+light_mask = 2
+tile_map_data = PackedByteArray("AAAHAAQABwAAAAAAAAAHAAUABwAAAAEAAAAHAAYABwAAAAIAAAAIAAQABwABAAAAAAAIAAUABwABAAEAAAAIAAYABwABAAIAAAAJAAQABwACAAAAAAAJAAUABwACAAEAAAAJAAYABwACAAIAAAAJAAcABwACAAMAAAAKAAQABwADAAAAAAAKAAUABwADAAEAAAAKAAYABwADAAIAAAAKAAcABwADAAMAAAALAAQABwAAAAAAAAALAAUABwAAAAEAAAALAAYABwAAAAIAAAALAAcABwAAAAMAAAAMAAQABwABAAAAAAAMAAUABwABAAEAAAAMAAcABwABAAMAAAANAAcABwACAAMAAAAOAAcABwADAAMAAAALAAgABwAAAAAAAAALAAkABwAAAAEAAAAMAAgABwABAAAAAAAMAAkABwABAAEAAAANAAgABwACAAAAAAANAAkABwACAAEAAAAOAAgABwADAAAAAAAOAAkABwADAAEAAAAJAAgABwACAAAAAAAJAAkABwACAAEAAAAKAAgABwADAAAAAAAKAAkABwADAAEAAAAJAAoABwACAAIAAAAKAAoABwADAAIAAAALAAoABwAAAAIAAAAMAAYABwABAAIAAAA=")
+tile_set = ExtResource("7_sfi41")
+
+[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+tile_map_data = PackedByteArray("AAAIAAsAAQAGAAEAAAAIAAoAAQALAAIAAAAIAAkAAQALAAIAAAAIAAgAAQALAAIAAAAIAAcAAQALAAAAAAAHAAcAAQAKAAAAAAAGAAcAAQAGAAEAAAAGAAYAAQALAAIAAAAGAAUAAQALAAIAAAAGAAQAAQALAAIAAAAGAAMAAQAGAAIAAAAHAAMAAQAJAAMAAAAIAAMAAQAJAAMAAAAJAAMAAQAJAAMAAAAKAAMAAQAJAAMAAAALAAMAAQAJAAMAAAAMAAMAAQAJAAMAAAANAAMAAQAFAAIAAAANAAQAAQAIAAEAAAANAAUAAQAIAAEAAAANAAYAAQAIAAMAAAAOAAYAAQAJAAMAAAAPAAYAAQAFAAIAAAAPAAcAAQAIAAEAAAAPAAgAAQAIAAEAAAAPAAkAAQAIAAEAAAAPAAoAAQAFAAEAAAAOAAoAAQAKAAAAAAANAAoAAQAKAAAAAAAMAAoAAQAIAAAAAAAMAAsAAQAFAAEAAAALAAsAAQAKAAAAAAAKAAsAAQAKAAAAAAAJAAsAAQAKAAAAAAAHAAoAAQAJAAIAAAAHAAkAAQAJAAIAAAAHAAgAAQAJAAIAAAAGAAgAAQAJAAIAAAAFAAgAAQAJAAIAAAAFAAcAAQAJAAIAAAAFAAYAAQAJAAIAAAAFAAUAAQAJAAIAAAAFAAQAAQAJAAIAAAAFAAMAAQAJAAIAAAAFAAIAAQAJAAIAAAAGAAIAAQAJAAIAAAAHAAIAAQAJAAIAAAAIAAIAAQAJAAIAAAAJAAIAAQAJAAIAAAAKAAIAAQAJAAIAAAALAAIAAQAJAAIAAAAMAAIAAQAJAAIAAAANAAIAAQAJAAIAAAAOAAQAAQAJAAIAAAAOAAUAAQAJAAIAAAAPAAUAAQAJAAIAAAAQAAoAAQAJAAIAAAAQAAsAAQAJAAIAAAAPAAsAAQAJAAIAAAAOAAsAAQAJAAIAAAAMAAwAAQAJAAIAAAALAAwAAQAJAAIAAAAKAAwAAQAJAAIAAAAJAAwAAQAJAAIAAAAIAAwAAQAJAAIAAAAHAAwAAQAJAAIAAAA=")
+tile_set = ExtResource("7_sfi41")
+
+[node name="SO" type="Node2D" parent="."]
+script = ExtResource("8_g1upv")
+
+[node name="Endpoints" type="Node2D" parent="SO"]
+script = ExtResource("9_n10y3")
+
+[node name="Starpoint" parent="SO/Endpoints" instance=ExtResource("10_6oqhf")]
+position = Vector2(563, 338)
+
+[node name="Starpoint2" parent="SO/Endpoints" instance=ExtResource("10_6oqhf")]
+position = Vector2(563, 383)
+
+[node name="Starpoint3" parent="SO/Endpoints" instance=ExtResource("10_6oqhf")]
+position = Vector2(563, 428)
+
+[node name="Starpoint4" parent="SO/Endpoints" instance=ExtResource("10_6oqhf")]
+position = Vector2(608, 383)
+
+[node name="Starpoint5" parent="SO/Endpoints" instance=ExtResource("10_6oqhf")]
+position = Vector2(653, 338)
+what_im_happy_with = 1
+
+[node name="Starpoint6" parent="SO/Endpoints" instance=ExtResource("10_6oqhf")]
+position = Vector2(653, 383)
+what_im_happy_with = 1
+
+[node name="Starpoint7" parent="SO/Endpoints" instance=ExtResource("10_6oqhf")]
+position = Vector2(653, 428)
+what_im_happy_with = 1
+
+[node name="Bokobody" type="Node2D" parent="SO"]
+position = Vector2(473, 383)
+script = ExtResource("7_xriy7")
+turning_strength = 2
+
+[node name="Block" parent="SO/Bokobody" instance=ExtResource("8_ss3kg")]
+
+[node name="Block2" parent="SO/Bokobody" instance=ExtResource("8_ss3kg")]
+position = Vector2(0, -45)
+
+[node name="Block3" parent="SO/Bokobody" instance=ExtResource("8_ss3kg")]
+position = Vector2(0, 45)
+
+[node name="Block4" parent="SO/Bokobody" instance=ExtResource("8_ss3kg")]
+position = Vector2(45, 0)
+
+[node name="Bokobody2" type="Node2D" parent="SO"]
+position = Vector2(428, 248)
+script = ExtResource("7_xriy7")
+
+[node name="Block" parent="SO/Bokobody2" instance=ExtResource("8_ss3kg")]
+boko_color = 1
+
+[node name="Block2" parent="SO/Bokobody2" instance=ExtResource("8_ss3kg")]
+position = Vector2(0, -45)
+boko_color = 1
+
+[node name="Block3" parent="SO/Bokobody2" instance=ExtResource("8_ss3kg")]
+position = Vector2(0, 45)
+boko_color = 1

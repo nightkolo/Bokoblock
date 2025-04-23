@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bp0yxas1oob3e"]
 
 [ext_resource type="Script" path="res://object/scripts/node_sleeping_block.gd" id="1_thiw6"]
-[ext_resource type="Texture2D" uid="uid://6gfr648a4tde" path="res://assets/objects/block-v06-greyscale.png" id="2_xugsw"]
-[ext_resource type="Texture2D" uid="uid://cxqxrupx28s0s" path="res://assets/objects/block-eyes-v03-blink-white.png" id="3_b7jpx"]
+[ext_resource type="Texture2D" uid="uid://6gfr648a4tde" path="res://assets/objects/block-greyscale.png" id="2_xugsw"]
+[ext_resource type="Texture2D" uid="uid://cxqxrupx28s0s" path="res://assets/objects/block-eyes-blink.png" id="3_b7jpx"]
 [ext_resource type="Texture2D" uid="uid://b21qpdjshhmgn" path="res://assets/world/particle-zzz-sleepy.png" id="4_d6h2u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vytsv"]

@@ -3,7 +3,7 @@ class_name BokoblockAnimationComponent
 
 @export_group("Assets")
 @export var asset_eye_close: Texture2D = preload("res://assets/objects/block-eye-close.png")
-@export var asset_eye_happy: Texture2D = preload("res://assets/objects/block-eyes-v03-happy-white.png")
+@export var asset_eye_happy: Texture2D = preload("res://assets/objects/block-eyes-happy.png")
 @export var asset_eye_on_button: Texture2D = preload("res://assets/objects/block-eyes-on-button.png")
 
 @onready var block: Bokoblock = get_parent() as Bokoblock

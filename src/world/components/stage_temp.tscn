@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3 uid="uid://1jr3hnyoqmva"]
+
+[ext_resource type="Script" path="res://world/game/scripts/stage.gd" id="1_8irpk"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_47sf3"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_qc2u3"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="3_wpf8u"]
+[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="4_5fvqa"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_iuko8"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="5_pbier"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_h1c14"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="6_ts4iv"]
+
+[node name="S" type="Node2D"]
+script = ExtResource("1_8irpk")
+stage_progression = false
+
+[node name="UI" parent="." instance=ExtResource("2_qc2u3")]
+
+[node name="Cam" parent="." instance=ExtResource("2_47sf3")]
+
+[node name="SW" parent="." instance=ExtResource("3_wpf8u")]
+show_collision_tilemap = true
+
+[node name="StageLight" type="PointLight2D" parent="SW"]
+position = Vector2(517, 382)
+scale = Vector2(8.4375, 7.03125)
+range_item_cull_mask = 2
+texture = ExtResource("4_5fvqa")
+script = ExtResource("5_pbier")
+
+[node name="TM" type="Node2D" parent="SW"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_iuko8")
+
+[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("6_ts4iv")
+
+[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
+light_mask = 2
+tile_set = ExtResource("6_ts4iv")
+
+[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("6_ts4iv")
+
+[node name="SO" type="Node2D" parent="."]
+script = ExtResource("6_h1c14")

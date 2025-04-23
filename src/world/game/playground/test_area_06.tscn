@@ -1,0 +1,129 @@
+[gd_scene load_steps=15 format=4 uid="uid://cvkb418n18utf"]
+
+[ext_resource type="Script" path="res://world/game/scripts/stage.gd" id="1_dac7l"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_rxhwv"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="3_d2dv8"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_q824o"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="5_oadgt"]
+[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="6_5tsl8"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_ro43g"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="7_6a7vt"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_g3xv0"]
+[ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="7_ylxd2"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_knnin"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="8_r1ndp"]
+
+[sub_resource type="Gradient" id="Gradient_5ehm8"]
+offsets = PackedFloat32Array(0, 0.75)
+colors = PackedColorArray(0, 0, 0, 0.55, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fk0o3"]
+gradient = SubResource("Gradient_5ehm8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="S" type="Node2D"]
+script = ExtResource("1_dac7l")
+auto_assign_ids = false
+stage_progression = false
+
+[node name="Cam" parent="." instance=ExtResource("2_rxhwv")]
+position = Vector2(472, 360)
+zoom = Vector2(1.29, 1.29)
+shake_duration = 0.75
+
+[node name="SW" parent="." instance=ExtResource("3_d2dv8")]
+randomize_background_effect = false
+background_effect = 3
+background_color = 2
+effect_lengths_multiplier = 1.25
+
+[node name="Sprite2D" type="Sprite2D" parent="SW"]
+position = Vector2(472, 427)
+scale = Vector2(9.84375, 5.625)
+texture = SubResource("GradientTexture2D_fk0o3")
+
+[node name="StageLight" type="PointLight2D" parent="SW"]
+position = Vector2(472, 382)
+scale = Vector2(9.84375, 5.625)
+range_item_cull_mask = 2
+texture = ExtResource("6_5tsl8")
+script = ExtResource("7_6a7vt")
+
+[node name="TM" type="Node2D" parent="SW"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_q824o")
+
+[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+tile_map_data = PackedByteArray("AAAGAAgAAQAAAAQAAAAFAAgAAQAAAAQAAAAEAAgAAQAAAAQAAAAFAAkAAQAAAAQAAAAFAAoAAQAAAAQAAAAFAAsAAQAAAAQAAAAGAAsAAQAAAAQAAAADAAgAAQAAAAQAAAADAAcAAQAAAAQAAAADAAYAAQAAAAQAAAADAAUAAQAAAAQAAAADAAQAAQAAAAQAAAAEAAQAAQAAAAQAAAAFAAQAAQAAAAQAAAAGAAQAAQAAAAQAAAAHAAQAAQAAAAQAAAAIAAQAAQAAAAQAAAAJAAQAAQAAAAQAAAAJAAUAAQAAAAQAAAAJAAYAAQAAAAQAAAAJAAcAAQAAAAQAAAAJAAgAAQAAAAQAAAAHAAsAAQAAAAQAAAAIAAsAAQAAAAQAAAAIAAwAAQAAAAQAAAAJAAwAAQAAAAQAAAAKAAwAAQAAAAQAAAALAAsAAQAAAAQAAAAKAAgAAQAAAAQAAAALAAgAAQAAAAQAAAALAAcAAQAAAAQAAAALAAYAAQAAAAQAAAALAAUAAQAAAAQAAAALAAQAAQAAAAQAAAAMAAQAAQAAAAQAAAANAAQAAQAAAAQAAAAOAAQAAQAAAAQAAAAPAAUAAQAAAAQAAAAPAAQAAQAAAAQAAAAPAAYAAQAAAAQAAAAPAAcAAQAAAAQAAAAPAAgAAQAAAAQAAAAQAAgAAQAAAAQAAAARAAgAAQAAAAQAAAARAAsAAQAAAAQAAAARAAkAAQAAAAQAAAARAAoAAQAAAAQAAAAPAAsAAQAAAAQAAAAQAAsAAQAAAAQAAAAMAAsAAQAAAAQAAAANAAsAAQAAAAQAAAAOAAsAAQAAAAQAAAALAAwAAQAAAAQAAAAJAAsAAQAAAAQAAAA=")
+tile_set = ExtResource("5_oadgt")
+
+[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
+light_mask = 2
+tile_map_data = PackedByteArray("AAAEAAUABgAAAAAAAAAEAAYABgAAAAEAAAAEAAcABgAAAAIAAAAFAAUABgABAAAAAAAFAAYABgABAAEAAAAFAAcABgABAAIAAAAGAAUABgACAAAAAAAGAAYABgACAAEAAAAGAAcABgACAAIAAAAHAAUABgADAAAAAAAHAAYABgADAAEAAAAHAAcABgADAAIAAAAHAAgABgADAAMAAAAIAAUABgAAAAAAAAAIAAYABgAAAAEAAAAIAAcABgAAAAIAAAAIAAgABgAAAAMAAAAMAAUABgAAAAAAAAAMAAYABgAAAAEAAAAMAAcABgAAAAIAAAAMAAgABgAAAAMAAAANAAUABgABAAAAAAANAAYABgABAAEAAAANAAcABgABAAIAAAANAAgABgABAAMAAAAOAAUABgACAAAAAAAOAAYABgACAAEAAAAOAAcABgACAAIAAAAOAAgABgACAAMAAAAQAAkABgAAAAAAAAAQAAoABgAAAAEAAAAMAAkABgAAAAAAAAAMAAoABgAAAAEAAAANAAkABgABAAAAAAANAAoABgABAAEAAAAOAAkABgACAAAAAAAOAAoABgACAAEAAAAPAAkABgADAAAAAAAPAAoABgADAAEAAAAIAAkABgAAAAAAAAAIAAoABgAAAAEAAAAJAAkABgABAAAAAAAJAAoABgABAAEAAAAKAAkABgACAAAAAAAKAAoABgACAAEAAAAKAAsABgACAAIAAAALAAkABgADAAAAAAALAAoABgADAAEAAAAGAAkABgACAAAAAAAGAAoABgACAAEAAAAHAAkABgADAAAAAAAHAAoABgADAAEAAAA=")
+tile_set = ExtResource("5_oadgt")
+
+[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+tile_map_data = PackedByteArray("AAALAAsAAQAIAAAAAAALAAwAAQAFAAEAAAAKAAwAAQAKAAAAAAAJAAwAAQAGAAEAAAAIAAwAAQAJAAIAAAAHAAsAAQAKAAAAAAAGAAsAAQAKAAAAAAAIAAsAAQAKAAAAAAAFAAsAAQAGAAEAAAAFAAoAAQALAAIAAAAFAAkAAQALAAIAAAAFAAgAAQAGAAAAAAAGAAgAAQADAAMAAAAEAAgAAQAKAAAAAAADAAgAAQAGAAEAAAADAAcAAQALAAIAAAADAAYAAQALAAIAAAADAAUAAQALAAIAAAAFAAQAAQAJAAMAAAAEAAQAAQAJAAMAAAADAAQAAQAGAAIAAAAGAAQAAQAJAAMAAAAHAAQAAQAJAAMAAAAIAAQAAQAJAAMAAAAJAAQAAQAFAAIAAAAJAAUAAQAIAAEAAAAJAAYAAQAIAAEAAAAJAAcAAQAIAAEAAAAJAAgAAQAIAAMAAAAKAAgAAQAJAAMAAAALAAcAAQALAAIAAAALAAgAAQALAAMAAAALAAYAAQALAAIAAAALAAUAAQALAAIAAAALAAQAAQAGAAIAAAAMAAQAAQAJAAMAAAANAAQAAQAJAAMAAAAOAAQAAQAJAAMAAAAPAAQAAQAFAAIAAAAPAAUAAQAIAAEAAAAPAAYAAQAIAAEAAAAPAAcAAQAIAAEAAAAPAAgAAQAIAAMAAAAQAAgAAQAJAAMAAAARAAgAAQAFAAIAAAARAAkAAQAIAAEAAAARAAoAAQAIAAEAAAARAAsAAQAFAAEAAAAQAAsAAQAKAAAAAAAPAAsAAQAKAAAAAAAOAAsAAQAKAAAAAAANAAsAAQAKAAAAAAAMAAsAAQAKAAAAAAAHAAwAAQAJAAIAAAAHAA0AAQAJAAIAAAAIAA0AAQAJAAIAAAAJAA0AAQAJAAIAAAAKAA0AAQAJAAIAAAAGAAwAAQAJAAIAAAAFAAwAAQAJAAIAAAAEAAwAAQAJAAIAAAAEAAsAAQAJAAIAAAAEAAoAAQAJAAIAAAAEAAkAAQAJAAIAAAADAAkAAQAJAAIAAAACAAkAAQAJAAIAAAACAAgAAQAJAAIAAAACAAcAAQAJAAIAAAACAAYAAQAJAAIAAAACAAUAAQAJAAIAAAACAAQAAQAJAAIAAAACAAMAAQAJAAIAAAADAAMAAQAJAAIAAAAEAAMAAQAJAAIAAAAFAAMAAQAJAAIAAAAGAAMAAQAJAAIAAAAHAAMAAQAJAAIAAAAIAAMAAQAJAAIAAAAJAAMAAQAJAAIAAAAKAAMAAQAJAAIAAAAKAAcAAQAJAAIAAAAKAAYAAQAJAAIAAAAKAAUAAQAJAAIAAAAKAAQAAQAJAAIAAAALAAMAAQAJAAIAAAAMAAMAAQAJAAIAAAANAAMAAQAJAAIAAAAOAAMAAQAJAAIAAAAPAAMAAQAJAAIAAAAQAAMAAQAJAAIAAAAQAAQAAQAJAAIAAAAQAAUAAQAJAAIAAAAQAAYAAQAJAAIAAAAQAAcAAQAJAAIAAAARAAcAAQAJAAIAAAASAAcAAQAJAAIAAAASAAgAAQAJAAIAAAASAAkAAQAJAAIAAAASAAoAAQAJAAIAAAASAAsAAQAJAAIAAAASAAwAAQAJAAIAAAARAAwAAQAJAAIAAAAQAAwAAQAJAAIAAAAPAAwAAQAJAAIAAAAOAAwAAQAJAAIAAAANAAwAAQAJAAIAAAAMAAwAAQAJAAIAAAAMAA0AAQAJAAIAAAALAA0AAQAJAAIAAAAJAAsAAQALAAAAAAA=")
+tile_set = ExtResource("5_oadgt")
+
+[node name="SO" type="Node2D" parent="."]
+script = ExtResource("6_ro43g")
+
+[node name="Endpoints" type="Node2D" parent="SO"]
+script = ExtResource("7_ylxd2")
+
+[node name="Endpoint" parent="SO/Endpoints" instance=ExtResource("8_r1ndp")]
+position = Vector2(562, 337)
+
+[node name="Endpoint2" parent="SO/Endpoints" instance=ExtResource("8_r1ndp")]
+position = Vector2(607, 292)
+
+[node name="Endpoint3" parent="SO/Endpoints" instance=ExtResource("8_r1ndp")]
+position = Vector2(652, 337)
+
+[node name="Endpoint4" parent="SO/Endpoints" instance=ExtResource("8_r1ndp")]
+position = Vector2(607, 337)
+
+[node name="Endpoint5" parent="SO/Endpoints" instance=ExtResource("8_r1ndp")]
+position = Vector2(292, 337)
+what_im_happy_with = 1
+
+[node name="Endpoint6" parent="SO/Endpoints" instance=ExtResource("8_r1ndp")]
+position = Vector2(247, 337)
+what_im_happy_with = 1
+
+[node name="Endpoint7" parent="SO/Endpoints" instance=ExtResource("8_r1ndp")]
+position = Vector2(202, 337)
+what_im_happy_with = 1
+
+[node name="Bokobody" type="Node2D" parent="SO"]
+position = Vector2(247, 292)
+script = ExtResource("7_g3xv0")
+
+[node name="Block" parent="SO/Bokobody" instance=ExtResource("8_knnin")]
+
+[node name="Block2" parent="SO/Bokobody" instance=ExtResource("8_knnin")]
+position = Vector2(45, 0)
+
+[node name="Block3" parent="SO/Bokobody" instance=ExtResource("8_knnin")]
+position = Vector2(-45, 0)
+
+[node name="Block4" parent="SO/Bokobody" instance=ExtResource("8_knnin")]
+position = Vector2(0, 45)
+
+[node name="Bokobody2" type="Node2D" parent="SO"]
+position = Vector2(607, 292)
+script = ExtResource("7_g3xv0")
+
+[node name="Block" parent="SO/Bokobody2" instance=ExtResource("8_knnin")]
+boko_color = 1
+
+[node name="Block2" parent="SO/Bokobody2" instance=ExtResource("8_knnin")]
+position = Vector2(45, 0)
+boko_color = 1
+
+[node name="Block3" parent="SO/Bokobody2" instance=ExtResource("8_knnin")]
+position = Vector2(-45, 0)
+boko_color = 1

@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://p7urk6ieximh"]
-
-[ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="1_oew60"]
-
-[node name="ChibiBoko" type="Node2D"]
-
-[node name="CharacterChibiBoko" parent="." instance=ExtResource("1_oew60")]

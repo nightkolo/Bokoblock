@@ -11,11 +11,11 @@ signal button_entered(has_entered: bool)
 @export var auto_check_center: bool = true
 @export var set_as_center: bool = false
 @export_group("Assets")
-@export var asset_block: Texture2D = preload("res://assets/objects/block-v06-greyscale.png")
-@export var asset_center_block: Texture2D = preload("res://assets/objects/block-v06-greyscale-center.png")
-@export var asset_eye_normal: Texture2D = preload("res://assets/objects/block-eyes-v03-neutral-white.png")
-@export var asset_eye_angry: Texture2D = preload("res://assets/objects/block-eyes-v03-angry-white.png")
-@export var asset_eye_scaredy: Texture2D = preload("res://assets/objects/block-eyes-v03-scaredy-white.png")
+@export var asset_block: Texture2D = preload("res://assets/objects/block-greyscale.png")
+@export var asset_center_block: Texture2D = preload("res://assets/objects/block-greyscale-center.png")
+@export var asset_eye_normal: Texture2D = preload("res://assets/objects/block-eyes-neutral.png")
+@export var asset_eye_angry: Texture2D = preload("res://assets/objects/block-eyes-angry.png")
+@export var asset_eye_scaredy: Texture2D = preload("res://assets/objects/block-eyes-scaredy.png")
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var particles_dust: CPUParticles2D = %Dust

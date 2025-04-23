@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bpbf04y21hi7f" path="res://assets/characters/boko/boko-body-v05.png" id="3_re45l"]
 [ext_resource type="Texture2D" uid="uid://cpl1l3v5d6blx" path="res://assets/characters/boko/boko-eyes-natural-v02.png" id="5_b3po1"]
 [ext_resource type="Texture2D" uid="uid://bhm8y3ednlf1y" path="res://assets/characters/boko/boko-eyes-blink.png" id="6_myq15"]
-[ext_resource type="Script" path="res://world/characters/character_boko_top_hat.gd" id="6_pybtd"]
+[ext_resource type="Script" path="res://world/characters/bokos_top_hat.gd" id="6_pybtd"]
 [ext_resource type="Texture2D" uid="uid://ctaxunb23715r" path="res://assets/characters/boko/boko-top-hat-v11.png" id="8_6055j"]
 [ext_resource type="Texture2D" uid="uid://b0sq1tytxndkk" path="res://assets/characters/boko/boko-hands-v02-raised-left.png" id="8_rx43h"]
 [ext_resource type="Texture2D" uid="uid://hxacoiqka51i" path="res://assets/characters/boko/boko-hands-v02-chill-right.png" id="8_vjt58"]
