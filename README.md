@@ -4,7 +4,7 @@
 
 ## Project
 
-Everything is included in the [src](src/) directory.
+Everything is included in the [bokoblock](bokoblock/) directory.
 
 ## Notes
 
