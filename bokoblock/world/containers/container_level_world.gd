@@ -1,7 +1,10 @@
+## @experimental
+##
+## Under construction
 extends Node2D
 class_name StageWorld
 
-## TODO: Improve and add specialized color scheming for Areas 1, 2, 3
+# TODO: Improve and add specialized color scheming for Areas 1, 2, 3
 enum StageWorldBGColorPreset {
 	BLUE = 0,
 	DARK_BLUE = 1,

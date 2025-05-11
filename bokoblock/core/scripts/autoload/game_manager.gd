@@ -5,7 +5,7 @@ signal stage_entered(is_lvl: int)
 signal world_entered(is_wrld: int)
 signal game_entered(entered: bool)
 #signal stage_completed_screen_entered(entered: bool)
-signal game_exited() ## @experimental
+#signal game_exited()
 signal game_just_ended()
 signal game_end()
 signal game_reset()
@@ -38,7 +38,7 @@ var _is_game_manager_resetting: bool = false
 func _ready() -> void:
 	Engine.time_scale = 1.0/1.0
 	
-	game_end.connect(open_stage_complete)
+	game_end.connect(goto_next_stage)
 	
 	game_entered.connect(func(entered: bool):
 		in_game = entered
@@ -58,6 +58,7 @@ func _ready() -> void:
 		)
 	
 	game_just_ended.connect(func():
+		# Awaits  complete animation
 		await get_tree().create_timer(GameUtil.stage_complete_anim_waittime).timeout
 		game_end.emit()
 	)
@@ -66,12 +67,11 @@ func _ready() -> void:
 	number_of_bodies = current_bodies.size()
 
 
-func open_stage_complete() -> void:
+func open_stage_complete() -> void: ## @experimental
 	if !in_game:
 		return
 	
 	print("Stage complete")
-	#goto_next_stage()
 	
 	
 func goto_next_stage(force_progression: bool = false) -> void:

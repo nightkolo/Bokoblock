@@ -127,37 +127,37 @@ script = ExtResource("12_jyl42")
 [node name="Block" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 boko_color = 1
 
-[node name="BlockButton" parent="SO/Bokobody/Block" instance=ExtResource("14_yt4v4")]
+[node name="BlockButton2" parent="SO/Bokobody/Block" instance=ExtResource("14_yt4v4")]
 
 [node name="Block2" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(0, -45)
 
-[node name="BlockButton" parent="SO/Bokobody/Block2" instance=ExtResource("14_yt4v4")]
+[node name="BlockButton2" parent="SO/Bokobody/Block2" instance=ExtResource("14_yt4v4")]
 
 [node name="Block3" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(0, -90)
 
-[node name="BlockButton" parent="SO/Bokobody/Block3" instance=ExtResource("14_yt4v4")]
+[node name="BlockButton2" parent="SO/Bokobody/Block3" instance=ExtResource("14_yt4v4")]
 
 [node name="Block4" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(0, 45)
 
-[node name="BlockButton" parent="SO/Bokobody/Block4" instance=ExtResource("14_yt4v4")]
+[node name="BlockButton2" parent="SO/Bokobody/Block4" instance=ExtResource("14_yt4v4")]
 
 [node name="Block5" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(0, 90)
 
-[node name="BlockButton" parent="SO/Bokobody/Block5" instance=ExtResource("14_yt4v4")]
+[node name="BlockButton2" parent="SO/Bokobody/Block5" instance=ExtResource("14_yt4v4")]
 
 [node name="Block6" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(-45, 0)
 
-[node name="BlockButton" parent="SO/Bokobody/Block6" instance=ExtResource("14_yt4v4")]
+[node name="BlockButton2" parent="SO/Bokobody/Block6" instance=ExtResource("14_yt4v4")]
 
 [node name="Block7" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(45, 0)
 
-[node name="BlockButton" parent="SO/Bokobody/Block7" instance=ExtResource("14_yt4v4")]
+[node name="BlockButton2" parent="SO/Bokobody/Block7" instance=ExtResource("14_yt4v4")]
 
 [node name="Sprite2D2" type="Sprite2D" parent="SO"]
 visible = false

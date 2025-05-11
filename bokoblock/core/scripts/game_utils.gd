@@ -29,7 +29,7 @@ enum SwitchTypeDecorator {
 	Square = 1
 	}
 
-static var stage_complete_anim_waittime: float = 2.0
+static var stage_complete_anim_waittime: float = 1.5
 
 const GAME_SCREEN_SIZE = Vector2(960.0,720.0)
 const BOKOBODY_TURN_DEGREE = 90.0

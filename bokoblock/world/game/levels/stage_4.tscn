@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://lgffitdp3bb5"]
+[gd_scene load_steps=15 format=4 uid="uid://lgffitdp3bb5"]
 
 [ext_resource type="Script" path="res://world/game/scripts/stage.gd" id="1_377xv"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_1vhod"]
@@ -11,93 +11,114 @@
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_5r8dw"]
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_hbjuo"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_dcm4r"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_ll738"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_p00od"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_621oc"]
 
 [node name="S4" type="Node2D"]
 script = ExtResource("1_377xv")
+win_condition = 1
 
 [node name="UI" parent="." instance=ExtResource("2_ef04p")]
 
 [node name="Cam" parent="." instance=ExtResource("2_1vhod")]
+position = Vector2(450.5, 383)
 zoom = Vector2(1.4, 1.4)
 
-[node name="SW" parent="." instance=ExtResource("3_xa1cw")]
+[node name="StageWord" parent="." instance=ExtResource("3_xa1cw")]
 
-[node name="StageLight" type="PointLight2D" parent="SW"]
-position = Vector2(472, 382)
-scale = Vector2(5.625, 5.625)
+[node name="StageLight" type="PointLight2D" parent="StageWord"]
+position = Vector2(450, 382)
+scale = Vector2(4.9375, 5.625)
 range_item_cull_mask = 2
 texture = ExtResource("4_4sugn")
 script = ExtResource("5_umedr")
 
-[node name="TM" type="Node2D" parent="SW"]
+[node name="TM" type="Node2D" parent="StageWord"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("4_s78yt")
 
-[node name="Collision" type="TileMapLayer" parent="SW/TM"]
-tile_map_data = PackedByteArray("AAAIAAwAAQAAAAQAAAAOAAwAAQAAAAQAAAAOAAsAAQAAAAQAAAAOAAoAAQAAAAQAAAAOAAkAAQAAAAQAAAAOAAgAAQAAAAQAAAAOAAcAAQAAAAQAAAAOAAYAAQAAAAQAAAAGAAoAAQAAAAQAAAAGAAkAAQAAAAQAAAAGAAgAAQAAAAQAAAAGAAcAAQAAAAQAAAAGAAYAAQAAAAQAAAANAAYAAQAAAAQAAAAMAAQAAQAAAAQAAAALAAQAAQAAAAQAAAAKAAQAAQAAAAQAAAAJAAQAAQAAAAQAAAAIAAQAAQAAAAQAAAAHAAQAAQAAAAQAAAAGAAQAAQAAAAQAAAAGAAUAAQAAAAQAAAAJAAwAAQAAAAQAAAAKAAwAAQAAAAQAAAALAAwAAQAAAAQAAAAMAAwAAQAAAAQAAAANAAwAAQAAAAQAAAAIAAoAAQAAAAQAAAAHAAoAAQAAAAQAAAAHAAwAAQAAAAQAAAAHAAsAAQAAAAQAAAANAAUAAQAAAAQAAAANAAQAAQAAAAQAAAA=")
+[node name="Collision" type="TileMapLayer" parent="StageWord/TM"]
+tile_map_data = PackedByteArray("AAAIAAwAAQAAAAQAAAAOAAYAAQAAAAQAAAAGAAoAAQAAAAQAAAAGAAkAAQAAAAQAAAAGAAgAAQAAAAQAAAAGAAcAAQAAAAQAAAAGAAYAAQAAAAQAAAANAAYAAQAAAAQAAAAMAAQAAQAAAAQAAAALAAQAAQAAAAQAAAAKAAQAAQAAAAQAAAAJAAQAAQAAAAQAAAAIAAQAAQAAAAQAAAAGAAUAAQAAAAQAAAAJAAwAAQAAAAQAAAAKAAwAAQAAAAQAAAALAAwAAQAAAAQAAAAHAAwAAQAAAAQAAAANAAQAAQAAAAQAAAAOAAUAAQAAAAQAAAAOAAQAAQAAAAQAAAANAAcAAQAAAAQAAAANAAgAAQAAAAQAAAANAAkAAQAAAAQAAAANAAoAAQAAAAQAAAANAAsAAQAAAAQAAAAGAAwAAQAAAAQAAAAFAAwAAQAAAAQAAAAFAAsAAQAAAAQAAAAFAAoAAQAAAAQAAAAMAAwAAQAAAAQAAAANAAwAAQAAAAQAAAAHAAQAAQAAAAQAAAAGAAQAAQAAAAQAAAA=")
 tile_set = ExtResource("5_hc28s")
 
-[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+[node name="Checkerboard" type="TileMapLayer" parent="StageWord/TM"]
 self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
-tile_map_data = PackedByteArray("AAAHAAUABgAAAAAAAAAHAAYABgAAAAEAAAAHAAcABgAAAAIAAAAHAAgABgAAAAMAAAAIAAUABgABAAAAAAAIAAYABgABAAEAAAAIAAcABgABAAIAAAAIAAgABgABAAMAAAAJAAUABgACAAAAAAAJAAYABgACAAEAAAAJAAcABgACAAIAAAAJAAgABgACAAMAAAAKAAUABgADAAAAAAAKAAYABgADAAEAAAAKAAcABgADAAIAAAAKAAgABgADAAMAAAALAAUABgAAAAAAAAALAAYABgAAAAEAAAALAAcABgAAAAIAAAALAAgABgAAAAMAAAAMAAUABgABAAAAAAAMAAYABgABAAEAAAAMAAcABgABAAIAAAAMAAgABgABAAMAAAANAAcABgACAAIAAAANAAgABgACAAMAAAALAAkABgAAAAAAAAALAAoABgAAAAEAAAALAAsABgAAAAIAAAAMAAkABgABAAAAAAAMAAoABgABAAEAAAAMAAsABgABAAIAAAANAAkABgACAAAAAAANAAoABgACAAEAAAANAAsABgACAAIAAAAHAAkABgAAAAAAAAAIAAkABgABAAAAAAAIAAsABgABAAIAAAAJAAkABgACAAAAAAAJAAoABgACAAEAAAAJAAsABgACAAIAAAAKAAkABgADAAAAAAAKAAoABgADAAEAAAAKAAsABgADAAIAAAA=")
+tile_map_data = PackedByteArray("AAAHAAUABwABAAAAAAAHAAYABwABAAEAAAAHAAcABwABAAIAAAAHAAgABwABAAMAAAAIAAUABwACAAAAAAAIAAYABwACAAEAAAAIAAcABwACAAIAAAAIAAgABwACAAMAAAAJAAUABwADAAAAAAAJAAYABwADAAEAAAAJAAcABwADAAIAAAAJAAgABwADAAMAAAAGAAsABwAAAAIAAAAHAAkABwABAAAAAAAHAAoABwABAAEAAAAHAAsABwABAAIAAAAIAAkABwACAAAAAAAIAAoABwACAAEAAAAIAAsABwACAAIAAAAJAAkABwADAAAAAAAJAAoABwADAAEAAAAJAAsABwADAAIAAAAKAAkABwAAAAAAAAAKAAoABwAAAAEAAAAKAAsABwAAAAIAAAALAAkABwABAAAAAAALAAoABwABAAEAAAALAAsABwABAAIAAAAMAAkABwACAAAAAAAMAAoABwACAAEAAAAMAAsABwACAAIAAAAKAAUABwAAAAAAAAAKAAYABwAAAAEAAAAKAAcABwAAAAIAAAAKAAgABwAAAAMAAAALAAUABwABAAAAAAALAAYABwABAAEAAAALAAcABwABAAIAAAALAAgABwABAAMAAAAMAAUABwACAAAAAAAMAAYABwACAAEAAAAMAAcABwACAAIAAAAMAAgABwACAAMAAAANAAUABwADAAAAAAA=")
 tile_set = ExtResource("5_hc28s")
 
-[node name="Outline" type="TileMapLayer" parent="SW/TM"]
-tile_map_data = PackedByteArray("AAAHAAwAAQAGAAEAAAAHAAsAAQALAAIAAAAHAAoAAQAGAAAAAAAIAAoAAQADAAMAAAAGAAoAAQAGAAEAAAAGAAkAAQALAAIAAAAGAAgAAQALAAIAAAAGAAcAAQALAAIAAAAGAAYAAQALAAIAAAAGAAUAAQALAAIAAAAGAAQAAQAGAAIAAAAHAAQAAQAJAAMAAAAIAAQAAQAJAAMAAAAJAAQAAQAJAAMAAAAKAAQAAQAJAAMAAAALAAQAAQAJAAMAAAAMAAQAAQAJAAMAAAANAAQAAQAFAAIAAAANAAUAAQAIAAEAAAANAAYAAQAIAAMAAAAOAAYAAQAFAAIAAAAOAAcAAQAIAAEAAAAOAAgAAQAIAAEAAAAOAAkAAQAIAAEAAAAOAAoAAQAIAAEAAAAOAAsAAQAIAAEAAAAOAAwAAQAFAAEAAAANAAwAAQAKAAAAAAAMAAwAAQAKAAAAAAALAAwAAQAKAAAAAAAKAAwAAQAKAAAAAAAJAAwAAQAKAAAAAAAIAAwAAQAKAAAAAAAGAAwAAQAJAAIAAAAGAAsAAQAJAAIAAAAFAAsAAQAJAAIAAAAFAAoAAQAJAAIAAAAFAAkAAQAJAAIAAAAFAAgAAQAJAAIAAAAFAAcAAQAJAAIAAAAFAAYAAQAJAAIAAAAFAAUAAQAJAAIAAAAFAAQAAQAJAAIAAAAFAAMAAQAJAAIAAAAGAAMAAQAJAAIAAAAHAAMAAQAJAAIAAAAIAAMAAQAJAAIAAAAJAAMAAQAJAAIAAAAKAAMAAQAJAAIAAAALAAMAAQAJAAIAAAAMAAMAAQAJAAIAAAANAAMAAQAJAAIAAAAOAAMAAQAJAAIAAAAOAAQAAQAJAAIAAAAOAAUAAQAJAAIAAAAPAAUAAQAJAAIAAAAPAAYAAQAJAAIAAAAPAAcAAQAJAAIAAAAPAAgAAQAJAAIAAAAPAAkAAQAJAAIAAAAPAAoAAQAJAAIAAAAPAAsAAQAJAAIAAAAPAAwAAQAJAAIAAAAPAA0AAQAJAAIAAAAOAA0AAQAJAAIAAAANAA0AAQAJAAIAAAAMAA0AAQAJAAIAAAALAA0AAQAJAAIAAAAKAA0AAQAJAAIAAAAJAA0AAQAJAAIAAAAIAA0AAQAJAAIAAAAHAA0AAQAJAAIAAAAGAA0AAQAJAAIAAAA=")
+[node name="Outline" type="TileMapLayer" parent="StageWord/TM"]
+tile_map_data = PackedByteArray("AAAFAAwAAQAGAAEAAAAFAAsAAQALAAIAAAAFAAoAAQAGAAIAAAAGAAoAAQALAAMAAAAGAAkAAQALAAIAAAAGAAgAAQALAAIAAAAGAAcAAQALAAIAAAAGAAYAAQALAAIAAAAGAAUAAQALAAIAAAAGAAQAAQAGAAIAAAAHAAQAAQAJAAMAAAAIAAQAAQAJAAMAAAAJAAQAAQAJAAMAAAAKAAQAAQAJAAMAAAALAAQAAQAJAAMAAAAMAAQAAQAJAAMAAAANAAQAAQAJAAMAAAAOAAQAAQAFAAIAAAAOAAUAAQAIAAEAAAAOAAYAAQAFAAEAAAANAAYAAQAIAAAAAAANAAcAAQAIAAEAAAANAAgAAQAIAAEAAAANAAkAAQAIAAEAAAANAAoAAQAIAAEAAAANAAsAAQAIAAEAAAANAAwAAQAFAAEAAAAMAAwAAQAKAAAAAAALAAwAAQAKAAAAAAAKAAwAAQAKAAAAAAAJAAwAAQAKAAAAAAAIAAwAAQAKAAAAAAAHAAwAAQAKAAAAAAAGAAwAAQAKAAAAAAAEAAwAAQAJAAIAAAAEAAsAAQAJAAIAAAAEAAoAAQAJAAIAAAAEAAkAAQAJAAIAAAAFAAkAAQAJAAIAAAAFAAgAAQAJAAIAAAAFAAcAAQAJAAIAAAAFAAYAAQAJAAIAAAAFAAUAAQAJAAIAAAAFAAQAAQAJAAIAAAAFAAMAAQAJAAIAAAAGAAMAAQAJAAIAAAAHAAMAAQAJAAIAAAAIAAMAAQAJAAIAAAAJAAMAAQAJAAIAAAAKAAMAAQAJAAIAAAALAAMAAQAJAAIAAAAMAAMAAQAJAAIAAAANAAMAAQAJAAIAAAAOAAMAAQAJAAIAAAAPAAMAAQAJAAIAAAAPAAQAAQAJAAIAAAAPAAUAAQAJAAIAAAAPAAYAAQAJAAIAAAAPAAcAAQAJAAIAAAAOAAcAAQAJAAIAAAAOAAgAAQAJAAIAAAAOAAkAAQAJAAIAAAAOAAoAAQAJAAIAAAAOAAsAAQAJAAIAAAAOAAwAAQAJAAIAAAAOAA0AAQAJAAIAAAANAA0AAQAJAAIAAAAMAA0AAQAJAAIAAAALAA0AAQAJAAIAAAAKAA0AAQAJAAIAAAAJAA0AAQAJAAIAAAAIAA0AAQAJAAIAAAAHAA0AAQAJAAIAAAAGAA0AAQAJAAIAAAAFAA0AAQAJAAIAAAAEAA0AAQAJAAIAAAA=")
 tile_set = ExtResource("5_hc28s")
 
-[node name="SO" type="Node2D" parent="."]
+[node name="ChibiBoko" parent="StageWord" instance=ExtResource("9_ll738")]
+position = Vector2(630.5, 428)
+sleep = true
+
+[node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("6_5r8dw")
 
-[node name="Endpoints" type="Node2D" parent="SO"]
+[node name="Endpoints" type="Node2D" parent="StageObjects"]
 script = ExtResource("9_p00od")
 
-[node name="Endpoint2" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
-position = Vector2(517, 517)
+[node name="Endpoint2" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(338, 518)
 what_im_happy_with = 1
 
-[node name="Endpoint4" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
-position = Vector2(562, 517)
+[node name="Endpoint4" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(383, 518)
 what_im_happy_with = 1
 
-[node name="Endpoint3" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
-position = Vector2(607, 517)
+[node name="Endpoint3" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(428, 518)
 what_im_happy_with = 1
 
-[node name="Endpoint5" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
-position = Vector2(472, 247)
+[node name="Endpoint5" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(473, 248)
+what_im_happy_with = 1
 
-[node name="Endpoint6" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
-position = Vector2(517, 247)
+[node name="Endpoint6" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(518, 248)
+what_im_happy_with = 1
 
-[node name="Endpoint7" parent="SO/Endpoints" instance=ExtResource("10_621oc")]
-position = Vector2(562, 247)
+[node name="Endpoint7" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(563, 248)
+what_im_happy_with = 1
 
-[node name="Bokobody" type="Node2D" parent="SO"]
-position = Vector2(428, 383)
+[node name="Endpoint8" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(428, 248)
+what_im_happy_with = 1
+
+[node name="Endpoint9" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(473, 518)
+what_im_happy_with = 1
+
+[node name="Bokobody" type="Node2D" parent="StageObjects"]
+position = Vector2(383, 383)
 script = ExtResource("7_hbjuo")
 
-[node name="Block" parent="SO/Bokobody" instance=ExtResource("8_dcm4r")]
-
-[node name="Block2" parent="SO/Bokobody" instance=ExtResource("8_dcm4r")]
-position = Vector2(45, 0)
-
-[node name="Block3" parent="SO/Bokobody" instance=ExtResource("8_dcm4r")]
-position = Vector2(-45, 0)
-
-[node name="Bokobody2" type="Node2D" parent="SO"]
-position = Vector2(563, 383)
-script = ExtResource("7_hbjuo")
-
-[node name="Block" parent="SO/Bokobody2" instance=ExtResource("8_dcm4r")]
+[node name="Block" parent="StageObjects/Bokobody" instance=ExtResource("8_dcm4r")]
 boko_color = 1
 
-[node name="Block2" parent="SO/Bokobody2" instance=ExtResource("8_dcm4r")]
+[node name="Block2" parent="StageObjects/Bokobody" instance=ExtResource("8_dcm4r")]
+position = Vector2(45, 0)
+boko_color = 1
+
+[node name="Block3" parent="StageObjects/Bokobody" instance=ExtResource("8_dcm4r")]
+position = Vector2(-45, 0)
+boko_color = 1
+
+[node name="Bokobody2" type="Node2D" parent="StageObjects"]
+position = Vector2(518, 383)
+script = ExtResource("7_hbjuo")
+
+[node name="Block" parent="StageObjects/Bokobody2" instance=ExtResource("8_dcm4r")]
+boko_color = 1
+
+[node name="Block2" parent="StageObjects/Bokobody2" instance=ExtResource("8_dcm4r")]
 position = Vector2(0, -45)
 boko_color = 1
 
-[node name="Block3" parent="SO/Bokobody2" instance=ExtResource("8_dcm4r")]
+[node name="Block3" parent="StageObjects/Bokobody2" instance=ExtResource("8_dcm4r")]
 position = Vector2(0, 45)
 boko_color = 1

@@ -47,7 +47,7 @@ func _ready() -> void:
 func the_blocks_have_been_happy():
 	stage_complete_entered.emit()
 	
-	stage_complete_screen.anim_open()
+	#stage_complete_screen.anim_open()
 	
 	
 func pause_or_unpause() -> void:

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://world/containers/container_level_world.gd" id="1_lmiqu"]
 [ext_resource type="PackedScene" uid="uid://eyhhyen04o6i" path="res://world/world/stage_background.tscn" id="3_p4qmj"]
 
-[node name="SW" type="Node2D"]
+[node name="StageWorld" type="Node2D"]
 script = ExtResource("1_lmiqu")
 randomize_background_effect = true
 metadata/_edit_lock_ = true

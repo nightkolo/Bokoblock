@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://1jr3hnyoqmva"]
+[gd_scene load_steps=11 format=3 uid="uid://1jr3hnyoqmva"]
 
 [ext_resource type="Script" path="res://world/game/scripts/stage.gd" id="1_8irpk"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_47sf3"]
@@ -9,8 +9,9 @@
 [ext_resource type="Script" path="res://world/world/stage_light.gd" id="5_pbier"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_h1c14"]
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="6_ts4iv"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_htkt1"]
 
-[node name="S" type="Node2D"]
+[node name="Stage" type="Node2D"]
 script = ExtResource("1_8irpk")
 stage_progression = false
 
@@ -18,30 +19,33 @@ stage_progression = false
 
 [node name="Cam" parent="." instance=ExtResource("2_47sf3")]
 
-[node name="SW" parent="." instance=ExtResource("3_wpf8u")]
+[node name="StageWorld" parent="." instance=ExtResource("3_wpf8u")]
 show_collision_tilemap = true
 
-[node name="StageLight" type="PointLight2D" parent="SW"]
+[node name="StageLight" type="PointLight2D" parent="StageWorld"]
 position = Vector2(517, 382)
 scale = Vector2(8.4375, 7.03125)
 range_item_cull_mask = 2
 texture = ExtResource("4_5fvqa")
 script = ExtResource("5_pbier")
 
-[node name="TM" type="Node2D" parent="SW"]
+[node name="TM" type="Node2D" parent="StageWorld"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("4_iuko8")
 
-[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+[node name="Collision" type="TileMapLayer" parent="StageWorld/TM"]
 tile_set = ExtResource("6_ts4iv")
 
-[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+[node name="Checkerboard" type="TileMapLayer" parent="StageWorld/TM"]
 self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
 light_mask = 2
 tile_set = ExtResource("6_ts4iv")
 
-[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+[node name="Outline" type="TileMapLayer" parent="StageWorld/TM"]
 tile_set = ExtResource("6_ts4iv")
 
-[node name="SO" type="Node2D" parent="."]
+[node name="ChibiBoko" parent="StageWorld" instance=ExtResource("9_htkt1")]
+position = Vector2(473, 383)
+
+[node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("6_h1c14")

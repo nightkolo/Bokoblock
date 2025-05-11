@@ -4,8 +4,6 @@ var tween: Tween
 
 
 func _ready() -> void:
-	mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE
-	
 	pivot_offset = size / 2
 	
 	mouse_entered.connect(anim_entered)
@@ -30,8 +28,8 @@ func anim_entered():
 	tween = create_tween().set_parallel(true)
 	tween.set_ease(Tween.EASE_OUT)
 	
-	scale.x = 0.4
-	scale.y = 0.75
+	scale.x = 0.75
+	scale.y = 0.9
 	
 	tween.tween_property(self, "scale:x", scale_to, dur/3).set_trans(Tween.TRANS_BACK)
 	tween.tween_property(self, "scale:y", scale_to, dur).set_trans(Tween.TRANS_ELASTIC).set_delay(dur/9)

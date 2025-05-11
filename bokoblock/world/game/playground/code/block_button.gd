@@ -4,16 +4,17 @@ extends Button
 
 @onready var block: Bokoblock = get_parent()
 
-var color_scale: Array[int] = [0, 1, 2, 3, 1]
+#var color_scale: Array[int] = [0, 1, 2, 3, 1]
+
 
 func _ready() -> void:
 	pressed.connect(_on_pressed)
 
 
 func _on_pressed():
-	#print(str(block) + " is pressed!")
-	
-	block.animator.anim_poke()
+	if block:
+		if block.animator:
+			block.animator.anim_poke()
 	
 	#match GameMgr.get_card_type():
 		#
