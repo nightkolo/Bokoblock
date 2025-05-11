@@ -14,6 +14,7 @@ var is_happy: bool = false:
 		if value:
 			anim_happy()
 		is_happy = value
+var is_landed_on: bool = false
 
 
 func _ready() -> void:
@@ -46,9 +47,10 @@ func setup_node() -> void:
 func check_satisfaction() -> bool:
 	var value: bool
 	var areas: Array[Area2D] = get_overlapping_areas()
-	#var is_what_im_looking_for: bool = areas.size() == 1 && areas[0] is Bokoblock
+
+	is_landed_on = areas.size() == 1 && areas[0] is Bokoblock
 	
-	if areas.size() == 1 && areas[0] is Bokoblock:
+	if is_landed_on:
 		value = (areas[0] as Bokoblock).boko_color == what_im_happy_with
 		
 	is_happy = value

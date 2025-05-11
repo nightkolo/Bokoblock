@@ -2,8 +2,11 @@ extends CanvasLayer
 class_name GameplayUI
 
 signal game_pause_toggled(is_paused: bool)
+signal stage_complete_entered()
 
-@onready var pause_menu: PauseMenu = $PauseMenu
+@onready var pause_screen: PauseScreen = $PauseMenu
+@onready var stage_complete_screen: StageCompleteScreen = $StageCompleteScreen
+
 
 var is_game_paused: bool = false:
 	get:
@@ -11,6 +14,11 @@ var is_game_paused: bool = false:
 	set(value):
 		get_tree().paused = value
 		is_game_paused = value
+
+
+## @experimental
+func update_text(bbcode: String, begin: String, end: String) -> String:
+	return bbcode + begin + str(GameMgr.current_world_id) + "-" + str(GameMgr.current_stage_id) + end
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -31,15 +39,26 @@ func _unhandled_input(event: InputEvent) -> void:
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 	
+	GameMgr.game_end.connect(the_blocks_have_been_happy)
+	
 	GameMgr.current_ui_handler = self
 	
 	
+func the_blocks_have_been_happy():
+	stage_complete_entered.emit()
+	
+	stage_complete_screen.anim_open()
+	
+	
 func pause_or_unpause() -> void:
+	if GameLogic.has_won:
+		return
+		
 	is_game_paused = !is_game_paused
 	
 	game_pause_toggled.emit(is_game_paused)
 	
-	pause_menu.visible = is_game_paused
+	pause_screen.visible = is_game_paused
 	
 	
 func reset_stage() -> void:

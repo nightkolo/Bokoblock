@@ -11,8 +11,21 @@ class_name TestUICard
 @onready var node_sprite: Node2D = $Node2D
 @onready var sprite: Sprite2D = $Node2D/Texture
 
+@onready var hover: Node2D = $Aud/Hover
+
+@onready var audio_swich_down: AudioStreamPlayer2D = $Aud/Swiches/Down
+@onready var audio_swich_down_2: AudioStreamPlayer2D = $Aud/Swiches/Down2
+
+@onready var audio_swich_up: AudioStreamPlayer2D = $Aud/Swiches/Up
+
+
+@onready var audio_select: AudioStreamPlayer2D = $Aud/Select/Select
+@onready var audio_put_down: AudioStreamPlayer2D = $Aud/Select/PutDown
+
+var _hover_sounds: Array[Node]
+
 var is_highlighted: bool = false ## @experimental
-var is_activate: bool = false:
+var is_activate: bool = false: ## TODO: "is_activated"
 	get:
 		return is_activate
 	set(value):
@@ -38,10 +51,13 @@ var _texture_node_pos: float
 var _tween_a: Tween
 var _tween_b: Tween
 var _tween_c: Tween
+var _last_card_type: TestCardUI.CardType
 
 
 func _ready() -> void:
 	_texture_node_pos = node_sprite.position.y
+	
+	_hover_sounds = hover.get_children()
 	
 	match card_type:
 		
@@ -54,14 +70,40 @@ func _ready() -> void:
 		TestCardUI.CardType.Misc:
 			sprite.texture = card_texture_recolor_block
 	
-	mouse_entered.connect(anim_entered)
-	mouse_exited.connect(anim_exited)
+	mouse_entered.connect(func():
+		var aud := _hover_sounds[randi() % _hover_sounds.size()]
+		aud.play(0.025)
+		
+		audio_swich_up.play() # thanks godot devs for making life so easy
+		
+		anim_entered()
+		)
+	mouse_exited.connect(func():
+		anim_exited()
+		
+		await get_tree().create_timer(0.2).timeout
+		audio_swich_down.play()
+		
+		print(_last_card_type == card_type)
+		
+		if !is_activate && _last_card_type == card_type:
+			audio_swich_down_2.play(0.14)
+		)
 	
 	gui_input.connect(func(event: InputEvent):
 		if event.is_action_pressed("clicky"):
 			is_activate = !is_activate
 			print(is_activate)
-			anim_bounce()
+			
+			if is_activate:
+				audio_select.play()
+			else:
+				_last_card_type = GameMgr.current_card_ui.current_card_type
+				
+				GameMgr.current_card_ui.set_card_type(TestCardUI.CardType.None)
+				audio_put_down.play()
+			
+			anim_pressed()
 		)
 		
 	await GameMgr.process_waittime()
@@ -71,7 +113,7 @@ func _ready() -> void:
 		)
 	
 
-func anim_bounce() -> void:
+func anim_pressed() -> void:
 	if _tween_b:
 		_tween_b.kill()
 		

@@ -4,19 +4,18 @@ extends Node
 signal stage_entered(is_lvl: int)
 signal world_entered(is_wrld: int)
 signal game_entered(entered: bool)
+#signal stage_completed_screen_entered(entered: bool)
+signal game_exited() ## @experimental
 signal game_just_ended()
 signal game_end()
 signal game_reset()
 
-var number_of_bodies: int
+var in_game: bool = false
+var in_stage_complete = false
+
+var number_of_bodies: int ## @deprecated
 var current_ui_handler: GameplayUI
 var current_stage: Stage
-var in_game: bool = false:
-	get: 
-		return in_game
-	set(value):
-		game_entered.emit(value)
-		in_game = value
 var current_stage_id: int = -1:
 	get:
 		return current_stage_id
@@ -37,7 +36,17 @@ var _is_game_manager_resetting: bool = false
 
 
 func _ready() -> void:
-	game_end.connect(goto_next_stage)
+	Engine.time_scale = 1.0/1.0
+	
+	game_end.connect(open_stage_complete)
+	
+	game_entered.connect(func(entered: bool):
+		in_game = entered
+		)
+		
+	#stage_completed_screen_entered.connect(func(entered: bool):
+		#in_stage_complete = entered
+		#)
 	
 	game_reset.connect(func():
 		_reset_game_manager()
@@ -55,6 +64,14 @@ func _ready() -> void:
 	
 	await get_tree().create_timer(0.1).timeout
 	number_of_bodies = current_bodies.size()
+
+
+func open_stage_complete() -> void:
+	if !in_game:
+		return
+	
+	print("Stage complete")
+	#goto_next_stage()
 	
 	
 func goto_next_stage(force_progression: bool = false) -> void:

@@ -1,7 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnsy5pe5wp0l7"]
+[gd_scene load_steps=29 format=3 uid="uid://bnsy5pe5wp0l7"]
 
 [ext_resource type="Script" path="res://core/scripts/system_audio.gd" id="1_ukka2"]
 [ext_resource type="AudioStream" uid="uid://cej2m55vuaqcf" path="res://audio/music/1370709_Celestial-Canopy.mp3" id="2_lagqa"]
+[ext_resource type="AudioStream" uid="uid://crnv8dsd4vvo4" path="res://audio/import/game_paused.ogg" id="3_6powf"]
+[ext_resource type="AudioStream" uid="uid://cg8han0t5b58a" path="res://audio/import/game_reset_01.ogg" id="4_an76p"]
+[ext_resource type="AudioStream" uid="uid://cav2ppfwlmf4y" path="res://audio/import/game_reset_02.ogg" id="5_f1yt8"]
+[ext_resource type="AudioStream" uid="uid://d2ktxscd3lhhb" path="res://audio/import/game_start.wav" id="6_012bo"]
+[ext_resource type="AudioStream" uid="uid://dks0od1b047j2" path="res://audio/import/Item1A.wav" id="7_p47qr"]
+[ext_resource type="AudioStream" uid="uid://d35b6bcmhp1f8" path="res://audio/import/Item1B.wav" id="8_uc5p5"]
+[ext_resource type="AudioStream" uid="uid://cq7k6w83wydfh" path="res://audio/import/menu_enter_01.wav" id="9_74aev"]
+[ext_resource type="AudioStream" uid="uid://bodyt6i3las37" path="res://audio/import/menu_enter_02.wav" id="10_xocqy"]
+[ext_resource type="AudioStream" uid="uid://c317c00holliu" path="res://audio/import/menu_enter_03.wav" id="11_h1ff1"]
+[ext_resource type="AudioStream" uid="uid://dwex32p0sitnk" path="res://audio/import/menu_exit.wav" id="12_50xne"]
+[ext_resource type="AudioStream" uid="uid://d1y2gytl4acu4" path="res://audio/import/stage_next.wav" id="13_x1h4r"]
+[ext_resource type="AudioStream" uid="uid://r6tcr30eiv7n" path="res://audio/import/stage_undo_01.ogg" id="14_hrjcq"]
+[ext_resource type="AudioStream" uid="uid://bcf6mjnff7d6p" path="res://audio/import/stage_win.wav" id="15_yp5gw"]
+[ext_resource type="AudioStream" uid="uid://3iyykkm2ueb5" path="res://audio/import/block_turning_sound.ogg" id="16_2krml"]
+[ext_resource type="AudioStream" uid="uid://cyt64migbxu4j" path="res://audio/import/body_happy_01.ogg" id="17_dw84y"]
+[ext_resource type="AudioStream" uid="uid://bisevjiuqtirf" path="res://audio/import/body_happy_02.ogg" id="18_n8avh"]
+[ext_resource type="AudioStream" uid="uid://c4cdbcvyxs8qn" path="res://audio/import/tone1.ogg" id="23_qjknr"]
+[ext_resource type="AudioStream" uid="uid://bf3xiw2oyab3x" path="res://audio/import/block_turn_stopped_02.ogg" id="26_y6kkm"]
+[ext_resource type="AudioStream" uid="uid://cehov6qshtwb0" path="res://audio/import/Menu1B.wav" id="30_gb0y4"]
+[ext_resource type="AudioStream" uid="uid://docycrfyl4gsb" path="res://audio/import/Menu1A.wav" id="31_08we3"]
+[ext_resource type="AudioStream" uid="uid://c3ik72oiusy5y" path="res://audio/import/random.wav" id="32_0omil"]
+[ext_resource type="AudioStream" uid="uid://ca0c3e3dwjako" path="res://audio/import/Wrong Error.wav" id="33_7umab"]
+[ext_resource type="AudioStream" uid="uid://bkt1g5f80bdvv" path="res://audio/import/error_002.ogg" id="33_igb24"]
+[ext_resource type="AudioStream" uid="uid://b7yxur4l15nuk" path="res://audio/import/block_turning_05.wav" id="35_lhjwj"]
+[ext_resource type="AudioStream" uid="uid://x6tuwxxh3o2d" path="res://audio/import/block_turning_07.wav" id="36_wool5"]
+[ext_resource type="AudioStream" uid="uid://b1u5t4eks7gxu" path="res://audio/import/starpoint_exited_02.ogg" id="37_u6waw"]
 
 [node name="Audio" type="Node"]
 script = ExtResource("1_ukka2")
@@ -12,3 +38,159 @@ script = ExtResource("1_ukka2")
 stream = ExtResource("2_lagqa")
 volume_db = -40.0
 bus = &"Music"
+
+[node name="UI" type="Node" parent="."]
+
+[node name="MenuEnterJingles" type="Node" parent="UI"]
+
+[node name="MenuEnter01" type="AudioStreamPlayer" parent="UI/MenuEnterJingles"]
+stream = ExtResource("9_74aev")
+volume_db = -15.0
+bus = &"UISound"
+
+[node name="MenuEnter02" type="AudioStreamPlayer" parent="UI/MenuEnterJingles"]
+stream = ExtResource("10_xocqy")
+volume_db = -10.0
+bus = &"UISound"
+
+[node name="MenuEnter03" type="AudioStreamPlayer" parent="UI/MenuEnterJingles"]
+stream = ExtResource("11_h1ff1")
+volume_db = -10.0
+bus = &"UISound"
+
+[node name="StageCompleteJingles" type="Node" parent="UI"]
+
+[node name="StageComplete01" type="AudioStreamPlayer" parent="UI/StageCompleteJingles"]
+stream = ExtResource("7_p47qr")
+volume_db = -15.0
+bus = &"UISound"
+
+[node name="StageComplete02" type="AudioStreamPlayer" parent="UI/StageCompleteJingles"]
+stream = ExtResource("8_uc5p5")
+volume_db = -15.0
+bus = &"UISound"
+
+[node name="GamePaused" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("3_6powf")
+bus = &"UISound"
+
+[node name="GameReset01" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("4_an76p")
+volume_db = -25.0
+bus = &"UISound"
+
+[node name="GameReset02" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("5_f1yt8")
+volume_db = -25.0
+bus = &"UISound"
+
+[node name="GameStart" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("6_012bo")
+volume_db = -15.0
+bus = &"UISound"
+
+[node name="MenuExit" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("12_50xne")
+volume_db = -15.0
+bus = &"UISound"
+
+[node name="StageNext" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("13_x1h4r")
+volume_db = -15.0
+bus = &"UISound"
+
+[node name="StageUndo01" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("14_hrjcq")
+volume_db = -15.0
+bus = &"UISound"
+
+[node name="StageWin" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("15_yp5gw")
+volume_db = -15.0
+bus = &"UISound"
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="StarpointWrong" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("32_0omil")
+volume_db = -15.0
+bus = &"GameSound"
+
+[node name="StarpointExit" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("30_gb0y4")
+volume_db = -15.0
+bus = &"GameSound"
+
+[node name="StarpointEnter1" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("31_08we3")
+volume_db = -30.0
+
+[node name="StarpointEnter2" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("31_08we3")
+volume_db = -30.0
+
+[node name="BodyHappy01" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("17_dw84y")
+volume_db = -30.0
+bus = &"GameSound"
+
+[node name="BodyHappy02" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("18_n8avh")
+volume_db = -30.0
+bus = &"GameSound"
+
+[node name="BlockMoving" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("23_qjknr")
+volume_db = -50.0
+bus = &"GameSound"
+
+[node name="BlockTurnHit" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("26_y6kkm")
+volume_db = -40.0
+bus = &"GameSound"
+
+[node name="BlockMoveHit" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("33_igb24")
+volume_db = -40.0
+bus = &"GameSound"
+
+[node name="BlockTurningSound" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("16_2krml")
+volume_db = -25.0
+bus = &"GameSound"
+
+[node name="BlockTurn1" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("35_lhjwj")
+volume_db = -20.0
+bus = &"GameSound"
+
+[node name="BlockTurn2" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("36_wool5")
+volume_db = -20.0
+bus = &"GameSound"
+
+[node name="OneWayBlockExit" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("30_gb0y4")
+volume_db = -20.0
+bus = &"GameSound"
+
+[node name="OneWayBlockEnter" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("31_08we3")
+volume_db = -20.0
+bus = &"GameSound"
+
+[node name="OneWayBlockHit" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("32_0omil")
+volume_db = -20.0
+bus = &"GameSound"
+
+[node name="WrongError" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("33_7umab")
+bus = &"GameSound"
+
+[node name="Error002" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("33_igb24")
+
+[node name="Randoms" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("37_u6waw")
+bus = &"GameSound"

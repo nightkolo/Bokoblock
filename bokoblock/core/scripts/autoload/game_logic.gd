@@ -3,6 +3,8 @@ extends Node
 signal bokobodies_moved(transformed_to)
 signal button_held(is_bokocolor: GameUtil.BokoColor) ## @experimental
 signal button_released(is_bokocolor: GameUtil.BokoColor) ## @experimental
+signal bokobody_move_hit()
+signal bokobody_turn_hit()
 signal bokobody_stopped(is_bokobody: Bokobody)
 signal bokobodies_stopped()
 signal bokobody_entered_starpoint()
@@ -25,6 +27,7 @@ var has_won: bool = false
 var win_checked: bool = true
 var are_bodies_moving: bool = false
 var is_block_on_starpoint: bool = false
+var match_amount: int = 0
 
 var _bodies_stopped: int = 0
 
@@ -36,9 +39,14 @@ func _ready() -> void:
 	
 	GameMgr.game_reset.connect(_reset_game_logic)
 	
+	check_bodies()
+	
 	stage_won.connect(func():
 		GameMgr.game_just_ended.emit()
 		)
+		
+	await get_tree().create_timer(0.1).timeout
+	check_win()
 
 
 static func set_win_condition(win_cond: WinCondition) -> void:
@@ -49,6 +57,10 @@ func check_bodies() -> void:
 	await GameMgr.process_waittime()
 	
 	var block_has_stood_on_starpoint: bool = check_if_block_on_starpoint(GameMgr.current_blocks)
+	
+	print(block_has_stood_on_starpoint)
+	#for block: Bokoblock in GameMgr.current_blocks:
+		#print(block.is_on_starpoint)
 	
 	if block_has_stood_on_starpoint && !is_block_on_starpoint:
 		bokobody_entered_starpoint.emit()
@@ -74,7 +86,7 @@ func check_if_bodies_stopped(_is_bokobody: Bokobody) -> void:
 
 
 func check_win() -> void:
-	var match_amount: int = 0
+	#var match_amount: int = 0
 	var objects_happy: int = 0
 	
 	match win_condition:
@@ -130,7 +142,8 @@ func check_if_block_on_starpoint(blocks: Array[Bokoblock]) -> bool:
 		return false
 		
 	for block: Bokoblock in blocks:
-		return block.is_on_starpoint
+		if block.is_on_starpoint:
+			return true
 	
 	return false
 

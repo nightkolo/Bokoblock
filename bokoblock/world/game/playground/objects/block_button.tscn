@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmc3pcr6jttko"]
+[gd_scene load_steps=4 format=3 uid="uid://cmc3pcr6jttko"]
 
 [ext_resource type="Script" path="res://world/game/playground/code/block_button.gd" id="1_3a0ck"]
+[ext_resource type="AudioStream" uid="uid://ptdpwtf803la" path="res://audio/supposeilltry/button-09a.wav" id="2_qrywu"]
+[ext_resource type="AudioStream" uid="uid://r6tcr30eiv7n" path="res://audio/import/stage_undo_01.ogg" id="3_nexs3"]
 
 [node name="BlockButton" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
@@ -9,3 +11,15 @@ offset_top = -22.0
 offset_right = 23.0
 offset_bottom = 23.0
 script = ExtResource("1_3a0ck")
+
+[node name="Recolor" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_qrywu")
+volume_db = -12.0
+attenuation = 12.0
+bus = &"GameSound"
+
+[node name="Remove" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_nexs3")
+volume_db = -12.0
+attenuation = 12.0
+bus = &"GameSound"

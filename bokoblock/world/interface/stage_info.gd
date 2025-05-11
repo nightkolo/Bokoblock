@@ -181,7 +181,7 @@ func _show_letter() -> void:
 				is_chibi_boko_speaking = true
 				_letter_show_timer.start(letter_time)
 				
-				#play_speech(current_text[letter_index])
+				play_speech(current_text[letter_index])
 					
 	else:
 		letter_showing_finished.emit()

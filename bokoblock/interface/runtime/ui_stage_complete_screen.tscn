@@ -1,0 +1,157 @@
+[gd_scene load_steps=15 format=3 uid="uid://dj6dug5c5ssg1"]
+
+[ext_resource type="Script" path="res://interface/runtime/stage_complete_screen.gd" id="1_4uwsl"]
+[ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="2_qtrux"]
+[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/speech-bubble.png" id="3_ok254"]
+[ext_resource type="Theme" uid="uid://d4fajpwpc4rx" path="res://core/resources/theme/theme_button_pause_menu.tres" id="4_kjakj"]
+[ext_resource type="Script" path="res://interface/animators/anim_button_pause.gd" id="5_trqfq"]
+[ext_resource type="Texture2D" uid="uid://dvolgdgwrvc68" path="res://assets/interface/rabbitstar-yellow.png" id="6_gxg78"]
+[ext_resource type="Texture2D" uid="uid://bic6b6u43h37h" path="res://assets/world/particle_rabbitstar_02.png" id="7_63msy"]
+[ext_resource type="Script" path="res://interface/runtime/star_shadow.gd" id="7_faxqa"]
+
+[sub_resource type="FontVariation" id="FontVariation_vproy"]
+spacing_glyph = -2
+spacing_space = 1
+
+[sub_resource type="FontVariation" id="FontVariation_mq48q"]
+spacing_glyph = -1
+spacing_space = 1
+
+[sub_resource type="Gradient" id="Gradient_mvoat"]
+colors = PackedColorArray(0, 0, 0, 0.35, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ni0gg"]
+gradient = SubResource("Gradient_mvoat")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_v4q4e"]
+max_value = 3.0
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_1xoux"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.175, 0.35, 0.5)
+colors = PackedColorArray(1, 1, 0.5, 1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 1, 1)
+
+[node name="StageCompleteScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4uwsl")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.2)
+
+[node name="Panel" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(450, 400)
+layout_mode = 2
+offset_left = 255.0
+offset_top = 270.0
+offset_right = 705.0
+offset_bottom = 670.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("3_ok254")
+region_rect = Rect2(0, 0, 144, 144)
+patch_margin_left = 48
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 48
+
+[node name="Main" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_qtrux")
+theme_override_constants/margin_bottom = 50
+
+[node name="Content" type="MarginContainer" parent="Main"]
+custom_minimum_size = Vector2(450, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/Content"]
+layout_mode = 2
+
+[node name="StageCompleteInfo" type="RichTextLabel" parent="Main/Content/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/normal_font = SubResource("FontVariation_vproy")
+bbcode_enabled = true
+text = "[center][color=#232323][font_size=37][wave amp=10.0 freq=4.0][tornado radius=1.5 freq=2.0]Stage 0-00 Complete"
+fit_content = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/Content/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 10
+
+[node name="NextStageButton" type="Button" parent="Main/Content/VBoxContainer/VBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_kjakj")
+theme_override_fonts/font = SubResource("FontVariation_mq48q")
+text = "Next Stage"
+script = ExtResource("5_trqfq")
+
+[node name="StarNode" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(480, 473)
+
+[node name="StarNode2" type="Node2D" parent="StarNode"]
+unique_name_in_owner = true
+
+[node name="Star" type="Sprite2D" parent="StarNode/StarNode2"]
+unique_name_in_owner = true
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("6_gxg78")
+
+[node name="Sprite2D" type="Sprite2D" parent="StarNode/StarNode2/Star"]
+show_behind_parent = true
+position = Vector2(-8.75, 0)
+scale = Vector2(6.5, 6.5)
+texture = SubResource("GradientTexture2D_ni0gg")
+script = ExtResource("7_faxqa")
+
+[node name="Particles" type="CPUParticles2D" parent="StarNode"]
+z_index = 6
+emitting = false
+amount = 16
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("7_63msy")
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector2(0, -1)
+initial_velocity_min = 250.0
+initial_velocity_max = 1100.0
+angular_velocity_min = -400.0
+angular_velocity_max = 500.0
+damping_min = 120.0
+damping_max = 120.0
+scale_amount_curve = SubResource("Curve_v4q4e")
+color_ramp = SubResource("Gradient_1xoux")

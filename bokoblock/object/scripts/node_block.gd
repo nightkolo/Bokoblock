@@ -21,6 +21,7 @@ signal button_entered(has_entered: bool)
 @onready var particles_dust: CPUParticles2D = %Dust
 @onready var sprite_node_1: Node2D = $Sprites
 @onready var sprite_node_2: Node2D = %SpritesMove
+@onready var sprite_node_block: Node2D = %SpriteBlock
 @onready var sprite_eyes: Sprite2D = %Eyes
 @onready var sprite_block: Sprite2D = %Block
 @onready var sprite_star: Sprite2D = %Star
@@ -91,13 +92,9 @@ func _setup_parent() -> void:
 
 func check_state() -> void:
 	var areas: Array[Area2D]
-	var l_is_on_starpoint: bool = false
-	var l_is_on_button: bool = false
+	var l_starpoint: bool = false
+	var l_button: bool = false
 	
-	# Error cleansing for the debug cards test area
-	# Umm, hey godot github contributers
-	# why is it even an error, could you just... give me a warning?
-	# ...or just pretend like nothing happened and return an empty array on get_overlapping_areas
 	if (monitoring && monitorable): 
 		areas = get_overlapping_areas()
 		
@@ -108,22 +105,25 @@ func check_state() -> void:
 	
 	if areas.size() == 1:
 		if areas[0] is Starpoint:
-			l_is_on_starpoint = (areas[0] as Starpoint).what_im_happy_with == boko_color
+			l_starpoint = (areas[0] as Starpoint).what_im_happy_with == boko_color
 		
-		l_is_on_button = areas[0] is ButtonObj
+		l_button = areas[0] is ButtonObj
 	
-	if l_is_on_starpoint && !is_on_starpoint:
-		starpoint_entered.emit(l_is_on_starpoint)
+	if l_starpoint && !is_on_starpoint:
+		
+		starpoint_entered.emit(l_starpoint)
 		is_on_starpoint = true
-	elif !l_is_on_starpoint && is_on_starpoint:
-		starpoint_entered.emit(l_is_on_starpoint)
+		
+	elif !l_starpoint && is_on_starpoint:
+		
+		starpoint_entered.emit(l_starpoint)
 		is_on_starpoint = false
 		
-	if l_is_on_button && !is_on_button:
-		button_entered.emit(l_is_on_button)
+	if l_button && !is_on_button:
+		button_entered.emit(l_button)
 		is_on_button = true
-	elif !l_is_on_button && is_on_button:
-		button_entered.emit(l_is_on_button)
+	elif !l_button && is_on_button:
+		button_entered.emit(l_button)
 		is_on_button = false
 
 
@@ -160,6 +160,9 @@ func change_bokocolor() -> void: ## @experimental: For the Debug Cards test area
 	
 	_setup_node()
 	check_state()
+	
+	if is_on_starpoint:
+		Audio.play_starpoint_entered()
 
 ## @experimental: For the Debug Cards test area
 ##

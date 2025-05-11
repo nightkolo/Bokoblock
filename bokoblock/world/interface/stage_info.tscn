@@ -38,3 +38,5 @@ autowrap_mode = 0
 
 [node name="Speech" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_aohk3")
+volume_db = 10.0
+bus = &"UISound"

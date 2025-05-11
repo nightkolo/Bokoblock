@@ -1,0 +1,170 @@
+[gd_scene load_steps=23 format=4 uid="uid://c3y6nr1g3o3wn"]
+
+[ext_resource type="Script" path="res://world/game/scripts/stage.gd" id="1_cer03"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_7xhc3"]
+[ext_resource type="PackedScene" uid="uid://dnq8cle22nd2j" path="res://world/game/playground/objects/card_ui.tscn" id="2_swkkb"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_7fimo"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_iu3gl"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="5_0ufo3"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="6_mir02"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="7_yx1bd"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="8_3btcs"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="9_6hjcv"]
+[ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="10_lus8x"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="11_xtuq1"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="12_jyl42"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="13_60xwj"]
+[ext_resource type="PackedScene" uid="uid://cmc3pcr6jttko" path="res://world/game/playground/objects/block_button.tscn" id="14_yt4v4"]
+[ext_resource type="Texture2D" uid="uid://bat8ifohqdgwa" path="res://icon.svg" id="15_bkiky"]
+[ext_resource type="Script" path="res://world/game/playground/code/follow_mouse.gd" id="17_1wkkf"]
+
+[sub_resource type="Gradient" id="Gradient_1gdm8"]
+offsets = PackedFloat32Array(0.4, 0.7, 1)
+colors = PackedColorArray(0.5, 0.5, 0.5, 1, 0.1, 0.1, 0.1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d53c4"]
+gradient = SubResource("Gradient_1gdm8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.814103, 0.224359)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f0bu0"]
+gradient = SubResource("Gradient_1gdm8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.837607, 0.185897)
+
+[sub_resource type="Gradient" id="Gradient_ixims"]
+colors = PackedColorArray(1, 1, 1, 0.4, 1, 1, 1, 0.4)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uac4q"]
+gradient = SubResource("Gradient_ixims")
+width = 45
+height = 45
+
+[node name="S" type="Node2D"]
+script = ExtResource("1_cer03")
+auto_assign_ids = false
+win_condition = 1
+stage_progression = false
+custom_block_match = 4
+
+[node name="UI" parent="." instance=ExtResource("2_7xhc3")]
+
+[node name="CardUI" parent="." instance=ExtResource("2_swkkb")]
+
+[node name="Cam" parent="." instance=ExtResource("3_7fimo")]
+position = Vector2(503, 405)
+zoom = Vector2(1.75, 1.75)
+
+[node name="SW" parent="." instance=ExtResource("4_iu3gl")]
+randomize_background_effect = false
+background_color = 1
+checkerboard_color = Color(0.75, 0.75, 0.75, 1)
+
+[node name="StageLight" type="PointLight2D" parent="SW"]
+position = Vector2(563, 383)
+scale = Vector2(8.4375, 7.03125)
+range_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_d53c4")
+script = ExtResource("5_0ufo3")
+
+[node name="StageLight2" type="PointLight2D" parent="SW"]
+position = Vector2(248, 608)
+scale = Vector2(9.088, 7.573)
+range_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_f0bu0")
+script = ExtResource("5_0ufo3")
+
+[node name="TM" type="Node2D" parent="SW"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("6_mir02")
+
+[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("7_yx1bd")
+
+[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
+light_mask = 2
+tile_map_data = PackedByteArray("AAALAAYABwADAAMAAAALAAcABwADAAAAAAALAAgABwADAAEAAAALAAkABwADAAIAAAAMAAcABwAAAAAAAAAMAAgABwAAAAEAAAAMAAkABwAAAAIAAAANAAcABwABAAAAAAANAAgABwABAAEAAAANAAkABwABAAIAAAAOAAcABwACAAAAAAAOAAgABwACAAEAAAAOAAkABwACAAIAAAAHAAYABwADAAMAAAAHAAcABwADAAAAAAAHAAgABwADAAEAAAAHAAkABwADAAIAAAAIAAYABwAAAAMAAAAIAAcABwAAAAAAAAAIAAgABwAAAAEAAAAIAAkABwAAAAIAAAAJAAYABwABAAMAAAAJAAcABwABAAAAAAAJAAgABwABAAEAAAAJAAkABwABAAIAAAAKAAYABwACAAMAAAAKAAcABwACAAAAAAAKAAgABwACAAEAAAAKAAkABwACAAIAAAAEAAgABwAAAAEAAAAEAAkABwAAAAIAAAAFAAcABwABAAAAAAAFAAgABwABAAEAAAAFAAkABwABAAIAAAAGAAcABwACAAAAAAAGAAgABwACAAEAAAAGAAkABwACAAIAAAAEAAwABwAAAAEAAAAEAA0ABwAAAAIAAAAFAAoABwABAAMAAAAFAAsABwABAAAAAAAFAAwABwABAAEAAAAFAA0ABwABAAIAAAAGAAoABwACAAMAAAAGAAwABwACAAEAAAAGAA0ABwACAAIAAAAHAAoABwADAAMAAAAIAAoABwAAAAMAAAAJAAoABwABAAMAAAAKAAoABwACAAMAAAALAAoABwADAAMAAAAGAAYABwACAAMAAAAEAAcABwAAAAAAAAAGAAsABwACAAAAAAAEAA4ABwAAAAMAAAAFAA4ABwABAAMAAAAGAA4ABwACAAMAAAAEAAMABwAAAAAAAAAEAAQABwAAAAEAAAAEAAUABwAAAAIAAAAEAAYABwAAAAMAAAAFAAMABwABAAAAAAAFAAQABwABAAEAAAAFAAUABwABAAIAAAAFAAYABwABAAMAAAAGAAMABwACAAAAAAAGAAQABwACAAEAAAAGAAUABwACAAIAAAAHAAMABwADAAAAAAAHAAQABwADAAEAAAAHAAUABwADAAIAAAAIAAMABwAAAAAAAAAIAAQABwAAAAEAAAAIAAUABwAAAAIAAAAJAAMABwABAAAAAAAJAAQABwABAAEAAAAJAAUABwABAAIAAAAKAAMABwACAAAAAAAKAAQABwACAAEAAAAKAAUABwACAAIAAAALAAMABwADAAAAAAALAAQABwADAAEAAAALAAUABwADAAIAAAAMAAMABwAAAAAAAAAMAAQABwAAAAEAAAAMAAUABwAAAAIAAAAMAAYABwAAAAMAAAANAAMABwABAAAAAAANAAQABwABAAEAAAANAAUABwABAAIAAAANAAYABwABAAMAAAAOAAMABwACAAAAAAAOAAQABwACAAEAAAAOAAUABwACAAIAAAAOAAYABwACAAMAAAAPAAMABwADAAAAAAAPAAQABwADAAEAAAAPAAUABwADAAIAAAAPAAYABwADAAMAAAAQAAMABwAAAAAAAAAQAAQABwAAAAEAAAAQAAUABwAAAAIAAAAQAAYABwAAAAMAAAARAAMABwABAAAAAAARAAQABwABAAEAAAARAAUABwABAAIAAAARAAYABwABAAMAAAASAAMABwACAAAAAAASAAQABwACAAEAAAASAAUABwACAAIAAAASAAYABwACAAMAAAATAAMABwADAAAAAAATAAQABwADAAEAAAATAAUABwADAAIAAAATAAYABwADAAMAAAAQAAcABwAAAAAAAAAQAAgABwAAAAEAAAAQAAkABwAAAAIAAAAQAAoABwAAAAMAAAARAAcABwABAAAAAAARAAgABwABAAEAAAARAAkABwABAAIAAAARAAoABwABAAMAAAASAAcABwACAAAAAAASAAgABwACAAEAAAASAAkABwACAAIAAAASAAoABwACAAMAAAATAAcABwADAAAAAAATAAgABwADAAEAAAATAAkABwADAAIAAAATAAoABwADAAMAAAAMAAoABwAAAAMAAAANAAoABwABAAMAAAAOAAoABwACAAMAAAAPAAcABwADAAAAAAAPAAgABwADAAEAAAAPAAkABwADAAIAAAAPAAoABwADAAMAAAAEAAoABwAAAAMAAAAEAAsABwAAAAAAAAAHAAsABwADAAAAAAAHAAwABwADAAEAAAAHAA0ABwADAAIAAAAHAA4ABwADAAMAAAAIAAsABwAAAAAAAAAIAAwABwAAAAEAAAAIAA0ABwAAAAIAAAAIAA4ABwAAAAMAAAAJAAsABwABAAAAAAAJAAwABwABAAEAAAAJAA0ABwABAAIAAAAJAA4ABwABAAMAAAAKAAsABwACAAAAAAAKAAwABwACAAEAAAAKAA0ABwACAAIAAAAKAA4ABwACAAMAAAALAAsABwADAAAAAAALAAwABwADAAEAAAALAA0ABwADAAIAAAALAA4ABwADAAMAAAAMAAsABwAAAAAAAAAMAAwABwAAAAEAAAAMAA0ABwAAAAIAAAAMAA4ABwAAAAMAAAANAAsABwABAAAAAAANAAwABwABAAEAAAANAA0ABwABAAIAAAANAA4ABwABAAMAAAAOAAsABwACAAAAAAAOAAwABwACAAEAAAAOAA0ABwACAAIAAAAOAA4ABwACAAMAAAAPAAsABwADAAAAAAAPAAwABwADAAEAAAAPAA0ABwADAAIAAAAPAA4ABwADAAMAAAAQAAsABwAAAAAAAAAQAAwABwAAAAEAAAAQAA0ABwAAAAIAAAAQAA4ABwAAAAMAAAARAAsABwABAAAAAAARAAwABwABAAEAAAARAA0ABwABAAIAAAARAA4ABwABAAMAAAASAAsABwACAAAAAAASAAwABwACAAEAAAASAA0ABwACAAIAAAASAA4ABwACAAMAAAATAAsABwADAAAAAAATAAwABwADAAEAAAATAA0ABwADAAIAAAATAA4ABwADAAMAAAA=")
+tile_set = ExtResource("7_yx1bd")
+
+[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("7_yx1bd")
+
+[node name="ChibiBoko" parent="SW" instance=ExtResource("8_3btcs")]
+position = Vector2(562, 248)
+scale = Vector2(0.88, 0.88)
+info_text = "Hello."
+sleep = true
+
+[node name="SO" type="Node2D" parent="."]
+script = ExtResource("9_6hjcv")
+
+[node name="Endpoints" type="Node2D" parent="SO"]
+script = ExtResource("10_lus8x")
+
+[node name="Starpoint" parent="SO/Endpoints" instance=ExtResource("11_xtuq1")]
+position = Vector2(563, 383)
+what_im_happy_with = 2
+
+[node name="Starpoint2" parent="SO/Endpoints" instance=ExtResource("11_xtuq1")]
+position = Vector2(608, 383)
+what_im_happy_with = 3
+
+[node name="Starpoint3" parent="SO/Endpoints" instance=ExtResource("11_xtuq1")]
+position = Vector2(608, 338)
+what_im_happy_with = 3
+
+[node name="Starpoint4" parent="SO/Endpoints" instance=ExtResource("11_xtuq1")]
+position = Vector2(653, 383)
+what_im_happy_with = 4
+
+[node name="Bokobody" type="Node2D" parent="SO"]
+position = Vector2(428, 383)
+script = ExtResource("12_jyl42")
+
+[node name="Block" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
+boko_color = 1
+
+[node name="BlockButton" parent="SO/Bokobody/Block" instance=ExtResource("14_yt4v4")]
+
+[node name="Block2" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
+position = Vector2(0, -45)
+
+[node name="BlockButton" parent="SO/Bokobody/Block2" instance=ExtResource("14_yt4v4")]
+
+[node name="Block3" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
+position = Vector2(0, -90)
+
+[node name="BlockButton" parent="SO/Bokobody/Block3" instance=ExtResource("14_yt4v4")]
+
+[node name="Block4" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
+position = Vector2(0, 45)
+
+[node name="BlockButton" parent="SO/Bokobody/Block4" instance=ExtResource("14_yt4v4")]
+
+[node name="Block5" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
+position = Vector2(0, 90)
+
+[node name="BlockButton" parent="SO/Bokobody/Block5" instance=ExtResource("14_yt4v4")]
+
+[node name="Block6" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
+position = Vector2(-45, 0)
+
+[node name="BlockButton" parent="SO/Bokobody/Block6" instance=ExtResource("14_yt4v4")]
+
+[node name="Block7" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
+position = Vector2(45, 0)
+
+[node name="BlockButton" parent="SO/Bokobody/Block7" instance=ExtResource("14_yt4v4")]
+
+[node name="Sprite2D2" type="Sprite2D" parent="SO"]
+visible = false
+z_index = 1
+texture = SubResource("GradientTexture2D_uac4q")
+script = ExtResource("17_1wkkf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("15_bkiky")

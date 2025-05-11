@@ -20,11 +20,20 @@ var tween_bokocolor: Tween ## @experimental
 
 var _is_being_removed: bool = false
 
+var timer_poke: Timer = Timer.new()
+var timer_look_at_me: Timer = Timer.new()
 
 func _ready() -> void:
 	if !(block is Bokoblock):
 		push_error("%s is not a child of Bokoblock." % str(self))
 		return
+	
+	timer_poke.wait_time = 0.3
+	add_child(timer_poke)
+	timer_look_at_me.wait_time = 1.0
+	timer_look_at_me.one_shot = false
+	add_child(timer_look_at_me)
+	timer_look_at_me.start()
 	
 	GameLogic.stage_won.connect(anim_complete)
 	
@@ -45,6 +54,78 @@ func _ready() -> void:
 			if (body is TileMapLayer || body is SleepingBlock):
 				anim_hit_block(block.parent_bokobody.get_current_last_transform())
 			)
+
+
+var tween_poke: Tween
+var tween_hue: Tween
+
+var poked: bool = false
+
+
+func anim_rainbow() -> void:
+	if tween_hue:
+		tween_hue.kill()
+	
+	var dur := 0.5
+	var strength := 0.55
+	
+	tween_hue = create_tween().set_parallel(true)
+	
+	block.sprite_node_block.modulate.h = 0.0
+	tween_hue.tween_property(block.sprite_node_block,"modulate:h",1.0,dur)
+	tween_hue.tween_property(block.sprite_node_block,"modulate:s",1.0 * strength,dur/4.0)
+	tween_hue.tween_property(block.sprite_node_block,"modulate:s",0.0,dur/2.0).set_delay(dur/1.5)
+
+
+func anim_poke() -> void:
+	if timer_poke.time_left > 0.0:
+		timer_poke.stop()
+	timer_poke.start()
+	
+	if tween_poke:
+		tween_poke.kill()
+	
+	anim_rainbow()
+	block.sprite_eyes.texture = asset_eye_close
+	
+	tween_poke = create_tween().set_parallel(true)
+	tween_poke.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	
+	var dur_bounce := 1.0 * 0.8
+	var dur_delay := dur_bounce / 15.55
+	var up: Vector2
+	var down: Vector2
+	var rot_to := signf(randf()-0.5) * (5.0 + (randf() * 4.0))
+	var skew_to := signf(randf()-0.5) * (5.0 + (randf() * 4.0))
+	
+	poked = !poked
+
+	if poked:
+		up = 0.5 * (Vector2.ONE / 1.3)
+		down = 0.5 * (Vector2.ONE * 1.3)
+	else:
+		down = 0.5 * (Vector2.ONE / 3.5)
+		up = 0.5 * (Vector2.ONE * 1.3)
+	
+	block.sprite_block.scale = up
+	block.sprite_block.rotation_degrees = rot_to
+	block.sprite_block.skew = deg_to_rad(skew_to)
+	block.sprite_eyes.scale = down
+	
+	tween_poke.tween_property(block.sprite_block,"scale:x",0.5 * 1.0,dur_bounce)
+	tween_poke.tween_property(block.sprite_eyes,"scale",0.5 * Vector2.ONE,dur_bounce)
+	tween_poke.tween_property(block.sprite_block,"rotation_degrees",0.0,dur_bounce)
+	tween_poke.tween_property(block.sprite_block,"skew",0.0,dur_bounce)
+	tween_poke.tween_property(block.sprite_block,"scale:y",0.5 * 1.0,dur_bounce).set_delay(dur_delay)
+	
+	await timer_poke.timeout
+	if block.is_on_starpoint:
+		block.sprite_eyes.texture = asset_eye_happy
+	elif block.is_on_button:
+		block.sprite_eyes.texture = asset_eye_on_button
+	else:
+		block.sprite_eyes.texture = block.texture_eyes
+
 
 
 func anim_turn(turned_by: float, pulse: bool = true) -> void:

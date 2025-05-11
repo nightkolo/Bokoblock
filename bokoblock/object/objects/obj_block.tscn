@@ -1,12 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbvbelcosunmx"]
+[gd_scene load_steps=13 format=3 uid="uid://dbvbelcosunmx"]
 
 [ext_resource type="Script" path="res://object/scripts/node_block.gd" id="1_fox18"]
 [ext_resource type="Texture2D" uid="uid://6gfr648a4tde" path="res://assets/objects/block-greyscale.png" id="2_vu6u0"]
 [ext_resource type="Texture2D" uid="uid://dy7ec8pych8ve" path="res://assets/objects/block-eyes-neutral.png" id="3_7bp01"]
+[ext_resource type="Script" path="res://object/objects/look_at_me_component.gd" id="3_wrkp1"]
 [ext_resource type="Texture2D" uid="uid://58erdrgwqcbw" path="res://assets/objects/block-ghost.png" id="4_cmisq"]
 [ext_resource type="Texture2D" uid="uid://fht8ceno2w63" path="res://assets/world/star_v01.png" id="4_u4fx5"]
 [ext_resource type="Texture2D" uid="uid://dqcbjuirvq776" path="res://assets/world/particle_circle_02.png" id="7_jtedv"]
 [ext_resource type="Script" path="res://object/scripts/components/component_bokoblock_animation.gd" id="7_u5igv"]
+[ext_resource type="PackedScene" uid="uid://cmc3pcr6jttko" path="res://world/game/playground/objects/block_button.tscn" id="8_enjm0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13485"]
 size = Vector2(22, 22)
@@ -26,6 +28,9 @@ animator = NodePath("BokoblockAnimationComponent")
 
 [node name="BokoblockAnimationComponent" type="Node" parent="."]
 script = ExtResource("7_u5igv")
+
+[node name="LookAtMeComponent" type="Node2D" parent="."]
+script = ExtResource("3_wrkp1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_13485")
@@ -48,9 +53,19 @@ unique_name_in_owner = true
 [node name="SpritesMove" type="Node2D" parent="Sprites"]
 unique_name_in_owner = true
 
-[node name="Block" type="Sprite2D" parent="Sprites/SpritesMove"]
+[node name="SpriteBlock" type="Node2D" parent="Sprites/SpritesMove"]
+unique_name_in_owner = true
+
+[node name="Block" type="Sprite2D" parent="Sprites/SpritesMove/SpriteBlock"]
 unique_name_in_owner = true
 self_modulate = Color(1, 0.77, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_vu6u0")
+
+[node name="Block2" type="Sprite2D" parent="Sprites/SpritesMove"]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 0.77, 0.773833, 1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_vu6u0")
 
@@ -63,6 +78,7 @@ texture = ExtResource("3_7bp01")
 
 [node name="Dust" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
+emitting = false
 amount = 4
 texture = ExtResource("7_jtedv")
 emission_shape = 3
@@ -72,3 +88,7 @@ initial_velocity_min = 75.0
 initial_velocity_max = 75.0
 scale_amount_curve = SubResource("Curve_yn0ju")
 color_ramp = SubResource("Gradient_lipoc")
+
+[node name="BlockButton" parent="." instance=ExtResource("8_enjm0")]
+
+[node name="Timer" type="Timer" parent="."]

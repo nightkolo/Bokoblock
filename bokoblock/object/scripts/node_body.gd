@@ -18,13 +18,16 @@ signal child_block_exited_one_col_wall()
 @export var no_turn_delay: bool = false
 @export_range(0.0, 1.0, 0.025, "or_greater") var movement_time: float = 0.08
 @export_group("Modify")
-@export var animator: BokobodyAnimationComponent
+@export var animator: BokobodyAnimationComponent ## @deprecated
+@export var SFX: BokobodyAudio ## @deprecated
+@export var auto_assign_sfx_and_animation: bool = true
 @export var show_blocks: bool = true
 @export var show_light: bool = true
 @export var light_scale: Vector2 = Vector2.ONE * 2.8
 @export_group("Objects to Assign")
 @export var particles_win: PackedScene = preload("res://world/world/particles_bokoblock_stage_complete.tscn")
 @export var light_glow: PackedScene = preload("res://world/world/point_light_bokobody_glow.tscn")
+@export var audio_node: PackedScene = preload("res://object/game/bokobody_audio_component.tscn")
 
 var transforms_made: Array ## Dynamic array.
 var turns_made: Array[float]
@@ -69,6 +72,16 @@ func _ready() -> void:
 	has_turned.connect(_on_transform)
 	move_end.connect(check_state)
 	turn_end.connect(check_state)
+	
+	if auto_assign_sfx_and_animation:
+		var aud := audio_node.instantiate()
+		var anim := BokobodyAnimationComponent.new()
+		
+		add_child(anim)
+		add_child(aud)
+		
+		SFX = aud
+		animator = anim
 	
 	await GameMgr.process_waittime()
 	for block: Bokoblock in child_blocks:
@@ -209,13 +222,14 @@ func stop_moving() -> void:
 		return
 	
 	move_stopped.emit()
+	GameLogic.bokobody_move_hit.emit()
 	
 	GameUtil.reset_tween(_tween_move)
 	
+	position = _old_pos
+	
 	is_moving = false
 	_disable_colli(false)
-	
-	position = _old_pos
 	
 	if _can_set_record:
 		moves_made.push_front(Vector2.ZERO)
@@ -227,6 +241,7 @@ func stop_turning() -> void:
 		return
 	
 	turn_stopped.emit()
+	GameLogic.bokobody_turn_hit.emit()
 	
 	if _tween_turn:
 		_tween_turn.kill()
@@ -294,6 +309,9 @@ func get_current_turn() -> int:
 
 
 func _has_stopped() -> void:
+	# Await used due to routine issues
+	
+	await get_tree().create_timer(0.04).timeout
 	GameLogic.bokobody_stopped.emit(self)
 
 

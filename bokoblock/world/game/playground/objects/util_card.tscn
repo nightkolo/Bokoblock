@@ -1,7 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcym5mmxg2uv7"]
+[gd_scene load_steps=16 format=3 uid="uid://bcym5mmxg2uv7"]
 
 [ext_resource type="Script" path="res://world/game/playground/code/util_card.gd" id="1_r6yjn"]
 [ext_resource type="Texture2D" uid="uid://bus2us3uf1n13" path="res://assets/interface/card-ui-remove-v01.png" id="2_0egrg"]
+[ext_resource type="AudioStream" uid="uid://d0mneo6t8pbm4" path="res://audio/supposeilltry/card-place-2.ogg" id="3_misht"]
+[ext_resource type="AudioStream" uid="uid://cjwidixu8dc76" path="res://audio/supposeilltry/card-place-1.ogg" id="3_qdumr"]
+[ext_resource type="AudioStream" uid="uid://uj0l3lvpd13e" path="res://audio/supposeilltry/swish-2.wav" id="4_yksxr"]
+[ext_resource type="AudioStream" uid="uid://c5w4qs1x5jde3" path="res://audio/supposeilltry/swish-10.wav" id="5_l8qrb"]
+[ext_resource type="AudioStream" uid="uid://dnyv5y0garm5k" path="res://audio/supposeilltry/card-slide-1.ogg" id="6_u4tp8"]
+[ext_resource type="AudioStream" uid="uid://r5n173osd5u" path="res://audio/supposeilltry/error_003.ogg" id="7_5xwgy"]
+[ext_resource type="AudioStream" uid="uid://blbkc3iiqwyou" path="res://audio/supposeilltry/card-slide-2.ogg" id="7_fyumb"]
+[ext_resource type="AudioStream" uid="uid://id6t6svc3in4" path="res://audio/supposeilltry/card-slide-3.ogg" id="8_r7mor"]
+[ext_resource type="AudioStream" uid="uid://dsf5dyrnql0we" path="res://audio/supposeilltry/card-slide-4.ogg" id="9_iuj4m"]
+[ext_resource type="AudioStream" uid="uid://fl8p3glnnljq" path="res://audio/supposeilltry/card-slide-5.ogg" id="10_03j8o"]
+[ext_resource type="AudioStream" uid="uid://bukj1scdb5nri" path="res://audio/supposeilltry/card-slide-6.ogg" id="11_8leul"]
+[ext_resource type="AudioStream" uid="uid://bnfhgvvxrwmnb" path="res://audio/supposeilltry/card-slide-7.ogg" id="12_84dqi"]
+[ext_resource type="AudioStream" uid="uid://dm5kf84y80b7p" path="res://audio/supposeilltry/card-slide-8.ogg" id="13_7ig5x"]
 
 [node name="Card" type="CenterContainer"]
 custom_minimum_size = Vector2(128, 153.6)
@@ -14,3 +27,86 @@ position = Vector2(64, 76.8)
 [node name="Texture" type="Sprite2D" parent="Node2D"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_0egrg")
+
+[node name="Aud" type="Node2D" parent="."]
+
+[node name="Select" type="Node2D" parent="Aud"]
+
+[node name="Select" type="AudioStreamPlayer2D" parent="Aud/Select"]
+stream = ExtResource("3_qdumr")
+volume_db = -7.0
+attenuation = 12.0
+bus = &"GameSound"
+
+[node name="PutDown" type="AudioStreamPlayer2D" parent="Aud/Select"]
+stream = ExtResource("3_misht")
+volume_db = -15.0
+attenuation = 12.0
+bus = &"GameSound"
+
+[node name="Swiches" type="Node2D" parent="Aud"]
+
+[node name="Up" type="AudioStreamPlayer2D" parent="Aud/Swiches"]
+stream = ExtResource("4_yksxr")
+volume_db = -30.0
+attenuation = 12.0
+
+[node name="Down" type="AudioStreamPlayer2D" parent="Aud/Swiches"]
+stream = ExtResource("5_l8qrb")
+volume_db = -30.0
+attenuation = 12.0
+
+[node name="Down2" type="AudioStreamPlayer2D" parent="Aud/Swiches"]
+stream = ExtResource("7_5xwgy")
+volume_db = -10.0
+attenuation = 12.0
+
+[node name="Hover" type="Node2D" parent="Aud"]
+
+[node name="Card-slide-1" type="AudioStreamPlayer2D" parent="Aud/Hover"]
+stream = ExtResource("6_u4tp8")
+volume_db = -15.0
+attenuation = 12.0
+bus = &"GameSound"
+
+[node name="Card-slide-2" type="AudioStreamPlayer2D" parent="Aud/Hover"]
+stream = ExtResource("7_fyumb")
+volume_db = -15.0
+attenuation = 12.0
+bus = &"GameSound"
+
+[node name="Card-slide-3" type="AudioStreamPlayer2D" parent="Aud/Hover"]
+stream = ExtResource("8_r7mor")
+volume_db = -15.0
+attenuation = 12.0
+bus = &"GameSound"
+
+[node name="Card-slide-4" type="AudioStreamPlayer2D" parent="Aud/Hover"]
+stream = ExtResource("9_iuj4m")
+volume_db = -15.0
+attenuation = 12.0
+bus = &"GameSound"
+
+[node name="Card-slide-5" type="AudioStreamPlayer2D" parent="Aud/Hover"]
+stream = ExtResource("10_03j8o")
+volume_db = -15.0
+attenuation = 12.0
+bus = &"GameSound"
+
+[node name="Card-slide-6" type="AudioStreamPlayer2D" parent="Aud/Hover"]
+stream = ExtResource("11_8leul")
+volume_db = -15.0
+attenuation = 12.0
+bus = &"GameSound"
+
+[node name="Card-slide-7" type="AudioStreamPlayer2D" parent="Aud/Hover"]
+stream = ExtResource("12_84dqi")
+volume_db = -15.0
+attenuation = 12.0
+bus = &"GameSound"
+
+[node name="Card-slide-8" type="AudioStreamPlayer2D" parent="Aud/Hover"]
+stream = ExtResource("13_7ig5x")
+volume_db = -15.0
+attenuation = 12.0
+bus = &"GameSound"

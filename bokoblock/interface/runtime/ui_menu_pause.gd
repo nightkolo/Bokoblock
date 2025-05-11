@@ -1,5 +1,5 @@
 extends Control
-class_name PauseMenu
+class_name PauseScreen
 
 @onready var resume_btn: Button = %ResumeButton
 @onready var reset_btn: Button = %ResetButton
@@ -49,7 +49,7 @@ func _ready() -> void:
 			)
 			
 	return_btn.pressed.connect(func():
-		GameMgr.in_game = false
+		GameMgr.game_entered.emit(false)
 		get_tree().paused = false
 		get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")
 		)

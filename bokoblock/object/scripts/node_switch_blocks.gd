@@ -70,7 +70,7 @@ func anim_open_or_close(open_or_close: bool) -> void:
 	if _tween:
 		_tween.kill()
 	if _tween_pulse:
-		_tween_pulse.kill
+		_tween_pulse.kill()
 		
 	_tween = create_tween().set_parallel(true)
 	_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)

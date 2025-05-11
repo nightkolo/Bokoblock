@@ -8,13 +8,16 @@ signal card_type_set(c: CardType)
 enum CardType {
 	Remove = 0,
 	Recolor = 1,
-	Misc = 2
+	Misc = 2,
+	None = 99
 }
 
-var current_card_type: CardType
+var current_card_type: CardType = CardType.None
 
 
 func _ready() -> void:
+	set_card_type(CardType.None)
+	
 	GameMgr.current_card_ui = self
 	
 	

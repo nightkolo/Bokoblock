@@ -27,7 +27,7 @@ var _dev_ui: PackedScene = preload("res://interface/runtime/misc/dev_ui.tscn")
 
 func _ready() -> void:
 	GameMgr.current_stage = self
-	GameMgr.in_game = true
+	GameMgr.game_entered.emit(true)
 	GameLogic.set_win_condition(win_condition)
 
 	if auto_assign_ids:
