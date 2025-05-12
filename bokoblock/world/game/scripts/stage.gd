@@ -2,6 +2,8 @@
 extends Node2D
 class_name Stage
 
+signal move_counter_threshold_passed(has_passed: bool)
+
 @export var auto_assign_ids: bool = true
 @export var stage_id: int = -1:
 	get:
@@ -9,7 +11,7 @@ class_name Stage
 	set(value):
 		GameMgr.current_stage_id = value
 		stage_id = value
-@export var world_id: int = -1:
+@export var world_id: int = -1: # TODO: change to checkerboard_id
 	get:
 		return world_id
 	set(value):
@@ -23,9 +25,26 @@ class_name Stage
 @export var win_condition: GameLogic.WinCondition
 @export var moves_threshold: int = 10
 
-var moves_counted: int = 0
+var is_yellow_starred: bool = true
+var moves_counted: int
 
 var _dev_ui: PackedScene = preload("res://interface/runtime/misc/dev_ui.tscn")
+var _moves_counted: int = 0:
+	get:
+		return _moves_counted
+	set(value):
+		var counted := maxi(0, value)
+		var yellowed := counted <= moves_threshold
+		
+		_moves_counted = counted
+		moves_counted = moves_threshold - counted
+		
+		if !yellowed && is_yellow_starred:
+			move_counter_threshold_passed.emit(true)
+			is_yellow_starred = yellowed
+		elif yellowed && !is_yellow_starred:
+			move_counter_threshold_passed.emit(false)
+			is_yellow_starred = yellowed
 
 
 func _ready() -> void:
@@ -33,7 +52,20 @@ func _ready() -> void:
 	GameMgr.game_entered.emit(true)
 	GameLogic.set_win_condition(win_condition)
 	
+	move_counter_threshold_passed.connect(func(_has_passed: bool):
+		pass
+		)
 	
+	GameLogic.state_checked.connect(func():
+		if GameLogic.we_have_made_a_move:
+			_moves_counted += 1
+		)
+		
+	PlayerInput.input_undo.connect(func():
+		_moves_counted -= 1
+		)
+		
+	moves_counted = moves_threshold
 	
 	if auto_assign_ids:
 		var num := self.scene_file_path.to_int()
@@ -45,3 +77,7 @@ func _ready() -> void:
 		var dev_ui := _dev_ui.instantiate()
 		dev_ui.name = "DevUI"
 		add_child(dev_ui)
+
+
+func get_real_moves_counted() -> int:
+	return _moves_counted

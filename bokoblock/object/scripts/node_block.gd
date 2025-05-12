@@ -110,12 +110,9 @@ func check_state() -> void:
 		l_button = areas[0] is ButtonObj
 	
 	if l_starpoint && !is_on_starpoint:
-		
 		starpoint_entered.emit(l_starpoint)
 		is_on_starpoint = true
-		
 	elif !l_starpoint && is_on_starpoint:
-		
 		starpoint_entered.emit(l_starpoint)
 		is_on_starpoint = false
 		

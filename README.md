@@ -6,7 +6,7 @@
 
 Everything is included in the [bokoblock](bokoblock/) directory.
 
-I wish I could say it's ideal to clone and import on Godot, but `bokoblock/audio/` is ignored/hidden due to legal reasons. Audio files are crucial and without them, it might cause issues with importing.
+I wish I could say it's ideal to clone and import on Godot, but `bokoblock/audio/` is ignored from tracking/hidden due to legal reasons. Audio files are crucial and without them, it might cause issues with importing.
 
 They'll be tracked when the game's audio is semi-finalized.
 

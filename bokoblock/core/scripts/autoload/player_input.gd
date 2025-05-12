@@ -2,9 +2,10 @@ extends Node
 
 signal input_turn(turn_to: float)
 signal input_move(move_to: Vector2)
+signal movement_input_made()
 signal input_undo()
 
-enum TranformationType {MOVE = 0, TURN = 1, UNDO = 99} ## @experimental
+enum TranformationType {MOVE = 0, TURN = 1, UNDO = 99} ## @deprecated: Use [enum GameLogic.TransformationType]
 
 var last_input: GameLogic.TransformationType
 
@@ -56,6 +57,7 @@ func _call_input_move(move_to: Vector2 = Vector2.ZERO):
 	
 	last_input = GameLogic.TransformationType.MOVE
 	
+	movement_input_made.emit()
 	input_move.emit(move_to.sign())
 	GameLogic.bokobodies_moved.emit(move_to.sign())
 	GameLogic.has_moved()
@@ -67,6 +69,7 @@ func _call_input_turn(turn_to: float = 0.0):
 	
 	last_input = GameLogic.TransformationType.TURN
 	
+	movement_input_made.emit()
 	input_turn.emit(signf(turn_to))
 	GameLogic.bokobodies_moved.emit(signf(turn_to))
 	GameLogic.has_moved()

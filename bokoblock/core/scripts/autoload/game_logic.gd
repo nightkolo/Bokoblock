@@ -3,24 +3,36 @@ extends Node
 #signal button_held(is_bokocolor: GameUtil.BokoColor) ## @experimental
 #signal button_released(is_bokocolor: GameUtil.BokoColor) ## @experimental
 
-# i hate this
+# TODO: remove prefix "boko" from signal names
 
+## Emitted when a [Bokobody] stops while [b]moving.
 signal bokobody_move_hit()
+## Emitted when a [Bokobody] stops while [b]turning.
 signal bokobody_turn_hit()
+## Emitted when all [Bokobody]s transform/make a move.
+## [br][br][param transformed_to] is a dynamic variable returning the transformation value (A move, a turn, and undo).
 signal bokobodies_moved(transformed_to)
+## Emitted when a [Bokobody] stops,
+## [br][br][param is_bokobody] returns that [Bokobody].
 signal bokobody_stopped(is_bokobody: Bokobody)
+## Emitted when all [Bokobody]s stop.
 signal bokobodies_stopped()
+## Emitted when all [Bokobody]s stop, [b]excluding undos.
 signal bokobodies_stopped_making_move()
+## Emitted when a [Bokobody] enters a [Starpoint].
 signal bokobody_entered_starpoint()
+## Emitted when a [Bokobody] exits a [Starpoint].
 signal bokobody_exited_starpoint()
+## Emitted when the movement state of [Bokobody]s have been checked.
 signal state_checked()
+## Emitted when the stage is won.
 signal stage_won()
 
 enum WinCondition {
 	MATCH_ALL_STARPOINTS = 0,
 	MATCH_ALL_BLOCKS = 1
 }
-enum TransformationType { ## uhh
+enum TransformationType { ## not so useless after all
 	MOVE = 0,
 	TURN = 1,
 	UNDO = 99
@@ -29,50 +41,20 @@ enum TransformationType { ## uhh
 static var win_condition: WinCondition
 
 var has_won: bool = false
-var win_checked: bool = true:
-	set(value):
+var win_checked: bool = true
+	#set(value):
 		#print_debug(value)
-		win_checked = value
-var are_bodies_moving: bool = false:
-	set(value):
+		#win_checked = value
+var we_have_made_a_move: bool
+var are_bodies_moving: bool = false
+	#set(value):
 		#print_debug(value)
-		are_bodies_moving = value
+		#are_bodies_moving = value
 var is_block_on_starpoint: bool = false
 var match_amount: int = 0
 
 var _bodies_stopped: int = 0
 var _prev_positions: Array[Transform2D]
-var we_have_made_a_move: bool
-
-
-func _bodies_have_moved() -> void:
-	_prev_positions = []
-		
-	for body: Bokobody in GameMgr.current_bodies:
-		_prev_positions.append(body.transform)
-
-
-func _bodies_have_stopped() -> void:
-	for i in range(GameMgr.current_bodies.size()):
-		print(GameMgr.current_bodies[i].transform)
-		print(_prev_positions[i])
-	
-	we_have_made_a_move = check_if_bodies_made_move()
-	print(we_have_made_a_move)
-	
-	state_checked.emit()
-	
-
-
-func check_if_bodies_made_move() -> bool:
-	if GameMgr.current_bodies.is_empty():
-		return false
-	
-	for i: int in range(GameMgr.current_bodies.size()):
-		if _prev_positions[i] != GameMgr.current_bodies[i].transform:
-			return true
-		
-	return false
 
 
 func _ready() -> void:
@@ -80,13 +62,7 @@ func _ready() -> void:
 	bokobodies_stopped.connect(check_win)
 	bokobodies_stopped.connect(check_bodies)
 	
-	PlayerInput.input_move.connect(func(_p):
-		_bodies_have_moved()
-		)
-	PlayerInput.input_turn.connect(func(_p):
-		_bodies_have_moved()
-		)
-		
+	PlayerInput.movement_input_made.connect(_bodies_have_moved)
 	bokobodies_stopped_making_move.connect(_bodies_have_stopped)
 	
 	GameMgr.game_reset.connect(_reset_game_logic)
@@ -108,16 +84,12 @@ static func set_win_condition(win_cond: WinCondition) -> void:
 func check_bodies() -> void:
 	await GameMgr.process_waittime()
 	
-	var block_has_stood_on_starpoint: bool = check_if_block_on_starpoint(GameMgr.current_blocks)
+	var stood_on_starpoint: bool = check_if_block_on_starpoint(GameMgr.current_blocks)
 	
-	#print(block_has_stood_on_starpoint)
-	#for block: Bokoblock in GameMgr.current_blocks:
-		#print(block.is_on_starpoint)
-	
-	if block_has_stood_on_starpoint && !is_block_on_starpoint:
+	if stood_on_starpoint && !is_block_on_starpoint:
 		bokobody_entered_starpoint.emit()
 		is_block_on_starpoint = true
-	elif !block_has_stood_on_starpoint && is_block_on_starpoint:
+	elif !stood_on_starpoint && is_block_on_starpoint:
 		bokobody_exited_starpoint.emit()
 		is_block_on_starpoint = false
 
@@ -135,12 +107,12 @@ func check_if_bodies_stopped(_is_bokobody: Bokobody) -> void:
 	if !are_bodies_moving:
 		if PlayerInput.last_input != TransformationType.UNDO:
 			bokobodies_stopped_making_move.emit()
+			
 		bokobodies_stopped.emit()
 		_bodies_stopped = 0
 
 
 func check_win() -> void:
-	#var match_amount: int = 0
 	var objects_happy: int = 0
 	
 	match win_condition:
@@ -168,6 +140,39 @@ func check_win() -> void:
 		win_stage()
 		
 	win_checked = true
+
+
+func _bodies_have_moved() -> void:
+	_prev_positions = []
+		
+	for body: Bokobody in GameMgr.current_bodies:
+		_prev_positions.push_back(body.transform)
+
+
+func _bodies_have_stopped() -> void:
+	#for i in range(GameMgr.current_bodies.size()):
+		#print(GameMgr.current_bodies[i].transform)
+		#print(_prev_positions[i])
+	
+	we_have_made_a_move = check_if_bodies_made_move()
+	#print(we_have_made_a_move)
+	
+	state_checked.emit()
+	
+
+## After the movement state has been checked,
+## return [code]true[/code] if at least one [Bokobody] has transformed/made a move,
+## [code]false[/code] if otherwise. 
+## [br][br]Helpful for the move counter and undo behaviour
+func check_if_bodies_made_move() -> bool:
+	if GameMgr.current_bodies.is_empty():
+		return false
+	
+	for i: int in range(GameMgr.current_bodies.size()):
+		if _prev_positions[i] != GameMgr.current_bodies[i].transform:
+			return true
+		
+	return false
 
 
 func win_stage() -> void:
@@ -210,3 +215,10 @@ func _reset_game_logic() -> void:
 	has_won = false
 	win_checked = true
 	are_bodies_moving = false
+	has_won = false
+	win_checked = true
+	are_bodies_moving = false
+	is_block_on_starpoint = false
+	match_amount = 0
+	_bodies_stopped = 0
+	_prev_positions = []

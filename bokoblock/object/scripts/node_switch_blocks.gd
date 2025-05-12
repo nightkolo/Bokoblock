@@ -4,6 +4,8 @@ class_name SwitchBlocks
 
 # TODO: Has issues when interacting with two Buttons of same BokoColor of Switch Block
 
+# TODO: Proposing full behavior change: Make so it only activates once, to cut down on the complexity of the code.
+
 signal has_opened(is_open: bool)
 
 @export var switch_type_decorator: GameUtil.SwitchTypeDecorator

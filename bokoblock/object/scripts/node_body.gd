@@ -3,7 +3,7 @@ class_name Bokobody
 
 signal has_moved(moved_to: Vector2)
 signal has_turned(turned_to: float)
-signal has_undoed()
+#signal has_undoed()
 signal move_end()
 signal turn_end()
 signal move_stopped()
@@ -71,7 +71,7 @@ func _ready() -> void:
 	
 	has_moved.connect(_on_transform)
 	has_turned.connect(_on_transform)
-	has_undoed.connect(_on_transform)
+	#has_undoed.connect(_on_transform)
 	move_end.connect(check_state)
 	turn_end.connect(check_state)
 	
@@ -145,7 +145,7 @@ func check_state() -> void:
 
 	
 func undo() -> void:
-	print_debug(transforms_made)
+	#print_debug(transforms_made)
 	
 	if transforms_made.is_empty():
 		await get_tree().create_timer(0.1).timeout
@@ -153,7 +153,7 @@ func undo() -> void:
 		return
 	
 	var last_move = transforms_made[0]
-	has_undoed.emit()
+	#has_undoed.emit()
 	
 	match typeof(last_move):
 		
@@ -165,7 +165,7 @@ func undo() -> void:
 			transforms_made.pop_front()
 			await turn(last_move * signf(turning_strength) * -1, true, false)
 	
-	print_debug(transforms_made)
+	#print_debug(transforms_made)
 	
 	GameLogic.bokobody_stopped.emit(self)
 

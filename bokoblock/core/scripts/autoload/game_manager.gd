@@ -11,7 +11,7 @@ signal game_end()
 signal game_reset()
 
 var in_game: bool = false
-var in_stage_complete = false
+var in_stage_complete = false ## @experimental
 
 var number_of_bodies: int ## @deprecated
 var current_ui_handler: GameplayUI
