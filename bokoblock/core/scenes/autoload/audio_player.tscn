@@ -141,7 +141,7 @@ bus = &"GameSound"
 
 [node name="BlockMoving" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("23_qjknr")
-volume_db = -50.0
+volume_db = -80.0
 bus = &"GameSound"
 
 [node name="BlockTurnHit" type="AudioStreamPlayer" parent="SFX"]
@@ -180,7 +180,7 @@ volume_db = -20.0
 bus = &"GameSound"
 
 [node name="OneWayBlockHit" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("32_0omil")
+stream = ExtResource("33_7umab")
 volume_db = -20.0
 bus = &"GameSound"
 

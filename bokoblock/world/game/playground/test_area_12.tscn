@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://c3y6nr1g3o3wn"]
+[gd_scene load_steps=22 format=4 uid="uid://c3y6nr1g3o3wn"]
 
 [ext_resource type="Script" path="res://world/game/scripts/stage.gd" id="1_cer03"]
 [ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_7xhc3"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="11_xtuq1"]
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="12_jyl42"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="13_60xwj"]
-[ext_resource type="PackedScene" uid="uid://cmc3pcr6jttko" path="res://world/game/playground/objects/block_button.tscn" id="14_yt4v4"]
 [ext_resource type="Texture2D" uid="uid://bat8ifohqdgwa" path="res://icon.svg" id="15_bkiky"]
 [ext_resource type="Script" path="res://world/game/playground/code/follow_mouse.gd" id="17_1wkkf"]
 
@@ -127,37 +126,23 @@ script = ExtResource("12_jyl42")
 [node name="Block" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 boko_color = 1
 
-[node name="BlockButton2" parent="SO/Bokobody/Block" instance=ExtResource("14_yt4v4")]
-
 [node name="Block2" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(0, -45)
-
-[node name="BlockButton2" parent="SO/Bokobody/Block2" instance=ExtResource("14_yt4v4")]
 
 [node name="Block3" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(0, -90)
 
-[node name="BlockButton2" parent="SO/Bokobody/Block3" instance=ExtResource("14_yt4v4")]
-
 [node name="Block4" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(0, 45)
-
-[node name="BlockButton2" parent="SO/Bokobody/Block4" instance=ExtResource("14_yt4v4")]
 
 [node name="Block5" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(0, 90)
 
-[node name="BlockButton2" parent="SO/Bokobody/Block5" instance=ExtResource("14_yt4v4")]
-
 [node name="Block6" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(-45, 0)
 
-[node name="BlockButton2" parent="SO/Bokobody/Block6" instance=ExtResource("14_yt4v4")]
-
 [node name="Block7" parent="SO/Bokobody" instance=ExtResource("13_60xwj")]
 position = Vector2(45, 0)
-
-[node name="BlockButton2" parent="SO/Bokobody/Block7" instance=ExtResource("14_yt4v4")]
 
 [node name="Sprite2D2" type="Sprite2D" parent="SO"]
 visible = false

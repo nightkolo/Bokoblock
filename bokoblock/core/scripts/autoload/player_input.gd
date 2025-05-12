@@ -6,6 +6,8 @@ signal input_undo()
 
 enum TranformationType {MOVE = 0, TURN = 1, UNDO = 99} ## @experimental
 
+var last_input: GameLogic.TransformationType
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	#if event.is_action_pressed("game_reset"):
@@ -40,7 +42,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _call_input_undo():
 	if !GameLogic.can_move():
 		return
-		
+	
+	last_input = GameLogic.TransformationType.UNDO
+	
 	input_undo.emit()
 	GameLogic.bokobodies_moved.emit(false)
 	GameLogic.has_moved()
@@ -49,7 +53,9 @@ func _call_input_undo():
 func _call_input_move(move_to: Vector2 = Vector2.ZERO):
 	if !GameLogic.can_move(): 
 		return
-		
+	
+	last_input = GameLogic.TransformationType.MOVE
+	
 	input_move.emit(move_to.sign())
 	GameLogic.bokobodies_moved.emit(move_to.sign())
 	GameLogic.has_moved()
@@ -58,7 +64,9 @@ func _call_input_move(move_to: Vector2 = Vector2.ZERO):
 func _call_input_turn(turn_to: float = 0.0):
 	if !GameLogic.can_move(): 
 		return
-		
+	
+	last_input = GameLogic.TransformationType.TURN
+	
 	input_turn.emit(signf(turn_to))
 	GameLogic.bokobodies_moved.emit(signf(turn_to))
 	GameLogic.has_moved()

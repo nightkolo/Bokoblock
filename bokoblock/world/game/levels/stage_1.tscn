@@ -62,6 +62,9 @@ info_text = "WASD
  Land 'em on
  the Starpoints!"
 
+[node name="MoveCounter" type="Node2D" parent="LW"]
+position = Vector2(743, 473)
+
 [node name="LO" type="Node2D" parent="."]
 script = ExtResource("6_5iy4h")
 
