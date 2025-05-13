@@ -11,33 +11,39 @@ signal move_counter_threshold_passed(has_passed: bool)
 	set(value):
 		GameMgr.current_stage_id = value
 		stage_id = value
-@export var world_id: int = -1: # TODO: change to checkerboard_id
+@export var checkerboard_id: int = -1: # TODO: change to checkerboard_id
 	get:
-		return world_id
+		return checkerboard_id
 	set(value):
-		GameMgr.current_world_id = value
-		world_id = value
+		GameMgr.current_checkerboard_id = value
+		checkerboard_id = value
 @export_group("Miscellanous")
 @export var show_dev_ui: bool = false
 @export var custom_block_match: int = -1 ## @experimental
 @export var stage_progression: bool = true
 @export_category("Game")
+@export var auto_assign_saver_loader: bool = true
+@export var saver_loader: SaverLoader
+@export var save_stats: bool = true
 @export var win_condition: GameLogic.WinCondition
 @export var moves_threshold: int = 10
 
 var is_yellow_starred: bool = true
 var moves_counted: int
+var improved_stats: bool = false
 
 var _dev_ui: PackedScene = preload("res://interface/runtime/misc/dev_ui.tscn")
 var _moves_counted: int = 0:
 	get:
 		return _moves_counted
 	set(value):
-		var counted := maxi(0, value)
+		var counted := mini(999, maxi(0, value))
 		var yellowed := counted <= moves_threshold
 		
 		_moves_counted = counted
 		moves_counted = moves_threshold - counted
+		
+		print(moves_counted)
 		
 		if !yellowed && is_yellow_starred:
 			move_counter_threshold_passed.emit(true)
@@ -51,6 +57,13 @@ func _ready() -> void:
 	GameMgr.current_stage = self
 	GameMgr.game_entered.emit(true)
 	GameLogic.set_win_condition(win_condition)
+	
+	GameMgr.game_just_ended.connect(store_stats)
+	
+	if auto_assign_saver_loader:
+		var SL: SaverLoader = SaverLoader.new()
+		add_child(SL)
+		saver_loader = SL
 	
 	move_counter_threshold_passed.connect(func(_has_passed: bool):
 		pass
@@ -71,12 +84,41 @@ func _ready() -> void:
 		var num := self.scene_file_path.to_int()
 
 		stage_id = num
-		world_id = ceili(num / 10.0)
+		checkerboard_id = ceili(num / 10.0)
 	
 	if show_dev_ui:
 		var dev_ui := _dev_ui.instantiate()
 		dev_ui.name = "DevUI"
 		add_child(dev_ui)
+
+
+func store_stats() -> void:
+	if !save_stats:
+		return
+		
+	if saver_loader == null:
+		push_warning("Cannot save data. saver_loader not assigned.")
+		return
+	
+	var id: String = str(stage_id)
+	
+	#if !GameData.runtime_data.has(id):
+		#push_error("Cannot save data. Key %s not found in GameData.runtime_data." % id)
+		#return
+	
+	if GameData.runtime_data[id]["completed"] == false:
+		GameData.runtime_data[id]["completed"] = true
+	
+	if GameData.runtime_data[id]["starred"] == false:
+		GameData.runtime_data[id]["starred"] = is_yellow_starred
+		
+	if _moves_counted < GameData.runtime_data[id]["move_count"]:
+		if GameData.runtime_data[id]["move_count"] != 999:
+			improved_stats = true
+		
+		GameData.runtime_data[id]["move_count"] = _moves_counted
+		
+	saver_loader.save_game()
 
 
 func get_real_moves_counted() -> int:

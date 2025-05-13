@@ -2,7 +2,7 @@
 extends Node
 
 signal stage_entered(is_lvl: int)
-signal world_entered(is_wrld: int)
+signal checkerboard_entered(is_board: int)
 signal game_entered(entered: bool)
 #signal stage_completed_screen_entered(entered: bool)
 #signal game_exited()
@@ -13,7 +13,6 @@ signal game_reset()
 var in_game: bool = false
 var in_stage_complete = false ## @experimental
 
-var number_of_bodies: int ## @deprecated
 var current_ui_handler: GameplayUI
 var current_stage: Stage
 var current_stage_id: int = -1:
@@ -22,12 +21,12 @@ var current_stage_id: int = -1:
 	set(value):
 		stage_entered.emit(value)
 		current_stage_id = value
-var current_world_id: int = -1:
+var current_checkerboard_id: int = -1:
 	get:
-		return current_world_id
+		return current_checkerboard_id
 	set(value):
-		world_entered.emit(value)
-		current_world_id = value
+		checkerboard_entered.emit(value)
+		current_checkerboard_id = value
 var current_bodies: Array[Bokobody]
 var current_blocks: Array[Bokoblock]
 var current_starpoints: Array[Starpoint]
@@ -36,7 +35,7 @@ var _is_game_manager_resetting: bool = false
 
 
 func _ready() -> void:
-	Engine.time_scale = 1.0/1.0
+	load_game_data()
 	
 	game_end.connect(goto_next_stage)
 	
@@ -52,19 +51,12 @@ func _ready() -> void:
 		_reset_game_manager()
 		get_tree().reload_current_scene()
 		)
-		
-	stage_entered.connect(func(_is_lvl: int):
-		pass
-		)
 	
 	game_just_ended.connect(func():
-		# Awaits  complete animation
+		# Awaits complete animation
 		await get_tree().create_timer(GameUtil.stage_complete_anim_waittime).timeout
 		game_end.emit()
 	)
-	
-	await get_tree().create_timer(0.1).timeout
-	number_of_bodies = current_bodies.size()
 
 
 func open_stage_complete() -> void: ## @experimental
@@ -73,7 +65,9 @@ func open_stage_complete() -> void: ## @experimental
 	
 	print("Stage complete")
 	
-	
+
+## Goes to next stage.
+## [br][br]Enabling [param force_progression] bypasses [member Stage.stage_progression] and forces progression.
 func goto_next_stage(force_progression: bool = false) -> void:
 	if current_stage:
 		if !current_stage.stage_progression && !force_progression:
@@ -104,6 +98,13 @@ func goto_prev_stage() -> void:
 		get_tree().change_scene_to_file(next_lvl_path)
 
 
+func load_game_data() -> void:
+	var saver_loader: SaverLoader = SaverLoader.new()
+	
+	add_child(saver_loader)
+	saver_loader.load_game()
+	
+
 var current_card_ui: TestCardUI ## @experimental
 
 
@@ -115,7 +116,7 @@ func reset_game() -> void:
 	game_reset.emit()
 
 
-func process_waittime(wait: float = 0.05) -> void:
+func process_waittime(wait: float = 0.05) -> void: # experimental
 	await get_tree().create_timer(wait).timeout
 
 
@@ -129,8 +130,6 @@ func _reset_game_manager() -> void:
 		current_bodies = []
 		current_blocks = []
 		current_starpoints = []
-		number_of_bodies = 0
 		
 		await get_tree().create_timer(0.1).timeout
-		number_of_bodies = current_bodies.size()
 		_is_game_manager_resetting = false

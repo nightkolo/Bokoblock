@@ -56,4 +56,4 @@ func _ready() -> void:
 
 
 func update_text() -> void:
-	pause_info.text = BBCODE_TXT + PAUSE_INFO_BEGIN + str(GameMgr.current_world_id) + "-" + str(GameMgr.current_stage_id) + PAUSE_INFO_END
+	pause_info.text = BBCODE_TXT + PAUSE_INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_stage_id) + PAUSE_INFO_END

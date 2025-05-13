@@ -66,11 +66,11 @@ func _ready() -> void:
 	label.scale = Vector2(0.95,1.0)
 	
 	if chibi_boko && animate && !sleep:
-		GameLogic.bokobody_entered_starpoint.connect(func():
+		GameLogic.body_entered_starpoint.connect(func():
 			if !GameLogic.has_won:
 				chibi_boko.anim_excited()
 			)
-		GameLogic.bokobody_exited_starpoint.connect(func():
+		GameLogic.body_exited_starpoint.connect(func():
 			if !GameLogic.has_won:
 				chibi_boko.anim_unexcited()
 			)

@@ -149,7 +149,7 @@ func undo() -> void:
 	
 	if transforms_made.is_empty():
 		await get_tree().create_timer(0.1).timeout
-		GameLogic.bokobody_stopped.emit(self)
+		GameLogic.body_stopped.emit(self)
 		return
 	
 	var last_move = transforms_made[0]
@@ -167,7 +167,7 @@ func undo() -> void:
 	
 	#print_debug(transforms_made)
 	
-	GameLogic.bokobody_stopped.emit(self)
+	GameLogic.body_stopped.emit(self)
 
 
 func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true) -> void:
@@ -246,7 +246,7 @@ func stop_moving() -> void:
 	_current_last_transform = Vector2.ZERO
 	
 	move_stopped.emit()
-	GameLogic.bokobody_move_hit.emit()
+	GameLogic.body_move_hit.emit()
 	
 	GameUtil.reset_tween(_tween_move)
 	
@@ -267,7 +267,7 @@ func stop_turning() -> void:
 	_current_last_transform = 0.0
 	
 	turn_stopped.emit()
-	GameLogic.bokobody_turn_hit.emit()
+	GameLogic.body_turn_hit.emit()
 	
 	if _tween_turn:
 		_tween_turn.kill()
@@ -338,7 +338,7 @@ func _has_stopped() -> void:
 	# Await used due to routine issues
 	
 	await get_tree().create_timer(0.04).timeout
-	GameLogic.bokobody_stopped.emit(self)
+	GameLogic.body_stopped.emit(self)
 
 
 func _on_transform(trans_to = &"UNDO") -> void:

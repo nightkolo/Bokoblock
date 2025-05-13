@@ -36,6 +36,7 @@ var music_menu: AudioStreamPlayer ## @experimental
 @onready var body_happy_02: AudioStreamPlayer = $SFX/BodyHappy02
 
 var _stage_complete_jingles: Array[Node]
+@warning_ignore("unused_private_class_variable")
 var _menu_enter_jingles: Array[Node]
 var _reset_sound: bool = true
 
@@ -75,11 +76,11 @@ func _ready() -> void:
 		aud.play()
 		)
 	
-	GameLogic.bokobodies_stopped.connect(_check_game_state)
+	GameLogic.bodies_stopped.connect(_check_game_state)
 	
-	GameLogic.bokobody_exited_starpoint.connect(play_starpoint_exited)
-	GameLogic.bokobody_move_hit.connect(play_block_move_hit)
-	GameLogic.bokobody_turn_hit.connect(play_block_turn_hit)
+	GameLogic.body_exited_starpoint.connect(play_starpoint_exited)
+	GameLogic.body_move_hit.connect(play_block_move_hit)
+	GameLogic.body_turn_hit.connect(play_block_turn_hit)
 	
 	PlayerInput.input_move.connect(func(_move_to: Vector2):
 		play_block_move()

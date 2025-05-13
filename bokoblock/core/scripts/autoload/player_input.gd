@@ -47,7 +47,7 @@ func _call_input_undo():
 	last_input = GameLogic.TransformationType.UNDO
 	
 	input_undo.emit()
-	GameLogic.bokobodies_moved.emit(false)
+	GameLogic.bodies_moved.emit(false)
 	GameLogic.has_moved()
 	
 	
@@ -59,7 +59,7 @@ func _call_input_move(move_to: Vector2 = Vector2.ZERO):
 	
 	movement_input_made.emit()
 	input_move.emit(move_to.sign())
-	GameLogic.bokobodies_moved.emit(move_to.sign())
+	GameLogic.bodies_moved.emit(move_to.sign())
 	GameLogic.has_moved()
 
 
@@ -71,5 +71,5 @@ func _call_input_turn(turn_to: float = 0.0):
 	
 	movement_input_made.emit()
 	input_turn.emit(signf(turn_to))
-	GameLogic.bokobodies_moved.emit(signf(turn_to))
+	GameLogic.bodies_moved.emit(signf(turn_to))
 	GameLogic.has_moved()

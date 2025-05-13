@@ -39,7 +39,7 @@ func _ready() -> void:
 	check_state()
 	
 	GameMgr.current_blocks.append(self)
-	GameLogic.bokobodies_stopped.connect(check_state)
+	GameLogic.bodies_stopped.connect(check_state)
 	
 	if get_parent() is Bokobody:
 		parent_bokobody = get_parent() as Bokobody

@@ -18,7 +18,7 @@ var is_game_paused: bool = false:
 
 ## @experimental
 func update_text(bbcode: String, begin: String, end: String) -> String:
-	return bbcode + begin + str(GameMgr.current_world_id) + "-" + str(GameMgr.current_stage_id) + end
+	return bbcode + begin + str(GameMgr.current_checkboard_id) + "-" + str(GameMgr.current_stage_id) + end
 
 
 func _unhandled_input(event: InputEvent) -> void:

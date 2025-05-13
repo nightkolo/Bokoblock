@@ -63,7 +63,7 @@ func _ready() -> void:
 
 
 func update_text() -> void:
-	stage_complete_info.text = BBCODE_TXT + _INFO_BEGIN + str(GameMgr.current_world_id) + "-" + str(GameMgr.current_stage_id) + _INFO_END
+	stage_complete_info.text = BBCODE_TXT + _INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_stage_id) + _INFO_END
 
 
 func anim_open():
@@ -119,7 +119,7 @@ func anim_star_landed(dur: float):
 	
 	t_star_landed.tween_property(node_star_2, "scale", Vector2.ONE, dur*4.0)
 	t_star_landed.tween_property(bg, "color", Color(Color.WHITE, 0.2), dur/4.0).set_trans(Tween.TRANS_LINEAR)
-	get_tree().create_timer(dur).timeout
+	#get_tree().create_timer(dur).timeout
 	anim_star_idle()
 
 
