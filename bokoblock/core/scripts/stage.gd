@@ -22,12 +22,12 @@ signal move_counter_threshold_passed(has_passed: bool)
 @export var custom_block_match: int = -1 ## @experimental
 @export var stage_progression: bool = true
 @export_category("Game")
-@export var auto_assign_saver_loader: bool = true
-@export var saver_loader: SaverLoader
+#@export var auto_assign_saver_loader: bool = true
 @export var save_stats: bool = true
 @export var win_condition: GameLogic.WinCondition
 @export var moves_threshold: int = 10
 
+var saver_loader: SaverLoader
 var is_yellow_starred: bool = true
 var moves_counted: int
 var improved_stats: bool = false
@@ -60,7 +60,7 @@ func _ready() -> void:
 	
 	GameMgr.game_just_ended.connect(store_stats)
 	
-	if auto_assign_saver_loader:
+	if save_stats:
 		var SL: SaverLoader = SaverLoader.new()
 		add_child(SL)
 		saver_loader = SL
@@ -102,9 +102,9 @@ func store_stats() -> void:
 	
 	var id: String = str(stage_id)
 	
-	#if !GameData.runtime_data.has(id):
-		#push_error("Cannot save data. Key %s not found in GameData.runtime_data." % id)
-		#return
+	if !GameData.runtime_data.has(id):
+		push_error("Cannot save data. Key %s not found in GameData.runtime_data." % id)
+		return
 	
 	if GameData.runtime_data[id]["completed"] == false:
 		GameData.runtime_data[id]["completed"] = true
@@ -113,8 +113,8 @@ func store_stats() -> void:
 		GameData.runtime_data[id]["starred"] = is_yellow_starred
 		
 	if _moves_counted < GameData.runtime_data[id]["move_count"]:
-		if GameData.runtime_data[id]["move_count"] != 999:
-			improved_stats = true
+		# if GameData.runtime_data[id]["move_count"] != 999:
+		improved_stats = true
 		
 		GameData.runtime_data[id]["move_count"] = _moves_counted
 		

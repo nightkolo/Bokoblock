@@ -1,222 +1,229 @@
 class_name GameData extends Node
 static var runtime_data: Dictionary = {
-	101: {
+	"moves_made": 0,
+	"undos_made": 0,
+	"101": {
 		"completed": false,
 		"starred": false
 	},
-	102: {
+	"102": {
 		"completed": false,
 		"starred": false
 	},
-	1: {
-		"completed": false,
-		"move_count": 999,
-		"starred": false
-	},
-	2: {
+	"1": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	3: {
+	"2": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	4: {
+	"3": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	5: {
+	"4": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	6: {
+	"5": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	7: {
+	"6": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	8: {
+	"7": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	9: {
+	"8": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	10: {
+	"9": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	11: {
+	"10": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	12: {
+	"11": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	13: {
+	"12": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	14: {
+	"13": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	15: {
+	"14": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	16: {
+	"15": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	17: {
+	"16": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	18: {
+	"17": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	19: {
+	"18": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	20: {
+	"19": {
+		"completed": false,
+		"move_count": 999,
+		"starred": false
+	},
+	"20": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	}
 }
+static var medal_data: Dictionary = {
+	
+}
 static var config_data: Dictionary = {
 	
 }
 const DEFAULT_GAME_DATA = {
-	101: {
+	"moves_made": 0,
+	"undos_made": 0,
+	"101": {
 		"completed": false,
 		"starred": false
 	},
-	102: {
+	"102": {
 		"completed": false,
 		"starred": false
 	},
-	1: {
-		"completed": false,
-		"move_count": 999,
-		"starred": false
-	},
-	2: {
+	"1": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	3: {
+	"2": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	4: {
+	"3": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	5: {
+	"4": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	6: {
+	"5": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	7: {
+	"6": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	8: {
+	"7": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	9: {
+	"8": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	10: {
+	"9": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	11: {
+	"10": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	12: {
+	"11": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	13: {
+	"12": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	14: {
+	"13": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	15: {
+	"14": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	16: {
+	"15": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	17: {
+	"16": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	18: {
+	"17": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	19: {
+	"18": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false
 	},
-	20: {
+	"19": {
+		"completed": false,
+		"move_count": 999,
+		"starred": false
+	},
+	"20": {
 		"completed": false,
 		"move_count": 999,
 		"starred": false

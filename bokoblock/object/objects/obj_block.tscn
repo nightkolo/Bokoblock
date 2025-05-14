@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://object/scripts/node_block.gd" id="1_fox18"]
 [ext_resource type="Texture2D" uid="uid://6gfr648a4tde" path="res://assets/objects/block-greyscale.png" id="2_vu6u0"]
 [ext_resource type="Texture2D" uid="uid://dy7ec8pych8ve" path="res://assets/objects/block-eyes-neutral.png" id="3_7bp01"]
-[ext_resource type="Script" path="res://object/objects/look_at_me_component.gd" id="3_wrkp1"]
+[ext_resource type="Script" path="res://world/game/playground/code/look_at_me_component.gd" id="3_wrkp1"]
 [ext_resource type="Texture2D" uid="uid://58erdrgwqcbw" path="res://assets/objects/block-ghost.png" id="4_cmisq"]
 [ext_resource type="Texture2D" uid="uid://fht8ceno2w63" path="res://assets/world/star_v01.png" id="4_u4fx5"]
 [ext_resource type="Texture2D" uid="uid://dqcbjuirvq776" path="res://assets/world/particle_circle_02.png" id="7_jtedv"]

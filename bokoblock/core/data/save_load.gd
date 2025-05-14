@@ -16,7 +16,8 @@ func save_game():
 	file.store_line(json)
 	
 	game_saved.emit()
-	
+	GameMgr.game_data_saved.emit()
+
 	file.close()
 	
 	print("Save successful! :D")
@@ -42,7 +43,8 @@ func load_game():
 	GameData.runtime_data = (saved_data as Dictionary).duplicate(true)
 	
 	game_loaded.emit()
-	
+	GameMgr.game_data_loaded.emit()
+
 	file.close()
 	
 	print("Load successful! :D")

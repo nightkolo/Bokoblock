@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=4 uid="uid://ddnrsl4rnt1fv"]
 
-[ext_resource type="Script" path="res://world/game/scripts/stage.gd" id="1_holue"]
+[ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_holue"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_2dh26"]
 [ext_resource type="PackedScene" uid="uid://dnq8cle22nd2j" path="res://world/game/playground/objects/card_ui.tscn" id="2_g1sjl"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="3_plg7f"]

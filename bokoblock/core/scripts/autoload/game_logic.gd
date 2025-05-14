@@ -8,6 +8,7 @@ signal body_turn_hit()
 ## Emitted when all [Bokobody]s try to transform/make a move.
 ## [br][br][param transformed_to] is a dynamic variable returning the transformation value (A move, a turn, and undo).
 signal bodies_moved(transformed_to)
+signal bodies_undoed() ## @experimental
 ## Emitted when a [Bokobody] stops,
 ## [br][br][param is_bokobody] returns that [Bokobody].
 signal body_stopped(is_bokobody: Bokobody)
@@ -20,6 +21,7 @@ signal body_entered_starpoint()
 ## Emitted when a [Bokobody] exits a [Starpoint].
 signal body_exited_starpoint()
 ## Emitted when the movement state of [Bokobody]s have been checked.
+## [br][br]Helpful for checking [member we_have_made_a_move].
 signal state_checked()
 ## Emitted when the stage is won.
 signal stage_won()
@@ -38,6 +40,7 @@ static var win_condition: WinCondition
 
 var has_won: bool = false
 var win_checked: bool = true
+## Returns whether at least at least one [Bokobody] has transformed/made a move.
 var we_have_made_a_move: bool
 var are_bodies_moving: bool = false
 var is_block_on_starpoint: bool = false

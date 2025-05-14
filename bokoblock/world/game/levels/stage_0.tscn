@@ -1,0 +1,53 @@
+[gd_scene load_steps=11 format=3 uid="uid://645xw6bnns5y"]
+
+[ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_6bvsx"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_2208v"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_t0kog"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_ctkrv"]
+[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="5_12tmw"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="6_aqb4j"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_3b0yg"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_2u4it"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_i5t4g"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="10_aw0tw"]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource("1_6bvsx")
+stage_progression = false
+
+[node name="UI" parent="." instance=ExtResource("2_2208v")]
+
+[node name="Cam" parent="." instance=ExtResource("3_t0kog")]
+zoom = Vector2(2, 2)
+
+[node name="StageWorld" parent="." instance=ExtResource("4_ctkrv")]
+show_collision_tilemap = true
+
+[node name="StageLight" type="PointLight2D" parent="StageWorld"]
+position = Vector2(517, 382)
+scale = Vector2(8.4375, 7.03125)
+range_item_cull_mask = 2
+texture = ExtResource("5_12tmw")
+script = ExtResource("6_aqb4j")
+
+[node name="TM" type="Node2D" parent="StageWorld"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("7_3b0yg")
+
+[node name="Collision" type="TileMapLayer" parent="StageWorld/TM"]
+tile_set = ExtResource("8_2u4it")
+
+[node name="Checkerboard" type="TileMapLayer" parent="StageWorld/TM"]
+self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
+light_mask = 2
+tile_set = ExtResource("8_2u4it")
+
+[node name="Outline" type="TileMapLayer" parent="StageWorld/TM"]
+tile_set = ExtResource("8_2u4it")
+
+[node name="ChibiBoko" parent="StageWorld" instance=ExtResource("9_i5t4g")]
+position = Vector2(473, 383)
+sleep = true
+
+[node name="StageObjects" type="Node2D" parent="."]
+script = ExtResource("10_aw0tw")

@@ -5,10 +5,11 @@ signal stage_entered(is_lvl: int)
 signal checkerboard_entered(is_board: int)
 signal game_entered(entered: bool)
 #signal stage_completed_screen_entered(entered: bool)
-#signal game_exited()
 signal game_just_ended()
 signal game_end()
 signal game_reset()
+signal game_data_saved()
+signal game_data_loaded()
 
 var in_game: bool = false
 var in_stage_complete = false ## @experimental
@@ -31,10 +32,16 @@ var current_bodies: Array[Bokobody]
 var current_blocks: Array[Bokoblock]
 var current_starpoints: Array[Starpoint]
 
+var saver_loader: SaverLoader = SaverLoader.new()
+
+const ON_NEWGROUNDS_MIRROR = true
+
 var _is_game_manager_resetting: bool = false
 
 
 func _ready() -> void:
+	add_child(saver_loader)
+	
 	load_game_data()
 	
 	game_end.connect(goto_next_stage)
@@ -59,7 +66,7 @@ func _ready() -> void:
 	)
 
 
-func open_stage_complete() -> void: ## @experimental
+func open_stage_complete() -> void: ## @deprecated
 	if !in_game:
 		return
 	
@@ -98,10 +105,15 @@ func goto_prev_stage() -> void:
 		get_tree().change_scene_to_file(next_lvl_path)
 
 
+func reset_progress() -> void:
+	saver_loader.new_game()
+
+
+func save_game_data() -> void:
+	saver_loader.save_game()
+
+
 func load_game_data() -> void:
-	var saver_loader: SaverLoader = SaverLoader.new()
-	
-	add_child(saver_loader)
 	saver_loader.load_game()
 	
 
@@ -116,7 +128,7 @@ func reset_game() -> void:
 	game_reset.emit()
 
 
-func process_waittime(wait: float = 0.05) -> void: # experimental
+func process_waittime(wait: float = 0.05) -> void: ## @deprecated
 	await get_tree().create_timer(wait).timeout
 
 

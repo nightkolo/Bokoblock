@@ -11,12 +11,12 @@ class_name MemeStage
 	set(value):
 		GameMgr.current_stage_id = value
 		stage_id = value
-@export var world_id: int = -1: ## Doesn't do anything either
+@export var checkboard_id: int = -1: ## Doesn't do anything either
 	get:
-		return world_id
+		return checkboard_id
 	set(value):
-		GameMgr.current_world_id = value
-		world_id = value
+		GameMgr.current_checkerboard_id = value
+		checkboard_id = value
 @export_group("Modify")
 @export var win_condition: GameLogic.WinCondition ## Doesn't do anything
 @export var stage_progression: bool = false ## Doesn't do anything either

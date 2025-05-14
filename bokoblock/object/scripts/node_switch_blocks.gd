@@ -108,7 +108,7 @@ func check_intersects() -> bool:
 		
 		body_intersecting.is_on_top_switch_block = true
 		# Holds till the intersecting body exits
-		GameLogic.bokobody_stopped.connect(_on_intersecting_bokobody_stopped)
+		GameLogic.body_stopped.connect(_on_intersecting_bokobody_stopped)
 	
 	return value
 
@@ -123,4 +123,4 @@ func _on_intersecting_bokobody_stopped(is_body: Bokobody) -> void:
 		body_intersecting.is_on_top_switch_block = false
 		body_intersecting = null
 		
-		GameLogic.bokobody_stopped.disconnect(_on_intersecting_bokobody_stopped)
+		GameLogic.body_stopped.disconnect(_on_intersecting_bokobody_stopped)

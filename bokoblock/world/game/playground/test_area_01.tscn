@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=4 uid="uid://dfxtcqpewmn74"]
 
-[ext_resource type="Script" path="res://world/game/scripts/stage.gd" id="1_hij1d"]
+[ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_hij1d"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="2_7785f"]
 [ext_resource type="Script" path="res://world/containers/container_level_world.gd" id="2_yt8yt"]
 [ext_resource type="PackedScene" uid="uid://cyq112bgifh5r" path="res://world/game/playground/scrap/level_background.tscn" id="3_136sh"]
