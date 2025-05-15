@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://evmpk2rqq6qw"]
+[gd_scene load_steps=19 format=4 uid="uid://evmpk2rqq6qw"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_u3r3d"]
 [ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_3eveh"]
@@ -13,13 +13,18 @@
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="9_g7t73"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_sltp2"]
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_tvf0x"]
+[ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_bx5cv"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_stvqs"]
 [ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="15_xaxri"]
 [ext_resource type="PackedScene" uid="uid://cqj66us38ebnh" path="res://object/objects/obj_one_color_wall.tscn" id="16_1ixwf"]
+[ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="18_dsnfl"]
 
-[node name="Stage" type="Node2D"]
+[node name="Stage" type="Node2D" node_paths=PackedStringArray("move_counter")]
 script = ExtResource("1_u3r3d")
 stage_progression = false
+allow_undoing = false
+moves_threshold = 33
+move_counter = NodePath("StageWorld/MoveCounter")
 
 [node name="UI" parent="." instance=ExtResource("2_3eveh")]
 
@@ -63,6 +68,9 @@ tile_set = ExtResource("8_rfy3d")
 [node name="ChibiBoko" parent="StageWorld" instance=ExtResource("9_tvf0x")]
 position = Vector2(428, 203)
 sleep = true
+
+[node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_bx5cv")]
+position = Vector2(384, 588)
 
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("9_g7t73")
@@ -118,3 +126,6 @@ boko_color = 3
 [node name="Block2" parent="StageObjects/Bokobody2" instance=ExtResource("8_ghctb")]
 position = Vector2(45, 0)
 boko_color = 1
+
+[node name="SleepingBlock" parent="StageObjects" instance=ExtResource("18_dsnfl")]
+position = Vector2(158, 293)

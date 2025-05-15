@@ -11,7 +11,7 @@ signal move_counter_threshold_passed(has_passed: bool)
 	set(value):
 		GameMgr.current_stage_id = value
 		stage_id = value
-@export var checkerboard_id: int = -1: # TODO: change to checkerboard_id
+@export var checkerboard_id: int = -1:
 	get:
 		return checkerboard_id
 	set(value):
@@ -22,10 +22,16 @@ signal move_counter_threshold_passed(has_passed: bool)
 @export var custom_block_match: int = -1 ## @experimental
 @export var stage_progression: bool = true
 @export_category("Game")
-#@export var auto_assign_saver_loader: bool = true
 @export var save_stats: bool = true
 @export var win_condition: GameLogic.WinCondition
-@export var moves_threshold: int = 10
+@export var allow_undoing: bool = true:
+	set(value):
+		if value == false:
+			for body: Bokobody in GameMgr.current_bodies:
+				body.no_undo = false
+		allow_undoing = value
+@export var moves_threshold: int = 25
+@export var move_counter: MoveCounter
 
 var saver_loader: SaverLoader
 var is_yellow_starred: bool = true
@@ -43,7 +49,10 @@ var _moves_counted: int = 0:
 		_moves_counted = counted
 		moves_counted = moves_threshold - counted
 		
-		print(moves_counted)
+		print(_moves_counted)
+		
+		if move_counter:
+			move_counter.label.text = str(absi(moves_counted))
 		
 		if !yellowed && is_yellow_starred:
 			move_counter_threshold_passed.emit(true)
@@ -58,12 +67,28 @@ func _ready() -> void:
 	GameMgr.game_entered.emit(true)
 	GameLogic.set_win_condition(win_condition)
 	
-	GameMgr.game_just_ended.connect(store_stats)
+	if auto_assign_ids:
+		var num := self.scene_file_path.to_int()
+
+		stage_id = num
+		checkerboard_id = ceili(num / 10.0)
+	
+	if show_dev_ui:
+		var dev_ui := _dev_ui.instantiate()
+		dev_ui.name = "DevUI"
+		add_child(dev_ui)
 	
 	if save_stats:
+		GameMgr.game_just_ended.connect(store_stats)
+		
 		var SL: SaverLoader = SaverLoader.new()
 		add_child(SL)
 		saver_loader = SL
+	
+	if move_counter:
+		move_counter.label.text = str(moves_threshold)
+	
+	moves_counted = moves_threshold
 	
 	move_counter_threshold_passed.connect(func(_has_passed: bool):
 		pass
@@ -75,21 +100,14 @@ func _ready() -> void:
 		)
 		
 	PlayerInput.input_undo.connect(func():
-		_moves_counted -= 1
+		if allow_undoing:
+			_moves_counted -= 1
 		)
 		
-	moves_counted = moves_threshold
-	
-	if auto_assign_ids:
-		var num := self.scene_file_path.to_int()
-
-		stage_id = num
-		checkerboard_id = ceili(num / 10.0)
-	
-	if show_dev_ui:
-		var dev_ui := _dev_ui.instantiate()
-		dev_ui.name = "DevUI"
-		add_child(dev_ui)
+	await get_tree().create_timer(0.1).timeout
+	if allow_undoing == false:
+		for body: Bokobody in GameMgr.current_bodies:
+			body.no_undo = !allow_undoing
 
 
 func store_stats() -> void:

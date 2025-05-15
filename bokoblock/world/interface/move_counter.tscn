@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://brk4cu2psqw0k"]
+
+[ext_resource type="Script" path="res://world/interface/move_counter.gd" id="1_mbsn3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dj45t"]
+font_size = 32
+
+[node name="MoveCounter" type="Node2D"]
+script = ExtResource("1_mbsn3")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "000"
+label_settings = SubResource("LabelSettings_dj45t")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bhc6i68yuyepe"]
+[gd_scene load_steps=18 format=4 uid="uid://bhc6i68yuyepe"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_e763k"]
 [ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_6br58"]
@@ -13,11 +13,21 @@
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="8_6h2g5"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_bs8w4"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_g4uye"]
+[ext_resource type="Texture2D" uid="uid://cuibm0pkclu2y" path="res://assets/objects/starpoint-v06.png" id="10_pdo22"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_vh82p"]
+
+[sub_resource type="FontVariation" id="FontVariation_yc1pk"]
+spacing_top = -6
+spacing_bottom = -6
+
+[sub_resource type="LabelSettings" id="LabelSettings_hlv3p"]
+font = SubResource("FontVariation_yc1pk")
+font_size = 24
 
 [node name="S1" type="Node2D"]
 script = ExtResource("1_e763k")
 win_condition = 1
+moves_threshold = 999
 
 [node name="UI" parent="." instance=ExtResource("2_6br58")]
 
@@ -55,15 +65,40 @@ tile_set = ExtResource("5_juify")
 
 [node name="ChibiBoko" parent="LW" instance=ExtResource("8_6h2g5")]
 position = Vector2(248, 338)
-info_text = "WASD
- To Move
- a Body!
-
- Land 'em on
- the Starpoints!"
+info_text = "Land the
+ Body on
+ the        Starpoints!"
 
 [node name="MoveCounter" type="Node2D" parent="LW"]
 position = Vector2(743, 473)
+
+[node name="Sprite2D" type="Sprite2D" parent="LW"]
+visible = false
+position = Vector2(348, 370)
+scale = Vector2(0.375, 0.375)
+texture = ExtResource("10_pdo22")
+
+[node name="ColorRect" type="ColorRect" parent="LW"]
+offset_left = 245.0
+offset_top = 491.0
+offset_right = 405.0
+offset_bottom = 590.0
+color = Color(1, 1, 1, 0.384314)
+
+[node name="InfoBox" type="Label" parent="LW/ColorRect"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 20.0
+offset_right = 142.0
+offset_bottom = 81.0
+text = "WASD
+to move"
+label_settings = SubResource("LabelSettings_hlv3p")
+horizontal_alignment = 1
+
+[node name="Starpoint" parent="LW" instance=ExtResource("10_vh82p")]
+position = Vector2(353, 376)
+scale = Vector2(0.75, 0.75)
 
 [node name="LO" type="Node2D" parent="."]
 script = ExtResource("6_5iy4h")
@@ -71,19 +106,19 @@ script = ExtResource("6_5iy4h")
 [node name="Endpoints" type="Node2D" parent="LO"]
 script = ExtResource("9_g4uye")
 
-[node name="Endpoint2D" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
+[node name="Starpoint" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
 position = Vector2(698, 293)
 
-[node name="Endpoint2D2" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
+[node name="Starpoint2" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
 position = Vector2(698, 248)
 
-[node name="Endpoint2D3" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
+[node name="Starpoint3" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
 position = Vector2(743, 293)
 
-[node name="Endpoint2D5" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
+[node name="Starpoint4" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
 position = Vector2(653, 293)
 
-[node name="Endpoint2D4" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
+[node name="Starpoint5" parent="LO/Endpoints" instance=ExtResource("10_vh82p")]
 position = Vector2(698, 338)
 
 [node name="Bokobody" type="Node2D" parent="LO"]

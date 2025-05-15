@@ -15,7 +15,7 @@ func _ready() -> void:
 		tween.set_parallel(true)
 		tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 		
-		tween.tween_property(_sprite, "scale:x", 1.05 / 2.0, dur)
-		tween.tween_property(_sprite, "scale:y", 0.95 / 2.0, dur)
-		tween.tween_property(_sprite, "scale:x", 0.95 / 2.0, dur).set_delay(dur)
-		tween.tween_property(_sprite, "scale:y", 1.05 / 2.0, dur).set_delay(dur)
+		tween.tween_property(_sprite, "scale:x", 1.025 / 2.0, dur)
+		tween.tween_property(_sprite, "scale:y", 0.975 / 2.0, dur)
+		tween.tween_property(_sprite, "scale:x", 0.975 / 2.0, dur).set_delay(dur)
+		tween.tween_property(_sprite, "scale:y", 1.025 / 2.0, dur).set_delay(dur)

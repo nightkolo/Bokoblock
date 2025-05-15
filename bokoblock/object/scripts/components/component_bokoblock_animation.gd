@@ -325,14 +325,16 @@ func anim_ghost() -> void:
 	if GameMgr.current_stage:
 		GameMgr.current_stage.add_child(sprite)
 	
-	if tween_ghosts:
-		tween_ghosts.kill()
+	#if tween_ghosts:
+		#tween_ghosts.kill()
 	
-	tween_ghosts = create_tween().set_parallel(true)
-	tween_ghosts.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween_ghosts.tween_property(sprite,"scale",Vector2.ONE*zoom_to,dur)
-	tween_ghosts.tween_property(sprite,"self_modulate",Color(Color.WHITE,0.4),dur)
-	tween_ghosts.tween_property(sprite,"self_modulate",Color(Color.WHITE,0.0),dur*1.25).set_delay(dur)
+	var tween = create_tween().set_parallel(true)
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(sprite,"scale",Vector2.ONE*zoom_to,dur)
+	tween.tween_property(sprite,"self_modulate",Color(Color.WHITE,0.4),dur)
+	tween.tween_property(sprite,"self_modulate",Color(Color.WHITE,0.0),dur*1.25).set_delay(dur)
+	await get_tree().create_timer(dur*2).timeout
+	sprite.queue_free()
 
 
 func anim_star() -> void:

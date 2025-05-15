@@ -1,11 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmfiavy81h85b"]
+[gd_scene load_steps=9 format=3 uid="uid://dmfiavy81h85b"]
 
 [ext_resource type="Script" path="res://world/interface/stage_info.gd" id="1_hcte0"]
 [ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="2_botg6"]
 [ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/speech-bubble.png" id="3_06q5n"]
 [ext_resource type="Theme" uid="uid://bw14mtcn80nwt" path="res://core/resources/theme/theme_boko_bubble.tres" id="4_fojmy"]
-[ext_resource type="FontVariation" uid="uid://cyb57wcgd753u" path="res://core/resources/theme/font_var_dialog_box.tres" id="5_xcph3"]
+[ext_resource type="Shape2D" uid="uid://itceb664xr0p" path="res://core/resources/game/chibi_boko_speech_bubble_collision_area.tres" id="6_5rren"]
 [ext_resource type="AudioStream" uid="uid://bge3n81uhhjjg" path="res://audio/sounds/speech_sound.ogg" id="6_aohk3"]
+
+[sub_resource type="FontVariation" id="FontVariation_pgd5m"]
+spacing_top = -4
+spacing_bottom = -4
+
+[sub_resource type="LabelSettings" id="LabelSettings_r36co"]
+font = SubResource("FontVariation_pgd5m")
+font_size = 20
+outline_size = 2
+outline_color = Color(0.43134, 0.43134, 0.43134, 1)
+shadow_color = Color(0, 0, 0, 0.25)
+shadow_offset = Vector2(3, 3)
 
 [node name="ChibiBoko" type="Node2D"]
 script = ExtResource("1_hcte0")
@@ -13,11 +25,11 @@ script = ExtResource("1_hcte0")
 [node name="CharacterChibiBoko" parent="." instance=ExtResource("2_botg6")]
 
 [node name="SpeechBubble" type="NinePatchRect" parent="."]
-self_modulate = Color(1, 1, 1, 0.85)
-offset_left = 37.0
-offset_top = -34.0
-offset_right = 85.0
-offset_bottom = 14.0
+self_modulate = Color(1, 0.5, 1, 0.851)
+offset_left = 33.0
+offset_top = -40.0
+offset_right = 81.0
+offset_bottom = 8.0
 pivot_offset = Vector2(0, 24)
 texture = ExtResource("3_06q5n")
 patch_margin_left = 24
@@ -25,18 +37,20 @@ patch_margin_top = 24
 patch_margin_right = 24
 patch_margin_bottom = 24
 
-[node name="TextBubble" type="RichTextLabel" parent="."]
-offset_left = 49.0
-offset_top = -17.0
-offset_right = 49.0
-offset_bottom = -17.0
+[node name="TextBubble" type="Label" parent="."]
+offset_left = 45.0
+offset_top = -23.0
+offset_right = 226.0
+offset_bottom = 40.0
 theme = ExtResource("4_fojmy")
-theme_override_fonts/normal_font = ExtResource("5_xcph3")
-bbcode_enabled = true
-fit_content = true
-autowrap_mode = 0
+label_settings = SubResource("LabelSettings_r36co")
 
 [node name="Speech" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_aohk3")
 volume_db = 10.0
 bus = &"UISound"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = ExtResource("6_5rren")

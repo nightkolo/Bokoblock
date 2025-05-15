@@ -12,16 +12,21 @@ var can_pass_through: bool = false
 var blocks_parent_bokobody: Bokobody ## @experimental
 
 var _previous_area_count: int
+@warning_ignore("unused_private_class_variable")
 var _tween_hit: Tween
 
 
 func _ready() -> void:
 	_setup_node()
 	
-	GameLogic.bokobodies_stopped.connect(check_state)
+	GameLogic.bodies_stopped.connect(check_state)
 	
 	area_exited.connect(bokoblocks_area_exited)
-
+	
+	#await get_tree().create_timer(0.1).timeout
+	#if GameMgr.current_stage:
+		#GameMgr.current_stage.allow_undoing = false
+	
 
 func _process(_delta: float) -> void:
 	_check_areas()
@@ -39,6 +44,8 @@ func _check_areas() -> void:
 
 
 func check_state() -> void:
+	#print(get_overlapping_areas())
+	
 	if !can_pass_through:
 		return
 		
@@ -48,6 +55,8 @@ func check_state() -> void:
 
 
 func bokoblocks_area_entered(areas: Array[Area2D]) -> void:
+	#print(areas)
+	
 	if areas.size() != 1:
 		if _is_more_than_1_block(areas):
 		

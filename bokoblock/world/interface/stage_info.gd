@@ -19,18 +19,21 @@ enum BubbleAlign { ## @experimental
 @export var animate: bool = true
 @export var auto_start_text: bool = true
 @export_range(0, 1, 0.05, "or_greater") var await_time: float = 0.75
+@export var colli_shape: Shape2D = preload("res://core/resources/game/chibi_boko_speech_bubble_collision_area.tres")
 
 @onready var bubble: NinePatchRect = $SpeechBubble
-@onready var label: RichTextLabel = $TextBubble
+@onready var label: Label = $TextBubble
 @onready var chibi_boko: CharacterChibiBoko = $CharacterChibiBoko
 @onready var audio: AudioStreamPlayer = $Speech
+@onready var area: Area2D = $Area2D
+
 
 var displayed_text: String
 var current_text: String = ""
 var letter_index: int = 0
-var letter_time: float = 0.05
-var space_time: float = 0.09
-var punctuation_time: float = 0.4
+var letter_time: float = 0.025
+var space_time: float = 0.045
+var punctuation_time: float = 0.2
 
 var is_info_active: bool = false
 var is_chibi_boko_speaking: bool = false:
@@ -50,12 +53,33 @@ const MAX_BUBBLE_WIDTH = 270.0 ## @experimental
 
 var _tween_bubble_a: Tween
 var _tween_bubble_b: Tween
+var _tween_fade: Tween
 var _letter_show_timer: Timer = Timer.new()
 var _boko_just_woke_up: bool = false
 
 const _BUBBLE_MARGIN = Vector2.ONE * 35.0
 const _LABEL_MARGIN = Vector2.ONE * 10.0
 
+
+func change_opacity(fade: bool):
+	var dur := 0.2
+	
+	if _tween_fade:
+		_tween_fade.kill()
+	
+	_tween_fade = create_tween()
+	
+	if fade:
+		_tween_fade.tween_property(bubble, "modulate", Color(Color.WHITE, 0.5), dur)
+	else:
+		_tween_fade.tween_property(bubble, "modulate", Color(Color.WHITE, 1.0), dur)
+
+
+func _on_area_interacted(p_area: Area2D):
+	await get_tree().create_timer(0.08).timeout
+		
+	change_opacity(p_area.get_overlapping_areas().size() > 0)
+	
 
 func _ready() -> void:
 	_letter_show_timer.one_shot = true
@@ -64,6 +88,16 @@ func _ready() -> void:
 	bubble.visible = false
 	bubble.modulate = Color(Color.WHITE, 0.0)
 	label.scale = Vector2(0.95,1.0)
+	
+	area.area_entered.connect(_on_area_interacted)
+	area.area_exited.connect(_on_area_interacted)
+		
+	label.resized.connect(func():
+		bubble.size = label.size + _BUBBLE_MARGIN
+		colli_shape.size = label.size + _BUBBLE_MARGIN + (Vector2.ONE * 10.0)
+		area.position.x = (colli_shape.size.x / 2.0) + 30.0
+		)
+	
 	
 	if chibi_boko && animate && !sleep:
 		GameLogic.body_entered_starpoint.connect(func():
@@ -120,8 +154,18 @@ func _ready() -> void:
 		show_text(info_text)
 
 
-func _process(_delta: float) -> void:
-	bubble.size = label.size + _BUBBLE_MARGIN
+	#bubble.size = label.size + _BUBBLE_MARGIN
+	#colli_shape.size = label.size + _BUBBLE_MARGIN + (Vector2.ONE * 10.0)
+	#area.position.x = (colli_shape.size.x / 2.0) + 30.0
+	
+	#print(!area.get_overlapping_areas().is_empty())
+	#
+	### Might be a bad way to do it....
+	#if !area.get_overlapping_areas().is_empty():
+		#modulate = Color(Color.WHITE, 0.5)
+	#else:
+		#modulate = Color(Color.WHITE, 1.0)
+
 
 
 func close() -> void:
@@ -143,7 +187,7 @@ func show_text(text_to_show: String) -> void:
 	
 	current_text = text_to_show
 	label.text = " " + current_text
-	displayed_text = label.get_parsed_text()
+	displayed_text = label.text
 	
 	label.visible_characters = 0
 	label.size = Vector2.ZERO

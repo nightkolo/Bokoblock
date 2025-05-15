@@ -59,6 +59,8 @@ tile_set = ExtResource("5_ygujh")
 
 [node name="ChibiBoko" parent="SW" instance=ExtResource("8_slcxx")]
 position = Vector2(382, 562)
+info_text = "Make all the
+ Blocks happy!"
 
 [node name="LO" type="Node2D" parent="."]
 script = ExtResource("6_fq2h7")

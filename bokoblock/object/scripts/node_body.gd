@@ -16,8 +16,9 @@ signal child_block_exited_one_col_wall()
 @export var movement_strength: int = 1
 @export_range(-4, 4) var turning_strength: int = 1
 @export var no_move: bool = false
+@export var no_undo: bool = false
 @export var no_turn_delay: bool = false
-@export_range(0.0, 1.0, 0.025, "or_greater") var movement_time: float = 0.08
+#@export_range(0.0, 1.0, 0.025, "or_greater") var movement_time: float = 0.08
 @export_group("Modify")
 @export var animator: BokobodyAnimationComponent ## @deprecated
 @export var SFX: BokobodyAudio ## @deprecated
@@ -51,6 +52,7 @@ var is_turning: bool:
 			_has_stopped()
 		is_turning = value
 
+var movement_time: float = 0.08
 var _tween_move: Tween
 var _tween_turn: Tween
 var _current_last_transform
@@ -146,7 +148,11 @@ func check_state() -> void:
 	
 func undo() -> void:
 	#print_debug(transforms_made)
-	
+	if no_undo:
+		await get_tree().create_timer(0.1).timeout
+		GameLogic.body_stopped.emit(self)
+		return
+		
 	if transforms_made.is_empty():
 		await get_tree().create_timer(0.1).timeout
 		GameLogic.body_stopped.emit(self)
@@ -188,7 +194,7 @@ func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true
 	GameUtil.reset_tween(_tween_turn)
 	_tween_turn = create_tween()
 	_tween_turn.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	_tween_turn.tween_property(self,"rotation_degrees",rotation_degrees + turn_to,movement_time*4.0)
+	_tween_turn.tween_property(self,"rotation_degrees",rotation_degrees + turn_to,movement_time*6.0)
 	
 	await _tween_turn.finished
 	
@@ -274,7 +280,7 @@ func stop_turning() -> void:
 	
 	_tween_turn = create_tween()
 	_tween_turn.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
-	_tween_turn.tween_property(self,"rotation_degrees",_old_rot,movement_time*2.0)
+	_tween_turn.tween_property(self,"rotation_degrees",_old_rot,movement_time)
 	await _tween_turn.finished
 	
 	is_actually_turning = false
