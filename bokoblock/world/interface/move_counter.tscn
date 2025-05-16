@@ -1,19 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://brk4cu2psqw0k"]
+[gd_scene load_steps=4 format=3 uid="uid://brk4cu2psqw0k"]
 
 [ext_resource type="Script" path="res://world/interface/move_counter.gd" id="1_mbsn3"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_dj45t"]
-font_size = 32
+[ext_resource type="Texture2D" uid="uid://d30sfyudfk5ns" path="res://assets/interface/move-counter-yellow-01.png" id="2_mg6a1"]
+[ext_resource type="LabelSettings" uid="uid://cwe4ne8tatw7p" path="res://core/resources/ui/label_set_move_counter.tres" id="3_a6lvy"]
 
 [node name="MoveCounter" type="Node2D"]
 script = ExtResource("1_mbsn3")
 
-[node name="Label" type="Label" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_mg6a1")
+
+[node name="Label" type="Label" parent="Node2D"]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = -27.5
+offset_right = 27.0
+offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(27, 0)
 size_flags_horizontal = 4
 text = "000"
-label_settings = SubResource("LabelSettings_dj45t")
+label_settings = ExtResource("3_a6lvy")
+horizontal_alignment = 1

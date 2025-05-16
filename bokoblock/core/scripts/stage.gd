@@ -53,6 +53,8 @@ var _moves_counted: int = 0:
 		
 		if move_counter:
 			move_counter.label.text = str(absi(moves_counted))
+			move_counter.label.pivot_offset = move_counter.label.size/2.0
+			move_counter.anim_increment()
 		
 		if !yellowed && is_yellow_starred:
 			move_counter_threshold_passed.emit(true)
@@ -90,8 +92,12 @@ func _ready() -> void:
 	
 	moves_counted = moves_threshold
 	
-	move_counter_threshold_passed.connect(func(_has_passed: bool):
-		pass
+	move_counter_threshold_passed.connect(func(has_passed: bool):
+		if move_counter:
+			if has_passed:
+				move_counter.anim_purple_starred()
+			else:
+				move_counter.anim_yellow_starred()
 		)
 	
 	GameLogic.state_checked.connect(func():

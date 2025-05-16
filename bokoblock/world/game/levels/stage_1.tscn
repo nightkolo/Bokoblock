@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://bhc6i68yuyepe"]
+[gd_scene load_steps=22 format=4 uid="uid://bhc6i68yuyepe"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_e763k"]
 [ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_6br58"]
@@ -15,6 +15,10 @@
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_g4uye"]
 [ext_resource type="Texture2D" uid="uid://cuibm0pkclu2y" path="res://assets/objects/starpoint-v06.png" id="10_pdo22"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_vh82p"]
+[ext_resource type="Texture2D" uid="uid://dai3ojk6d7kg8" path="res://assets/interface/input-prompt-d.png" id="11_0pirl"]
+[ext_resource type="Texture2D" uid="uid://qxxh2gs5beri" path="res://assets/interface/input-prompt-s.png" id="12_ww473"]
+[ext_resource type="Texture2D" uid="uid://0mhygjiao6gq" path="res://assets/interface/input-prompt-w.png" id="13_vwdov"]
+[ext_resource type="Texture2D" uid="uid://b3t86u61yy44r" path="res://assets/interface/input-prompt-a.png" id="14_x7eoo"]
 
 [sub_resource type="FontVariation" id="FontVariation_yc1pk"]
 spacing_top = -6
@@ -86,6 +90,7 @@ offset_bottom = 590.0
 color = Color(1, 1, 1, 0.384314)
 
 [node name="InfoBox" type="Label" parent="LW/ColorRect"]
+visible = false
 layout_mode = 0
 offset_left = 18.0
 offset_top = 20.0
@@ -95,6 +100,25 @@ text = "WASD
 to move"
 label_settings = SubResource("LabelSettings_hlv3p")
 horizontal_alignment = 1
+
+[node name="Node2D" type="Node2D" parent="LW/ColorRect"]
+position = Vector2(81, 70)
+scale = Vector2(0.5, 0.5)
+
+[node name="Input-prompt-d" type="Sprite2D" parent="LW/ColorRect/Node2D"]
+position = Vector2(74, 0)
+texture = ExtResource("11_0pirl")
+
+[node name="Input-prompt-s" type="Sprite2D" parent="LW/ColorRect/Node2D"]
+texture = ExtResource("12_ww473")
+
+[node name="Input-prompt-w" type="Sprite2D" parent="LW/ColorRect/Node2D"]
+position = Vector2(0, -74)
+texture = ExtResource("13_vwdov")
+
+[node name="Input-promt-a" type="Sprite2D" parent="LW/ColorRect/Node2D"]
+position = Vector2(-74, 0)
+texture = ExtResource("14_x7eoo")
 
 [node name="Starpoint" parent="LW" instance=ExtResource("10_vh82p")]
 position = Vector2(353, 376)

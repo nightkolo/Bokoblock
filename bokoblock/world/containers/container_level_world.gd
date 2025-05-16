@@ -22,7 +22,7 @@ enum StageWorldBGColorPreset {
 @export var randomize_background_effect: bool = false
 # TODO: fix background effect zoom
 @export var background_effect: GameUtil.BackgroundEffect = GameUtil.BackgroundEffect.SCROLL
-@export var background_color: StageWorldBGColorPreset
+@export var background_color: StageWorldBGColorPreset = StageWorldBGColorPreset.DARK_BLUE
 @export var checkerboard_color: Color = Color(Color.WHITE / 1.3, 1.0)
 @export_group("Modify")
 @export var apply_modifications: bool = true

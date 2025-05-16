@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://lgffitdp3bb5"]
+[gd_scene load_steps=17 format=4 uid="uid://lgffitdp3bb5"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_377xv"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_1vhod"]
@@ -15,10 +15,12 @@
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_p00od"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_621oc"]
 [ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_idkdj"]
+[ext_resource type="Texture2D" uid="uid://cix1ph8yxv66f" path="res://assets/interface/speech-bubble-02.png" id="16_h2tqx"]
 
 [node name="S4" type="Node2D" node_paths=PackedStringArray("move_counter")]
 script = ExtResource("1_377xv")
 win_condition = 1
+moves_threshold = 5
 move_counter = NodePath("StageWord/MoveCounter")
 
 [node name="UI" parent="." instance=ExtResource("2_ef04p")]
@@ -127,3 +129,16 @@ boko_color = 1
 [node name="Block3" parent="StageObjects/Bokobody2" instance=ExtResource("8_dcm4r")]
 position = Vector2(0, 45)
 boko_color = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+visible = false
+offset_left = 293.0
+offset_top = 248.0
+offset_right = 339.0
+offset_bottom = 294.0
+texture = ExtResource("16_h2tqx")
+region_rect = Rect2(0, 0, 138, 138)
+patch_margin_left = 23
+patch_margin_top = 23
+patch_margin_right = 23
+patch_margin_bottom = 23
