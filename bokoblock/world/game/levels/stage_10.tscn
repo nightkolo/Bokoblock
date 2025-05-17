@@ -129,3 +129,6 @@ boko_color = 1
 
 [node name="SleepingBlock" parent="StageObjects" instance=ExtResource("18_dsnfl")]
 position = Vector2(158, 293)
+
+[node name="SleepingBlock2" parent="StageObjects" instance=ExtResource("18_dsnfl")]
+position = Vector2(158, 338)

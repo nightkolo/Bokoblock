@@ -16,7 +16,7 @@ signal child_block_exited_one_col_wall()
 @export var movement_strength: int = 1
 @export_range(-4, 4) var turning_strength: int = 1
 @export var no_move: bool = false
-@export var no_undo: bool = false
+@export var no_undo: bool = true
 @export var no_turn_delay: bool = false
 #@export_range(0.0, 1.0, 0.025, "or_greater") var movement_time: float = 0.08
 @export_group("Modify")
@@ -52,6 +52,15 @@ var is_turning: bool:
 			_has_stopped()
 		is_turning = value
 
+var is_on_one_way_wall: bool:
+	set(value):
+		if value && !GameLogic.state_checked.is_connected(_on_one_way_wall):
+			GameLogic.state_checked.connect(_on_one_way_wall)
+		
+		is_on_one_way_wall = value
+var is_one_way_wall: OneColorWalls2
+
+
 var movement_time: float = 0.08
 var _tween_move: Tween
 var _tween_turn: Tween
@@ -59,6 +68,35 @@ var _current_last_transform
 var _can_set_record: bool
 var _old_pos: Vector2
 var _old_rot: float
+
+
+
+func _on_one_way_wall() -> void:
+	is_on_one_way_wall = check_if_exited(child_blocks)
+	
+	#print_rich("[font_size=66] " + str(check_if_exited(child_blocks)))
+	
+	if !is_on_one_way_wall:
+		var index_to_rem := is_one_way_wall.bodies_entered.find(self)
+		
+		is_one_way_wall.bodies_entered.remove_at(index_to_rem)
+		is_one_way_wall = null
+		child_block_exited_one_col_wall.emit()
+		
+		GameLogic.state_checked.disconnect(_on_one_way_wall)
+
+
+func check_if_exited(blocks: Array[Bokoblock]) -> bool:
+	#print_debug(child_blocks)
+	
+	for block: Bokoblock in blocks:
+		#print_debug(block.get_overlapping_areas())
+		#print_rich("[font_size=44] " + str(is_one_way_wall in block.get_overlapping_areas()))
+		
+		if is_one_way_wall in block.get_overlapping_areas():
+			return true
+			
+	return false
 
 
 func _ready() -> void:
@@ -123,6 +161,8 @@ func _setup_node() -> void:
 	position -= (Vector2.ONE * GameUtil.TILE_SIZE) / 2.0
 	
 	if show_light:
+		await get_tree().create_timer(0.1).timeout
+		
 		var light: PointLight2D = light_glow.instantiate() as PointLight2D
 		light.scale = light_scale
 		add_child(light)
@@ -193,8 +233,8 @@ func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true
 		
 	GameUtil.reset_tween(_tween_turn)
 	_tween_turn = create_tween()
-	_tween_turn.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	_tween_turn.tween_property(self,"rotation_degrees",rotation_degrees + turn_to,movement_time*6.0)
+	_tween_turn.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	_tween_turn.tween_property(self,"rotation_degrees",rotation_degrees + turn_to,movement_time*4.0)
 	
 	await _tween_turn.finished
 	
@@ -208,7 +248,7 @@ func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true
 	if disable_colli: # Doing a check to avoid runtime slowdown
 		_disable_colli(false)
 	
-	await _turn_delay()
+	#await _turn_delay()
 	is_turning = false
 	normalize_bokobody_rotation()
 
@@ -290,7 +330,7 @@ func stop_turning() -> void:
 		#turns_made.push_front(0.0)
 		#transforms_made.push_front(0.0)
 		
-	await _turn_delay()
+	#await _turn_delay()
 	normalize_bokobody_rotation()
 	is_turning = false
 
@@ -355,7 +395,7 @@ func _turn_delay() -> void:
 	if no_turn_delay:
 		await get_tree().create_timer(0.0).timeout
 	else:
-		await get_tree().create_timer(movement_time*1.75).timeout
+		await get_tree().create_timer(0.0).timeout
 
 
 func _disable_colli(disable: bool) -> void:

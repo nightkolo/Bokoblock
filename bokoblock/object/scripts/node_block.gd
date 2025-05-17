@@ -34,6 +34,7 @@ var limit_eye_movement: bool = true
 var texture_eyes: Texture2D
 
 
+
 func _ready() -> void:
 	_setup_node()
 	check_state()

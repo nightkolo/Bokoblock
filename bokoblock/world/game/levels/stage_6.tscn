@@ -57,9 +57,8 @@ tile_set = ExtResource("5_ffj0r")
 
 [node name="ChibiBoko" parent="StageWorld" instance=ExtResource("8_1yyig")]
 position = Vector2(472, 488)
-info_text = "Angry Blocks,
- They're still happy
- on Starpoints though."
+info_text = "Angry Blocks have
+ an attitude..."
 
 [node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_xbn48")]
 position = Vector2(293, 538)

@@ -49,7 +49,7 @@ var _moves_counted: int = 0:
 		_moves_counted = counted
 		moves_counted = moves_threshold - counted
 		
-		print(_moves_counted)
+		#print(_moves_counted)
 		
 		if move_counter:
 			move_counter.label.text = str(absi(moves_counted))

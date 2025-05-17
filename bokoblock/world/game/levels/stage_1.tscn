@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://bhc6i68yuyepe"]
+[gd_scene load_steps=28 format=4 uid="uid://bhc6i68yuyepe"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_e763k"]
 [ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_6br58"]
@@ -13,19 +13,25 @@
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="8_6h2g5"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_bs8w4"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_g4uye"]
-[ext_resource type="Texture2D" uid="uid://cuibm0pkclu2y" path="res://assets/objects/starpoint-v06.png" id="10_pdo22"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_vh82p"]
 [ext_resource type="Texture2D" uid="uid://dai3ojk6d7kg8" path="res://assets/interface/input-prompt-d.png" id="11_0pirl"]
 [ext_resource type="Texture2D" uid="uid://qxxh2gs5beri" path="res://assets/interface/input-prompt-s.png" id="12_ww473"]
+[ext_resource type="Script" path="res://world/interface/input_prompt.gd" id="13_d2w5s"]
 [ext_resource type="Texture2D" uid="uid://0mhygjiao6gq" path="res://assets/interface/input-prompt-w.png" id="13_vwdov"]
 [ext_resource type="Texture2D" uid="uid://b3t86u61yy44r" path="res://assets/interface/input-prompt-a.png" id="14_x7eoo"]
+[ext_resource type="Texture2D" uid="uid://ckrarv4ttydrq" path="res://assets/interface/input-prompt-right.png" id="15_1tnqv"]
+[ext_resource type="Texture2D" uid="uid://d31smfl16gw8p" path="res://assets/interface/speech-bubble-starpoint.png" id="15_q24ub"]
+[ext_resource type="Script" path="res://world/interface/bubble_speech_starpoint.gd" id="16_1ejpo"]
+[ext_resource type="Texture2D" uid="uid://dvthxugxlg2t8" path="res://assets/interface/input-prompt-down.png" id="16_o2fyv"]
+[ext_resource type="Texture2D" uid="uid://b7vkjf4qgn1nw" path="res://assets/interface/input-prompt-up.png" id="17_aqyli"]
+[ext_resource type="Texture2D" uid="uid://b818lk06ijvd0" path="res://assets/interface/input-prompt-left.png" id="18_vigjr"]
 
-[sub_resource type="FontVariation" id="FontVariation_yc1pk"]
+[sub_resource type="FontVariation" id="FontVariation_f2h3v"]
 spacing_top = -6
 spacing_bottom = -6
 
 [sub_resource type="LabelSettings" id="LabelSettings_hlv3p"]
-font = SubResource("FontVariation_yc1pk")
+font = SubResource("FontVariation_f2h3v")
 font_size = 24
 
 [node name="S1" type="Node2D"]
@@ -40,7 +46,6 @@ position = Vector2(520, 382)
 zoom = Vector2(1.25, 1.25)
 
 [node name="LW" parent="." instance=ExtResource("3_jha47")]
-randomize_background_effect = false
 
 [node name="PointLight2D" type="PointLight2D" parent="LW"]
 position = Vector2(608, 383)
@@ -60,7 +65,7 @@ tile_set = ExtResource("5_juify")
 [node name="Checkerboard" type="TileMapLayer" parent="LW/TM"]
 self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
 light_mask = 2
-tile_map_data = PackedByteArray("AAAKAAYABgACAAIAAAAKAAcABgACAAMAAAAKAAgABgACAAIAAAAKAAkABgADAAAAAAAKAAoABgADAAEAAAAKAAsABgADAAIAAAAKAAwABgADAAMAAAALAAYABgADAAIAAAALAAcABgADAAMAAAALAAgABgADAAIAAAALAAkABgAAAAAAAAALAAoABgAAAAEAAAALAAsABgAAAAIAAAALAAwABgAAAAMAAAAMAAYABgABAAEAAAAMAAcABgABAAIAAAAMAAgABgABAAMAAAAMAAkABgABAAAAAAAMAAoABgABAAEAAAAMAAsABgABAAIAAAAMAAwABgABAAMAAAANAAYABgACAAEAAAANAAcABgACAAIAAAANAAgABgACAAMAAAANAAkABgACAAAAAAANAAoABgACAAEAAAANAAsABgACAAIAAAANAAwABgACAAMAAAAOAAYABgADAAEAAAAOAAcABgADAAIAAAAOAAgABgADAAMAAAAOAAkABgADAAAAAAAOAAoABgADAAEAAAAOAAsABgADAAIAAAAOAAwABgADAAMAAAAPAAcABgACAAIAAAAPAAgABgACAAMAAAAQAAcABgADAAIAAAAQAAgABgADAAMAAAAPAAUABgACAAIAAAAPAAYABgACAAMAAAAQAAUABgADAAIAAAAQAAYABgADAAMAAAANAAQABgACAAEAAAANAAUABgACAAIAAAAOAAQABgADAAEAAAAOAAUABgADAAIAAAAPAAQABgACAAEAAAAQAAQABgADAAEAAAA=")
+tile_map_data = PackedByteArray("AAAKAAYABwAAAAIAAAAKAAcABwAAAAMAAAAKAAgABwAAAAAAAAAKAAkABwAAAAEAAAAKAAoABwAAAAIAAAAKAAsABwAAAAMAAAAKAAwABwAAAAAAAAALAAYABwABAAIAAAALAAcABwABAAMAAAALAAgABwABAAAAAAALAAkABwABAAEAAAALAAoABwABAAIAAAALAAsABwABAAMAAAALAAwABwABAAAAAAAMAAYABwACAAIAAAAMAAcABwACAAMAAAAMAAgABwACAAAAAAAMAAkABwACAAEAAAAMAAoABwACAAIAAAAMAAsABwACAAMAAAAMAAwABwACAAAAAAANAAYABwADAAIAAAANAAcABwADAAMAAAANAAgABwADAAAAAAANAAkABwADAAEAAAANAAoABwADAAIAAAANAAsABwADAAMAAAANAAwABwADAAAAAAAOAAYABwAAAAIAAAAOAAcABwAAAAMAAAAOAAgABwAAAAAAAAAOAAkABwAAAAEAAAAOAAoABwAAAAIAAAAOAAsABwAAAAMAAAAOAAwABwAAAAAAAAAPAAcABwABAAMAAAAPAAgABwABAAAAAAAQAAcABwACAAMAAAAQAAgABwACAAAAAAAPAAUABwABAAEAAAAPAAYABwABAAIAAAAQAAUABwACAAEAAAAQAAYABwACAAIAAAANAAQABwADAAAAAAANAAUABwADAAEAAAAOAAQABwAAAAAAAAAOAAUABwAAAAEAAAAPAAQABwABAAAAAAAQAAQABwACAAAAAAA=")
 tile_set = ExtResource("5_juify")
 
 [node name="Outline" type="TileMapLayer" parent="LW/TM"]
@@ -73,56 +78,77 @@ info_text = "Land the
  Body on
  the        Starpoints!"
 
-[node name="MoveCounter" type="Node2D" parent="LW"]
-position = Vector2(743, 473)
+[node name="Info" type="Node2D" parent="LW"]
+position = Vector2(245, 474)
 
-[node name="Sprite2D" type="Sprite2D" parent="LW"]
-visible = false
-position = Vector2(348, 370)
-scale = Vector2(0.375, 0.375)
-texture = ExtResource("10_pdo22")
+[node name="Starpoint" type="Sprite2D" parent="LW/Info"]
+position = Vector2(107, -104)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_q24ub")
+script = ExtResource("16_1ejpo")
 
-[node name="ColorRect" type="ColorRect" parent="LW"]
-offset_left = 245.0
-offset_top = 491.0
-offset_right = 405.0
-offset_bottom = 590.0
-color = Color(1, 1, 1, 0.384314)
+[node name="InputPrompts" type="Node2D" parent="LW/Info" node_paths=PackedStringArray("top_hat_man")]
+modulate = Color(1, 0.79, 1, 1)
+position = Vector2(66, -42)
+script = ExtResource("13_d2w5s")
+top_hat_man = NodePath("../../ChibiBoko")
 
-[node name="InfoBox" type="Label" parent="LW/ColorRect"]
-visible = false
-layout_mode = 0
-offset_left = 18.0
-offset_top = 20.0
-offset_right = 142.0
-offset_bottom = 81.0
-text = "WASD
-to move"
+[node name="InfoBox" type="Label" parent="LW/Info/InputPrompts"]
+offset_top = 89.0
+offset_right = 124.0
+offset_bottom = 161.0
+text = "Move"
 label_settings = SubResource("LabelSettings_hlv3p")
 horizontal_alignment = 1
 
-[node name="Node2D" type="Node2D" parent="LW/ColorRect"]
-position = Vector2(81, 70)
+[node name="Node2D" type="Node2D" parent="LW/Info/InputPrompts"]
+position = Vector2(61, 67)
 scale = Vector2(0.5, 0.5)
 
-[node name="Input-prompt-d" type="Sprite2D" parent="LW/ColorRect/Node2D"]
+[node name="Input-prompt-d" type="Sprite2D" parent="LW/Info/InputPrompts/Node2D"]
 position = Vector2(74, 0)
 texture = ExtResource("11_0pirl")
 
-[node name="Input-prompt-s" type="Sprite2D" parent="LW/ColorRect/Node2D"]
+[node name="Input-prompt-s" type="Sprite2D" parent="LW/Info/InputPrompts/Node2D"]
 texture = ExtResource("12_ww473")
 
-[node name="Input-prompt-w" type="Sprite2D" parent="LW/ColorRect/Node2D"]
+[node name="Input-prompt-w" type="Sprite2D" parent="LW/Info/InputPrompts/Node2D"]
 position = Vector2(0, -74)
 texture = ExtResource("13_vwdov")
 
-[node name="Input-promt-a" type="Sprite2D" parent="LW/ColorRect/Node2D"]
+[node name="Input-promt-a" type="Sprite2D" parent="LW/Info/InputPrompts/Node2D"]
 position = Vector2(-74, 0)
 texture = ExtResource("14_x7eoo")
 
-[node name="Starpoint" parent="LW" instance=ExtResource("10_vh82p")]
-position = Vector2(353, 376)
-scale = Vector2(0.75, 0.75)
+[node name="InfoBox2" type="Label" parent="LW/Info/InputPrompts"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = -38.0
+offset_top = 139.0
+offset_right = 86.0
+offset_bottom = 211.0
+text = "or"
+label_settings = SubResource("LabelSettings_hlv3p")
+horizontal_alignment = 1
+
+[node name="Node2D2" type="Node2D" parent="LW/Info/InputPrompts"]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(83, 151)
+scale = Vector2(0.3, 0.3)
+
+[node name="Input-prompt-right" type="Sprite2D" parent="LW/Info/InputPrompts/Node2D2"]
+position = Vector2(74, 0)
+texture = ExtResource("15_1tnqv")
+
+[node name="Input-prompt-down" type="Sprite2D" parent="LW/Info/InputPrompts/Node2D2"]
+texture = ExtResource("16_o2fyv")
+
+[node name="Input-prompt-up" type="Sprite2D" parent="LW/Info/InputPrompts/Node2D2"]
+position = Vector2(0, -74)
+texture = ExtResource("17_aqyli")
+
+[node name="Input-promt-left" type="Sprite2D" parent="LW/Info/InputPrompts/Node2D2"]
+position = Vector2(-74, 0)
+texture = ExtResource("18_vigjr")
 
 [node name="LO" type="Node2D" parent="."]
 script = ExtResource("6_5iy4h")

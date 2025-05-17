@@ -31,7 +31,7 @@ func _process(_delta: float) -> void:
 func _setup_node() -> void:
 	check_satisfaction()
 	anim_pulse()
-	anim_star()
+	anim_idle()
 	
 	if sprite_star:
 		sprite_star.self_modulate = GameUtil.set_boko_color(what_im_happy_with)
@@ -58,7 +58,7 @@ func check_satisfaction() -> bool:
 	return value
 
 
-func anim_star() -> void:
+func anim_idle() -> void:
 	if sprite_star:
 		var dur := 2.0
 		

@@ -8,8 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://bge3n81uhhjjg" path="res://audio/sounds/speech_sound.ogg" id="6_aohk3"]
 
 [sub_resource type="FontVariation" id="FontVariation_pgd5m"]
-spacing_top = -4
-spacing_bottom = -4
+spacing_top = -5
+spacing_bottom = -5
 
 [sub_resource type="LabelSettings" id="LabelSettings_r36co"]
 font = SubResource("FontVariation_pgd5m")

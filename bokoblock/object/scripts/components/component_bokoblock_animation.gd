@@ -217,7 +217,7 @@ func anim_hit_block(transformed_to) -> void:
 	match typeof(transformed_to):
 		
 		Variant.Type.TYPE_FLOAT: # Turn
-			anim_to = Vector2.ONE/1.75
+			anim_to = Vector2.ONE/1.25
 			
 			GameUtil.reset_tween(tween_move)
 			GameUtil.reset_tween(tween_hit_block)
@@ -228,8 +228,8 @@ func anim_hit_block(transformed_to) -> void:
 			tween_hit_block.tween_property(block.sprite_node_2,"scale",Vector2.ONE,dur/1.1).set_trans(Tween.TRANS_ELASTIC)
 			
 		Variant.Type.TYPE_VECTOR2: # Move
-			var high := 1.2
-			var low := 0.8
+			var high := 1.1
+			var low := 0.9
 			var squash : float
 			var stretch : float
 
@@ -360,7 +360,7 @@ func anim_entered_starpoint() -> void:
 	if tween_starpoint:
 		tween_starpoint.kill()
 	
-	block.sprite_node_1.scale = Vector2.ZERO
+	block.sprite_node_1.scale = Vector2.ONE / 2.0
 	
 	tween_starpoint = create_tween().set_parallel(true)
 	tween_starpoint.set_ease(Tween.EASE_OUT)
@@ -369,16 +369,16 @@ func anim_entered_starpoint() -> void:
 		
 
 func anim_exited_starpoint() -> void:
-	var dur: float = 1.0
+	var dur: float = 0.5
 	
 	block.sprite_eyes.texture = block.texture_eyes
-	block.sprite_node_1.scale = Vector2.ONE / 2.0
+	block.sprite_node_1.scale = Vector2.ONE / 1.5
 	
 	if tween_starpoint:
 		tween_starpoint.kill()
 	tween_starpoint = create_tween().set_parallel(true)
 	tween_starpoint.set_ease(Tween.EASE_OUT)
-	tween_starpoint.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_ELASTIC)
+	tween_starpoint.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
 	tween_starpoint.tween_property(block.sprite_node_1,"modulate",Color(Color.WHITE),dur/4.0)
 
 

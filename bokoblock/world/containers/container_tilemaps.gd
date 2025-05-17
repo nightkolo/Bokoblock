@@ -29,6 +29,9 @@ func _setup_nodes() -> void:
 			return
 		
 		(child_tilemaps[0] as TileMapLayer).visible = parent_level_world.show_collision_tilemap
+		(child_tilemaps[1] as TileMapLayer).visible = !parent_level_world.show_collision_tilemap
+		(child_tilemaps[2] as TileMapLayer).visible = !parent_level_world.show_collision_tilemap
+		
 		
 		(child_tilemaps[1] as TileMapLayer).self_modulate = parent_level_world.checkerboard_color
 		(child_tilemaps[1] as TileMapLayer).light_mask = 2
