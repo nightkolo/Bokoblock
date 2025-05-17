@@ -16,8 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_qe4yq"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_stvqs"]
 [ext_resource type="PackedScene" uid="uid://bmld4h85gfbc1" path="res://object/objects/one_color_wall_02.tscn" id="13_si2pf"]
-[ext_resource type="Script" path="res://world/game/levels/test_one_color_walls.gd" id="16_1c7qc"]
-[ext_resource type="Script" path="res://world/game/levels/test_one_color_wall.gd" id="17_gyaad"]
+[ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="16_1c7qc"]
+[ext_resource type="Script" path="res://object/scripts/obj_one_color_wall.gd" id="17_gyaad"]
 [ext_resource type="Texture2D" uid="uid://bff5brsyoo0i2" path="res://assets/objects/one-color-wall-v03.png" id="18_sb53d"]
 [ext_resource type="Texture2D" uid="uid://c4i4qyjwbbeo6" path="res://assets/world/one-color-wall-ghost-v01.png" id="19_e4ssb"]
 

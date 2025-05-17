@@ -84,6 +84,14 @@ what_im_happy_with = 1
 position = Vector2(473, 338)
 what_im_happy_with = 1
 
+[node name="Endpoint8" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(428, 338)
+what_im_happy_with = 1
+
+[node name="Endpoint9" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
+position = Vector2(473, 518)
+what_im_happy_with = 1
+
 [node name="Endpoint6" parent="StageObjects/Endpoints" instance=ExtResource("10_621oc")]
 position = Vector2(518, 338)
 what_im_happy_with = 1

@@ -15,6 +15,7 @@ func start_game() -> void:
 	start_btn.disabled = true
 	GameMgr.self_destruct()
 	GameLogic.self_destruct()
-	await get_tree().create_timer(0.5).timeout
 	
-	get_tree().change_scene_to_file("res://world/game/levels/stage_1.tscn")
+	get_tree().change_scene_to_packed(load("res://interface/menus/loading_screen.tscn"))
+	#get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")
+	

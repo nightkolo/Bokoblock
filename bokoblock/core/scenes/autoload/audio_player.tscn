@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bnsy5pe5wp0l7"]
+[gd_scene load_steps=31 format=3 uid="uid://bnsy5pe5wp0l7"]
 
 [ext_resource type="Script" path="res://core/scripts/system_audio.gd" id="1_ukka2"]
 [ext_resource type="AudioStream" uid="uid://cej2m55vuaqcf" path="res://audio/music/1370709_Celestial-Canopy.mp3" id="2_lagqa"]
@@ -17,8 +17,10 @@
 [ext_resource type="AudioStream" uid="uid://bcf6mjnff7d6p" path="res://audio/import/stage_win.wav" id="15_yp5gw"]
 [ext_resource type="AudioStream" uid="uid://3iyykkm2ueb5" path="res://audio/import/block_turning_sound.ogg" id="16_2krml"]
 [ext_resource type="AudioStream" uid="uid://cyt64migbxu4j" path="res://audio/import/body_happy_01.ogg" id="17_dw84y"]
+[ext_resource type="AudioStream" uid="uid://uvsonmjvt8am" path="res://audio/import/block_moving_02.ogg" id="17_k7hjh"]
+[ext_resource type="AudioStream" uid="uid://drs4uchj08t3h" path="res://audio/import/block_moving_03.ogg" id="18_16tqr"]
 [ext_resource type="AudioStream" uid="uid://bisevjiuqtirf" path="res://audio/import/body_happy_02.ogg" id="18_n8avh"]
-[ext_resource type="AudioStream" uid="uid://c4cdbcvyxs8qn" path="res://audio/import/tone1.ogg" id="23_qjknr"]
+[ext_resource type="AudioStream" uid="uid://brmvthaahs7s0" path="res://audio/import/block_moving_04.ogg" id="19_1ty8t"]
 [ext_resource type="AudioStream" uid="uid://bf3xiw2oyab3x" path="res://audio/import/block_turn_stopped_02.ogg" id="26_y6kkm"]
 [ext_resource type="AudioStream" uid="uid://cehov6qshtwb0" path="res://audio/import/Menu1B.wav" id="30_gb0y4"]
 [ext_resource type="AudioStream" uid="uid://docycrfyl4gsb" path="res://audio/import/Menu1A.wav" id="31_08we3"]
@@ -72,6 +74,7 @@ bus = &"UISound"
 
 [node name="GamePaused" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("3_6powf")
+volume_db = -10.0
 bus = &"UISound"
 
 [node name="GameReset01" type="AudioStreamPlayer" parent="UI"]
@@ -116,18 +119,32 @@ stream = ExtResource("32_0omil")
 volume_db = -15.0
 bus = &"GameSound"
 
+[node name="BlockMoving" type="Node" parent="SFX/StarpointWrong"]
+
+[node name="BlockMoving" type="AudioStreamPlayer" parent="SFX/StarpointWrong/BlockMoving"]
+stream = ExtResource("17_k7hjh")
+volume_db = -25.0
+bus = &"GameSound"
+
+[node name="BlockMoving2" type="AudioStreamPlayer" parent="SFX/StarpointWrong/BlockMoving"]
+stream = ExtResource("18_16tqr")
+volume_db = -25.0
+bus = &"GameSound"
+
+[node name="BlockMoving3" type="AudioStreamPlayer" parent="SFX/StarpointWrong/BlockMoving"]
+stream = ExtResource("19_1ty8t")
+volume_db = -25.0
+bus = &"GameSound"
+
 [node name="StarpointExit" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("30_gb0y4")
-volume_db = -15.0
+stream = ExtResource("14_hrjcq")
+volume_db = -20.0
 bus = &"GameSound"
 
 [node name="StarpointEnter1" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("31_08we3")
-volume_db = -30.0
-
-[node name="StarpointEnter2" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("31_08we3")
-volume_db = -30.0
+volume_db = -15.0
+bus = &"GameSound"
 
 [node name="BodyHappy01" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("17_dw84y")
@@ -139,34 +156,29 @@ stream = ExtResource("18_n8avh")
 volume_db = -30.0
 bus = &"GameSound"
 
-[node name="BlockMoving" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("23_qjknr")
-volume_db = -80.0
-bus = &"GameSound"
-
 [node name="BlockTurnHit" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("26_y6kkm")
-volume_db = -40.0
+volume_db = -26.0
 bus = &"GameSound"
 
 [node name="BlockMoveHit" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("33_igb24")
-volume_db = -40.0
+volume_db = -30.0
 bus = &"GameSound"
 
 [node name="BlockTurningSound" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("16_2krml")
-volume_db = -25.0
+volume_db = -22.5
 bus = &"GameSound"
 
 [node name="BlockTurn1" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("35_lhjwj")
-volume_db = -20.0
+volume_db = -15.0
 bus = &"GameSound"
 
 [node name="BlockTurn2" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("36_wool5")
-volume_db = -20.0
+volume_db = -15.0
 bus = &"GameSound"
 
 [node name="OneWayBlockExit" type="AudioStreamPlayer" parent="SFX"]
@@ -184,12 +196,9 @@ stream = ExtResource("33_7umab")
 volume_db = -20.0
 bus = &"GameSound"
 
-[node name="WrongError" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("33_7umab")
-bus = &"GameSound"
-
 [node name="Error002" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("33_igb24")
+bus = &"GameSound"
 
 [node name="Randoms" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("37_u6waw")

@@ -3,7 +3,6 @@ class_name Bokobody
 
 signal has_moved(moved_to: Vector2)
 signal has_turned(turned_to: float)
-#signal has_undoed()
 signal move_end()
 signal turn_end()
 signal move_stopped()
@@ -18,7 +17,6 @@ signal child_block_exited_one_col_wall()
 @export var no_move: bool = false
 @export var no_undo: bool = true
 @export var no_turn_delay: bool = false
-#@export_range(0.0, 1.0, 0.025, "or_greater") var movement_time: float = 0.08
 @export_group("Modify")
 @export var animator: BokobodyAnimationComponent ## @deprecated
 @export var SFX: BokobodyAudio ## @deprecated
@@ -56,10 +54,8 @@ var is_on_one_way_wall: bool:
 	set(value):
 		if value && !GameLogic.state_checked.is_connected(_on_one_way_wall):
 			GameLogic.state_checked.connect(_on_one_way_wall)
-		
 		is_on_one_way_wall = value
-var is_one_way_wall: OneColorWalls2
-
+var is_one_way_wall: OneColorWalls
 
 var movement_time: float = 0.08
 var _tween_move: Tween
@@ -70,8 +66,7 @@ var _old_pos: Vector2
 var _old_rot: float
 
 
-
-func _on_one_way_wall() -> void:
+func _on_one_way_wall(_have_moved: bool) -> void:
 	is_on_one_way_wall = check_if_exited(child_blocks)
 	
 	#print_rich("[font_size=66] " + str(check_if_exited(child_blocks)))
@@ -105,7 +100,7 @@ func _ready() -> void:
 	if !no_move:
 		GameMgr.current_bodies.append(self)
 		
-		PlayerInput.input_undo.connect(undo)
+		# PlayerInput.input_undo.connect(undo)
 		PlayerInput.input_move.connect(move)
 		PlayerInput.input_turn.connect(turn)
 	
@@ -115,8 +110,8 @@ func _ready() -> void:
 	move_end.connect(check_state)
 	turn_end.connect(check_state)
 	
-	GameLogic.state_checked.connect(func():
-		if GameLogic.we_have_made_a_move:
+	GameLogic.state_checked.connect(func(have_moved: bool):
+		if have_moved:
 			
 			transforms_made.push_front(_current_last_transform)
 			#print_debug(transforms_made)
@@ -186,34 +181,34 @@ func check_state() -> void:
 		is_on_starpoint = false
 
 	
-func undo() -> void:
-	#print_debug(transforms_made)
-	if no_undo:
-		await get_tree().create_timer(0.1).timeout
-		GameLogic.body_stopped.emit(self)
-		return
+# func undo() -> void:
+# 	#print_debug(transforms_made)
+# 	if no_undo:
+# 		await get_tree().create_timer(0.1).timeout
+# 		GameLogic.body_stopped.emit(self)
+# 		return
 		
-	if transforms_made.is_empty():
-		await get_tree().create_timer(0.1).timeout
-		GameLogic.body_stopped.emit(self)
-		return
+# 	if transforms_made.is_empty():
+# 		await get_tree().create_timer(0.1).timeout
+# 		GameLogic.body_stopped.emit(self)
+# 		return
 	
-	var last_move = transforms_made[0]
-	#has_undoed.emit()
+# 	var last_move = transforms_made[0]
+# 	#has_undoed.emit()
 	
-	match typeof(last_move):
+# 	match typeof(last_move):
 		
-		TYPE_VECTOR2:
-			transforms_made.pop_front()
-			await move(last_move * signf(movement_strength) * -1, true, false)
+# 		TYPE_VECTOR2:
+# 			transforms_made.pop_front()
+# 			await move(last_move * signf(movement_strength) * -1, true, false)
 		
-		TYPE_FLOAT:
-			transforms_made.pop_front()
-			await turn(last_move * signf(turning_strength) * -1, true, false)
+# 		TYPE_FLOAT:
+# 			transforms_made.pop_front()
+# 			await turn(last_move * signf(turning_strength) * -1, true, false)
 	
-	#print_debug(transforms_made)
+# 	#print_debug(transforms_made)
 	
-	GameLogic.body_stopped.emit(self)
+# 	GameLogic.body_stopped.emit(self)
 
 
 func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true) -> void:
@@ -226,7 +221,7 @@ func turn(p_turn_to: float, disable_colli: bool = false, set_record: bool = true
 	_old_rot = rotation_degrees
 	_can_set_record = set_record
 
-	var turn_to: float = GameUtil.BOKOBODY_TURN_DEGREE * signf(p_turn_to) * turning_strength
+	var turn_to: float = 90.0 * signf(p_turn_to) * turning_strength
 	
 	if disable_colli: # Doing a check to avoid runtime slowdown
 		_disable_colli(true)
@@ -292,7 +287,7 @@ func stop_moving() -> void:
 	_current_last_transform = Vector2.ZERO
 	
 	move_stopped.emit()
-	GameLogic.body_move_hit.emit()
+	GameLogic.body_hit_move.emit()
 	
 	GameUtil.reset_tween(_tween_move)
 	
@@ -313,7 +308,7 @@ func stop_turning() -> void:
 	_current_last_transform = 0.0
 	
 	turn_stopped.emit()
-	GameLogic.body_turn_hit.emit()
+	GameLogic.body_hit_turn.emit()
 	
 	if _tween_turn:
 		_tween_turn.kill()

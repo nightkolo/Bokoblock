@@ -2,29 +2,29 @@
 extends Node
 
 ## Emitted when a [Bokobody] stops while [b]moving.
-signal body_move_hit()
+signal body_hit_move()
 ## Emitted when a [Bokobody] stops while [b]turning.
-signal body_turn_hit()
+signal body_hit_turn()
 ## Emitted when all [Bokobody]s try to transform/make a move.
 ## [br][br][param transformed_to] is a dynamic variable returning the transformation value (A move, a turn, and undo).
 signal bodies_moved(transformed_to)
-signal bodies_undoed() ## @experimental
 ## Emitted when a [Bokobody] stops,
 ## [br][br][param is_bokobody] returns that [Bokobody].
-signal body_stopped(is_bokobody: Bokobody)
+signal body_stopped(is_body: Bokobody)
 ## Emitted when all [Bokobody]s stop.
 signal bodies_stopped()
-## Emitted when all [Bokobody]s stop, [b]excluding undos.
-signal bodies_stopped_making_move()
 ## Emitted when a [Bokobody] enters a [Starpoint].
 signal body_entered_starpoint()
 ## Emitted when a [Bokobody] exits a [Starpoint].
 signal body_exited_starpoint()
 ## Emitted when the movement state of [Bokobody]s have been checked.
 ## [br][br]Helpful for checking [member we_have_made_a_move].
-signal state_checked()
+signal state_checked(have_moved: bool)
 ## Emitted when the stage is won.
 signal stage_won()
+
+signal bodies_undoed() ## @deprecated
+signal bodies_stopped_making_move() ## @deprecated
 
 enum WinCondition {
 	MATCH_ALL_STARPOINTS = 0,
@@ -40,11 +40,12 @@ static var win_condition: WinCondition
 
 var has_won: bool = false
 var win_checked: bool = true
-## Returns whether at least at least one [Bokobody] has transformed/made a move.
-var we_have_made_a_move: bool
 var are_bodies_moving: bool = false
 var is_block_on_starpoint: bool = false
 var match_amount: int = 0
+
+## Returns whether at least at least one [Bokobody] has transformed/made a move.
+var we_have_made_a_move: bool ## @deprecated
 
 var _bodies_stopped: int = 0
 var _prev_positions: Array[Transform2D]
@@ -56,7 +57,7 @@ func _ready() -> void:
 	bodies_stopped.connect(check_bodies)
 	
 	PlayerInput.movement_input_made.connect(_bodies_have_moved)
-	bodies_stopped_making_move.connect(_bodies_have_stopped)
+	bodies_stopped.connect(_bodies_have_stopped)
 	
 	GameMgr.game_reset.connect(_reset_game_logic)
 	
@@ -143,14 +144,8 @@ func _bodies_have_moved() -> void:
 
 
 func _bodies_have_stopped() -> void:
-	#for i in range(GameMgr.current_bodies.size()):
-		#print(GameMgr.current_bodies[i].transform)
-		#print(_prev_positions[i])
-	
 	we_have_made_a_move = check_if_bodies_made_move()
-	#print(we_have_made_a_move)
-	
-	state_checked.emit()
+	state_checked.emit(we_have_made_a_move)
 	
 
 ## After the movement state has been checked,

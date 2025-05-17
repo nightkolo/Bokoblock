@@ -18,10 +18,11 @@ var music_menu: AudioStreamPlayer ## @experimental
 @onready var stage_win: AudioStreamPlayer = $UI/StageWin
 @onready var stage_complete_jingles: Node = $UI/StageCompleteJingles
 @onready var menu_enter_jingles: Node = $UI/MenuEnterJingles
+@onready var block_moving_sfx: Node = $SFX/StarpointWrong/BlockMoving
+
 
 @onready var block_turn_1: AudioStreamPlayer = $SFX/BlockTurn1
 @onready var block_turn_2: AudioStreamPlayer = $SFX/BlockTurn2
-@onready var block_moving: AudioStreamPlayer = $SFX/BlockMoving
 @onready var block_turning_sound: AudioStreamPlayer = $SFX/BlockTurningSound
 
 @onready var turn_hit: AudioStreamPlayer = $SFX/BlockTurnHit
@@ -30,12 +31,13 @@ var music_menu: AudioStreamPlayer ## @experimental
 @onready var starpoint_wrong: AudioStreamPlayer = $SFX/StarpointWrong
 @onready var starpoint_exit: AudioStreamPlayer = $SFX/StarpointExit
 @onready var starpoint_enter_1: AudioStreamPlayer = $SFX/StarpointEnter1
-@onready var starpoint_enter_2: AudioStreamPlayer = $SFX/StarpointEnter2
 
 @onready var body_happy_01: AudioStreamPlayer = $SFX/BodyHappy01
 @onready var body_happy_02: AudioStreamPlayer = $SFX/BodyHappy02
 
+var block_moving: Array[Node]
 var _stage_complete_jingles: Array[Node]
+
 @warning_ignore("unused_private_class_variable")
 var _menu_enter_jingles: Array[Node]
 var _reset_sound: bool = true
@@ -46,7 +48,8 @@ func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 	
 	_stage_complete_jingles = menu_enter_jingles.get_children()
-		
+	block_moving = block_moving_sfx.get_children()
+	
 	GameMgr.game_entered.connect(func(entered: bool):
 		AudioServer.set_bus_mute(bus_GameSound, !entered)
 		
@@ -72,15 +75,23 @@ func _ready() -> void:
 		)
 		
 	GameMgr.game_end.connect(func():
-		var aud := _stage_complete_jingles[randi() % _stage_complete_jingles.size()]
-		aud.play()
+		#var aud := _stage_complete_jingles[randi() % _stage_complete_jingles.size()]
+		stage_next.play()
 		)
 	
-	GameLogic.bodies_stopped.connect(_check_game_state)
+	#GameLogic.bodies_moved.connect(func(_transformed):
+		#_prev_star_happy = []
+		#
+		#for star: Starpoint in GameMgr.current_starpoints:
+			#_prev_star_happy.push_front(star.check_satisfaction(false))
+		#)
+	GameLogic.state_checked.connect(func(_have_moved: bool):
+		_check_game_state()
+		)
 	
 	GameLogic.body_exited_starpoint.connect(play_starpoint_exited)
-	GameLogic.body_move_hit.connect(play_block_move_hit)
-	GameLogic.body_turn_hit.connect(play_block_turn_hit)
+	GameLogic.body_hit_move.connect(play_block_move_hit)
+	GameLogic.body_hit_turn.connect(play_block_turn_hit)
 	
 	PlayerInput.input_move.connect(func(_move_to: Vector2):
 		play_block_move()
@@ -94,15 +105,30 @@ func _ready() -> void:
 			pass
 			)
 
+var _prev_star_happy: Array[bool]
+
 func _check_game_state():
+	# TODO: Issue with sound emission
+	
 	var happy_starpoints: int = 0
 	var landed_starpoints: int = 0
 	
+	await get_tree().create_timer(0.05).timeout
+	
+	#for i in range(GameMgr.current_starpoints.size()):
+		#if _prev_star_happy[i] == GameMgr.current_starpoints[i].check_satisfaction(false):
+			#return
+	
 	for starpoint: Starpoint in GameMgr.current_starpoints:
+		
+		
+		
 		if starpoint.is_happy:
 			happy_starpoints += 1
 		elif starpoint.is_landed_on:
 			landed_starpoints += 1
+	
+	
 	
 	if happy_starpoints > 0:
 		var pitch := 0.5 + ((float(happy_starpoints) / float(GameLogic.match_amount)) * 1.5)
@@ -113,12 +139,8 @@ func _check_game_state():
 
 
 func play_starpoint_entered(pitch: float = 1.0):
-	if randf() < 0.5:
-		starpoint_enter_1.pitch_scale = pitch
-		starpoint_enter_1.play()
-	else:
-		starpoint_enter_2.pitch_scale = pitch
-		starpoint_enter_2.play()
+	starpoint_enter_1.pitch_scale = pitch
+	starpoint_enter_1.play()
 
 
 func play_starpoint_exited():
@@ -126,8 +148,9 @@ func play_starpoint_exited():
 
 
 func play_block_move():
-	block_moving.pitch_scale = 0.8 + ((randf() - 0.5) / 2)
-	block_moving.play()
+	var aud: AudioStreamPlayer = block_moving[randi() % block_moving.size()]
+	aud.pitch_scale = 0.8 + ((randf() - 0.5) / 2)
+	aud.play()
 
 
 func play_block_turn(turn_to: float = signf(randf() - 0.5)):
@@ -143,8 +166,9 @@ func play_block_turn(turn_to: float = signf(randf() - 0.5)):
 		
 
 func play_block_move_hit():
-	if block_moving.playing:
-		block_moving.stop()
+	for aud in block_moving:
+		if aud.playing:
+			aud.stop()
 	move_hit.play()
 
 

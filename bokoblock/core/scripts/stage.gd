@@ -100,8 +100,8 @@ func _ready() -> void:
 				move_counter.anim_yellow_starred()
 		)
 	
-	GameLogic.state_checked.connect(func():
-		if GameLogic.we_have_made_a_move:
+	GameLogic.state_checked.connect(func(have_moved: bool):
+		if have_moved:
 			_moves_counted += 1
 		)
 		

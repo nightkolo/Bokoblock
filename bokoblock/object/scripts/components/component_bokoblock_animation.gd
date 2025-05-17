@@ -372,14 +372,14 @@ func anim_exited_starpoint() -> void:
 	var dur: float = 0.5
 	
 	block.sprite_eyes.texture = block.texture_eyes
-	block.sprite_node_1.scale = Vector2.ONE / 1.5
+	block.sprite_node_1.scale = Vector2.ONE / 4.0
 	
 	if tween_starpoint:
 		tween_starpoint.kill()
 	tween_starpoint = create_tween().set_parallel(true)
 	tween_starpoint.set_ease(Tween.EASE_OUT)
 	tween_starpoint.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
-	tween_starpoint.tween_property(block.sprite_node_1,"modulate",Color(Color.WHITE),dur/4.0)
+	tween_starpoint.tween_property(block.sprite_node_1,"modulate",Color(Color.WHITE),dur/6.0)
 
 
 func anim_entered_button() -> void:

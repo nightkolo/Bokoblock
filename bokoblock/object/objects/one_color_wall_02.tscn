@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bmld4h85gfbc1"]
 
-[ext_resource type="Script" path="res://world/game/levels/test_one_color_wall.gd" id="1_a7ngu"]
+[ext_resource type="Script" path="res://object/scripts/obj_one_color_wall.gd" id="1_a7ngu"]
 [ext_resource type="Texture2D" uid="uid://bff5brsyoo0i2" path="res://assets/objects/one-color-wall-v03.png" id="2_mwfbc"]
 [ext_resource type="Texture2D" uid="uid://c4i4qyjwbbeo6" path="res://assets/world/one-color-wall-ghost-v01.png" id="3_4bt4q"]
 

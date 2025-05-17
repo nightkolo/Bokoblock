@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c81ib6y3d0xh4"]
 
-[ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="1_ihsib"]
+[ext_resource type="Script" path="res://object/scripts/node_one_color_walls_old.gd" id="1_ihsib"]
 
 [node name="OneColorWalls" type="Area2D"]
 script = ExtResource("1_ihsib")

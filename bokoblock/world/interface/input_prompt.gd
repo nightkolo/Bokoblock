@@ -5,9 +5,9 @@ extends Node2D
 
 func _ready() -> void:
 	GameLogic.stage_won.connect(func():
-		var tween = create_tween()
+		var tween_b = create_tween()
 		
-		tween.tween_property(self,"modulate",Color(Color(1.0 , 0.79, 1.0), 0.0),1.0)
+		tween_b.tween_property(self,"modulate",Color(Color(1.0 , 0.79, 1.0), 0.0),1.0)
 		)
 	
 	modulate = Color(Color(1.0 , 0.79, 1.0), 0.0)

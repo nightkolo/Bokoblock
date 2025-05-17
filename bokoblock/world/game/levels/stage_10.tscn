@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_tvf0x"]
 [ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_bx5cv"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_stvqs"]
-[ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="15_xaxri"]
+[ext_resource type="Script" path="res://object/scripts/node_one_color_walls_old.gd" id="15_xaxri"]
 [ext_resource type="PackedScene" uid="uid://cqj66us38ebnh" path="res://object/objects/obj_one_color_wall.tscn" id="16_1ixwf"]
 [ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="18_dsnfl"]
 

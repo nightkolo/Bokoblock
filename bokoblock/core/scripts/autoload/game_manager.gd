@@ -2,9 +2,7 @@
 extends Node
 
 signal stage_entered(is_lvl: int)
-signal checkerboard_entered(is_board: int)
 signal game_entered(entered: bool)
-#signal stage_completed_screen_entered(entered: bool)
 signal game_just_ended()
 signal game_end()
 signal game_reset()
@@ -12,7 +10,6 @@ signal game_data_saved()
 signal game_data_loaded()
 
 var in_game: bool = false
-var in_stage_complete = false ## @experimental
 
 var current_ui_handler: GameplayUI
 var current_stage: Stage
@@ -22,12 +19,7 @@ var current_stage_id: int = -1:
 	set(value):
 		stage_entered.emit(value)
 		current_stage_id = value
-var current_checkerboard_id: int = -1:
-	get:
-		return current_checkerboard_id
-	set(value):
-		checkerboard_entered.emit(value)
-		current_checkerboard_id = value
+var current_checkerboard_id: int = -1
 var current_bodies: Array[Bokobody]
 var current_blocks: Array[Bokoblock]
 var current_starpoints: Array[Starpoint]
@@ -49,10 +41,6 @@ func _ready() -> void:
 	game_entered.connect(func(entered: bool):
 		in_game = entered
 		)
-		
-	#stage_completed_screen_entered.connect(func(entered: bool):
-		#in_stage_complete = entered
-		#)
 	
 	game_reset.connect(func():
 		_reset_game_manager()
@@ -64,13 +52,6 @@ func _ready() -> void:
 		await get_tree().create_timer(GameUtil.stage_complete_anim_waittime).timeout
 		game_end.emit()
 	)
-
-
-func open_stage_complete() -> void: ## @deprecated
-	if !in_game:
-		return
-	
-	print("Stage complete")
 	
 
 ## Goes to next stage.
