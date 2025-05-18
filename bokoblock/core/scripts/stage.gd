@@ -38,6 +38,7 @@ var is_yellow_starred: bool = true ## @deprecated
 #var moves_counted: int
 var improved_stats: bool = false ## @deprecated
 
+var _world_1: PackedScene = preload("res://world_1.tscn")
 var _dev_ui: PackedScene = preload("res://interface/runtime/misc/dev_ui.tscn")
 var _moves_counted: int = 0:
 	get:
@@ -74,6 +75,14 @@ func _ready() -> void:
 
 		stage_id = num
 		checkerboard_id = ceili(num / 10.0)
+	#else:
+		#if stage_id == 1 && checkerboard_id == 1:
+			#var scene = _world_1.instantiate()
+			#
+			#print(scene)
+			#
+			#add_child(scene)
+			
 	
 	if show_dev_ui:
 		var dev_ui := _dev_ui.instantiate()

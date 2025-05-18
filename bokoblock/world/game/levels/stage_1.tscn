@@ -30,7 +30,7 @@
 spacing_top = -6
 spacing_bottom = -6
 
-[sub_resource type="LabelSettings" id="LabelSettings_k65up"]
+[sub_resource type="LabelSettings" id="LabelSettings_ov8fp"]
 font = SubResource("FontVariation_f2h3v")
 font_size = 24
 
@@ -44,15 +44,15 @@ zoom = Vector2(1.25, 1.25)
 
 [node name="UI" parent="." instance=ExtResource("3_dikwh")]
 
-[node name="StageLight" type="PointLight2D" parent="."]
-position = Vector2(517, 382)
-scale = Vector2(8.4375, 7.03125)
+[node name="StageWorld2" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_m0deh")]
+tile_maps = NodePath("TM")
+
+[node name="StageLight" type="PointLight2D" parent="StageWorld2"]
+position = Vector2(608, 383)
+scale = Vector2(5.625, 7.03125)
 range_item_cull_mask = 2
 texture = ExtResource("10_w6635")
 script = ExtResource("11_nsp4o")
-
-[node name="StageWorld2" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_m0deh")]
-tile_maps = NodePath("TM")
 
 [node name="TM" type="Node2D" parent="StageWorld2"]
 scale = Vector2(0.5, 0.5)
@@ -97,7 +97,7 @@ offset_top = 89.0
 offset_right = 124.0
 offset_bottom = 161.0
 text = "Move"
-label_settings = SubResource("LabelSettings_k65up")
+label_settings = SubResource("LabelSettings_ov8fp")
 horizontal_alignment = 1
 
 [node name="Node2D" type="Node2D" parent="StageWorld2/Info/InputPrompts"]
@@ -126,7 +126,7 @@ offset_top = 139.0
 offset_right = 86.0
 offset_bottom = 211.0
 text = "or"
-label_settings = SubResource("LabelSettings_k65up")
+label_settings = SubResource("LabelSettings_ov8fp")
 horizontal_alignment = 1
 
 [node name="Node2D2" type="Node2D" parent="StageWorld2/Info/InputPrompts"]
