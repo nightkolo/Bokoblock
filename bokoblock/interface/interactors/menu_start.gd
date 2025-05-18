@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func start_game() -> void:
-	var scene = preload("res://world/game/levels/stage_1.tscn")
+	var scene = preload("res://loading_screen.tscn")
 	
 	start_btn.disabled = true
 	GameMgr.self_destruct()

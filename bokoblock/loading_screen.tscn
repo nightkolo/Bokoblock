@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciebyyfvalyp"]
+
+[ext_resource type="Script" path="res://loading_screen.gd" id="1_kcypk"]
+[ext_resource type="Texture2D" uid="uid://dvolgdgwrvc68" path="res://assets/interface/rabbitstar-yellow.png" id="2_gjuns"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kcypk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25, 0.1, 0.25, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(760, 520)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gjuns")
