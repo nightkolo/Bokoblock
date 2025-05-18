@@ -274,7 +274,7 @@ func anim_bubble_bounce() -> void:
 ## @experimental
 func play_speech(letter: String = "") -> void:
 	var aud := audio.duplicate() as AudioStreamPlayer
-	aud.volume_db = -10.0
+	aud.volume_db = -30.0
 	aud.pitch_scale += randf_range(-0.2,0.2)
 	get_tree().root.add_child(aud)
 	

@@ -54,7 +54,7 @@ script = ExtResource("1_ukka2")
 
 [node name="StageMusic" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("2_lagqa")
-volume_db = -40.0
+volume_db = -30.0
 bus = &"Music"
 
 [node name="UI" type="Node" parent="."]

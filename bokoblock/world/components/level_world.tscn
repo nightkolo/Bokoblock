@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://world/containers/container_level_world.gd" id="1_lmiqu"]
 [ext_resource type="PackedScene" uid="uid://eyhhyen04o6i" path="res://world/world/stage_background.tscn" id="3_p4qmj"]
 
-[node name="StageWorld" type="Node2D"]
+[node name="StageWorld" type="Node2D" node_paths=PackedStringArray("background")]
 script = ExtResource("1_lmiqu")
-background_effect = 1
+background = NodePath("BG")
 metadata/_edit_lock_ = true
 
 [node name="BG" parent="." instance=ExtResource("3_p4qmj")]

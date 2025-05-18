@@ -3,7 +3,7 @@ extends Camera2D
 class_name BokosCamera
 
 @export var dynamic_camera: bool = false ## @experimental
-@export var shake_strength: float = 4.0
+@export var shake_strength: float = 6.0
 @export var shake_duration: float = 0.5
 
 var original_pos: Vector2

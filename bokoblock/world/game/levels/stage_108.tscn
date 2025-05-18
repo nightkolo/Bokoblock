@@ -32,7 +32,6 @@ font_size = 24
 [node name="S1" type="Node2D"]
 script = ExtResource("1_s5fo0")
 win_condition = 1
-moves_threshold = 999
 
 [node name="StageWorld" type="Node2D" parent="."]
 script = ExtResource("2_p33y8")
@@ -71,11 +70,10 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_1cno2")
 script = ExtResource("8_8bre0")
 
-[node name="InputPrompts" type="Node2D" parent="StageWorld/Info" node_paths=PackedStringArray("top_hat_man")]
+[node name="InputPrompts" type="Node2D" parent="StageWorld/Info"]
 modulate = Color(1, 0.79, 1, 1)
 position = Vector2(66, -42)
 script = ExtResource("9_jevd1")
-top_hat_man = NodePath("")
 
 [node name="InfoBox" type="Label" parent="StageWorld/Info/InputPrompts"]
 offset_top = 89.0

@@ -32,9 +32,16 @@ var _is_game_manager_resetting: bool = false
 
 
 func _ready() -> void:
+	print("Mgr")
+	print("Mgr")
+	print("Mgr")
+	print("Mgr")
+	print("Mgr")
+	print("Mgr")
+	
 	add_child(saver_loader)
 	
-	load_game_data()
+	#load_game_data()
 	
 	game_end.connect(goto_next_stage)
 	
@@ -69,7 +76,7 @@ func goto_next_stage(force_progression: bool = false) -> void:
 	var next_lvl_path := GameUtil.STAGE_FILE_BEGIN + str(next_lvl_id) + GameUtil.STAGE_FILE_END
 	
 	if next_lvl_id <= GameUtil.NUMBER_OF_STAGES: 
-		get_tree().change_scene_to_file(next_lvl_path)
+		Trans.slide_to_next_stage(next_lvl_path)
 
 
 func goto_prev_stage() -> void:
@@ -98,11 +105,11 @@ func load_game_data() -> void:
 	saver_loader.load_game()
 	
 
-var current_card_ui: TestCardUI ## @experimental
-
-
-func get_card_type() -> TestCardUI.CardType: ## @experimental
-	return current_card_ui.current_card_type
+#var current_card_ui: TestCardUI ## @experimental
+#
+#
+#func get_card_type() -> TestCardUI.CardType: ## @experimental
+	#return current_card_ui.current_card_type
 
 
 func reset_game() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://1jr3hnyoqmva"]
+[gd_scene load_steps=15 format=3 uid="uid://1jr3hnyoqmva"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_8irpk"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_47sf3"]
@@ -10,6 +10,10 @@
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="6_h1c14"]
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="6_ts4iv"]
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_htkt1"]
+[ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="11_lrrwn"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="12_iyprd"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="13_wyq84"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="14_rsnxo"]
 
 [node name="Stage" type="Node2D"]
 script = ExtResource("1_8irpk")
@@ -19,7 +23,8 @@ stage_progression = false
 
 [node name="Cam" parent="." instance=ExtResource("2_47sf3")]
 
-[node name="StageWorld" parent="." instance=ExtResource("3_wpf8u")]
+[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("3_wpf8u")]
+tile_maps = NodePath("TM")
 show_collision_tilemap = true
 
 [node name="StageLight" type="PointLight2D" parent="StageWorld"]
@@ -49,3 +54,24 @@ position = Vector2(473, 383)
 
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("6_h1c14")
+
+[node name="Endpoints" type="Node2D" parent="StageObjects"]
+script = ExtResource("11_lrrwn")
+
+[node name="Starpoint" parent="StageObjects/Endpoints" instance=ExtResource("12_iyprd")]
+position = Vector2(630, 225)
+
+[node name="Starpoint2" parent="StageObjects/Endpoints" instance=ExtResource("12_iyprd")]
+position = Vector2(630, 270)
+
+[node name="Starpoint3" parent="StageObjects/Endpoints" instance=ExtResource("12_iyprd")]
+position = Vector2(630, 315)
+
+[node name="Bokobody" type="Node2D" parent="StageObjects"]
+position = Vector2(540, 270)
+script = ExtResource("13_wyq84")
+
+[node name="Block" parent="StageObjects/Bokobody" instance=ExtResource("14_rsnxo")]
+
+[node name="Block2" parent="StageObjects/Bokobody" instance=ExtResource("14_rsnxo")]
+position = Vector2(0, -45)

@@ -47,7 +47,7 @@ label_settings = SubResource("LabelSettings_r36co")
 
 [node name="Speech" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_aohk3")
-volume_db = 24.0
+volume_db = -48.0
 bus = &"UISound"
 
 [node name="Area2D" type="Area2D" parent="."]

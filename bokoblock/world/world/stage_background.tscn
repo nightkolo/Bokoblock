@@ -10,12 +10,17 @@ layer = -10
 script = ExtResource("1_n48j3")
 
 [node name="Texture" type="Node2D" parent="."]
+position = Vector2(480, 360)
 
 [node name="TextureRect" type="TextureRect" parent="Texture"]
-self_modulate = Color(0.5, 0.5, 0.5, 0.5)
+self_modulate = Color(0.37, 0.37, 0.5, 0.5)
 light_mask = 4
-offset_right = 1800.0
-offset_bottom = 1440.0
+offset_left = -898.0
+offset_top = -720.0
+offset_right = 902.0
+offset_bottom = 720.0
+scale = Vector2(0.83, 0.83)
+pivot_offset = Vector2(900, 720)
 texture = ExtResource("2_gm0vq")
 
 [node name="BGDim" type="Sprite2D" parent="."]

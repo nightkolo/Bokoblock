@@ -21,6 +21,7 @@ Audio="*res://core/scenes/autoload/audio_player.tscn"
 GameLogic="*res://core/scripts/autoload/game_logic.gd"
 PlayerInput="*res://core/scripts/autoload/player_input.gd"
 GameMgr="*res://core/scripts/autoload/game_manager.gd"
+Trans="*res://core/scenes/autoload/transition_player.tscn"
 
 [debug]
 

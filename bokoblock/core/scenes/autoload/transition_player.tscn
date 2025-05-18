@@ -1,6 +1,119 @@
-[gd_scene load_steps=2 format=3 uid="uid://mer3vl7n1op0"]
+[gd_scene load_steps=6 format=3 uid="uid://mer3vl7n1op0"]
 
 [ext_resource type="Script" path="res://core/scripts/transition_player.gd" id="1_vo44m"]
 
-[node name="Trans" type="Node2D"]
+[sub_resource type="Animation" id="Animation_1i7sl"]
+resource_name = "slide_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Trans1/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(960, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Trans1/Node2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(1160, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o1i5i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Trans1/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Trans1/Node2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1160, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_80kvd"]
+resource_name = "slide_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Trans1/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-960, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Trans1/Node2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1160, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wjevu"]
+_data = {
+"RESET": SubResource("Animation_o1i5i"),
+"slide_in": SubResource("Animation_1i7sl"),
+"slide_out": SubResource("Animation_80kvd")
+}
+
+[node name="Trans" type="CanvasLayer"]
+layer = 10
 script = ExtResource("1_vo44m")
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wjevu")
+}
+
+[node name="Trans1" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Trans1"]
+visible = false
+top_level = true
+offset_left = 960.0
+offset_right = 2135.0
+offset_bottom = 1274.0
+rotation = 0.392699
+color = Color(0, 0, 0, 1)
+
+[node name="Node2D" type="Node2D" parent="Trans1"]
+position = Vector2(1160, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="Trans1/Node2D"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 1160, 0, 960, 720, -200, 720)
