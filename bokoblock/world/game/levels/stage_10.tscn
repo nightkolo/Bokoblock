@@ -15,9 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_tvf0x"]
 [ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_bx5cv"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_stvqs"]
-[ext_resource type="Script" path="res://object/scripts/node_one_color_walls_old.gd" id="15_xaxri"]
-[ext_resource type="PackedScene" uid="uid://cqj66us38ebnh" path="res://object/objects/obj_one_color_wall.tscn" id="16_1ixwf"]
 [ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="18_dsnfl"]
+[ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="19_74cq5"]
+[ext_resource type="PackedScene" uid="uid://bmld4h85gfbc1" path="res://object/objects/obj_one_color_wall.tscn" id="20_2xdco"]
 
 [node name="Stage" type="Node2D" node_paths=PackedStringArray("move_counter")]
 script = ExtResource("1_u3r3d")
@@ -75,18 +75,18 @@ position = Vector2(384, 588)
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("9_g7t73")
 
-[node name="OneColorWalls" type="Area2D" parent="StageObjects"]
-script = ExtResource("15_xaxri")
-im_looking_for = 3
+[node name="OneColorWalls3" type="Area2D" parent="StageObjects"]
+script = ExtResource("19_74cq5")
 
-[node name="OneColorWall" parent="StageObjects/OneColorWalls" instance=ExtResource("16_1ixwf")]
-position = Vector2(383, 518)
-
-[node name="OneColorWalls2" type="Area2D" parent="StageObjects"]
-script = ExtResource("15_xaxri")
-
-[node name="OneColorWall" parent="StageObjects/OneColorWalls2" instance=ExtResource("16_1ixwf")]
+[node name="OneColorWall7" parent="StageObjects/OneColorWalls3" instance=ExtResource("20_2xdco")]
 position = Vector2(383, 293)
+
+[node name="OneColorWalls4" type="Area2D" parent="StageObjects"]
+script = ExtResource("19_74cq5")
+what_im_looking_for = 3
+
+[node name="OneColorWall7" parent="StageObjects/OneColorWalls4" instance=ExtResource("20_2xdco")]
+position = Vector2(383, 518)
 
 [node name="Endpoints" type="Node2D" parent="StageObjects"]
 script = ExtResource("9_sltp2")

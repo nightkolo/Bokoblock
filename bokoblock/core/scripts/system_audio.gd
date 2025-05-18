@@ -5,50 +5,48 @@ extends Node
 
 @onready var bus_GameSound: int = AudioServer.get_bus_index("GameSound")
 
-var music_menu: AudioStreamPlayer ## @experimental
+#var music_menu: AudioStreamPlayer ## @experimental
 @onready var music_stage: AudioStreamPlayer = $Music/StageMusic
 
-@onready var game_paused: AudioStreamPlayer = $UI/GamePaused
+#@onready var game_paused: AudioStreamPlayer = $UI/GamePaused
 @onready var game_reset_01: AudioStreamPlayer = $UI/GameReset01
 @onready var game_reset_02: AudioStreamPlayer = $UI/GameReset02
-@onready var game_start: AudioStreamPlayer = $UI/GameStart
-@onready var menu_exit: AudioStreamPlayer = $UI/MenuExit
+#@onready var game_start: AudioStreamPlayer = $UI/GameStart
+#@onready var menu_exit: AudioStreamPlayer = $UI/MenuExit
 @onready var stage_next: AudioStreamPlayer = $UI/StageNext
-@onready var stage_undo_01: AudioStreamPlayer = $UI/StageUndo01
 @onready var stage_win: AudioStreamPlayer = $UI/StageWin
-@onready var stage_complete_jingles: Node = $UI/StageCompleteJingles
-@onready var menu_enter_jingles: Node = $UI/MenuEnterJingles
-@onready var block_moving_sfx: Node = $SFX/StarpointWrong/BlockMoving
 
+@onready var body_turn_1: AudioStreamPlayer = $SFX/BlockTurn1
+@onready var body_turn_2: AudioStreamPlayer = $SFX/BlockTurn2
 
-@onready var block_turn_1: AudioStreamPlayer = $SFX/BlockTurn1
-@onready var block_turn_2: AudioStreamPlayer = $SFX/BlockTurn2
-@onready var block_turning_sound: AudioStreamPlayer = $SFX/BlockTurningSound
+#@onready var body_turning_sound: AudioStreamPlayer = $SFX/BlockTurningSound
 
-@onready var turn_hit: AudioStreamPlayer = $SFX/BlockTurnHit
-@onready var move_hit: AudioStreamPlayer = $SFX/BlockMoveHit
+@onready var body_turn_hit_1: AudioStreamPlayer = $SFX/BlockTurnHit
+@onready var body_turn_hit_2: AudioStreamPlayer = $SFX/BlockTurnHit2
+@onready var body_move_hit_1: AudioStreamPlayer = $SFX/BlockMoveHit
+@onready var body_move_hit_2: AudioStreamPlayer = $SFX/BlockMoveHit2
 
-@onready var starpoint_wrong: AudioStreamPlayer = $SFX/StarpointWrong
-@onready var starpoint_exit: AudioStreamPlayer = $SFX/StarpointExit
-@onready var starpoint_enter_1: AudioStreamPlayer = $SFX/StarpointEnter1
+@onready var one_color_wall_exit: AudioStreamPlayer = $SFX/OneColorWallExit
+@onready var one_color_wall_enter: AudioStreamPlayer = $SFX/OneColorWallEnter
+@onready var one_color_wall_hit: AudioStreamPlayer = $SFX/OneColorWallHit
 
-@onready var body_happy_01: AudioStreamPlayer = $SFX/BodyHappy01
-@onready var body_happy_02: AudioStreamPlayer = $SFX/BodyHappy02
+#@onready var body_happy_01: AudioStreamPlayer = $SFX/BodyHappy01
+#@onready var body_happy_02: AudioStreamPlayer = $SFX/BodyHappy02
 
-var block_moving: Array[Node]
+var body_moving: Array[Node]
+var body_turn_click: Array[Node]
 var _stage_complete_jingles: Array[Node]
 
-@warning_ignore("unused_private_class_variable")
-var _menu_enter_jingles: Array[Node]
+#var _menu_enter_jingles: Array[Node]
 var _reset_sound: bool = true
-
 
 
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 	
-	_stage_complete_jingles = menu_enter_jingles.get_children()
-	block_moving = block_moving_sfx.get_children()
+	_stage_complete_jingles = $UI/MenuEnterJingles.get_children()
+	body_moving = $SFX/BodyMoving.get_children()
+	body_turn_click = $SFX/BodyTurnClick.get_children()
 	
 	GameMgr.game_entered.connect(func(entered: bool):
 		AudioServer.set_bus_mute(bus_GameSound, !entered)
@@ -61,7 +59,8 @@ func _ready() -> void:
 	)
 		
 	# TODO: Maybe should not make everything global
-	GameMgr.game_reset.connect(func():
+	
+	GameMgr.game_reset.connect(func() -> void:
 		_reset_sound = !_reset_sound
 		
 		if _reset_sound:
@@ -75,28 +74,20 @@ func _ready() -> void:
 		)
 		
 	GameMgr.game_end.connect(func():
-		#var aud := _stage_complete_jingles[randi() % _stage_complete_jingles.size()]
 		stage_next.play()
 		)
 	
-	#GameLogic.bodies_moved.connect(func(_transformed):
-		#_prev_star_happy = []
-		#
-		#for star: Starpoint in GameMgr.current_starpoints:
-			#_prev_star_happy.push_front(star.check_satisfaction(false))
-		#)
 	GameLogic.state_checked.connect(func(_have_moved: bool):
 		_check_game_state()
 		)
 	
-	GameLogic.body_exited_starpoint.connect(play_starpoint_exited)
-	GameLogic.body_hit_move.connect(play_block_move_hit)
-	GameLogic.body_hit_turn.connect(play_block_turn_hit)
+	GameLogic.body_hit_move.connect(play_body_move_hit)
+	GameLogic.body_hit_turn.connect(play_body_turn_hit)
 	
 	PlayerInput.input_move.connect(func(_move_to: Vector2):
-		play_block_move()
+		play_body_move()
 		)
-	PlayerInput.input_turn.connect(play_block_turn)
+	PlayerInput.input_turn.connect(play_body_turn)
 
 	await get_tree().create_timer(0.1).timeout
 	if GameMgr.current_ui_handler:
@@ -105,77 +96,42 @@ func _ready() -> void:
 			pass
 			)
 
-var _prev_star_happy: Array[bool]
 
-func _check_game_state():
-	# TODO: Issue with sound emission
-	
-	var happy_starpoints: int = 0
-	var landed_starpoints: int = 0
-	
-	await get_tree().create_timer(0.05).timeout
-	
-	#for i in range(GameMgr.current_starpoints.size()):
-		#if _prev_star_happy[i] == GameMgr.current_starpoints[i].check_satisfaction(false):
-			#return
-	
-	for starpoint: Starpoint in GameMgr.current_starpoints:
-		
-		
-		
-		if starpoint.is_happy:
-			happy_starpoints += 1
-		elif starpoint.is_landed_on:
-			landed_starpoints += 1
-	
-	
-	
-	if happy_starpoints > 0:
-		var pitch := 0.5 + ((float(happy_starpoints) / float(GameLogic.match_amount)) * 1.5)
-		play_starpoint_entered(pitch)
-		
-	if landed_starpoints > 0:
-		starpoint_wrong.play()
+func _check_game_state() -> void:
+	pass
 
 
-func play_starpoint_entered(pitch: float = 1.0):
-	starpoint_enter_1.pitch_scale = pitch
-	starpoint_enter_1.play()
-
-
-func play_starpoint_exited():
-	starpoint_exit.play()
-
-
-func play_block_move():
-	var aud: AudioStreamPlayer = block_moving[randi() % block_moving.size()]
+func play_body_move() -> void:
+	var aud: AudioStreamPlayer = body_moving[randi() % body_moving.size()]
 	aud.pitch_scale = 0.8 + ((randf() - 0.5) / 2)
 	aud.play()
 
 
-func play_block_turn(turn_to: float = signf(randf() - 0.5)):
+func play_body_turn(turn_to: float = signf(randf() - 0.5)):
+	# TODO: Edit the pitch of sounds before-hand
+	
 	if turn_to > 0.0:
-		block_turn_1.pitch_scale = 1.0 + ((randf() - 0.5) / 8.0)
-		block_turn_1.play()
+		body_turn_1.pitch_scale = 1.0 + ((randf() - 0.5) / 8.0)
+		body_turn_1.play()
 	else:
-		block_turn_2.pitch_scale = 0.9 + ((randf() - 0.5) / 8.0)
-		block_turn_2.play()
+		body_turn_2.pitch_scale = 0.9 + ((randf() - 0.5) / 8.0)
+		body_turn_2.play()
 		
 	if randf() < 0.75:
-		block_turning_sound.play()
+		var aud: AudioStreamPlayer = body_turn_click[randi() % body_turn_click.size()]
+		aud.pitch_scale = 0.8 + ((randf() - 0.5) / 2)
+		aud.play()
 		
 
-func play_block_move_hit():
-	for aud in block_moving:
-		if aud.playing:
-			aud.stop()
-	move_hit.play()
+func play_body_move_hit() -> void:
+	if GameMgr.current_bodies.size() < 2:
+		body_move_hit_1.play()
+	else:
+		body_move_hit_2.play()
 
 
-func play_block_turn_hit():
-	if block_turn_1.playing:
-		block_turn_1.stop()
-	if block_turn_2.playing:
-		block_turn_2.stop()
-	turn_hit.pitch_scale = 1.0 + ((randf() - 0.5) / 4)
-	turn_hit.play()
+func play_body_turn_hit() -> void:
+	if GameMgr.current_bodies.size() < 2:
+		body_turn_hit_1.play()
+	else:
+		body_turn_hit_2.play()

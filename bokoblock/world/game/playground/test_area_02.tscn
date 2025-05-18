@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="3_illg2"]
 [ext_resource type="TileSet" uid="uid://hxo6514lg8we" path="res://core/resources/tileset/tileset_world.tres" id="3_ricja"]
 [ext_resource type="Script" path="res://object/scripts/node_one_color_walls_old.gd" id="4_rgsb4"]
-[ext_resource type="PackedScene" uid="uid://cqj66us38ebnh" path="res://object/objects/obj_one_color_wall.tscn" id="8_pdljq"]
+[ext_resource type="PackedScene" uid="uid://cqj66us38ebnh" path="res://object/objects/obj_one_color_wall_old.tscn" id="8_pdljq"]
 
 [node name="TestArea02" type="Node2D"]
 script = ExtResource("1_o5ksr")

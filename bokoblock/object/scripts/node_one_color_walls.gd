@@ -1,24 +1,35 @@
 extends Area2D
 class_name OneColorWalls
 
+signal has_been_entered()
+signal incorrect_entered()
+
 @export var what_im_looking_for: GameUtil.BokoColor = GameUtil.BokoColor.AQUA
+@export var emit_sfx: bool = true
 
 @onready var child_walls: Array[Node] = get_children()
+
+var bodies_entered: Array[Bokobody]
+
+var _previous_area_count: int
 
 
 func _ready() -> void:
 	_setup_node()
 	
-	#area_entered.connect(func(area: Area2D):
-		#_on_areas_entered(get_overlapping_areas())
-		#)
-		
-	area_exited.connect(func(_area: Area2D):
-		pass
+	has_been_entered.connect(func():
+		if emit_sfx && !Audio.one_color_wall_enter.playing:
+			Audio.one_color_wall_enter.play()
 		)
-
-
-var _previous_area_count: int
+		
+	incorrect_entered.connect(func():
+		if emit_sfx && !Audio.one_color_wall_hit.playing:
+			Audio.one_color_wall_hit.play()
+		)
+		
+	#area_exited.connect(func(_area: Area2D):
+		#pass
+		#)
 
 
 func _process(_delta: float) -> void:
@@ -31,9 +42,6 @@ func _check_areas() -> void:
 		_previous_area_count = get_overlapping_areas().size()
 
 
-var bodies_entered: Array[Bokobody]
-
-
 func _setup_node() -> void:
 	for wall in child_walls:
 		wall.node_sprites.modulate = Color(Color.WHITE, 0.9)
@@ -42,9 +50,9 @@ func _setup_node() -> void:
 
 
 func _on_areas_entered(areas: Array[Area2D]) -> void:
-	print("")
-	print_debug(areas)
-	
+	#print("")
+	#print_debug(areas)
+	#
 	if areas.size() > 1:
 
 		for area: Area2D in areas:
@@ -57,6 +65,7 @@ func _on_areas_entered(areas: Array[Area2D]) -> void:
 					!(parent in bodies_entered)
 				):
 					(area as Bokoblock).can_we_stop_moving_dad()
+					incorrect_entered.emit()
 					
 					return
 	
@@ -74,6 +83,7 @@ func _on_areas_entered(areas: Array[Area2D]) -> void:
 					
 					parent.is_one_way_wall = self
 					parent.is_on_one_way_wall = true
+					has_been_entered.emit()
 				
 				#print('')
 				#print_debug(its_parent)
@@ -83,6 +93,7 @@ func _on_areas_entered(areas: Array[Area2D]) -> void:
 				if !(parent in bodies_entered):
 					
 					(area as Bokoblock).can_we_stop_moving_dad()
+					incorrect_entered.emit()
 	
 	
 	

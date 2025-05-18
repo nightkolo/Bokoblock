@@ -19,15 +19,13 @@ signal child_block_exited_one_col_wall()
 @export var no_turn_delay: bool = false
 @export_group("Modify")
 @export var animator: BokobodyAnimationComponent ## @deprecated
-@export var SFX: BokobodyAudio ## @deprecated
-@export var auto_assign_sfx_and_animation: bool = true
+@export var auto_assign_sfx_and_animation: bool = true ## @experimental
 @export var show_blocks: bool = true
 @export var show_light: bool = true
 @export var light_scale: Vector2 = Vector2.ONE * 2.8
 @export_group("Objects to Assign")
 @export var particles_win: PackedScene = preload("res://world/world/particles_bokoblock_stage_complete.tscn")
 @export var light_glow: PackedScene = preload("res://world/world/point_light_bokobody_glow.tscn")
-@export var audio_node: PackedScene = preload("res://object/game/bokobody_audio_component.tscn")
 
 var transforms_made: Array ## Dynamic array.
 var turns_made: Array[float]
@@ -77,6 +75,7 @@ func _on_one_way_wall(_have_moved: bool) -> void:
 		is_one_way_wall.bodies_entered.remove_at(index_to_rem)
 		is_one_way_wall = null
 		child_block_exited_one_col_wall.emit()
+		Audio.one_color_wall_exit.play()
 		
 		GameLogic.state_checked.disconnect(_on_one_way_wall)
 
@@ -126,13 +125,10 @@ func _ready() -> void:
 		)
 	
 	if auto_assign_sfx_and_animation:
-		var aud := audio_node.instantiate()
 		var anim := BokobodyAnimationComponent.new()
 		
 		add_child(anim)
-		add_child(aud)
-		
-		SFX = aud
+
 		animator = anim
 	
 	await GameMgr.process_waittime()

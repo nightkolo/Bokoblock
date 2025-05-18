@@ -6,6 +6,10 @@ class_name Starpoint
 @export var sprite_star: Sprite2D
 @export var particles_idle: CPUParticles2D
 @export var particles_star: PackedScene = preload("res://world/world/particles_starpoint_happy.tscn")
+@export_category("SFX")
+@export var audio_wrong: AudioStreamPlayer2D
+@export var audio_entered: AudioStreamPlayer2D
+@export var audio_exited: AudioStreamPlayer2D
 
 var is_happy: bool = false:
 	get:
@@ -13,8 +17,23 @@ var is_happy: bool = false:
 	set(value):
 		if value:
 			anim_happy()
+		
+		if value != is_happy && !GameLogic.has_won:
+			if value:
+				audio_entered.play()
+			else:
+				audio_exited.play()
+				
 		is_happy = value
-var is_landed_on: bool = false
+		
+		
+var is_landed_on: bool = false:
+	set(value):
+		is_landed_on = value
+		
+		if value && !is_happy:
+			audio_wrong.play()
+			
 
 
 func _ready() -> void:
@@ -26,6 +45,10 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if particles_idle:
 		particles_idle.global_rotation = 0.0
+
+
+func _on_happy() -> void:
+	pass
 
 	
 func _setup_node() -> void:
