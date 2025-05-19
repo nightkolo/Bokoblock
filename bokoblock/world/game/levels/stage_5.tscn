@@ -17,8 +17,9 @@
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="10_y58fl"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="11_th0if"]
 
-[node name="S5" type="Node2D"]
+[node name="S5" type="Node2D" node_paths=PackedStringArray("stage_number")]
 script = ExtResource("1_pb1e4")
+stage_number = NodePath("StageWorld/MoveCounter")
 
 [node name="UI" parent="." instance=ExtResource("2_wo7hu")]
 
@@ -26,7 +27,9 @@ script = ExtResource("1_pb1e4")
 position = Vector2(518, 338)
 zoom = Vector2(1.3, 1.3)
 
-[node name="StageWorld" parent="." instance=ExtResource("3_euyvo")]
+[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("3_euyvo")]
+color_pallete = 1
+tile_maps = NodePath("TM")
 
 [node name="StageLight" type="PointLight2D" parent="StageWorld"]
 position = Vector2(450.5, 338)

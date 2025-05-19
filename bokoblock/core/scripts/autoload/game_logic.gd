@@ -1,4 +1,4 @@
-# Game logic
+## Game logic.
 extends Node
 
 ## Emitted when a [Bokobody] stops while [b]moving.
@@ -6,7 +6,7 @@ signal body_hit_move()
 ## Emitted when a [Bokobody] stops while [b]turning.
 signal body_hit_turn()
 ## Emitted when all [Bokobody]s try to transform/make a move.
-## [br][br][param transformed_to] is a dynamic variable returning the transformation value (A move, a turn, and undo).
+## [br][br][param transformed_to] is a dynamic variable returning the transformation value (A move, a turn).
 signal bodies_moved(transformed_to)
 ## Emitted when a [Bokobody] stops,
 ## [br][br][param is_bokobody] returns that [Bokobody].
@@ -51,13 +51,18 @@ var _bodies_stopped: int = 0
 var _prev_positions: Array[Transform2D]
 
 
+static func set_win_condition(win_cond: WinCondition) -> void:
+	win_condition = win_cond
+
+
 func _ready() -> void:
 	body_stopped.connect(check_if_bodies_stopped)
-	bodies_stopped.connect(check_win)
-	bodies_stopped.connect(check_bodies)
+
+	#bodies_stopped.connect(check_win)
+	#bodies_stopped.connect(check_bodies)
+	bodies_stopped.connect(_bodies_have_stopped)
 	
 	PlayerInput.movement_input_made.connect(_bodies_have_moved)
-	bodies_stopped.connect(_bodies_have_stopped)
 	
 	GameMgr.game_reset.connect(_reset_game_logic)
 	
@@ -69,10 +74,6 @@ func _ready() -> void:
 		
 	await get_tree().create_timer(0.1).timeout
 	check_win()
-
-
-static func set_win_condition(win_cond: WinCondition) -> void:
-	win_condition = win_cond
 
 
 func check_bodies() -> void:
@@ -99,8 +100,8 @@ func check_if_bodies_stopped(_is_body: Bokobody) -> void:
 	are_bodies_moving = _bodies_stopped != num_of_bodies
 	
 	if !are_bodies_moving:
-		if PlayerInput.last_input != TransformationType.UNDO:
-			bodies_stopped_making_move.emit()
+		#if PlayerInput.last_input != TransformationType.UNDO:
+			#bodies_stopped_making_move.emit()
 			
 		bodies_stopped.emit()
 		_bodies_stopped = 0
@@ -144,6 +145,9 @@ func _bodies_have_moved() -> void:
 
 
 func _bodies_have_stopped() -> void:
+	check_win()
+	check_bodies()
+	
 	we_have_made_a_move = check_if_bodies_made_move()
 	state_checked.emit(we_have_made_a_move)
 	
@@ -151,7 +155,8 @@ func _bodies_have_stopped() -> void:
 ## After the movement state has been checked,
 ## return [code]true[/code] if at least one [Bokobody] has transformed/made a move,
 ## [code]false[/code] if otherwise. 
-## [br][br]Helpful for the move counter and undo behaviour.
+## [br][br][b]Note:[/b] Used to be for the move counter and undo behaviour.
+## But these features have been deprecated. The function just stands this way.
 func check_if_bodies_made_move() -> bool:
 	if GameMgr.current_bodies.is_empty():
 		return false

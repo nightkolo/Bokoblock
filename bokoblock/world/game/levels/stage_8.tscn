@@ -24,10 +24,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8umuf"]
 size = Vector2(45, 45)
 
-[node name="Stage" type="Node2D" node_paths=PackedStringArray("move_counter")]
+[node name="Stage" type="Node2D" node_paths=PackedStringArray("stage_number")]
 script = ExtResource("1_u3r3d")
-allow_undoing = false
-move_counter = NodePath("StageWorld/MoveCounter")
+stage_number = NodePath("StageWorld/MoveCounter")
 
 [node name="UI" parent="." instance=ExtResource("2_3eveh")]
 
@@ -35,7 +34,8 @@ move_counter = NodePath("StageWorld/MoveCounter")
 position = Vector2(496, 339)
 zoom = Vector2(1.25, 1.25)
 
-[node name="StageWorld" parent="." instance=ExtResource("4_uqwvb")]
+[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_uqwvb")]
+tile_maps = NodePath("TM")
 
 [node name="StageLight" type="PointLight2D" parent="StageWorld"]
 position = Vector2(338, 383)
@@ -74,7 +74,7 @@ position = Vector2(293, 158)
 sleep = true
 
 [node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_qe4yq")]
-position = Vector2(473, 563)
+position = Vector2(473, 473)
 
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("9_g7t73")

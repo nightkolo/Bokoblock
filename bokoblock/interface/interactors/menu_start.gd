@@ -12,12 +12,11 @@ func _ready() -> void:
 
 
 func start_game() -> void:
-	var scene = preload("res://loading_screen.tscn")
+	var scene = preload("res://interface/menus/loading_screen.tscn")
 	
 	start_btn.disabled = true
 	GameMgr.self_destruct()
 	GameLogic.self_destruct()
 	
 	get_tree().change_scene_to_packed(scene)
-	#get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")
 	

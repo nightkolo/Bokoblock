@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://fht8ceno2w63" path="res://assets/world/star_v01.png" id="4_u4fx5"]
 [ext_resource type="Texture2D" uid="uid://dqcbjuirvq776" path="res://assets/world/particle_circle_02.png" id="7_jtedv"]
 [ext_resource type="Script" path="res://object/scripts/components/component_bokoblock_animation.gd" id="7_u5igv"]
-[ext_resource type="PackedScene" uid="uid://cmc3pcr6jttko" path="res://block_button.tscn" id="8_enjm0"]
+[ext_resource type="PackedScene" uid="uid://cmc3pcr6jttko" path="res://object/game/block_button.tscn" id="8_enjm0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13485"]
 size = Vector2(22, 22)

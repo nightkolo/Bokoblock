@@ -3,7 +3,7 @@ extends Area2D
 class_name Bokoblock
 
 signal starpoint_entered(has_entered: bool)
-signal button_entered(has_entered: bool)
+signal button_entered(has_entered: bool) ## @experimental
 
 @export var boko_color: GameUtil.BokoColor
 @export_group("Modify")
@@ -29,7 +29,7 @@ signal button_entered(has_entered: bool)
 
 var parent_bokobody: Bokobody
 var is_on_starpoint: bool
-var is_on_button: bool
+var is_on_button: bool ## @experimental
 var limit_eye_movement: bool = true
 var texture_eyes: Texture2D
 

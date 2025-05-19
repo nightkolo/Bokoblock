@@ -17,10 +17,9 @@
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_stvqs"]
 [ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="15_fdap6"]
 
-[node name="Stage" type="Node2D" node_paths=PackedStringArray("move_counter")]
+[node name="Stage" type="Node2D" node_paths=PackedStringArray("stage_number")]
 script = ExtResource("1_3uste")
-moves_threshold = 22
-move_counter = NodePath("StageWorld/MoveCounter")
+stage_number = NodePath("StageWorld/MoveCounter")
 
 [node name="UI" parent="." instance=ExtResource("2_tmq3k")]
 
@@ -28,7 +27,9 @@ move_counter = NodePath("StageWorld/MoveCounter")
 position = Vector2(608, 428)
 zoom = Vector2(1.3, 1.3)
 
-[node name="StageWorld" parent="." instance=ExtResource("3_15i07")]
+[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("3_15i07")]
+color_pallete = 1
+tile_maps = NodePath("TM")
 
 [node name="StageLight" type="PointLight2D" parent="StageWorld"]
 position = Vector2(608, 428)
@@ -64,7 +65,7 @@ info_text = "If you get stuck,
 sleep = true
 
 [node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_hqyxo")]
-position = Vector2(473, 428)
+position = Vector2(473, 518)
 
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("6_oc2sw")

@@ -19,12 +19,11 @@
 [ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="19_74cq5"]
 [ext_resource type="PackedScene" uid="uid://bmld4h85gfbc1" path="res://object/objects/obj_one_color_wall.tscn" id="20_2xdco"]
 
-[node name="Stage" type="Node2D" node_paths=PackedStringArray("move_counter")]
+[node name="Stage" type="Node2D" node_paths=PackedStringArray("stage_number")]
 script = ExtResource("1_u3r3d")
 stage_progression = false
-allow_undoing = false
-moves_threshold = 33
-move_counter = NodePath("StageWorld/MoveCounter")
+win_condition = 1
+stage_number = NodePath("StageWorld/MoveCounter")
 
 [node name="UI" parent="." instance=ExtResource("2_3eveh")]
 
@@ -70,7 +69,7 @@ position = Vector2(428, 203)
 sleep = true
 
 [node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_bx5cv")]
-position = Vector2(384, 588)
+position = Vector2(520, 588)
 
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("9_g7t73")
@@ -128,7 +127,7 @@ position = Vector2(45, 0)
 boko_color = 1
 
 [node name="SleepingBlock" parent="StageObjects" instance=ExtResource("18_dsnfl")]
-position = Vector2(158, 293)
+position = Vector2(518, 338)
 
 [node name="SleepingBlock2" parent="StageObjects" instance=ExtResource("18_dsnfl")]
-position = Vector2(158, 338)
+position = Vector2(203, 338)

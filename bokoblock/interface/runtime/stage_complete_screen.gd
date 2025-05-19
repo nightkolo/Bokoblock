@@ -16,7 +16,7 @@ class_name StageCompleteScreen
 var _gameplay_ui: GameplayUI
 
 const BBCODE_TXT = "[center][color=#232323][font_size=37][wave amp=10.0 freq=4.0][tornado radius=1.5 freq=1.0]"
-const _INFO_BEGIN = "Stage "
+const _INFO_BEGIN = "Checkerboard "
 const _INFO_END = " Completed"
 
 var t_panel: Tween
@@ -27,7 +27,7 @@ var t_star_idle_hover: Tween
 var t_star_landed: Tween
 
 
-# TODO: stop using types all the fucking time when you're debugging
+# TODO: stop using types all the time when you're debugging :)
 
 
 
@@ -40,7 +40,7 @@ func _ready() -> void:
 		_gameplay_ui = get_parent() as GameplayUI
 		
 	else:
-		push_warning(str(self) + " must be run in GameplayUI,")
+		push_warning(str(self) + " must be run under GameplayUI.")
 		next_stage_button.grab_focus()
 		get_tree().paused = true
 		visible = true
@@ -48,7 +48,7 @@ func _ready() -> void:
 	visibility_changed.connect(func():
 		if visible:
 			next_stage_button.grab_focus()
-			update_text()
+			#update_text()
 		)
 		
 	next_stage_button.pressed.connect(func():
@@ -58,17 +58,23 @@ func _ready() -> void:
 		if t_star_idle_hover:
 			t_star_idle_hover.kill()
 		
-		GameMgr.goto_next_stage()
+		GameMgr.goto_next_checkerboard()
 		)
 
 
+func open():
+	GameMgr.menu_entered.emit(GameMgr.GameMenus.CHECKERBOARD_COMPLETE)
+	visible = true
+	
+	update_text()
+	anim_open()
+
+
 func update_text() -> void:
-	stage_complete_info.text = BBCODE_TXT + _INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_stage_id) + _INFO_END
+	stage_complete_info.text = BBCODE_TXT + _INFO_BEGIN + str(GameMgr.current_checkerboard_id) + _INFO_END
 
 
 func anim_open():
-	visible = true
-	
 	anim_star_spinning()
 	
 	var dur := 2.0
@@ -97,7 +103,7 @@ func anim_star_spinning():
 	
 	t_star_spinning.tween_property(texture_star, "position", Vector2.ZERO, dur)
 	t_star_spinning.tween_property(node_star_2, "scale", Vector2.ZERO, dur).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
-	t_star_spinning.tween_property(texture_star, "scale", Vector2.ONE * 0.7, dur)
+	t_star_spinning.tween_property(texture_star, "scale", Vector2.ONE * 0.6, dur)
 	t_star_spinning.tween_property(bg, "color", Color(Color.BLACK, 0.5), dur)
 	
 	t_star_spinning.tween_property(node_star, "rotation", 0.0, dur)

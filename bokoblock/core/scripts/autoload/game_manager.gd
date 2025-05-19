@@ -2,14 +2,22 @@
 extends Node
 
 signal stage_entered(is_lvl: int)
-signal game_entered(entered: bool)
+signal menu_entered(entered: GameMenus)
 signal game_just_ended()
 signal game_end()
 signal game_reset()
 signal game_data_saved()
 signal game_data_loaded()
 
-var in_game: bool = false
+enum GameMenus {
+	MENUS = 0,
+	PAUSE = 1,
+	CHECKERBOARD_COMPLETE = 2,
+	START = 3,
+	RUNTIME = 99
+}
+
+var current_menu: GameMenus = GameMenus.START
 
 var current_ui_handler: GameplayUI
 var current_stage: Stage
@@ -29,24 +37,19 @@ var saver_loader: SaverLoader = SaverLoader.new()
 const ON_NEWGROUNDS_MIRROR = true
 
 var _is_game_manager_resetting: bool = false
+var sfx_muted: bool = false
+var music_muted: bool = false
 
 
 func _ready() -> void:
-	print("Mgr")
-	print("Mgr")
-	print("Mgr")
-	print("Mgr")
-	print("Mgr")
-	print("Mgr")
-	
 	add_child(saver_loader)
 	
 	#load_game_data()
 	
-	game_end.connect(goto_next_stage)
+	game_end.connect(stage_completed)
 	
-	game_entered.connect(func(entered: bool):
-		in_game = entered
+	menu_entered.connect(func(entered: GameMenus):
+		current_menu = entered
 		)
 	
 	game_reset.connect(func():
@@ -59,7 +62,19 @@ func _ready() -> void:
 		await get_tree().create_timer(GameUtil.stage_complete_anim_waittime).timeout
 		game_end.emit()
 	)
-	
+
+
+func stage_completed() -> void:
+	if current_stage_id == 10:
+		open_checkerboard_complete_screen()
+	else:
+		goto_next_stage()
+
+
+func open_checkerboard_complete_screen() -> void:
+	if current_ui_handler:
+		current_ui_handler.the_checkboard_is_done()
+
 
 ## Goes to next stage.
 ## [br][br]Enabling [param force_progression] bypasses [member Stage.stage_progression] and forces progression.
@@ -77,6 +92,12 @@ func goto_next_stage(force_progression: bool = false) -> void:
 	
 	if next_lvl_id <= GameUtil.NUMBER_OF_STAGES: 
 		Trans.slide_to_next_stage(next_lvl_path)
+
+
+func goto_next_checkerboard() -> void:
+	print("Beta finished.")
+	
+	Trans.slide_to_next_stage("res://interface/menus/thank_you_screen.tscn")
 
 
 func goto_prev_stage() -> void:

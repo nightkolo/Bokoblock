@@ -37,7 +37,7 @@ texture = ExtResource("3_b7jpx")
 [node name="Z" type="CPUParticles2D" parent="."]
 z_index = 1
 position = Vector2(9, -13)
-amount = 3
+amount = 2
 speed_scale = 0.25
 randomness = 0.13
 texture = ExtResource("4_d6h2u")

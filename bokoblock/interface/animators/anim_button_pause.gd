@@ -28,8 +28,8 @@ func anim_entered():
 	tween = create_tween().set_parallel(true)
 	tween.set_ease(Tween.EASE_OUT)
 	
-	scale.x = 0.75
-	scale.y = 0.9
+	#scale.x = 0.75
+	#scale.y = 0.9
 	
 	tween.tween_property(self, "scale:x", scale_to, dur/3).set_trans(Tween.TRANS_BACK)
 	tween.tween_property(self, "scale:y", scale_to, dur).set_trans(Tween.TRANS_ELASTIC).set_delay(dur/9)

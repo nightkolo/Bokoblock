@@ -48,14 +48,20 @@ func _ready() -> void:
 	body_moving = $SFX/BodyMoving.get_children()
 	body_turn_click = $SFX/BodyTurnClick.get_children()
 	
-	GameMgr.game_entered.connect(func(entered: bool):
-		AudioServer.set_bus_mute(bus_GameSound, !entered)
-		
-		if entered:
-			if !music_stage.playing:
-				music_stage.play()
-		else:
-			music_stage.stop()
+	GameMgr.menu_entered.connect(func(entered: GameMgr.GameMenus):
+		match entered:
+			
+			GameMgr.GameMenus.PAUSE, GameMgr.GameMenus.RUNTIME, GameMgr.GameMenus.CHECKERBOARD_COMPLETE:
+				#AudioServer.set_bus_mute(bus_GameSound, false)
+				
+				if !music_stage.playing:
+					music_stage.play()
+			
+			_:
+				#AudioServer.set_bus_mute(bus_GameSound, true)
+				
+				if music_stage.playing:
+					music_stage.stop()
 	)
 		
 	# TODO: Maybe should not make everything global

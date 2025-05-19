@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://b5q1v0nl8u5r0"]
+[gd_scene load_steps=29 format=4 uid="uid://b5q1v0nl8u5r0"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_yjl42"]
 [ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="3_dikwh"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://b3t86u61yy44r" path="res://assets/interface/input-prompt-a.png" id="18_vcqs0"]
 [ext_resource type="Texture2D" uid="uid://ckrarv4ttydrq" path="res://assets/interface/input-prompt-right.png" id="19_sbdqm"]
 [ext_resource type="Texture2D" uid="uid://dvthxugxlg2t8" path="res://assets/interface/input-prompt-down.png" id="20_t11h7"]
+[ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="21_4s2tv"]
 [ext_resource type="Texture2D" uid="uid://b7vkjf4qgn1nw" path="res://assets/interface/input-prompt-up.png" id="21_8tlne"]
 [ext_resource type="Texture2D" uid="uid://b818lk06ijvd0" path="res://assets/interface/input-prompt-left.png" id="22_tgc22"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="23_axq0q"]
@@ -34,9 +35,10 @@ spacing_bottom = -6
 font = SubResource("FontVariation_f2h3v")
 font_size = 24
 
-[node name="S1" type="Node2D"]
+[node name="S1" type="Node2D" node_paths=PackedStringArray("stage_number")]
 script = ExtResource("1_yjl42")
 win_condition = 1
+stage_number = NodePath("StageWorld/MoveCounter")
 
 [node name="Cam" parent="." instance=ExtResource("3_s83cp")]
 position = Vector2(520, 382)
@@ -44,55 +46,55 @@ zoom = Vector2(1.25, 1.25)
 
 [node name="UI" parent="." instance=ExtResource("3_dikwh")]
 
-[node name="StageWorld2" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_m0deh")]
+[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_m0deh")]
 tile_maps = NodePath("TM")
 
-[node name="StageLight" type="PointLight2D" parent="StageWorld2"]
+[node name="StageLight" type="PointLight2D" parent="StageWorld"]
 position = Vector2(608, 383)
 scale = Vector2(5.625, 7.03125)
 range_item_cull_mask = 2
 texture = ExtResource("10_w6635")
 script = ExtResource("11_nsp4o")
 
-[node name="TM" type="Node2D" parent="StageWorld2"]
+[node name="TM" type="Node2D" parent="StageWorld"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("8_g1y2x")
 
-[node name="Collision" type="TileMapLayer" parent="StageWorld2/TM"]
+[node name="Collision" type="TileMapLayer" parent="StageWorld/TM"]
 tile_map_data = PackedByteArray("AAAJAAUAAQAAAAQAAAAJAA0AAQAAAAQAAAAKAAUAAQAAAAQAAAAKAA0AAQAAAAQAAAALAA0AAQAAAAQAAAAMAAMAAQAAAAQAAAAMAA0AAQAAAAQAAAANAAMAAQAAAAQAAAANAA0AAQAAAAQAAAAOAAMAAQAAAAQAAAAPAAMAAQAAAAQAAAAPAAkAAQAAAAQAAAAJAAYAAQAAAAQAAAAJAAcAAQAAAAQAAAAJAAgAAQAAAAQAAAAJAAkAAQAAAAQAAAAJAAoAAQAAAAQAAAAJAAsAAQAAAAQAAAAJAAwAAQAAAAQAAAALAAUAAQAAAAQAAAAMAAQAAQAAAAQAAAAMAAUAAQAAAAQAAAAOAA0AAQAAAAQAAAAPAAoAAQAAAAQAAAAPAAsAAQAAAAQAAAAPAAwAAQAAAAQAAAAPAA0AAQAAAAQAAAAQAAMAAQAAAAQAAAAQAAkAAQAAAAQAAAARAAMAAQAAAAQAAAARAAQAAQAAAAQAAAARAAUAAQAAAAQAAAARAAYAAQAAAAQAAAARAAcAAQAAAAQAAAARAAgAAQAAAAQAAAARAAkAAQAAAAQAAAA=")
 tile_set = ExtResource("9_4fw8e")
 
-[node name="Checkerboard" type="TileMapLayer" parent="StageWorld2/TM"]
+[node name="Checkerboard" type="TileMapLayer" parent="StageWorld/TM"]
 self_modulate = Color(0.769, 0.769, 0.769, 1)
 light_mask = 2
 tile_map_data = PackedByteArray("AAAKAAYABwAAAAIAAAAKAAcABwAAAAMAAAAKAAgABwAAAAAAAAAKAAkABwAAAAEAAAAKAAoABwAAAAIAAAAKAAsABwAAAAMAAAAKAAwABwAAAAAAAAALAAYABwABAAIAAAALAAcABwABAAMAAAALAAgABwABAAAAAAALAAkABwABAAEAAAALAAoABwABAAIAAAALAAsABwABAAMAAAALAAwABwABAAAAAAAMAAYABwACAAIAAAAMAAcABwACAAMAAAAMAAgABwACAAAAAAAMAAkABwACAAEAAAAMAAoABwACAAIAAAAMAAsABwACAAMAAAAMAAwABwACAAAAAAANAAYABwADAAIAAAANAAcABwADAAMAAAANAAgABwADAAAAAAANAAkABwADAAEAAAANAAoABwADAAIAAAANAAsABwADAAMAAAANAAwABwADAAAAAAAOAAYABwAAAAIAAAAOAAcABwAAAAMAAAAOAAgABwAAAAAAAAAOAAkABwAAAAEAAAAOAAoABwAAAAIAAAAOAAsABwAAAAMAAAAOAAwABwAAAAAAAAAPAAcABwABAAMAAAAPAAgABwABAAAAAAAQAAcABwACAAMAAAAQAAgABwACAAAAAAAPAAUABwABAAEAAAAPAAYABwABAAIAAAAQAAUABwACAAEAAAAQAAYABwACAAIAAAANAAQABwADAAAAAAANAAUABwADAAEAAAAOAAQABwAAAAAAAAAOAAUABwAAAAEAAAAPAAQABwABAAAAAAAQAAQABwACAAAAAAA=")
 tile_set = ExtResource("9_4fw8e")
 
-[node name="Outline" type="TileMapLayer" parent="StageWorld2/TM"]
+[node name="Outline" type="TileMapLayer" parent="StageWorld/TM"]
 tile_map_data = PackedByteArray("AAAJAA0AAQAGAAEAAAAJAAwAAQALAAIAAAAJAAsAAQALAAIAAAAJAAoAAQALAAIAAAAJAAkAAQALAAIAAAAJAAgAAQALAAIAAAAJAAcAAQALAAIAAAAJAAYAAQALAAIAAAAKAAUAAQAJAAMAAAAJAAUAAQAGAAIAAAALAAUAAQAJAAMAAAAMAAUAAQALAAMAAAAMAAQAAQALAAIAAAAMAAMAAQAGAAIAAAANAAMAAQAJAAMAAAAOAAMAAQAJAAMAAAAPAAMAAQAJAAMAAAAQAAMAAQAJAAMAAAARAAMAAQAFAAIAAAARAAQAAQAIAAEAAAARAAUAAQAIAAEAAAARAAYAAQAIAAEAAAARAAcAAQAIAAEAAAARAAgAAQAIAAEAAAARAAkAAQAFAAEAAAAQAAkAAQAKAAAAAAAPAAkAAQAIAAAAAAAPAAoAAQAIAAEAAAAPAAsAAQAIAAEAAAAPAAwAAQAIAAEAAAAPAA0AAQAFAAEAAAAOAA0AAQAKAAAAAAANAA0AAQAKAAAAAAAMAA0AAQAKAAAAAAALAA0AAQAKAAAAAAAKAA0AAQAKAAAAAAAIAA0AAQAJAAIAAAAIAAwAAQAJAAIAAAAIAAsAAQAJAAIAAAAIAAoAAQAJAAIAAAAIAAkAAQAJAAIAAAAIAAgAAQAJAAIAAAAIAAcAAQAJAAIAAAAIAAYAAQAJAAIAAAAIAAUAAQAJAAIAAAAIAAQAAQAJAAIAAAAJAAQAAQAJAAIAAAAKAAQAAQAJAAIAAAALAAQAAQAJAAIAAAALAAMAAQAJAAIAAAALAAIAAQAJAAIAAAALAAEAAQAJAAIAAAAMAAEAAQAJAAIAAAAMAAIAAQAJAAIAAAANAAIAAQAJAAIAAAAOAAIAAQAJAAIAAAAPAAIAAQAJAAIAAAAQAAIAAQAJAAIAAAARAAIAAQAJAAIAAAASAAIAAQAJAAIAAAASAAMAAQAJAAIAAAASAAQAAQAJAAIAAAASAAUAAQAJAAIAAAASAAYAAQAJAAIAAAASAAcAAQAJAAIAAAASAAgAAQAJAAIAAAASAAkAAQAJAAIAAAASAAoAAQAJAAIAAAARAAoAAQAJAAIAAAAQAAoAAQAJAAIAAAAQAAsAAQAJAAIAAAAQAAwAAQAJAAIAAAAQAA0AAQAJAAIAAAAQAA4AAQAJAAIAAAAPAA4AAQAJAAIAAAAOAA4AAQAJAAIAAAANAA4AAQAJAAIAAAAMAA4AAQAJAAIAAAALAA4AAQAJAAIAAAAKAA4AAQAJAAIAAAAJAA4AAQAJAAIAAAAIAA4AAQAJAAIAAAATAAUAAQAJAAIAAAATAAQAAQAJAAIAAAA=")
 tile_set = ExtResource("9_4fw8e")
 
-[node name="ChibiBoko" parent="StageWorld2" instance=ExtResource("28_t0wdl")]
+[node name="ChibiBoko" parent="StageWorld" instance=ExtResource("28_t0wdl")]
 position = Vector2(248, 338)
 info_text = "Land the
  Body on
  the        Starpoints!"
 
-[node name="Info" type="Node2D" parent="StageWorld2"]
+[node name="Info" type="Node2D" parent="StageWorld"]
 position = Vector2(245, 474)
 
-[node name="Starpoint" type="Sprite2D" parent="StageWorld2/Info"]
+[node name="Starpoint" type="Sprite2D" parent="StageWorld/Info"]
 position = Vector2(107, -104)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_3iynp")
 script = ExtResource("13_q20si")
 
-[node name="InputPrompts" type="Node2D" parent="StageWorld2/Info"]
+[node name="InputPrompts" type="Node2D" parent="StageWorld/Info"]
 modulate = Color(1, 0.79, 1, 1)
 position = Vector2(66, -42)
 script = ExtResource("14_gyuwq")
 
-[node name="InfoBox" type="Label" parent="StageWorld2/Info/InputPrompts"]
+[node name="InfoBox" type="Label" parent="StageWorld/Info/InputPrompts"]
 offset_top = 89.0
 offset_right = 124.0
 offset_bottom = 161.0
@@ -100,26 +102,26 @@ text = "Move"
 label_settings = SubResource("LabelSettings_ov8fp")
 horizontal_alignment = 1
 
-[node name="Node2D" type="Node2D" parent="StageWorld2/Info/InputPrompts"]
+[node name="Node2D" type="Node2D" parent="StageWorld/Info/InputPrompts"]
 position = Vector2(61, 67)
 scale = Vector2(0.5, 0.5)
 
-[node name="Input-prompt-d" type="Sprite2D" parent="StageWorld2/Info/InputPrompts/Node2D"]
+[node name="Input-prompt-d" type="Sprite2D" parent="StageWorld/Info/InputPrompts/Node2D"]
 position = Vector2(74, 0)
 texture = ExtResource("15_i1heq")
 
-[node name="Input-prompt-s" type="Sprite2D" parent="StageWorld2/Info/InputPrompts/Node2D"]
+[node name="Input-prompt-s" type="Sprite2D" parent="StageWorld/Info/InputPrompts/Node2D"]
 texture = ExtResource("16_rmr67")
 
-[node name="Input-prompt-w" type="Sprite2D" parent="StageWorld2/Info/InputPrompts/Node2D"]
+[node name="Input-prompt-w" type="Sprite2D" parent="StageWorld/Info/InputPrompts/Node2D"]
 position = Vector2(0, -74)
 texture = ExtResource("17_ggehk")
 
-[node name="Input-promt-a" type="Sprite2D" parent="StageWorld2/Info/InputPrompts/Node2D"]
+[node name="Input-promt-a" type="Sprite2D" parent="StageWorld/Info/InputPrompts/Node2D"]
 position = Vector2(-74, 0)
 texture = ExtResource("18_vcqs0")
 
-[node name="InfoBox2" type="Label" parent="StageWorld2/Info/InputPrompts"]
+[node name="InfoBox2" type="Label" parent="StageWorld/Info/InputPrompts"]
 modulate = Color(1, 1, 1, 0.5)
 offset_left = -38.0
 offset_top = 139.0
@@ -129,58 +131,62 @@ text = "or"
 label_settings = SubResource("LabelSettings_ov8fp")
 horizontal_alignment = 1
 
-[node name="Node2D2" type="Node2D" parent="StageWorld2/Info/InputPrompts"]
+[node name="Node2D2" type="Node2D" parent="StageWorld/Info/InputPrompts"]
 modulate = Color(1, 1, 1, 0.5)
 position = Vector2(83, 151)
 scale = Vector2(0.3, 0.3)
 
-[node name="Input-prompt-right" type="Sprite2D" parent="StageWorld2/Info/InputPrompts/Node2D2"]
+[node name="Input-prompt-right" type="Sprite2D" parent="StageWorld/Info/InputPrompts/Node2D2"]
 position = Vector2(74, 0)
 texture = ExtResource("19_sbdqm")
 
-[node name="Input-prompt-down" type="Sprite2D" parent="StageWorld2/Info/InputPrompts/Node2D2"]
+[node name="Input-prompt-down" type="Sprite2D" parent="StageWorld/Info/InputPrompts/Node2D2"]
 texture = ExtResource("20_t11h7")
 
-[node name="Input-prompt-up" type="Sprite2D" parent="StageWorld2/Info/InputPrompts/Node2D2"]
+[node name="Input-prompt-up" type="Sprite2D" parent="StageWorld/Info/InputPrompts/Node2D2"]
 position = Vector2(0, -74)
 texture = ExtResource("21_8tlne")
 
-[node name="Input-promt-left" type="Sprite2D" parent="StageWorld2/Info/InputPrompts/Node2D2"]
+[node name="Input-promt-left" type="Sprite2D" parent="StageWorld/Info/InputPrompts/Node2D2"]
 position = Vector2(-74, 0)
 texture = ExtResource("22_tgc22")
 
-[node name="LO" type="Node2D" parent="."]
+[node name="MoveCounter" parent="StageWorld" instance=ExtResource("21_4s2tv")]
+visible = true
+position = Vector2(473, 203)
+
+[node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("23_axq0q")
 
-[node name="Endpoints" type="Node2D" parent="LO"]
+[node name="Endpoints" type="Node2D" parent="StageObjects"]
 script = ExtResource("24_a15l4")
 
-[node name="Starpoint" parent="LO/Endpoints" instance=ExtResource("25_eqltq")]
+[node name="Starpoint" parent="StageObjects/Endpoints" instance=ExtResource("25_eqltq")]
 position = Vector2(698, 293)
 
-[node name="Starpoint2" parent="LO/Endpoints" instance=ExtResource("25_eqltq")]
+[node name="Starpoint2" parent="StageObjects/Endpoints" instance=ExtResource("25_eqltq")]
 position = Vector2(698, 248)
 
-[node name="Starpoint3" parent="LO/Endpoints" instance=ExtResource("25_eqltq")]
+[node name="Starpoint3" parent="StageObjects/Endpoints" instance=ExtResource("25_eqltq")]
 position = Vector2(743, 293)
 
-[node name="Starpoint4" parent="LO/Endpoints" instance=ExtResource("25_eqltq")]
+[node name="Starpoint4" parent="StageObjects/Endpoints" instance=ExtResource("25_eqltq")]
 position = Vector2(653, 293)
 
-[node name="Starpoint5" parent="LO/Endpoints" instance=ExtResource("25_eqltq")]
+[node name="Starpoint5" parent="StageObjects/Endpoints" instance=ExtResource("25_eqltq")]
 position = Vector2(698, 338)
 
-[node name="Bokobody" type="Node2D" parent="LO"]
+[node name="Bokobody" type="Node2D" parent="StageObjects"]
 position = Vector2(563, 473)
 script = ExtResource("26_kbbao")
 
-[node name="Block" parent="LO/Bokobody" instance=ExtResource("27_w11ve")]
+[node name="Block" parent="StageObjects/Bokobody" instance=ExtResource("27_w11ve")]
 
-[node name="Block2" parent="LO/Bokobody" instance=ExtResource("27_w11ve")]
+[node name="Block2" parent="StageObjects/Bokobody" instance=ExtResource("27_w11ve")]
 position = Vector2(-45, 0)
 
-[node name="Block4" parent="LO/Bokobody" instance=ExtResource("27_w11ve")]
+[node name="Block4" parent="StageObjects/Bokobody" instance=ExtResource("27_w11ve")]
 position = Vector2(0, -45)
 
-[node name="Block5" parent="LO/Bokobody" instance=ExtResource("27_w11ve")]
+[node name="Block5" parent="StageObjects/Bokobody" instance=ExtResource("27_w11ve")]
 position = Vector2(0, 45)

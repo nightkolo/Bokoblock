@@ -1,6 +1,9 @@
 extends Control
 class_name PauseScreen
 
+@onready var bus_SFX: int = AudioServer.get_bus_index("SFX")
+@onready var bus_Music: int = AudioServer.get_bus_index("Music")
+
 @onready var resume_btn: Button = %ResumeButton
 @onready var reset_btn: Button = %ResetButton
 @onready var return_btn: Button = %ReturnButton
@@ -47,12 +50,28 @@ func _ready() -> void:
 		reset_btn.pressed.connect(func():
 			_gameplay_ui.reset_stage()
 			)
-			
-	return_btn.pressed.connect(func():
-		GameMgr.game_entered.emit(false)
-		get_tree().paused = false
-		get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")
+	
+	music_btn.pressed.connect(func():
+		var muted := GameMgr.music_muted
+		
+		AudioServer.set_bus_mute(bus_Music, !muted)
+		
+		GameMgr.music_muted = !muted
 		)
+		
+	sfx_btn.pressed.connect(func():
+		var muted := GameMgr.sfx_muted
+		
+		AudioServer.set_bus_mute(bus_SFX, !muted)
+		
+		GameMgr.sfx_muted = !muted
+		)
+	
+	#return_btn.pressed.connect(func():
+		#GameMgr.menu_entered.emit(GameMgr.GameMenus.MENUS)
+		#get_tree().paused = false
+		#get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")
+		#)
 
 
 func update_text() -> void:

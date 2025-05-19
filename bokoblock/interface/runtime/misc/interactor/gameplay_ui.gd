@@ -2,7 +2,7 @@ extends CanvasLayer
 class_name GameplayUI
 
 signal game_pause_toggled(is_paused: bool)
-signal stage_complete_entered()
+signal stage_complete_entered() ## @deprecated
 
 @onready var pause_screen: PauseScreen = $PauseMenu
 @onready var stage_complete_screen: StageCompleteScreen = $StageCompleteScreen
@@ -29,11 +29,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_game_paused == false:
 			reset_stage()
 	
-	if event.is_action_pressed("skip_level"):
-		GameMgr.goto_next_stage(true)
-		
-	if event.is_action_pressed("prev_level"):
-		GameMgr.goto_prev_stage()
+	#if event.is_action_pressed("skip_level"):
+		#GameMgr.goto_next_stage(true)
+		#
+	#if event.is_action_pressed("prev_level"):
+		#GameMgr.goto_prev_stage()
 	
 	
 func _ready() -> void:
@@ -45,10 +45,15 @@ func _ready() -> void:
 	
 	
 func the_blocks_have_been_happy():
-	stage_complete_entered.emit()
+	pass
+	#stage_complete_entered.emit()
 	
 	#stage_complete_screen.anim_open()
-	
+
+
+func the_checkboard_is_done():
+	stage_complete_screen.open()
+
 	
 func pause_or_unpause() -> void:
 	if GameLogic.has_won:
@@ -59,6 +64,11 @@ func pause_or_unpause() -> void:
 	game_pause_toggled.emit(is_game_paused)
 	
 	pause_screen.visible = is_game_paused
+	
+	if is_game_paused:
+		GameMgr.menu_entered.emit(GameMgr.GameMenus.PAUSE)
+	else:
+		GameMgr.menu_entered.emit(GameMgr.GameMenus.RUNTIME)
 	
 	
 func reset_stage() -> void:

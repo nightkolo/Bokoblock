@@ -17,10 +17,9 @@
 [ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_xbn48"]
 [ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="11_f77q7"]
 
-[node name="Stage6" type="Node2D" node_paths=PackedStringArray("move_counter")]
+[node name="Stage6" type="Node2D" node_paths=PackedStringArray("stage_number")]
 script = ExtResource("1_6fa5p")
-moves_threshold = 14
-move_counter = NodePath("StageWorld/MoveCounter")
+stage_number = NodePath("StageWorld/MoveCounter")
 
 [node name="UI" parent="." instance=ExtResource("2_1itnh")]
 
@@ -28,7 +27,9 @@ move_counter = NodePath("StageWorld/MoveCounter")
 position = Vector2(472, 344)
 zoom = Vector2(1.35, 1.35)
 
-[node name="StageWorld" parent="." instance=ExtResource("3_rvx16")]
+[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("3_rvx16")]
+color_pallete = 2
+tile_maps = NodePath("TM")
 
 [node name="StageLight" type="PointLight2D" parent="StageWorld"]
 position = Vector2(472, 337)
@@ -61,7 +62,7 @@ info_text = "Angry Blocks have
  an attitude..."
 
 [node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_xbn48")]
-position = Vector2(293, 538)
+position = Vector2(337, 545)
 
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("6_dbh07")

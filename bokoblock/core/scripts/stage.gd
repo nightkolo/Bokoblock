@@ -22,7 +22,7 @@ class_name Stage
 @export var custom_block_match: int = -1 ## @experimental
 @export var stage_progression: bool = true
 @export_category("Game")
-@export var save_stats: bool = true
+@export var save_stats: bool = false ## @experimental
 @export var win_condition: GameLogic.WinCondition
 #@export var allow_undoing: bool = true:
 	#set(value):
@@ -31,14 +31,14 @@ class_name Stage
 				#body.no_undo = false
 		#allow_undoing = value
 #@export var moves_threshold: int = 25
-#@export var move_counter: MoveCounter
+@export var stage_number: MoveCounter
 
 var saver_loader: SaverLoader
 var is_yellow_starred: bool = true ## @deprecated
 #var moves_counted: int
 var improved_stats: bool = false ## @deprecated
 
-var _world_1: PackedScene = preload("res://world_1.tscn")
+#var _world_1: PackedScene = preload("res://world_1.tscn")
 var _dev_ui: PackedScene = preload("res://interface/runtime/misc/dev_ui.tscn")
 var _moves_counted: int = 0:
 	get:
@@ -68,8 +68,9 @@ var _moves_counted: int = 0:
 
 func _ready() -> void:
 	GameMgr.current_stage = self
-	GameMgr.game_entered.emit(true)
+	GameMgr.menu_entered.emit(GameMgr.GameMenus.RUNTIME)
 	GameLogic.set_win_condition(win_condition)
+	
 	if auto_assign_ids:
 		var num := self.scene_file_path.to_int()
 
@@ -96,8 +97,8 @@ func _ready() -> void:
 		add_child(SL)
 		saver_loader = SL
 	
-	#if move_counter:
-		#move_counter.label.text = str(moves_threshold)
+	if stage_number:
+		stage_number.label.text = str(stage_id)
 	#
 	#moves_counted = moves_threshold
 	
