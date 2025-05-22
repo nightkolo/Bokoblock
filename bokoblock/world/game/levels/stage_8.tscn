@@ -1,220 +1,128 @@
-[gd_scene load_steps=22 format=4 uid="uid://827o4t8grcl6"]
+[gd_scene load_steps=18 format=4 uid="uid://sdg1iqnk0gun"]
 
-[ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_u3r3d"]
-[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_3eveh"]
-[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_k46aq"]
-[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_uqwvb"]
-[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="5_jpvvm"]
-[ext_resource type="Script" path="res://world/world/stage_light.gd" id="6_rvk7b"]
+[ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_4xwxe"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_7bofo"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_v0stl"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_e0xpa"]
+[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="5_2xmn7"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="6_4vcad"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_cpf6n"]
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="7_eplui"]
-[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_gx00g"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_ghctb"]
-[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_rfy3d"]
-[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="9_g7t73"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_jwosy"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_g541j"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_sltp2"]
-[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_tvf0x"]
-[ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_qe4yq"]
+[ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_edr8x"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_stvqs"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="11_8b2s4"]
 [ext_resource type="PackedScene" uid="uid://bmld4h85gfbc1" path="res://object/objects/obj_one_color_wall.tscn" id="13_si2pf"]
 [ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="16_1c7qc"]
-[ext_resource type="Script" path="res://object/scripts/obj_one_color_wall.gd" id="17_gyaad"]
-[ext_resource type="Texture2D" uid="uid://bff5brsyoo0i2" path="res://assets/objects/one-color-wall-v03.png" id="18_sb53d"]
-[ext_resource type="Texture2D" uid="uid://c4i4qyjwbbeo6" path="res://assets/world/one-color-wall-ghost-v01.png" id="19_e4ssb"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8umuf"]
-size = Vector2(45, 45)
 
 [node name="Stage" type="Node2D" node_paths=PackedStringArray("stage_number")]
-script = ExtResource("1_u3r3d")
+script = ExtResource("1_4xwxe")
 stage_number = NodePath("StageWorld/MoveCounter")
 
-[node name="UI" parent="." instance=ExtResource("2_3eveh")]
+[node name="UI" parent="." instance=ExtResource("2_7bofo")]
 
-[node name="Cam" parent="." instance=ExtResource("3_k46aq")]
-position = Vector2(496, 339)
-zoom = Vector2(1.25, 1.25)
+[node name="Cam" parent="." instance=ExtResource("3_v0stl")]
+position = Vector2(473, 338)
+zoom = Vector2(1.2, 1.2)
 
-[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_uqwvb")]
+[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_e0xpa")]
 tile_maps = NodePath("TM")
+show_collision_tilemap = true
 
 [node name="StageLight" type="PointLight2D" parent="StageWorld"]
-position = Vector2(338, 383)
-scale = Vector2(2.8125, 5.625)
+position = Vector2(517, 382)
+scale = Vector2(8.4375, 7.03125)
 range_item_cull_mask = 2
-texture = ExtResource("5_jpvvm")
-script = ExtResource("6_rvk7b")
-
-[node name="StageLight2" type="PointLight2D" parent="StageWorld"]
-position = Vector2(653, 360.5)
-scale = Vector2(4.21875, 6.32812)
-range_item_cull_mask = 2
-texture = ExtResource("5_jpvvm")
-script = ExtResource("6_rvk7b")
+texture = ExtResource("5_2xmn7")
+script = ExtResource("6_4vcad")
 
 [node name="TM" type="Node2D" parent="StageWorld"]
 scale = Vector2(0.5, 0.5)
-script = ExtResource("7_gx00g")
+script = ExtResource("7_cpf6n")
 
 [node name="Collision" type="TileMapLayer" parent="StageWorld/TM"]
-tile_map_data = PackedByteArray("AAAGAAwAAQAAAAQAAAAHAAwAAQAAAAQAAAAIAAwAAQAAAAQAAAAJAAwAAQAAAAQAAAAPAAkAAQAAAAQAAAAPAAgAAQAAAAQAAAALAAUAAQAAAAQAAAAJAAUAAQAAAAQAAAAFAAgAAQAAAAQAAAAFAAwAAQAAAAQAAAAFAAsAAQAAAAQAAAAFAAoAAQAAAAQAAAAFAAkAAQAAAAQAAAALAAQAAQAAAAQAAAARAAUAAQAAAAQAAAARAAYAAQAAAAQAAAARAAcAAQAAAAQAAAAPAAcAAQAAAAQAAAAQAAcAAQAAAAQAAAAFAAcAAQAAAAQAAAAFAAYAAQAAAAQAAAAFAAUAAQAAAAQAAAAJAAoAAQAAAAQAAAAJAAkAAQAAAAQAAAAKAAkAAQAAAAQAAAAJAAcAAQAAAAQAAAAKAAcAAQAAAAQAAAALAAkAAQAAAAQAAAALAAcAAQAAAAQAAAAJAAYAAQAAAAQAAAAJAAQAAQAAAAQAAAAFAAQAAQAAAAQAAAAIAAQAAQAAAAQAAAAHAAQAAQAAAAQAAAAGAAQAAQAAAAQAAAARAAQAAQAAAAQAAAALAAYAAQAAAAQAAAALAAMAAQAAAAQAAAAMAAMAAQAAAAQAAAANAAMAAQAAAAQAAAAOAAMAAQAAAAQAAAAPAAMAAQAAAAQAAAAQAAMAAQAAAAQAAAARAAMAAQAAAAQAAAAPAAoAAQAAAAQAAAAPAAwAAQAAAAQAAAAOAAwAAQAAAAQAAAANAAwAAQAAAAQAAAAMAAwAAQAAAAQAAAALAAwAAQAAAAQAAAALAAsAAQAAAAQAAAALAAoAAQAAAAQAAAAKAAwAAQAAAAQAAAAKAAsAAQAAAAQAAAAQAAwAAQAAAAQAAAAQAAsAAQAAAAQAAAAQAAoAAQAAAAQAAAAKAAoAAQAAAAQAAAA=")
-tile_set = ExtResource("8_rfy3d")
+tile_map_data = PackedByteArray("AAAFAAkAAQAAAAQAAAAJAAYAAQAAAAQAAAAKAAYAAQAAAAQAAAAKAAgAAQAAAAQAAAAIAAYAAQAAAAQAAAAHAAYAAQAAAAQAAAAGAAYAAQAAAAQAAAAOAAYAAQAAAAQAAAAOAAgAAQAAAAQAAAAOAAcAAQAAAAQAAAAJAAsAAQAAAAQAAAAIAAsAAQAAAAQAAAAHAAsAAQAAAAQAAAAGAAsAAQAAAAQAAAAFAAsAAQAAAAQAAAAOAAQAAQAAAAQAAAAOAAMAAQAAAAQAAAAJAAgAAQAAAAQAAAAJAAkAAQAAAAQAAAAJAAoAAQAAAAQAAAAEAAsAAQAAAAQAAAAEAAoAAQAAAAQAAAAEAAkAAQAAAAQAAAAFAAgAAQAAAAQAAAAFAAcAAQAAAAQAAAAFAAYAAQAAAAQAAAAOAAoAAQAAAAQAAAAOAAUAAQAAAAQAAAAKAAoAAQAAAAQAAAALAAoAAQAAAAQAAAAMAAoAAQAAAAQAAAANAAoAAQAAAAQAAAAKAAUAAQAAAAQAAAAJAAQAAQAAAAQAAAAJAAMAAQAAAAQAAAAJAAUAAQAAAAQAAAAKAAMAAQAAAAQAAAALAAMAAQAAAAQAAAAMAAMAAQAAAAQAAAANAAMAAQAAAAQAAAAPAAoAAQAAAAQAAAAPAAkAAQAAAAQAAAAPAAgAAQAAAAQAAAAKAAkAAQAAAAQAAAA=")
+tile_set = ExtResource("8_jwosy")
 
 [node name="Checkerboard" type="TileMapLayer" parent="StageWorld/TM"]
 self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
 light_mask = 2
-tile_map_data = PackedByteArray("AAAGAAUABwAAAAEAAAAGAAYABwAAAAIAAAAGAAcABwAAAAMAAAAHAAUABwABAAEAAAAHAAYABwABAAIAAAAHAAcABwABAAMAAAAIAAUABwACAAEAAAAIAAYABwACAAIAAAAIAAcABwACAAMAAAAMAAQABwACAAAAAAAMAAUABwACAAEAAAAMAAYABwACAAIAAAAMAAcABwACAAMAAAANAAQABwADAAAAAAANAAUABwADAAEAAAANAAYABwADAAIAAAANAAcABwADAAMAAAAOAAQABwAAAAAAAAAOAAUABwAAAAEAAAAOAAYABwAAAAIAAAAOAAcABwAAAAMAAAAPAAQABwABAAAAAAAPAAUABwABAAEAAAAPAAYABwABAAIAAAAQAAQABwACAAAAAAAQAAUABwACAAEAAAAQAAYABwACAAIAAAAOAAgABwAAAAAAAAAOAAkABwAAAAEAAAAOAAoABwAAAAIAAAAOAAsABwAAAAMAAAAPAAsABwABAAMAAAAKAAgABwAAAAAAAAALAAgABwABAAAAAAAMAAgABwACAAAAAAAMAAkABwACAAEAAAAMAAoABwACAAIAAAAMAAsABwACAAMAAAANAAgABwADAAAAAAANAAkABwADAAEAAAANAAoABwADAAIAAAANAAsABwADAAMAAAAGAAgABwAAAAAAAAAGAAkABwAAAAEAAAAGAAoABwAAAAIAAAAGAAsABwAAAAMAAAAHAAgABwABAAAAAAAHAAkABwABAAEAAAAHAAoABwABAAIAAAAHAAsABwABAAMAAAAIAAgABwACAAAAAAAIAAkABwACAAEAAAAIAAoABwACAAIAAAAIAAsABwACAAMAAAAJAAgABwADAAAAAAAJAAsABwADAAMAAAA=")
-tile_set = ExtResource("8_rfy3d")
+tile_set = ExtResource("8_jwosy")
 
 [node name="Outline" type="TileMapLayer" parent="StageWorld/TM"]
-tile_map_data = PackedByteArray("AAAKAAwAAQAFAAEAAAAKAAsAAQAIAAEAAAAKAAoAAQAFAAIAAAAJAAoAAQAIAAMAAAAJAAkAAQAIAAAAAAAKAAkAAQAKAAAAAAALAAoAAQALAAIAAAALAAkAAQALAAAAAAALAAsAAQALAAIAAAALAAwAAQAGAAEAAAAMAAwAAQAKAAAAAAANAAwAAQAKAAAAAAAOAAwAAQAKAAAAAAAPAAwAAQAKAAAAAAAQAAwAAQAFAAEAAAAQAAsAAQAIAAEAAAAQAAoAAQAFAAIAAAAPAAoAAQAIAAMAAAAPAAkAAQAIAAEAAAAPAAgAAQAIAAEAAAAPAAcAAQAIAAAAAAAQAAcAAQAKAAAAAAARAAcAAQAFAAEAAAARAAYAAQAIAAEAAAARAAUAAQAIAAEAAAARAAQAAQAIAAEAAAARAAMAAQAFAAIAAAAQAAMAAQAJAAMAAAAPAAMAAQAJAAMAAAAOAAMAAQAJAAMAAAANAAMAAQAJAAMAAAAMAAMAAQAJAAMAAAALAAMAAQAGAAIAAAALAAYAAQALAAIAAAALAAcAAQALAAMAAAALAAQAAQALAAIAAAALAAUAAQALAAIAAAAKAAcAAQAJAAMAAAAJAAcAAQAIAAMAAAAJAAYAAQAIAAEAAAAJAAUAAQAIAAEAAAAJAAQAAQAFAAIAAAAIAAQAAQAJAAMAAAAHAAQAAQAJAAMAAAAGAAQAAQAJAAMAAAAFAAQAAQAGAAIAAAAFAAUAAQALAAIAAAAFAAYAAQALAAIAAAAFAAcAAQALAAIAAAAFAAwAAQAGAAEAAAAGAAwAAQAKAAAAAAAHAAwAAQAKAAAAAAAIAAwAAQAKAAAAAAAJAAwAAQAKAAAAAAAFAAsAAQALAAIAAAAFAAoAAQALAAIAAAAFAAkAAQALAAIAAAAFAAgAAQALAAIAAAALABAAAQAJAAMAAAAMABAAAQAJAAMAAAANABAAAQAJAAMAAAAOABAAAQAJAAMAAAAPABAAAQAJAAMAAAAQABAAAQAJAAMAAAARABAAAQAJAAMAAAASABAAAQAJAAMAAAATABAAAQAJAAMAAAAUABAAAQAJAAMAAAAVABAAAQAJAAMAAAAWABAAAQALAAMAAAAWAA8AAQALAAIAAAAWAA4AAQALAAIAAAAWAA0AAQALAAIAAAAWAAwAAQALAAIAAAAWAAsAAQALAAIAAAAWAAoAAQALAAIAAAAWAAkAAQALAAIAAAAWAAgAAQALAAIAAAAWAAcAAQALAAIAAAAWAAYAAQALAAIAAAAWAAUAAQALAAIAAAAWAAQAAQALAAIAAAAWAAMAAQALAAIAAAAWAAIAAQALAAIAAAAWAAEAAQALAAIAAAAWAAAAAQALAAAAAAAVAAAAAQAKAAAAAAAUAAAAAQAKAAAAAAATAAAAAQAKAAAAAAASAAAAAQAKAAAAAAARAAAAAQAKAAAAAAAQAAAAAQAKAAAAAAAPAAAAAQAKAAAAAAAOAAAAAQAKAAAAAAANAAAAAQAKAAAAAAAMAAAAAQAKAAAAAAALAAAAAQAKAAAAAAAKAAAAAQAKAAAAAAAJAAAAAQAKAAAAAAAIAAAAAQAKAAAAAAAHAAAAAQAKAAAAAAAGAAAAAQAKAAAAAAAFAAAAAQAKAAAAAAAEAAAAAQAKAAAAAAAAAAAAAQAIAAAAAAAAAAEAAQAIAAEAAAAAAAIAAQAIAAEAAAAAAAMAAQAIAAEAAAAAAAQAAQAIAAEAAAAAAAUAAQAIAAEAAAAAAAYAAQAIAAEAAAAAAAcAAQAIAAEAAAAAAAgAAQAIAAEAAAAAAAkAAQAIAAEAAAAAAAoAAQAIAAEAAAAKABAAAQAJAAMAAAAJABAAAQAJAAMAAAAIABAAAQAJAAMAAAAHABAAAQAJAAMAAAAGABAAAQAJAAMAAAAFABAAAQAJAAMAAAAEABAAAQAJAAMAAAADABAAAQAJAAMAAAACABAAAQAJAAMAAAABABAAAQAJAAMAAAAAABAAAQAIAAMAAAAAAA8AAQAIAAEAAAAAAA4AAQAIAAEAAAAAAA0AAQAIAAEAAAAAAAwAAQAIAAEAAAAAAAsAAQAIAAEAAAABAAAAAQAKAAAAAAACAAAAAQAKAAAAAAADAAAAAQAKAAAAAAAVAA8AAQAJAAIAAAAVAA4AAQAJAAIAAAAVAA0AAQAJAAIAAAAVAAwAAQAJAAIAAAAVAAsAAQAJAAIAAAAVAAoAAQAJAAIAAAAVAAkAAQAJAAIAAAAVAAgAAQAJAAIAAAAVAAcAAQAJAAIAAAAVAAYAAQAJAAIAAAAVAAUAAQAJAAIAAAAVAAQAAQAJAAIAAAAVAAMAAQAJAAIAAAAVAAIAAQAJAAIAAAAVAAEAAQAJAAIAAAAUAA8AAQAJAAIAAAAUAA4AAQAJAAIAAAAUAA0AAQAJAAIAAAAUAAwAAQAJAAIAAAAUAAsAAQAJAAIAAAAUAAoAAQAJAAIAAAAUAAkAAQAJAAIAAAAUAAgAAQAJAAIAAAAUAAcAAQAJAAIAAAAUAAYAAQAJAAIAAAAUAAUAAQAJAAIAAAAUAAQAAQAJAAIAAAAUAAMAAQAJAAIAAAAUAAIAAQAJAAIAAAAUAAEAAQAJAAIAAAATAA8AAQAJAAIAAAATAA4AAQAJAAIAAAATAA0AAQAJAAIAAAATAAwAAQAJAAIAAAATAAsAAQAJAAIAAAATAAoAAQAJAAIAAAATAAkAAQAJAAIAAAATAAgAAQAJAAIAAAATAAcAAQAJAAIAAAATAAYAAQAJAAIAAAATAAUAAQAJAAIAAAATAAQAAQAJAAIAAAATAAMAAQAJAAIAAAATAAIAAQAJAAIAAAATAAEAAQAJAAIAAAASAA8AAQAJAAIAAAASAA4AAQAJAAIAAAASAA0AAQAJAAIAAAASAAwAAQAJAAIAAAASAAsAAQAJAAIAAAASAAoAAQAJAAIAAAASAAkAAQAJAAIAAAASAAgAAQAJAAIAAAASAAcAAQAJAAIAAAASAAYAAQAJAAIAAAASAAUAAQAJAAIAAAASAAQAAQAJAAIAAAASAAMAAQAJAAIAAAASAAIAAQAJAAIAAAASAAEAAQAJAAIAAAARAA8AAQAJAAIAAAARAA4AAQAJAAIAAAARAA0AAQAJAAIAAAARAAwAAQAJAAIAAAARAAsAAQAJAAIAAAARAAoAAQAJAAIAAAARAAkAAQAJAAIAAAARAAgAAQAJAAIAAAARAAIAAQAJAAIAAAARAAEAAQAJAAIAAAAQAA8AAQAJAAIAAAAQAA4AAQAJAAIAAAAQAA0AAQAJAAIAAAAQAAkAAQAJAAIAAAAQAAgAAQAJAAIAAAAQAAIAAQAJAAIAAAAQAAEAAQAJAAIAAAAPAA8AAQAJAAIAAAAPAA4AAQAJAAIAAAAPAA0AAQAJAAIAAAAPAAIAAQAJAAIAAAAPAAEAAQAJAAIAAAAOAA8AAQAJAAIAAAAOAA4AAQAJAAIAAAAOAA0AAQAJAAIAAAAOAAIAAQAJAAIAAAAOAAEAAQAJAAIAAAANAA8AAQAJAAIAAAANAA4AAQAJAAIAAAANAA0AAQAJAAIAAAANAAIAAQAJAAIAAAANAAEAAQAJAAIAAAAMAA8AAQAJAAIAAAAMAA4AAQAJAAIAAAAMAA0AAQAJAAIAAAAMAAIAAQAJAAIAAAAMAAEAAQAJAAIAAAALAA8AAQAJAAIAAAALAA4AAQAJAAIAAAALAA0AAQAJAAIAAAALAAIAAQAJAAIAAAALAAEAAQAJAAIAAAAKAA8AAQAJAAIAAAAKAA4AAQAJAAIAAAAKAA0AAQAJAAIAAAAKAAYAAQAJAAIAAAAKAAUAAQAJAAIAAAAKAAQAAQAJAAIAAAAKAAMAAQAJAAIAAAAKAAIAAQAJAAIAAAAKAAEAAQAJAAIAAAAJAA8AAQAJAAIAAAAJAA4AAQAJAAIAAAAJAA0AAQAJAAIAAAAJAAMAAQAJAAIAAAAJAAIAAQAJAAIAAAAJAAEAAQAJAAIAAAAIAA8AAQAJAAIAAAAIAA4AAQAJAAIAAAAIAA0AAQAJAAIAAAAIAAMAAQAJAAIAAAAIAAIAAQAJAAIAAAAIAAEAAQAJAAIAAAAHAA8AAQAJAAIAAAAHAA4AAQAJAAIAAAAHAA0AAQAJAAIAAAAHAAMAAQAJAAIAAAAHAAIAAQAJAAIAAAAHAAEAAQAJAAIAAAAGAA8AAQAJAAIAAAAGAA4AAQAJAAIAAAAGAA0AAQAJAAIAAAAGAAMAAQAJAAIAAAAGAAIAAQAJAAIAAAAGAAEAAQAJAAIAAAAFAA8AAQAJAAIAAAAFAA4AAQAJAAIAAAAFAA0AAQAJAAIAAAAFAAMAAQAJAAIAAAAFAAIAAQAJAAIAAAAFAAEAAQAJAAIAAAAEAA8AAQAJAAIAAAAEAA4AAQAJAAIAAAAEAA0AAQAJAAIAAAAEAAwAAQAJAAIAAAAEAAsAAQAJAAIAAAAEAAoAAQAJAAIAAAAEAAkAAQAJAAIAAAAEAAgAAQAJAAIAAAAEAAcAAQAJAAIAAAAEAAYAAQAJAAIAAAAEAAUAAQAJAAIAAAAEAAQAAQAJAAIAAAAEAAMAAQAJAAIAAAAEAAIAAQAJAAIAAAAEAAEAAQAJAAIAAAADAA8AAQAJAAIAAAADAA4AAQAJAAIAAAADAA0AAQAJAAIAAAADAAwAAQAJAAIAAAADAAsAAQAJAAIAAAADAAoAAQAJAAIAAAADAAkAAQAJAAIAAAADAAgAAQAJAAIAAAADAAcAAQAJAAIAAAADAAYAAQAJAAIAAAADAAUAAQAJAAIAAAADAAQAAQAJAAIAAAADAAMAAQAJAAIAAAADAAIAAQAJAAIAAAADAAEAAQAJAAIAAAACAA8AAQAJAAIAAAACAA4AAQAJAAIAAAACAA0AAQAJAAIAAAACAAwAAQAJAAIAAAACAAsAAQAJAAIAAAACAAoAAQAJAAIAAAACAAkAAQAJAAIAAAACAAgAAQAJAAIAAAACAAcAAQAJAAIAAAACAAYAAQAJAAIAAAACAAUAAQAJAAIAAAACAAQAAQAJAAIAAAACAAMAAQAJAAIAAAACAAIAAQAJAAIAAAACAAEAAQAJAAIAAAABAA8AAQAJAAIAAAABAA4AAQAJAAIAAAABAA0AAQAJAAIAAAABAAwAAQAJAAIAAAABAAsAAQAJAAIAAAABAAoAAQAJAAIAAAABAAkAAQAJAAIAAAABAAgAAQAJAAIAAAABAAcAAQAJAAIAAAABAAYAAQAJAAIAAAABAAUAAQAJAAIAAAABAAQAAQAJAAIAAAABAAMAAQAJAAIAAAABAAIAAQAJAAIAAAABAAEAAQAJAAIAAAA=")
-tile_set = ExtResource("8_rfy3d")
+tile_set = ExtResource("8_jwosy")
 
-[node name="ChibiBoko" parent="StageWorld" instance=ExtResource("9_tvf0x")]
-position = Vector2(293, 158)
+[node name="ChibiBoko" parent="StageWorld" instance=ExtResource("9_g541j")]
+position = Vector2(203, 248)
 sleep = true
 
-[node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_qe4yq")]
-position = Vector2(473, 473)
+[node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_edr8x")]
 
 [node name="StageObjects" type="Node2D" parent="."]
-script = ExtResource("9_g7t73")
+script = ExtResource("11_8b2s4")
 
 [node name="Endpoints" type="Node2D" parent="StageObjects"]
 script = ExtResource("9_sltp2")
 
 [node name="Starpoint" parent="StageObjects/Endpoints" instance=ExtResource("10_stvqs")]
-position = Vector2(293, 428)
+position = Vector2(608, 428)
 
 [node name="Starpoint2" parent="StageObjects/Endpoints" instance=ExtResource("10_stvqs")]
-position = Vector2(338, 428)
-what_im_happy_with = 2
+position = Vector2(518, 428)
+what_im_happy_with = 1
 
 [node name="Starpoint3" parent="StageObjects/Endpoints" instance=ExtResource("10_stvqs")]
-position = Vector2(383, 428)
-what_im_happy_with = 2
+position = Vector2(563, 428)
+what_im_happy_with = 1
 
 [node name="Starpoint4" parent="StageObjects/Endpoints" instance=ExtResource("10_stvqs")]
-position = Vector2(743, 248)
+position = Vector2(293, 473)
 
 [node name="Starpoint5" parent="StageObjects/Endpoints" instance=ExtResource("10_stvqs")]
-position = Vector2(743, 293)
+position = Vector2(338, 473)
+what_im_happy_with = 3
 
 [node name="Starpoint6" parent="StageObjects/Endpoints" instance=ExtResource("10_stvqs")]
-position = Vector2(743, 203)
-what_im_happy_with = 2
+position = Vector2(383, 473)
+what_im_happy_with = 3
 
-[node name="OneColorWalls2" type="Area2D" parent="StageObjects"]
-collision_layer = 15
-collision_mask = 15
+[node name="OneColorWall" type="Area2D" parent="StageObjects"]
 script = ExtResource("16_1c7qc")
-what_im_looking_for = 2
 
-[node name="OneColorWall7" parent="StageObjects/OneColorWalls2" instance=ExtResource("13_si2pf")]
-position = Vector2(428, 383)
+[node name="OneColorWall" parent="StageObjects/OneColorWall" instance=ExtResource("13_si2pf")]
+position = Vector2(473, 338)
 
-[node name="OneColorWall8" type="CollisionShape2D" parent="StageObjects/OneColorWalls2"]
-position = Vector2(518, 383)
-shape = SubResource("RectangleShape2D_8umuf")
-script = ExtResource("17_gyaad")
+[node name="OneColorWall2" parent="StageObjects/OneColorWall" instance=ExtResource("13_si2pf")]
+position = Vector2(428, 338)
 
-[node name="Sprite" type="Node2D" parent="StageObjects/OneColorWalls2/OneColorWall8"]
-
-[node name="Sprite2D" type="Sprite2D" parent="StageObjects/OneColorWalls2/OneColorWall8/Sprite"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_sb53d")
-
-[node name="Cross" type="Sprite2D" parent="StageObjects/OneColorWalls2/OneColorWall8/Sprite"]
-visible = false
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_e4ssb")
-
-[node name="OneColorWall9" type="CollisionShape2D" parent="StageObjects/OneColorWalls2"]
-position = Vector2(473, 383)
-shape = SubResource("RectangleShape2D_8umuf")
-script = ExtResource("17_gyaad")
-
-[node name="Sprite" type="Node2D" parent="StageObjects/OneColorWalls2/OneColorWall9"]
-
-[node name="Sprite2D" type="Sprite2D" parent="StageObjects/OneColorWalls2/OneColorWall9/Sprite"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_sb53d")
-
-[node name="Cross" type="Sprite2D" parent="StageObjects/OneColorWalls2/OneColorWall9/Sprite"]
-visible = false
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_e4ssb")
-
-[node name="OneColorWall10" type="CollisionShape2D" parent="StageObjects/OneColorWalls2"]
-position = Vector2(293, 383)
-shape = SubResource("RectangleShape2D_8umuf")
-script = ExtResource("17_gyaad")
-
-[node name="Sprite" type="Node2D" parent="StageObjects/OneColorWalls2/OneColorWall10"]
-
-[node name="Sprite2D" type="Sprite2D" parent="StageObjects/OneColorWalls2/OneColorWall10/Sprite"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_sb53d")
-
-[node name="Cross" type="Sprite2D" parent="StageObjects/OneColorWalls2/OneColorWall10/Sprite"]
-visible = false
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_e4ssb")
-
-[node name="OneColorWall11" type="CollisionShape2D" parent="StageObjects/OneColorWalls2"]
-position = Vector2(338, 383)
-shape = SubResource("RectangleShape2D_8umuf")
-script = ExtResource("17_gyaad")
-
-[node name="Sprite" type="Node2D" parent="StageObjects/OneColorWalls2/OneColorWall11"]
-
-[node name="Sprite2D" type="Sprite2D" parent="StageObjects/OneColorWalls2/OneColorWall11/Sprite"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_sb53d")
-
-[node name="Cross" type="Sprite2D" parent="StageObjects/OneColorWalls2/OneColorWall11/Sprite"]
-visible = false
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_e4ssb")
-
-[node name="OneColorWall12" type="CollisionShape2D" parent="StageObjects/OneColorWalls2"]
-position = Vector2(383, 383)
-shape = SubResource("RectangleShape2D_8umuf")
-script = ExtResource("17_gyaad")
-
-[node name="Sprite" type="Node2D" parent="StageObjects/OneColorWalls2/OneColorWall12"]
-
-[node name="Sprite2D" type="Sprite2D" parent="StageObjects/OneColorWalls2/OneColorWall12/Sprite"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_sb53d")
-
-[node name="Cross" type="Sprite2D" parent="StageObjects/OneColorWalls2/OneColorWall12/Sprite"]
-visible = false
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_e4ssb")
-
-[node name="Bokobody2" type="Node2D" parent="StageObjects"]
-position = Vector2(338, 293)
+[node name="Bokobody" type="Node2D" parent="StageObjects"]
+position = Vector2(338, 428)
 script = ExtResource("7_eplui")
 
-[node name="Block" parent="StageObjects/Bokobody2" instance=ExtResource("8_ghctb")]
+[node name="Block" parent="StageObjects/Bokobody" instance=ExtResource("8_ghctb")]
+boko_color = 1
+
+[node name="Block2" parent="StageObjects/Bokobody" instance=ExtResource("8_ghctb")]
+position = Vector2(45, 0)
+boko_color = 1
+
+[node name="Block3" parent="StageObjects/Bokobody" instance=ExtResource("8_ghctb")]
+position = Vector2(-45, 0)
+
+[node name="Bokobody2" type="Node2D" parent="StageObjects"]
+position = Vector2(563, 383)
+script = ExtResource("7_eplui")
+turning_strength = -1
 
 [node name="Block2" parent="StageObjects/Bokobody2" instance=ExtResource("8_ghctb")]
+boko_color = 3
+
+[node name="Block" parent="StageObjects/Bokobody2" instance=ExtResource("8_ghctb")]
 position = Vector2(45, 0)
-boko_color = 2
+boko_color = 3
 
 [node name="Block3" parent="StageObjects/Bokobody2" instance=ExtResource("8_ghctb")]
 position = Vector2(-45, 0)
-
-[node name="Bokobody3" type="Node2D" parent="StageObjects"]
-position = Vector2(608, 473)
-script = ExtResource("7_eplui")
-
-[node name="Block3" parent="StageObjects/Bokobody3" instance=ExtResource("8_ghctb")]
-position = Vector2(-45, 0)
-
-[node name="Block" parent="StageObjects/Bokobody3" instance=ExtResource("8_ghctb")]
-boko_color = 2
-
-[node name="Block2" parent="StageObjects/Bokobody3" instance=ExtResource("8_ghctb")]
-position = Vector2(45, 0)
-boko_color = 2
