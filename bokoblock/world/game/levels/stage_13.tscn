@@ -1,0 +1,102 @@
+[gd_scene load_steps=17 format=4 uid="uid://cgx31hi71swc3"]
+
+[ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_r4gi1"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_u5ejr"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_6p3x3"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_0uryb"]
+[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="5_li2lv"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="6_a4w7u"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_4dd6a"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_aksej"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_303y8"]
+[ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_6wj83"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="11_1rbtq"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="12_e21ra"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="13_ci68a"]
+[ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="14_giwvg"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="15_bvtfo"]
+[ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="16_12n5s"]
+
+[node name="Stage" type="Node2D" node_paths=PackedStringArray("stage_number")]
+script = ExtResource("1_r4gi1")
+stage_number = NodePath("StageWorld/MoveCounter")
+
+[node name="UI" parent="." instance=ExtResource("2_u5ejr")]
+
+[node name="Cam" parent="." instance=ExtResource("3_6p3x3")]
+
+[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_0uryb")]
+tile_maps = NodePath("TM")
+show_collision_tilemap = true
+
+[node name="StageLight" type="PointLight2D" parent="StageWorld"]
+position = Vector2(517, 382)
+scale = Vector2(8.4375, 7.03125)
+range_item_cull_mask = 2
+texture = ExtResource("5_li2lv")
+script = ExtResource("6_a4w7u")
+
+[node name="TM" type="Node2D" parent="StageWorld"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("7_4dd6a")
+
+[node name="Collision" type="TileMapLayer" parent="StageWorld/TM"]
+tile_map_data = PackedByteArray("AAAJAAcAAQAAAAQAAAAJAAYAAQAAAAQAAAANAAcAAQAAAAQAAAAOAAcAAQAAAAQAAAAOAAYAAQAAAAQAAAAOAAUAAQAAAAQAAAAOAAQAAQAAAAQAAAAOAAMAAQAAAAQAAAANAAMAAQAAAAQAAAAMAAMAAQAAAAQAAAALAAMAAQAAAAQAAAAKAAMAAQAAAAQAAAAJAAQAAQAAAAQAAAAJAAUAAQAAAAQAAAAHAAkAAQAAAAQAAAANAAwAAQAAAAQAAAANAAsAAQAAAAQAAAANAAoAAQAAAAQAAAANAAkAAQAAAAQAAAAJAAgAAQAAAAQAAAAMAAcAAQAAAAQAAAAMAAgAAQAAAAQAAAAHAAoAAQAAAAQAAAAHAAsAAQAAAAQAAAAHAAwAAQAAAAQAAAAJAAMAAQAAAAQAAAAIAAgAAQAAAAQAAAAHAAgAAQAAAAQAAAAIAAwAAQAAAAQAAAAJAAwAAQAAAAQAAAAKAAwAAQAAAAQAAAALAAwAAQAAAAQAAAAMAAwAAQAAAAQAAAANAAgAAQAAAAQAAAA=")
+tile_set = ExtResource("8_aksej")
+
+[node name="Checkerboard" type="TileMapLayer" parent="StageWorld/TM"]
+self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
+light_mask = 2
+tile_set = ExtResource("8_aksej")
+
+[node name="Outline" type="TileMapLayer" parent="StageWorld/TM"]
+tile_set = ExtResource("8_aksej")
+
+[node name="ChibiBoko" parent="StageWorld" instance=ExtResource("9_303y8")]
+position = Vector2(203, 293)
+
+[node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_6wj83")]
+
+[node name="StageObjects" type="Node2D" parent="."]
+script = ExtResource("11_1rbtq")
+
+[node name="Endpoints" type="Node2D" parent="StageObjects"]
+script = ExtResource("14_giwvg")
+
+[node name="Starpoint" parent="StageObjects/Endpoints" instance=ExtResource("15_bvtfo")]
+position = Vector2(563, 293)
+what_im_happy_with = 5
+
+[node name="Starpoint2" parent="StageObjects/Endpoints" instance=ExtResource("15_bvtfo")]
+position = Vector2(563, 248)
+what_im_happy_with = 5
+
+[node name="Starpoint3" parent="StageObjects/Endpoints" instance=ExtResource("15_bvtfo")]
+position = Vector2(563, 203)
+what_im_happy_with = 5
+
+[node name="Starpoint5" parent="StageObjects/Endpoints" instance=ExtResource("15_bvtfo")]
+position = Vector2(608, 248)
+what_im_happy_with = 5
+
+[node name="Bokobody" type="Node2D" parent="StageObjects"]
+position = Vector2(428, 473)
+script = ExtResource("12_e21ra")
+
+[node name="Block" parent="StageObjects/Bokobody" instance=ExtResource("13_ci68a")]
+boko_color = 5
+
+[node name="Block2" parent="StageObjects/Bokobody" instance=ExtResource("13_ci68a")]
+position = Vector2(0, -45)
+boko_color = 5
+
+[node name="Block3" parent="StageObjects/Bokobody" instance=ExtResource("13_ci68a")]
+position = Vector2(45, 0)
+boko_color = 5
+
+[node name="Block4" parent="StageObjects/Bokobody" instance=ExtResource("13_ci68a")]
+position = Vector2(0, 45)
+boko_color = 5
+
+[node name="SleepingBlock" parent="StageObjects" instance=ExtResource("16_12n5s")]
+position = Vector2(473, 203)

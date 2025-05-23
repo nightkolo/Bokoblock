@@ -1,0 +1,100 @@
+[gd_scene load_steps=12 format=4 uid="uid://dix7ul7nrnefh"]
+
+[ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_iovc6"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_2ag48"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_xq4pd"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_xonfi"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="5_y6wdj"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="6_kukrg"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="7_eanfx"]
+[ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="8_s72u3"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="9_0km7q"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="10_yapmy"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="11_0us4p"]
+
+[node name="S" type="Node2D"]
+editor_description = "I just lost this level lol
+this is why git is so important."
+script = ExtResource("1_iovc6")
+
+[node name="UI" parent="." instance=ExtResource("2_2ag48")]
+
+[node name="Cam" parent="." instance=ExtResource("3_xq4pd")]
+
+[node name="SW" parent="." instance=ExtResource("4_xonfi")]
+show_collision_tilemap = true
+
+[node name="TM" type="Node2D" parent="SW"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("5_y6wdj")
+
+[node name="Collision" type="TileMapLayer" parent="SW/TM"]
+tile_map_data = PackedByteArray("AAAHAAgAAQAAAAQAAAAHAAkAAQAAAAQAAAAIAAkAAQAAAAQAAAAJAAkAAQAAAAQAAAAGAAgAAQAAAAQAAAAGAAcAAQAAAAQAAAAGAAYAAQAAAAQAAAAGAAUAAQAAAAQAAAAGAAQAAQAAAAQAAAAGAAMAAQAAAAQAAAAGAAIAAQAAAAQAAAAHAAIAAQAAAAQAAAAIAAIAAQAAAAQAAAAJAAIAAQAAAAQAAAAKAAkAAQAAAAQAAAALAAkAAQAAAAQAAAALAAgAAQAAAAQAAAALAAcAAQAAAAQAAAALAAYAAQAAAAQAAAALAAUAAQAAAAQAAAANAAkAAQAAAAQAAAAOAAkAAQAAAAQAAAAPAAkAAQAAAAQAAAAQAAgAAQAAAAQAAAAQAAIAAQAAAAQAAAAPAAIAAQAAAAQAAAAOAAIAAQAAAAQAAAAKAAIAAQAAAAQAAAAKAAMAAQAAAAQAAAALAAMAAQAAAAQAAAAMAAkAAQAAAAQAAAAMAAMAAQAAAAQAAAAQAAcAAQAAAAQAAAAQAAYAAQAAAAQAAAAQAAUAAQAAAAQAAAAQAAQAAQAAAAQAAAAQAAMAAQAAAAQAAAANAAIAAQAAAAQAAAAMAAIAAQAAAAQAAAAPAAgAAQAAAAQAAAA=")
+tile_set = ExtResource("6_kukrg")
+
+[node name="Checkerboard" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("6_kukrg")
+
+[node name="Outline" type="TileMapLayer" parent="SW/TM"]
+tile_set = ExtResource("6_kukrg")
+
+[node name="SO" type="Node2D" parent="."]
+script = ExtResource("7_eanfx")
+
+[node name="Endpoints" type="Node2D" parent="SO"]
+script = ExtResource("8_s72u3")
+
+[node name="Starpoint" parent="SO/Endpoints" instance=ExtResource("9_0km7q")]
+position = Vector2(428, 158)
+what_im_happy_with = 5
+
+[node name="Starpoint2" parent="SO/Endpoints" instance=ExtResource("9_0km7q")]
+position = Vector2(428, 203)
+what_im_happy_with = 5
+
+[node name="Starpoint3" parent="SO/Endpoints" instance=ExtResource("9_0km7q")]
+position = Vector2(473, 203)
+what_im_happy_with = 5
+
+[node name="Starpoint4" parent="SO/Endpoints" instance=ExtResource("9_0km7q")]
+position = Vector2(563, 203)
+what_im_happy_with = 2
+
+[node name="Starpoint5" parent="SO/Endpoints" instance=ExtResource("9_0km7q")]
+position = Vector2(608, 203)
+what_im_happy_with = 2
+
+[node name="Starpoint6" parent="SO/Endpoints" instance=ExtResource("9_0km7q")]
+position = Vector2(608, 158)
+what_im_happy_with = 2
+
+[node name="Bokobody" type="Node2D" parent="SO"]
+position = Vector2(383, 338)
+script = ExtResource("10_yapmy")
+turning_strength = 2
+
+[node name="Block" parent="SO/Bokobody" instance=ExtResource("11_0us4p")]
+boko_color = 5
+
+[node name="Block3" parent="SO/Bokobody" instance=ExtResource("11_0us4p")]
+position = Vector2(0, 45)
+boko_color = 5
+
+[node name="Block4" parent="SO/Bokobody" instance=ExtResource("11_0us4p")]
+position = Vector2(-45, 0)
+boko_color = 5
+
+[node name="Bokobody2" type="Node2D" parent="SO"]
+position = Vector2(608, 338)
+script = ExtResource("10_yapmy")
+
+[node name="Block" parent="SO/Bokobody2" instance=ExtResource("11_0us4p")]
+boko_color = 2
+
+[node name="Block3" parent="SO/Bokobody2" instance=ExtResource("11_0us4p")]
+position = Vector2(0, -45)
+boko_color = 2
+
+[node name="Block4" parent="SO/Bokobody2" instance=ExtResource("11_0us4p")]
+position = Vector2(-45, 0)
+boko_color = 2

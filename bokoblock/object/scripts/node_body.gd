@@ -191,7 +191,7 @@ func turn(p_turn_to: float, disable_colli: bool = false) -> void:
 	GameUtil.reset_tween(_tween_turn)
 	_tween_turn = create_tween()
 	_tween_turn.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-	_tween_turn.tween_property(self,"rotation_degrees",rotation_degrees + turn_to,movement_time*4.0)
+	_tween_turn.tween_property(self,"rotation_degrees",rotation_degrees + turn_to,movement_time*5.0)
 	
 	await _tween_turn.finished
 	

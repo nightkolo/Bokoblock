@@ -28,9 +28,6 @@ position = Vector2(480, 310)
 zoom = Vector2(1.35, 1.35)
 
 [node name="SW" parent="." instance=ExtResource("3_6mte0")]
-randomize_background_effect = false
-checkerboard_color = Color(0.75, 0.75, 0.75, 1)
-background_dim = 0.35
 
 [node name="TextureRect" parent="SW/BG/Texture" index="0"]
 texture = ExtResource("4_anbg7")

@@ -20,8 +20,8 @@ class_name Stage
 @export_group("Miscellanous")
 @export var show_dev_ui: bool = false
 @export var custom_block_match: int = -1 ## @experimental
-@export var stage_progression: bool = true
 @export_category("Game")
+@export var stage_progression: bool = true
 @export var save_stats: bool = false ## @experimental
 @export var win_condition: GameLogic.WinCondition
 #@export var allow_undoing: bool = true:
