@@ -1,4 +1,4 @@
-## @experimental
+## @deprecated
 ## Under contruction
 extends Area2D
 class_name OneColorWalls1

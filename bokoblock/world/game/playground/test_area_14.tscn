@@ -1,0 +1,72 @@
+[gd_scene load_steps=14 format=4 uid="uid://bkpiw8eq5l1pf"]
+
+[ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_ced6m"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_8iofb"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_p5vxr"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_k1cn6"]
+[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="5_d5jk2"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="6_ndbs7"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_is5ju"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_ca7ql"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_h40cy"]
+[ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_d3ap8"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="11_iqde6"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="12_2rkyv"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="13_xw6df"]
+
+[node name="Stage" type="Node2D" node_paths=PackedStringArray("stage_number")]
+script = ExtResource("1_ced6m")
+stage_progression = false
+stage_number = NodePath("StageWorld/MoveCounter")
+
+[node name="UI" parent="." instance=ExtResource("2_8iofb")]
+
+[node name="Cam" parent="." instance=ExtResource("3_p5vxr")]
+zoom = Vector2(1.3, 1.3)
+
+[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_k1cn6")]
+tile_maps = NodePath("TM")
+show_collision_tilemap = true
+
+[node name="StageLight" type="PointLight2D" parent="StageWorld"]
+position = Vector2(517, 382)
+scale = Vector2(8.4375, 7.03125)
+range_item_cull_mask = 2
+texture = ExtResource("5_d5jk2")
+script = ExtResource("6_ndbs7")
+
+[node name="TM" type="Node2D" parent="StageWorld"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("7_is5ju")
+
+[node name="Collision" type="TileMapLayer" parent="StageWorld/TM"]
+tile_map_data = PackedByteArray("AAAKAAwAAQAAAAQAAAALAAwAAQAAAAQAAAAMAAwAAQAAAAQAAAANAAwAAQAAAAQAAAAOAAwAAQAAAAQAAAAHAAkAAQAAAAQAAAAHAAQAAQAAAAQAAAAIAAQAAQAAAAQAAAAJAAQAAQAAAAQAAAAKAAQAAQAAAAQAAAALAAQAAQAAAAQAAAAMAAQAAQAAAAQAAAANAAcAAQAAAAQAAAAOAAcAAQAAAAQAAAAMAAcAAQAAAAQAAAAMAAYAAQAAAAQAAAAMAAUAAQAAAAQAAAAIAAoAAQAAAAQAAAAOAAsAAQAAAAQAAAAOAAoAAQAAAAQAAAAOAAkAAQAAAAQAAAAOAAgAAQAAAAQAAAAHAAoAAQAAAAQAAAAJAAoAAQAAAAQAAAAJAAwAAQAAAAQAAAAJAAsAAQAAAAQAAAAHAAgAAQAAAAQAAAAHAAcAAQAAAAQAAAAHAAYAAQAAAAQAAAAHAAUAAQAAAAQAAAA=")
+tile_set = ExtResource("8_ca7ql")
+
+[node name="Checkerboard" type="TileMapLayer" parent="StageWorld/TM"]
+self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
+light_mask = 2
+tile_set = ExtResource("8_ca7ql")
+
+[node name="Outline" type="TileMapLayer" parent="StageWorld/TM"]
+tile_set = ExtResource("8_ca7ql")
+
+[node name="ChibiBoko" parent="StageWorld" instance=ExtResource("9_h40cy")]
+position = Vector2(113, 383)
+
+[node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_d3ap8")]
+
+[node name="StageObjects" type="Node2D" parent="."]
+script = ExtResource("11_iqde6")
+
+[node name="Bokobody" type="Node2D" parent="StageObjects"]
+position = Vector2(428, 338)
+script = ExtResource("12_2rkyv")
+
+[node name="Block" parent="StageObjects/Bokobody" instance=ExtResource("13_xw6df")]
+
+[node name="Block2" parent="StageObjects/Bokobody" instance=ExtResource("13_xw6df")]
+position = Vector2(0, -45)
+
+[node name="Block3" parent="StageObjects/Bokobody" instance=ExtResource("13_xw6df")]
+position = Vector2(0, 45)

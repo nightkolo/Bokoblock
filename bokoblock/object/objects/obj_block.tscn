@@ -10,14 +10,14 @@
 [ext_resource type="PackedScene" uid="uid://cmc3pcr6jttko" path="res://object/game/block_button.tscn" id="8_enjm0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13485"]
-size = Vector2(22, 22)
+size = Vector2(30, 30)
 
 [sub_resource type="Curve" id="Curve_yn0ju"]
 _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_lipoc"]
-colors = PackedColorArray(1, 1, 1, 0.35, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 0.5, 1, 1, 1, 0)
 
 [node name="Block" type="Area2D" node_paths=PackedStringArray("animator")]
 collision_layer = 2
@@ -25,66 +25,65 @@ collision_mask = 15
 script = ExtResource("1_fox18")
 animator = NodePath("BokoblockAnimationComponent")
 
-[node name="BokoblockAnimationComponent" type="Node" parent="."]
-script = ExtResource("7_u5igv")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_13485")
 
-[node name="Star" type="Sprite2D" parent="."]
+[node name="BokoblockAnimationComponent" type="Node" parent="."]
+script = ExtResource("7_u5igv")
+
+[node name="Dust" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.4
+texture = ExtResource("7_jtedv")
+emission_shape = 3
+emission_rect_extents = Vector2(20, 1)
+gravity = Vector2(0, 10)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+scale_amount_curve = SubResource("Curve_yn0ju")
+color_ramp = SubResource("Gradient_lipoc")
+
+[node name="BlockButton" parent="." instance=ExtResource("8_enjm0")]
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Star" type="Sprite2D" parent="Sprites"]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("4_u4fx5")
 
-[node name="Ghost" type="Sprite2D" parent="."]
+[node name="Ghost" type="Sprite2D" parent="Sprites"]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("4_cmisq")
 
-[node name="Sprites" type="Node2D" parent="."]
+[node name="Sprites" type="Node2D" parent="Sprites"]
 unique_name_in_owner = true
 
-[node name="SpritesMove" type="Node2D" parent="Sprites"]
+[node name="SpritesMove" type="Node2D" parent="Sprites/Sprites"]
 unique_name_in_owner = true
 
-[node name="SpriteBlock" type="Node2D" parent="Sprites/SpritesMove"]
+[node name="SpriteBlock" type="Node2D" parent="Sprites/Sprites/SpritesMove"]
 unique_name_in_owner = true
 
-[node name="Block" type="Sprite2D" parent="Sprites/SpritesMove/SpriteBlock"]
+[node name="Block" type="Sprite2D" parent="Sprites/Sprites/SpritesMove/SpriteBlock"]
 unique_name_in_owner = true
 self_modulate = Color(1, 0.77, 1, 1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_vu6u0")
 
-[node name="Block2" type="Sprite2D" parent="Sprites/SpritesMove"]
-unique_name_in_owner = true
-visible = false
-self_modulate = Color(1, 0.77, 0.773833, 1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_vu6u0")
-
-[node name="Eyes" type="Sprite2D" parent="Sprites/SpritesMove"]
+[node name="Eyes" type="Sprite2D" parent="Sprites/Sprites/SpritesMove"]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.8)
 z_index = 1
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_7bp01")
 
-[node name="Dust" type="CPUParticles2D" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="Node2D"]
 unique_name_in_owner = true
-emitting = false
-amount = 4
-texture = ExtResource("7_jtedv")
-emission_shape = 3
-emission_rect_extents = Vector2(20, 1)
-gravity = Vector2(0, 10)
-initial_velocity_min = 75.0
-initial_velocity_max = 75.0
-scale_amount_curve = SubResource("Curve_yn0ju")
-color_ramp = SubResource("Gradient_lipoc")
-
-[node name="BlockButton" parent="." instance=ExtResource("8_enjm0")]
-
-[node name="Timer" type="Timer" parent="."]
+target_position = Vector2(0, -45)
+collision_mask = 2

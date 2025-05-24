@@ -3,6 +3,8 @@ class_name BokobodyAnimationComponent
 
 @onready var bokobody: Bokobody = get_parent() as Bokobody
 
+@export var particles_win: PackedScene = preload("res://world/world/particles_bokoblock_stage_complete.tscn")
+
 var tween_one_col_wall: Tween
 
 
@@ -49,12 +51,10 @@ func anim_blocks_exited_one_col_wall() -> void:
 
 
 func anim_complete() -> void:
-	var _tween: Tween
-	
-	if bokobody.particles_win:
-		var p := bokobody.particles_win.instantiate() as CPUParticles2D
+	if particles_win:
+		var p := particles_win.instantiate() as CPUParticles2D
 		bokobody.add_child(p)
 		p.global_rotation = 0.0
 		p.emitting = true
-		_tween = create_tween()
-		_tween.tween_property(p,"self_modulate",Color(Color.WHITE,0.0),p.lifetime/2.0).set_delay(p.lifetime/2.0)
+		var tween = create_tween()
+		tween.tween_property(p,"self_modulate",Color(Color.WHITE,0.0),p.lifetime/2.0).set_delay(p.lifetime/2.0)

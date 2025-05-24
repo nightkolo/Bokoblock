@@ -1,3 +1,5 @@
+## Under construction
+##
 ## Preferably use [url]res://object/objects/obj_block.tscn[\url].
 extends Area2D
 class_name Bokoblock
@@ -10,29 +12,30 @@ signal button_entered(has_entered: bool) ## @experimental
 @export var animator: BokoblockAnimationComponent
 @export var auto_check_center: bool = true
 @export var set_as_center: bool = false
-@export_group("Assets")
+@export_category("Assets")
 @export var asset_block: Texture2D = preload("res://assets/objects/block-greyscale.png")
 @export var asset_center_block: Texture2D = preload("res://assets/objects/block-greyscale-center.png")
 @export var asset_eye_normal: Texture2D = preload("res://assets/objects/block-eyes-neutral.png")
 @export var asset_eye_angry: Texture2D = preload("res://assets/objects/block-eyes-angry.png")
 @export var asset_eye_scaredy: Texture2D = preload("res://assets/objects/block-eyes-scaredy.png")
 
-@onready var collision: CollisionShape2D = $CollisionShape2D
-@onready var particles_dust: CPUParticles2D = %Dust
+@onready var ray_cast: RayCast2D = %RayCast2D
+@onready var sprite_block: Sprite2D = %Block
+@onready var sprite_eyes: Sprite2D = %Eyes
+@onready var particles_dust: CPUParticles2D = $Dust
+
+# Used by BokoblockAnimationComponent
 @onready var sprite_node_1: Node2D = $Sprites
 @onready var sprite_node_2: Node2D = %SpritesMove
 @onready var sprite_node_block: Node2D = %SpriteBlock
-@onready var sprite_eyes: Sprite2D = %Eyes
-@onready var sprite_block: Sprite2D = %Block
 @onready var sprite_star: Sprite2D = %Star
 @onready var sprite_ghost: Sprite2D = %Ghost
 
 var parent_bokobody: Bokobody
 var is_on_starpoint: bool
-var is_on_button: bool ## @experimental
-var limit_eye_movement: bool = true
+var is_on_button: bool ## @experimental: possibly deprecated?
+var limit_eye_movement: bool = true ## @deprecated
 var texture_eyes: Texture2D
-
 
 
 func _ready() -> void:
@@ -58,7 +61,7 @@ func _process(_delta: float) -> void:
 	if limit_eye_movement && sprite_eyes:
 		sprite_eyes.global_rotation = 0.0
 		sprite_eyes.position.x = clamp(sprite_eyes.position.x,-7.0,7.0)
-		sprite_eyes.position.y = clamp(sprite_eyes.position.y,-7.0,7.0)
+		sprite_eyes.position.y = clamp(sprite_eyes.position.y,-5.0,5.0)
 	
 	if parent_bokobody:
 		particles_dust.emitting = parent_bokobody.is_moving
@@ -92,9 +95,13 @@ func _setup_parent() -> void:
 
 
 func check_state() -> void:
+	# TODO: Remove boilerplate code,
+	# this function was refactored to make Bokoblocks work for the Debug Cards test area,
+	# which isn't needed anymore. 
+	
 	var areas: Array[Area2D]
 	var l_starpoint: bool = false
-	var l_button: bool = false
+	var l_button: bool = false # possibly deprecated
 	
 	if (monitoring && monitorable): 
 		areas = get_overlapping_areas()
@@ -125,7 +132,6 @@ func check_state() -> void:
 		is_on_button = false
 
 
-# TODO: ...change this function name. Or keep it i dunno
 func can_we_stop_moving_dad() -> bool:
 	var yes: bool
 	
@@ -136,6 +142,14 @@ func can_we_stop_moving_dad() -> bool:
 		yes = false
 		
 	return yes
+
+
+func wall_detect(direction: Vector2) -> bool:
+	ray_cast.global_rotation = 0.0
+	ray_cast.target_position = direction.sign() * GameUtil.TILE_SIZE
+	
+	ray_cast.force_raycast_update()
+	return ray_cast.is_colliding()
 
 
 func change_bokocolor_of_dad() -> void: ## @experimental: For the Debug Cards test area
@@ -167,7 +181,6 @@ func change_bokocolor() -> void: ## @experimental: For the Debug Cards test area
 ## Such blessed method names
 func get_out() -> void:
 	if animator:
-		#await animator.anim_removed() # Dumbass await wouldn't work suddenly
 		animator.anim_removed()
 		await get_tree().create_timer(0.55).timeout
 		visible = false
