@@ -36,9 +36,9 @@ class_name Stage
 #@export var stage_number: MoveCounter
 
 var saver_loader: SaverLoader
-var is_yellow_starred: bool = true ## @deprecated
+#var is_yellow_starred: bool = true ## @deprecated
 #var moves_counted: int
-var improved_stats: bool = false ## @deprecated
+#var improved_stats: bool = false ## @deprecated
 
 #var _world_1: PackedScene = preload("res://world_1.tscn")
 var _dev_ui: PackedScene = preload("res://interface/runtime/miscellanous/dev_ui.tscn")
@@ -145,12 +145,12 @@ func store_stats() -> void:
 	if GameData.runtime_data[id]["completed"] == false:
 		GameData.runtime_data[id]["completed"] = true
 	
-	if GameData.runtime_data[id]["starred"] == false:
-		GameData.runtime_data[id]["starred"] = is_yellow_starred
+	#if GameData.runtime_data[id]["starred"] == false:
+		#GameData.runtime_data[id]["starred"] = is_yellow_starred
 		
-	if _moves_counted < GameData.runtime_data[id]["move_count"]:
+	if _moves_counted < GameData.runtime_data[id]["move_count"]: # deprecated
 		# if GameData.runtime_data[id]["move_count"] != 999:
-		improved_stats = true
+		#improved_stats = true
 		
 		GameData.runtime_data[id]["move_count"] = _moves_counted
 		

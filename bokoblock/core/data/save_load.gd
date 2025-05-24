@@ -7,7 +7,7 @@ signal game_loaded()
 const SAVE_LOCATION = "user://savedata.json"
 
 
-func save_game():
+func save_game() -> void:
 	print("saving...")
 	
 	var file: FileAccess = FileAccess.open(SAVE_LOCATION, FileAccess.WRITE)
@@ -23,7 +23,7 @@ func save_game():
 	print("Save successful! :D")
 
 
-func load_game():
+func load_game() -> void:
 	print("loading...")
 	
 	if not FileAccess.file_exists(SAVE_LOCATION):
@@ -50,7 +50,7 @@ func load_game():
 	print("Load successful! :D")
 	
 	
-func new_game():
+func new_game() -> void:
 	print("starting new game...")
 	
 	GameData.runtime_data = GameData.DEFAULT_GAME_DATA.duplicate(true)

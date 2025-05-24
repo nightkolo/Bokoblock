@@ -90,7 +90,7 @@ func goto_next_stage(force_progression: bool = false) -> void:
 	var next_lvl_id := current_stage_id + 1
 	var next_lvl_path := GameUtil.STAGE_FILE_BEGIN + str(next_lvl_id) + GameUtil.STAGE_FILE_END
 	
-	if next_lvl_id <= GameUtil.NUMBER_OF_STAGES: 
+	if next_lvl_id <= GameUtil.NUMBER_OF_BOARDS: 
 		Trans.slide_to_next_stage(next_lvl_path)
 
 
@@ -111,7 +111,7 @@ func goto_prev_stage() -> void:
 	var next_lvl_id := current_stage_id - 1
 	var next_lvl_path := GameUtil.STAGE_FILE_BEGIN + str(next_lvl_id) + GameUtil.STAGE_FILE_END
 	
-	if next_lvl_id <= GameUtil.NUMBER_OF_STAGES: 
+	if next_lvl_id <= GameUtil.NUMBER_OF_BOARDS: 
 		get_tree().change_scene_to_file(next_lvl_path)
 
 

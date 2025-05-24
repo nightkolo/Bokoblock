@@ -29,8 +29,6 @@ var t_star_landed: Tween
 
 # TODO: stop using types all the time when you're debugging :)
 
-
-
 func _ready() -> void:
 	update_text()
 	

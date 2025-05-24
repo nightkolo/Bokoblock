@@ -36,17 +36,19 @@ func _process(_delta: float) -> void:
 	_check_areas()
 
 
+func _setup_node() -> void:
+	for wall in child_walls:
+		wall.node_sprites.modulate = Color(Color.WHITE, 0.9)
+		wall.sprite_2d.self_modulate = GameUtil.set_boko_color(
+			what_im_looking_for, 1.0, 1.0
+			)
+		wall.cross.self_modulate = Color(Color.WHITE, 0.5)
+
+
 func _check_areas() -> void:
 	if get_overlapping_areas().size() != _previous_area_count:
 		_on_areas_entered(get_overlapping_areas())
 		_previous_area_count = get_overlapping_areas().size()
-
-
-func _setup_node() -> void:
-	for wall in child_walls:
-		wall.node_sprites.modulate = Color(Color.WHITE, 0.9)
-		wall.sprite_2d.self_modulate = GameUtil.set_boko_color(what_im_looking_for)
-		wall.cross.self_modulate = GameUtil.set_boko_color(what_im_looking_for)
 
 
 func _on_areas_entered(areas: Array[Area2D]) -> void:

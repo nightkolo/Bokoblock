@@ -11,24 +11,25 @@ func _ready() -> void:
 		return
 	
 	GameMgr.game_data_saved.connect(func():
-		if GameMgr.current_stage.improved_stats:
-			check_stage_progression_medals(GameMgr.current_checkboard_id)
+		#if GameMgr.current_stage.improved_stats:
+		check_stage_progression_medals(GameMgr.current_checkboard_id)
 	)
 
-	GameLogic.state_checked.connect(func():
+	GameLogic.state_checked.connect(func(have_moved: bool):
 		# Move, Turn
-		if !GameLogic.we_have_made_a_move:
-			return
+		if !have_moved:
+			update_player_stats(true)
 
-		update_player_stats(true, true)
+		#update_player_stats(true, true)
 		)
-	GameLogic.bodies_undoed.connect(func():
-		# Undo
-		update_player_stats(false, true)
-		)
+	#GameLogic.bodies_undoed.connect(func():
+		## Undo
+		#update_player_stats(false, true)
+		#)
 
 # moves_made = true, move, turn //// moves_made = false, undo
-func update_player_stats(move_made: bool, check_medals: bool = true):
+#func update_player_stats(move_made: bool, check_medals: bool = true):
+func update_player_stats(check_medals: bool = true):
 	# var tranformed_to: GameLogic.TransformationType = PlayerInput.last_input
 
 	# match typeof(tranformed_to):
@@ -42,10 +43,10 @@ func update_player_stats(move_made: bool, check_medals: bool = true):
 	#	 GameLogic.TransformationType.UNDO:
 	#	 GameData.runtime_data["undos_mades"] += 1
 	
-	if move_made:
-		GameData.runtime_data["moves_mades"] += 1
-	else:
-		GameData.runtime_data["undos_mades"] += 1
+	#if move_made:
+	GameData.runtime_data["moves_mades"] += 1
+	#else:
+		#GameData.runtime_data["undos_mades"] += 1
 
 	# TODO: Add cool down
 	# GameMgr.save_game_data()
@@ -62,17 +63,19 @@ func check_player_stat_medals():
 		# await _unlock_a_medal()
 		pass
 
-	if GameData.runtime_data["undos_mades"] > 75:
-		# await _unlock_a_medal()
-		pass
-	elif GameData.runtime_data["undos_mades"] > 200:
-		# await _unlock_a_medal()
-		pass
+	#if GameData.runtime_data["undos_mades"] > 75:
+		## await _unlock_a_medal()
+		#pass
+	#elif GameData.runtime_data["undos_mades"] > 200:
+		## await _unlock_a_medal()
+		#pass
 	
 
 func check_stage_progression_medals(checkerboard: int = 1) -> void:
-	var all_completed: bool = _check_cb_progression(checkerboard, "completed")
-	var all_starred: bool = _check_cb_progression(checkerboard, "starred")
+	#var all_completed: bool = _check_cb_progression(checkerboard, "completed")
+	var all_completed: bool = _check_cb_progression(checkerboard)
+	
+	#var all_starred: bool = _check_cb_progression(checkerboard, "starred")
 	var entry: String = "10" + str(checkerboard)
 
 	if GameData.runtime_data[entry]["completed"] == false:
@@ -82,12 +85,12 @@ func check_stage_progression_medals(checkerboard: int = 1) -> void:
 			# await _unlock_a_medal()
 			pass
 
-	if GameData.runtime_data[entry]["starred"] == false:
-		GameData.runtime_data[entry]["starred"] = all_starred
-
-		if all_starred:
-			# await _unlock_a_medal()
-			pass
+	#if GameData.runtime_data[entry]["starred"] == false:
+		#GameData.runtime_data[entry]["starred"] = all_starred
+#
+		#if all_starred:
+			## await _unlock_a_medal()
+			#pass
 	
 
 func _unlock_a_medal(_medal_id: int):
@@ -95,18 +98,20 @@ func _unlock_a_medal(_medal_id: int):
 	pass
 		
 
-func _check_cb_progression(cb: int, look_for: String) -> bool:
+#func _check_cb_progression(cb: int, look_for: String) -> bool:
+func _check_cb_progression(cb: int) -> bool:
 	# if !(look_for == "completed" || look_for == "starred"):
 	#	 return
 
-	# if (cb < 0 || cb > int(GameUtils.NUMBER_OF_STAGES / 10.0)):
-	#	 return
+	if (cb < 0 || cb > GameUtil.NUMBER_OF_CHECKERBOARDS):
+		return 0
 
 	var begin: int = 1 * ((cb - 1) + 10)
 	var end: int = 11 * ((cb - 1) + 10)
 
 	for i: int in range(begin, end):
-		if GameData.runtime_data[str(i)][look_for] == true:
+		#if GameData.runtime_data[str(i)][look_for] == true:
+		if GameData.runtime_data[str(i)]["completed"] == true:
 			return true
 
-	return false
+	return 0
