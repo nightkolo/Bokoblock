@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=4 uid="uid://sdg1iqnk0gun"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_4xwxe"]
-[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_7bofo"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/miscellanous/gameplay_ui.tscn" id="2_7bofo"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_v0stl"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_e0xpa"]
 [ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="5_2xmn7"]

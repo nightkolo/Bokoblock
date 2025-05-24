@@ -65,7 +65,7 @@ func _ready() -> void:
 
 
 func stage_completed() -> void:
-	if current_stage_id == 10:
+	if current_stage_id / 10.0 == 1.0:
 		open_checkerboard_complete_screen()
 	else:
 		goto_next_stage()
@@ -95,9 +95,10 @@ func goto_next_stage(force_progression: bool = false) -> void:
 
 
 func goto_next_checkerboard() -> void:
-	print("Beta finished.")
+	goto_next_stage(true)
+	#print("Beta finished.")
 	
-	Trans.slide_to_next_stage("res://interface/menus/thank_you_screen.tscn")
+	#Trans.slide_to_next_stage("res://interface/menus/thank_you_screen.tscn")
 
 
 func goto_prev_stage() -> void:

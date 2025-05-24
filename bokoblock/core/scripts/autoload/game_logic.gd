@@ -56,6 +56,8 @@ static func set_win_condition(win_cond: WinCondition) -> void:
 
 
 func _ready() -> void:
+	#Engine.time_scale = 1.0/10.0
+	
 	body_stopped.connect(check_if_bodies_stopped)
 
 	#bodies_stopped.connect(check_win)
@@ -96,6 +98,10 @@ func check_if_bodies_stopped(_is_body: Bokobody) -> void:
 		return
 	
 	_bodies_stopped += 1
+	
+	print(_bodies_stopped)
+	print(num_of_bodies)
+	print("")
 	
 	are_bodies_moving = _bodies_stopped != num_of_bodies
 	

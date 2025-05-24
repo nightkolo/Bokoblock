@@ -18,7 +18,7 @@ class_name PauseScreen
 var _gameplay_ui: GameplayUI
 
 const BBCODE_TXT = "[center][color=#232323][font_size=37][wave amp=10.0 freq=4.0][tornado radius=1.5 freq=1.0]"
-const PAUSE_INFO_BEGIN = "=Stage "
+const PAUSE_INFO_BEGIN = "=Board "
 const PAUSE_INFO_END = " Paused="
 
 

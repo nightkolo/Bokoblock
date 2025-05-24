@@ -1,6 +1,8 @@
 ## Level code.
 extends Node2D
-class_name Stage
+class_name Stage 
+
+# TODO: rename to Board? ... sigh, i need to stop name refactoring
 
 #signal move_counter_threshold_passed(has_passed: bool)
 
@@ -31,7 +33,7 @@ class_name Stage
 				#body.no_undo = false
 		#allow_undoing = value
 #@export var moves_threshold: int = 25
-@export var stage_number: MoveCounter
+#@export var stage_number: MoveCounter
 
 var saver_loader: SaverLoader
 var is_yellow_starred: bool = true ## @deprecated
@@ -39,7 +41,7 @@ var is_yellow_starred: bool = true ## @deprecated
 var improved_stats: bool = false ## @deprecated
 
 #var _world_1: PackedScene = preload("res://world_1.tscn")
-var _dev_ui: PackedScene = preload("res://interface/runtime/misc/dev_ui.tscn")
+var _dev_ui: PackedScene = preload("res://interface/runtime/miscellanous/dev_ui.tscn")
 var _moves_counted: int = 0:
 	get:
 		return _moves_counted
@@ -97,8 +99,8 @@ func _ready() -> void:
 		add_child(SL)
 		saver_loader = SL
 	
-	if stage_number:
-		stage_number.label.text = str(stage_id)
+	#if stage_number:
+		#stage_number.label.text = str(checkerboard_id) + "-" + str(stage_id)
 	#
 	#moves_counted = moves_threshold
 	

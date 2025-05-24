@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=4 uid="uid://bj8r1veahxpiy"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_yv7de"]
-[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_3fd8u"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/miscellanous/gameplay_ui.tscn" id="2_3fd8u"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_rg7wb"]
 [ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="4_77e1s"]
 [ext_resource type="Script" path="res://world/world/stage_light.gd" id="5_kocmg"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_a8ve2"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="10_qdecl"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="11_vx13m"]
-[ext_resource type="Script" path="res://world/interface/input_prompt.gd" id="12_ajqma"]
+[ext_resource type="Script" path="res://world/interface/board_input_prompts.gd" id="12_ajqma"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="12_jkg16"]
 [ext_resource type="Texture2D" uid="uid://bf3i4jkmtln8h" path="res://assets/interface/input-prompt-q.png" id="13_1e0mx"]
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="13_5iwow"]

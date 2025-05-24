@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://dj6dug5c5ssg1"]
 
-[ext_resource type="Script" path="res://interface/runtime/stage_complete_screen.gd" id="1_4uwsl"]
-[ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="2_qtrux"]
-[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/speech-bubble.png" id="3_ok254"]
-[ext_resource type="Theme" uid="uid://d4fajpwpc4rx" path="res://core/resources/theme/theme_button_pause_menu.tres" id="4_kjakj"]
-[ext_resource type="Script" path="res://interface/animators/anim_button_pause.gd" id="5_trqfq"]
-[ext_resource type="Texture2D" uid="uid://dvolgdgwrvc68" path="res://assets/interface/rabbitstar-yellow.png" id="6_gxg78"]
-[ext_resource type="Texture2D" uid="uid://bic6b6u43h37h" path="res://assets/world/particle_rabbitstar_02.png" id="7_63msy"]
-[ext_resource type="Script" path="res://interface/runtime/star_shadow.gd" id="7_faxqa"]
+[ext_resource type="Script" path="res://interface/runtime/ui_checkerboard_complete_screen.gd" id="1_j5ytb"]
+[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/speech-bubble.png" id="2_rf5y8"]
+[ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="3_ydyc1"]
+[ext_resource type="Theme" uid="uid://d4fajpwpc4rx" path="res://core/resources/theme/theme_button_pause_menu.tres" id="4_7kn7s"]
+[ext_resource type="Script" path="res://interface/animators/anim_button_pause.gd" id="5_e55ww"]
+[ext_resource type="Texture2D" uid="uid://dvolgdgwrvc68" path="res://assets/interface/rabbitstar-yellow.png" id="6_51jo2"]
+[ext_resource type="Script" path="res://interface/runtime/miscellanous/star_shadow.gd" id="7_uifkx"]
+[ext_resource type="Texture2D" uid="uid://bic6b6u43h37h" path="res://assets/world/particle_rabbitstar_02.png" id="8_2d8hq"]
 
 [sub_resource type="FontVariation" id="FontVariation_vproy"]
 spacing_glyph = -2
@@ -36,14 +36,14 @@ interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.175, 0.35, 0.5)
 colors = PackedColorArray(1, 1, 0.5, 1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 1, 1)
 
-[node name="StageCompleteScreen" type="Control"]
+[node name="CheckerboardCompleteScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_4uwsl")
+script = ExtResource("1_j5ytb")
 
 [node name="BG" type="ColorRect" parent="."]
 layout_mode = 1
@@ -64,7 +64,7 @@ offset_right = 705.0
 offset_bottom = 670.0
 size_flags_horizontal = 4
 size_flags_vertical = 8
-texture = ExtResource("3_ok254")
+texture = ExtResource("2_rf5y8")
 region_rect = Rect2(0, 0, 144, 144)
 patch_margin_left = 48
 patch_margin_top = 48
@@ -78,7 +78,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_qtrux")
+theme = ExtResource("3_ydyc1")
 theme_override_constants/margin_bottom = 50
 
 [node name="Content" type="MarginContainer" parent="Main"]
@@ -112,10 +112,10 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("4_kjakj")
+theme = ExtResource("4_7kn7s")
 theme_override_fonts/font = SubResource("FontVariation_mq48q")
-text = "Next Stage"
-script = ExtResource("5_trqfq")
+text = "Next"
+script = ExtResource("5_e55ww")
 
 [node name="StarNode" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -127,14 +127,14 @@ unique_name_in_owner = true
 [node name="Star" type="Sprite2D" parent="StarNode/StarNode2"]
 unique_name_in_owner = true
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("6_gxg78")
+texture = ExtResource("6_51jo2")
 
 [node name="Sprite2D" type="Sprite2D" parent="StarNode/StarNode2/Star"]
 show_behind_parent = true
 position = Vector2(-8.75, 0)
 scale = Vector2(6.5, 6.5)
 texture = SubResource("GradientTexture2D_ni0gg")
-script = ExtResource("7_faxqa")
+script = ExtResource("7_uifkx")
 
 [node name="Particles" type="CPUParticles2D" parent="StarNode"]
 z_index = 6
@@ -143,7 +143,7 @@ amount = 16
 lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
-texture = ExtResource("7_63msy")
+texture = ExtResource("8_2d8hq")
 emission_shape = 1
 emission_sphere_radius = 20.0
 direction = Vector2(0, -1)

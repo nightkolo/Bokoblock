@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dh7fpqceqlmr8"]
 
-[ext_resource type="Script" path="res://interface/runtime/misc/interactor/dev_ui.gd" id="1_psh78"]
+[ext_resource type="Script" path="res://interface/runtime/miscellanous/dev_ui.gd" id="1_psh78"]
 [ext_resource type="FontFile" uid="uid://hec4akwpswov" path="res://assets/addons/fonts/Rabbitfont-ExtraBold.ttf" id="2_xsqv5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bysnx"]

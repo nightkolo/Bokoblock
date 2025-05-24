@@ -5,7 +5,7 @@ signal game_pause_toggled(is_paused: bool)
 signal stage_complete_entered() ## @deprecated
 
 @onready var pause_screen: PauseScreen = $PauseMenu
-@onready var stage_complete_screen: StageCompleteScreen = $StageCompleteScreen
+@onready var checkerboard_complete_screen: CheckerboardCompleteScreen = $StageCompleteScreen
 
 
 var is_game_paused: bool = false:
@@ -26,7 +26,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		pause_or_unpause()
 		
 	if event.is_action_pressed("game_reset"):
-		if is_game_paused == false:
+		if is_game_paused == false && GameMgr.current_menu == GameMgr.RUNTIME:
 			reset_stage()
 	
 	#if event.is_action_pressed("skip_level"):
@@ -48,11 +48,13 @@ func the_blocks_have_been_happy():
 	pass
 	#stage_complete_entered.emit()
 	
-	#stage_complete_screen.anim_open()
+	#checkerboard_complete_screen.anim_open()
 
 
 func the_checkboard_is_done():
-	stage_complete_screen.open()
+	GameMgr.menu_entered.emit(GameMgr.GameMenus.CHECKERBOARD_COMPLETE)
+	
+	checkerboard_complete_screen.open()
 
 	
 func pause_or_unpause() -> void:

@@ -1,2 +1,2 @@
 extends Node2D
-class_name StageObjects
+class_name StageObjects # BoardObjects

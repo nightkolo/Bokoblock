@@ -1,10 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://brk4cu2psqw0k"]
+[gd_scene load_steps=6 format=3 uid="uid://brk4cu2psqw0k"]
 
 [ext_resource type="Script" path="res://world/interface/move_counter.gd" id="1_mbsn3"]
 [ext_resource type="Texture2D" uid="uid://d30sfyudfk5ns" path="res://assets/interface/move-counter-yellow-01.png" id="2_mg6a1"]
-[ext_resource type="LabelSettings" uid="uid://cwe4ne8tatw7p" path="res://core/resources/ui/label_set_move_counter.tres" id="3_a6lvy"]
+[ext_resource type="FontFile" uid="uid://cgp77ft8q5j4y" path="res://assets/addons/fonts/Rabbitfont-Black.ttf" id="3_667op"]
 
-[node name="StageNumber" type="Node2D"]
+[sub_resource type="FontVariation" id="FontVariation_ymyvs"]
+base_font = ExtResource("3_667op")
+spacing_glyph = -2
+
+[sub_resource type="LabelSettings" id="LabelSettings_28ys7"]
+font = SubResource("FontVariation_ymyvs")
+font_size = 24
+font_color = Color(0, 0, 0, 0.75)
+
+[node name="MoveCounter" type="Node2D"]
 script = ExtResource("1_mbsn3")
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -27,6 +36,5 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(27, 0)
 size_flags_horizontal = 4
-text = "000"
-label_settings = ExtResource("3_a6lvy")
+label_settings = SubResource("LabelSettings_28ys7")
 horizontal_alignment = 1

@@ -1,5 +1,5 @@
 extends Control
-class_name StageCompleteScreen
+class_name CheckerboardCompleteScreen
 
 @onready var stage_complete_info: RichTextLabel = %StageCompleteInfo
 
@@ -16,8 +16,8 @@ class_name StageCompleteScreen
 var _gameplay_ui: GameplayUI
 
 const BBCODE_TXT = "[center][color=#232323][font_size=37][wave amp=10.0 freq=4.0][tornado radius=1.5 freq=1.0]"
-const _INFO_BEGIN = "Checkerboard "
-const _INFO_END = " Completed"
+const _INFO_BEGIN = "=Checkerboard "
+const _INFO_END = " Completed="
 
 var t_panel: Tween
 var t_star_spinning: Tween

@@ -1,6 +1,6 @@
 ## Under construction
 extends Node2D
-class_name StageWorld
+class_name StageWorld # BoardWorld
 
 enum StageWorldBGColorPreset { ## @deprecated
 	BLUE = 0,

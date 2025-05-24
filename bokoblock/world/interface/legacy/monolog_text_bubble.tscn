@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bg757ku1ljocd"]
 
-[ext_resource type="Script" path="res://world/interface/test_monologue_text.gd" id="1_lgsx7"]
+[ext_resource type="Script" path="res://world/interface/legacy/test_monologue_text.gd" id="1_lgsx7"]
 [ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/speech-bubble.png" id="2_p0ku6"]
 [ext_resource type="Theme" uid="uid://crery4q67k6a7" path="res://core/resources/theme/theme_rich_text_label.tres" id="3_ldye4"]
 [ext_resource type="FontVariation" uid="uid://cyb57wcgd753u" path="res://core/resources/theme/font_var_dialog_box.tres" id="4_p0kp0"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_n8o7v"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_dt5wt"]
-[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_r501b"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/miscellanous/gameplay_ui.tscn" id="2_r501b"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="3_6mte0"]
 [ext_resource type="Texture2D" uid="uid://do785tshvy7hl" path="res://assets/backgrounds/bg-v16.png" id="4_anbg7"]
 [ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="4_uk3r2"]

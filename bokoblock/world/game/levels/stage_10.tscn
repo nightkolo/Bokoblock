@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=4 uid="uid://evmpk2rqq6qw"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_u3r3d"]
-[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_3eveh"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/miscellanous/gameplay_ui.tscn" id="2_3eveh"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_k46aq"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_uqwvb"]
 [ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="5_jpvvm"]
@@ -13,16 +13,14 @@
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="9_g7t73"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_sltp2"]
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_tvf0x"]
-[ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_bx5cv"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_stvqs"]
+[ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="11_nlhaa"]
 [ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="19_74cq5"]
 [ext_resource type="PackedScene" uid="uid://bmld4h85gfbc1" path="res://object/objects/obj_one_color_wall.tscn" id="20_2xdco"]
 
-[node name="Stage" type="Node2D" node_paths=PackedStringArray("stage_number")]
+[node name="Stage" type="Node2D"]
 script = ExtResource("1_u3r3d")
-stage_progression = false
 win_condition = 1
-stage_number = NodePath("StageWorld/MoveCounter")
 
 [node name="UI" parent="." instance=ExtResource("2_3eveh")]
 
@@ -53,7 +51,7 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("7_gx00g")
 
 [node name="Collision" type="TileMapLayer" parent="StageWorld/TM"]
-tile_map_data = PackedByteArray("AAAIAAwAAQAAAAQAAAAJAAwAAQAAAAQAAAAKAAwAAQAAAAQAAAAHAAwAAQAAAAQAAAAFAAwAAQAAAAQAAAAHAAYAAQAAAAQAAAAHAAgAAQAAAAQAAAAHAAkAAQAAAAQAAAAHAAoAAQAAAAQAAAAIAAoAAQAAAAQAAAAHAAcAAQAAAAQAAAAJAAYAAQAAAAQAAAAKAAYAAQAAAAQAAAAMAAwAAQAAAAQAAAAEAAwAAQAAAAQAAAAFAAYAAQAAAAQAAAALAAwAAQAAAAQAAAAMAAUAAQAAAAQAAAACAAsAAQAAAAQAAAACAAwAAQAAAAQAAAACAAoAAQAAAAQAAAACAAkAAQAAAAQAAAACAAgAAQAAAAQAAAACAAcAAQAAAAQAAAACAAYAAQAAAAQAAAAEAAYAAQAAAAQAAAANAAwAAQAAAAQAAAAOAAgAAQAAAAQAAAAOAAcAAQAAAAQAAAAOAAYAAQAAAAQAAAALAAYAAQAAAAQAAAANAAUAAQAAAAQAAAAJAAoAAQAAAAQAAAAJAAkAAQAAAAQAAAAJAAgAAQAAAAQAAAAOAAkAAQAAAAQAAAAOAAoAAQAAAAQAAAAOAAsAAQAAAAQAAAAOAAwAAQAAAAQAAAAMAAYAAQAAAAQAAAAOAAUAAQAAAAQAAAAIAAYAAQAAAAQAAAAIAAcAAQAAAAQAAAAIAAgAAQAAAAQAAAADAAYAAQAAAAQAAAAGAAYAAQAAAAQAAAAFAA0AAQAAAAQAAAAGAA0AAQAAAAQAAAAHAA0AAQAAAAQAAAADAAwAAQAAAAQAAAA=")
+tile_map_data = PackedByteArray("AAAIAAwAAQAAAAQAAAAJAAwAAQAAAAQAAAAKAAwAAQAAAAQAAAAHAAwAAQAAAAQAAAAFAAwAAQAAAAQAAAAHAAYAAQAAAAQAAAAHAAgAAQAAAAQAAAAHAAkAAQAAAAQAAAAHAAoAAQAAAAQAAAAIAAoAAQAAAAQAAAAHAAcAAQAAAAQAAAAJAAYAAQAAAAQAAAAKAAYAAQAAAAQAAAAMAAwAAQAAAAQAAAAEAAwAAQAAAAQAAAAFAAYAAQAAAAQAAAALAAwAAQAAAAQAAAAMAAUAAQAAAAQAAAACAAsAAQAAAAQAAAACAAwAAQAAAAQAAAACAAoAAQAAAAQAAAACAAkAAQAAAAQAAAACAAgAAQAAAAQAAAACAAcAAQAAAAQAAAACAAYAAQAAAAQAAAAEAAYAAQAAAAQAAAANAAwAAQAAAAQAAAAOAAgAAQAAAAQAAAAOAAcAAQAAAAQAAAAOAAYAAQAAAAQAAAALAAYAAQAAAAQAAAANAAUAAQAAAAQAAAAOAAkAAQAAAAQAAAAOAAoAAQAAAAQAAAAOAAsAAQAAAAQAAAAOAAwAAQAAAAQAAAAOAAUAAQAAAAQAAAAIAAYAAQAAAAQAAAAIAAgAAQAAAAQAAAADAAYAAQAAAAQAAAAGAAYAAQAAAAQAAAAFAA0AAQAAAAQAAAAGAA0AAQAAAAQAAAAHAA0AAQAAAAQAAAADAAwAAQAAAAQAAAANAAcAAQAAAAQAAAANAAgAAQAAAAQAAAANAAkAAQAAAAQAAAANAAoAAQAAAAQAAAANAAsAAQAAAAQAAAALAAUAAQAAAAQAAAANAAYAAQAAAAQAAAAIAAkAAQAAAAQAAAA=")
 tile_set = ExtResource("8_rfy3d")
 
 [node name="Checkerboard" type="TileMapLayer" parent="StageWorld/TM"]
@@ -71,8 +69,8 @@ tile_set = ExtResource("8_rfy3d")
 position = Vector2(428, 203)
 sleep = true
 
-[node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_bx5cv")]
-position = Vector2(473, 608)
+[node name="BoardNumber" parent="StageWorld" instance=ExtResource("11_nlhaa")]
+position = Vector2(428, 608)
 
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("9_g7t73")
@@ -81,7 +79,7 @@ script = ExtResource("9_g7t73")
 script = ExtResource("19_74cq5")
 
 [node name="OneColorWall7" parent="StageObjects/OneColorWalls3" instance=ExtResource("20_2xdco")]
-position = Vector2(428, 338)
+position = Vector2(383, 338)
 
 [node name="OneColorWalls4" type="Area2D" parent="StageObjects"]
 script = ExtResource("19_74cq5")
@@ -109,11 +107,11 @@ position = Vector2(293, 473)
 what_im_happy_with = 1
 
 [node name="Endpoint3" parent="StageObjects/Endpoints" instance=ExtResource("10_stvqs")]
-position = Vector2(518, 428)
+position = Vector2(473, 428)
 what_im_happy_with = 3
 
 [node name="Endpoint5" parent="StageObjects/Endpoints" instance=ExtResource("10_stvqs")]
-position = Vector2(473, 428)
+position = Vector2(428, 428)
 
 [node name="Bokobody" type="Node2D" parent="StageObjects"]
 position = Vector2(248, 428)
@@ -126,7 +124,7 @@ boko_color = 3
 position = Vector2(45, 0)
 
 [node name="Bokobody2" type="Node2D" parent="StageObjects"]
-position = Vector2(473, 383)
+position = Vector2(428, 383)
 script = ExtResource("7_eplui")
 
 [node name="Block" parent="StageObjects/Bokobody2" instance=ExtResource("8_ghctb")]

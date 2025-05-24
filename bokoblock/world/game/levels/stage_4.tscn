@@ -1,8 +1,8 @@
-[gd_scene load_steps=17 format=4 uid="uid://lgffitdp3bb5"]
+[gd_scene load_steps=16 format=4 uid="uid://lgffitdp3bb5"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_377xv"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_1vhod"]
-[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/misc/gameplay_ui.tscn" id="2_ef04p"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/miscellanous/gameplay_ui.tscn" id="2_ef04p"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="3_xa1cw"]
 [ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="4_4sugn"]
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="4_s78yt"]
@@ -15,10 +15,10 @@
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_p00od"]
 [ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_7jrhk"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_621oc"]
-[ext_resource type="Texture2D" uid="uid://cix1ph8yxv66f" path="res://assets/interface/speech-bubble-02.png" id="16_h2tqx"]
 
 [node name="S4" type="Node2D" node_paths=PackedStringArray("stage_number")]
 script = ExtResource("1_377xv")
+show_dev_ui = true
 win_condition = 1
 stage_number = NodePath("StageWord/MoveCounter")
 
@@ -132,16 +132,3 @@ boko_color = 1
 [node name="Block3" parent="StageObjects/Bokobody2" instance=ExtResource("8_dcm4r")]
 position = Vector2(45, 0)
 boko_color = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-visible = false
-offset_left = 293.0
-offset_top = 248.0
-offset_right = 339.0
-offset_bottom = 294.0
-texture = ExtResource("16_h2tqx")
-region_rect = Rect2(0, 0, 138, 138)
-patch_margin_left = 23
-patch_margin_top = 23
-patch_margin_right = 23
-patch_margin_bottom = 23
