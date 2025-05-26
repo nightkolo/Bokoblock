@@ -1,6 +1,6 @@
 ## Under construction
 extends Node2D
-class_name StageWorld # BoardWorld
+class_name BoardWorld
 
 enum StageWorldBGColorPreset { ## @deprecated
 	BLUE = 0,
@@ -146,7 +146,7 @@ static func set_background_color(is_preset: StageWorldBGColorPreset) -> Color:
 	
 	match is_preset:
 		StageWorldBGColorPreset.RANDOMIZE:
-			col = set_background_color(StageWorld.StageWorldBGColorPreset.values()[randi()%StageWorld.StageWorldBGColorPreset.size()])
+			col = set_background_color(BoardWorld.StageWorldBGColorPreset.values()[randi()%BoardWorld.StageWorldBGColorPreset.size()])
 		
 		StageWorldBGColorPreset.CUSTOM:
 			pass

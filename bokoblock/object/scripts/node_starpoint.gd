@@ -20,6 +20,7 @@ var is_happy: bool = false:
 		
 		if value != is_happy && !GameLogic.has_won:
 			if value:
+				#anim_happy()
 				audio_entered.play()
 			else:
 				audio_exited.play()
@@ -39,7 +40,7 @@ var is_landed_on: bool = false:
 func _ready() -> void:
 	_setup_node()
 	
-	GameMgr.current_starpoints.append(self)
+	GameLogic.current_starpoints.append(self)
 
 
 func _process(_delta: float) -> void:
@@ -67,7 +68,7 @@ func setup_node() -> void:
 	_setup_node()
 
 
-func check_satisfaction(modify_value: bool = true) -> bool:
+func check_satisfaction(modify_happiness: bool = true) -> bool:
 	var value: bool
 	var areas: Array[Area2D] = get_overlapping_areas()
 
@@ -76,7 +77,7 @@ func check_satisfaction(modify_value: bool = true) -> bool:
 	if is_landed_on:
 		value = (areas[0] as Bokoblock).boko_color == what_im_happy_with
 	
-	if modify_value:
+	if modify_happiness:
 		is_happy = value
 	
 	return value

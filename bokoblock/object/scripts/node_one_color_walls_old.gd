@@ -24,8 +24,8 @@ func _ready() -> void:
 	area_exited.connect(bokoblocks_area_exited)
 	
 	#await get_tree().create_timer(0.1).timeout
-	#if GameMgr.current_stage:
-		#GameMgr.current_stage.allow_undoing = false
+	#if GameMgr.current_board:
+		#GameMgr.current_board.allow_undoing = false
 	
 
 func _process(_delta: float) -> void:

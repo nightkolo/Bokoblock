@@ -6,7 +6,7 @@ class_name TileMaps
 
 @onready var child_tilemaps: Array[Node] = get_children()
 
-var parent_level_world: StageWorld
+var parent_level_world: BoardWorld
 var checkerboard_color: Color = Color.WHITE
 var show_collision_tilemap: bool = false
 

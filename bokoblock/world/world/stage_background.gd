@@ -80,7 +80,7 @@ func spin_bg() -> void:
 	
 	await get_tree().create_timer(0.1).timeout
 	
-	if BokoMath.is_even(GameMgr.current_stage_id):
+	if BokoMath.is_even(GameMgr.current_board_id):
 		spin_dir = 1
 	else:
 		spin_dir = -1

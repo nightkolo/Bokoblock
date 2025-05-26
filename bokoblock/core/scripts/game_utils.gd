@@ -32,7 +32,6 @@ enum SwitchTypeDecorator { ## @deprecated
 static var stage_complete_anim_waittime: float = 1.5
 
 const GAME_SCREEN_SIZE = Vector2(960.0,720.0)
-const BOKOBODY_TURN_DEGREE = 90.0
 const TILE_SIZE = 45.0 
 const NUMBER_OF_BOARDS = 20
 const NUMBER_OF_CHECKERBOARDS = int(NUMBER_OF_BOARDS / 10.0)

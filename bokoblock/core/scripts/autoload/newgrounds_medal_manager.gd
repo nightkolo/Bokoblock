@@ -11,7 +11,7 @@ func _ready() -> void:
 		return
 	
 	GameMgr.game_data_saved.connect(func():
-		#if GameMgr.current_stage.improved_stats:
+		#if GameMgr.current_board.improved_stats:
 		check_stage_progression_medals(GameMgr.current_checkboard_id)
 	)
 

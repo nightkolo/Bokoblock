@@ -52,19 +52,19 @@ func _ready() -> void:
 			)
 	
 	music_btn.pressed.connect(func():
-		var muted := GameMgr.music_muted
+		var muted := GameMgr.is_music_muted
 		
 		AudioServer.set_bus_mute(bus_Music, !muted)
 		
-		GameMgr.music_muted = !muted
+		GameMgr.is_music_muted = !muted
 		)
 		
 	sfx_btn.pressed.connect(func():
-		var muted := GameMgr.sfx_muted
+		var muted := GameMgr.is_sfx_muted
 		
 		AudioServer.set_bus_mute(bus_SFX, !muted)
 		
-		GameMgr.sfx_muted = !muted
+		GameMgr.is_sfx_muted = !muted
 		)
 	
 	#return_btn.pressed.connect(func():
@@ -75,4 +75,4 @@ func _ready() -> void:
 
 
 func update_text() -> void:
-	pause_info.text = GameplayUI.BBCODE_TXT + PAUSE_INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_stage_id) + PAUSE_INFO_END
+	pause_info.text = GameplayUI.BBCODE_TXT + PAUSE_INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_board_id) + PAUSE_INFO_END

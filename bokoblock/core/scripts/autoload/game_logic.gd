@@ -38,6 +38,10 @@ enum TransformationType {
 
 static var win_condition: WinCondition
 
+var current_bodies: Array[Bokobody]
+var current_blocks: Array[Bokoblock]
+var current_starpoints: Array[Starpoint]
+
 var has_won: bool = false
 var win_checked: bool = true
 var are_bodies_moving: bool = false
@@ -81,7 +85,7 @@ func _ready() -> void:
 func check_bodies() -> void:
 	await GameMgr.process_waittime()
 	
-	var stood_on_starpoint: bool = check_if_block_on_starpoint(GameMgr.current_blocks)
+	var stood_on_starpoint: bool = check_if_block_on_starpoint(GameLogic.current_blocks)
 	
 	if stood_on_starpoint && !is_block_on_starpoint:
 		body_entered_starpoint.emit()
@@ -92,7 +96,7 @@ func check_bodies() -> void:
 
 
 func check_if_bodies_stopped(_is_body: Bokobody) -> void:
-	var num_of_bodies: int = GameMgr.current_bodies.size()
+	var num_of_bodies: int = GameLogic.current_bodies.size()
 	
 	if num_of_bodies == 0:
 		return
@@ -119,19 +123,19 @@ func check_win() -> void:
 	match win_condition:
 		
 		WinCondition.MATCH_ALL_STARPOINTS:
-			match_amount = GameMgr.current_starpoints.size()
+			match_amount = GameLogic.current_starpoints.size()
 			
 		WinCondition.MATCH_ALL_BLOCKS:
-			if GameMgr.current_stage.custom_block_match < 0:
-				match_amount = GameMgr.current_blocks.size()
+			if GameMgr.current_board.custom_block_match < 0:
+				match_amount = GameLogic.current_blocks.size()
 			else:
-				match_amount = GameMgr.current_stage.custom_block_match
+				match_amount = GameMgr.current_board.custom_block_match
 	
 	if match_amount == 0:
 		win_checked = true
 		return
 	
-	for starpoint: Starpoint in GameMgr.current_starpoints:
+	for starpoint: Starpoint in GameLogic.current_starpoints:
 		if starpoint.check_satisfaction():
 			objects_happy += 1
 	
@@ -146,7 +150,7 @@ func check_win() -> void:
 func _bodies_have_moved() -> void:
 	_prev_positions = []
 		
-	for body: Bokobody in GameMgr.current_bodies:
+	for body: Bokobody in GameLogic.current_bodies:
 		_prev_positions.push_back(body.transform)
 
 
@@ -164,14 +168,14 @@ func _bodies_have_stopped() -> void:
 ## [br][br][b]Note:[/b] Used to be for the move counter and undo behaviour.
 ## But these features have been deprecated. The function just stands this way.
 func check_if_bodies_made_move() -> bool:
-	if GameMgr.current_bodies.is_empty():
+	if GameLogic.current_bodies.is_empty():
 		return false
 	
-	for i: int in range(GameMgr.current_bodies.size()):
-		if _prev_positions[i] != GameMgr.current_bodies[i].transform:
+	for i: int in range(GameLogic.current_bodies.size()):
+		if _prev_positions[i] != GameLogic.current_bodies[i].transform:
 			return true
 		
-	return false
+	return 0
 
 
 func win_stage() -> void:
@@ -189,10 +193,10 @@ func has_moved() -> void:
 
 
 func get_current_win_condition() -> WinCondition:
-	if GameMgr.current_stage:
-		return GameMgr.current_stage.win_condition
+	if GameMgr.current_board:
+		return GameMgr.current_board.win_condition
 	
-	return 0
+	return WinCondition.MATCH_ALL_STARPOINTS
 
 
 func check_if_block_on_starpoint(blocks: Array[Bokoblock]) -> bool:
@@ -203,7 +207,7 @@ func check_if_block_on_starpoint(blocks: Array[Bokoblock]) -> bool:
 		if block.is_on_starpoint:
 			return true
 	
-	return false
+	return 0
 
 
 func self_destruct() -> void:
@@ -211,13 +215,15 @@ func self_destruct() -> void:
 
 
 func _reset_game_logic() -> void:
-	has_won = false
-	win_checked = true
-	are_bodies_moving = false
+	current_bodies = []
+	current_blocks = []
+	current_starpoints = []
+	
 	has_won = false
 	win_checked = true
 	are_bodies_moving = false
 	is_block_on_starpoint = false
+	
 	match_amount = 0
 	_bodies_stopped = 0
 	_prev_positions = []

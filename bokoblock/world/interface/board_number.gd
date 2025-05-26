@@ -13,7 +13,7 @@ func _ready() -> void:
 	anim_idle()
 	
 	await get_tree().create_timer(0.1).timeout
-	label.text = str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_stage_id)
+	label.text = str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_board_id)
 
 
 func anim_idle():

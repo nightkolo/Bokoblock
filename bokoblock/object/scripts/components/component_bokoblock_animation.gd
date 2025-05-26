@@ -343,8 +343,8 @@ func anim_ghost() -> void:
 	sprite.position = block.sprite_ghost.global_position
 	sprite.z_index = 4
 	
-	if GameMgr.current_stage:
-		GameMgr.current_stage.add_child(sprite)
+	if GameMgr.current_board:
+		GameMgr.current_board.add_child(sprite)
 	
 	var tween = create_tween().set_parallel(true)
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)

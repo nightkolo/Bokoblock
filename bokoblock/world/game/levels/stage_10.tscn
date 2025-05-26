@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="19_74cq5"]
 [ext_resource type="PackedScene" uid="uid://bmld4h85gfbc1" path="res://object/objects/obj_one_color_wall.tscn" id="20_2xdco"]
 
-[node name="Stage" type="Node2D"]
+[node name="Board" type="Node2D"]
 script = ExtResource("1_u3r3d")
 win_condition = 1
 

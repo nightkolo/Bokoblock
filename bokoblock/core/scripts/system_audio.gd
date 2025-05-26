@@ -136,14 +136,14 @@ func play_body_turn(turn_to: float = signf(randf() - 0.5)):
 		
 
 func play_body_move_hit() -> void:
-	if GameMgr.current_bodies.size() < 2:
+	if GameLogic.current_bodies.size() < 2:
 		body_move_hit_1.play()
 	else:
 		body_move_hit_2.play()
 
 
 func play_body_turn_hit() -> void:
-	if GameMgr.current_bodies.size() < 2:
+	if GameLogic.current_bodies.size() < 2:
 		body_turn_hit_1.play()
 	else:
 		body_turn_hit_2.play()

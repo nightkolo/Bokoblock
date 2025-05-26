@@ -59,7 +59,7 @@ func _ready() -> void:
 	_setup_node()
 	
 	if !no_move:
-		GameMgr.current_bodies.append(self)
+		GameLogic.current_bodies.append(self)
 		
 		PlayerInput.input_move.connect(move)
 		PlayerInput.input_turn.connect(turn)
