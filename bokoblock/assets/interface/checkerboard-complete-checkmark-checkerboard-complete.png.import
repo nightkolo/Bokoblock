@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsxxqlos3fmiw"
-path="res://.godot/imported/particle_rabbitstar_01.png-931dc47b3416b47f3f62f024ba04157a.ctex"
+uid="uid://c5ao1ljin7jd7"
+path="res://.godot/imported/checkerboard-complete-checkmark-checkerboard-complete.png-0ed20a8faa990f20add679e2d8f97a89.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/world/particle_rabbitstar_01.png"
-dest_files=["res://.godot/imported/particle_rabbitstar_01.png-931dc47b3416b47f3f62f024ba04157a.ctex"]
+source_file="res://assets/interface/checkerboard-complete-checkmark-checkerboard-complete.png"
+dest_files=["res://.godot/imported/checkerboard-complete-checkmark-checkerboard-complete.png-0ed20a8faa990f20add679e2d8f97a89.ctex"]
 
 [params]
 

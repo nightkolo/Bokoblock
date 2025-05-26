@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4i4qyjwbbeo6"
-path="res://.godot/imported/one-color-wall-ghost-v01.png-8841458a2003625b29488ecca58a28a7.ctex"
+uid="uid://bmbs2jlj5par6"
+path="res://.godot/imported/blackpoint-02.png-ea95f81481f3a028d34c3f6dee4a3047.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/world/one-color-wall-ghost-v01.png"
-dest_files=["res://.godot/imported/one-color-wall-ghost-v01.png-8841458a2003625b29488ecca58a28a7.ctex"]
+source_file="res://assets/objects/blackpoint-02.png"
+dest_files=["res://.godot/imported/blackpoint-02.png-ea95f81481f3a028d34c3f6dee4a3047.ctex"]
 
 [params]
 

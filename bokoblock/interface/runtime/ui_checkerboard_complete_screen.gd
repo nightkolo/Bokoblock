@@ -2,7 +2,7 @@ extends Control
 class_name CBCompleteScreen
 
 @export var asset_star: Texture2D = preload("res://assets/interface/rabbitstar-yellow.png")
-@export var asset_checkmark: Texture2D = preload("res://assets/interface/checkerboard-complete-check-large.png")
+@export var asset_checkmark: Texture2D = preload("res://assets/interface/checkerboard-complete-checkmark-checkerboard-complete.png")
 
 @onready var bg: ColorRect = $BG
 @onready var node_texture_1: Node2D = %TextureNode1
@@ -70,6 +70,17 @@ func update_text() -> void:
 	cb_complete_info.text = GameplayUI.BBCODE_TXT + _INFO_BEGIN + str(GameMgr.current_checkerboard_id) + _INFO_END
 
 
+func anim_shine():
+	var tween_a = create_tween().set_loops()
+	var tween_b = create_tween().set_loops()
+	
+	(%Shine1 as Sprite2D).visible = true
+	(%Shine2 as Sprite2D).visible = true
+	
+	tween_a.tween_property((%Shine1 as Sprite2D), "rotation", PI / 4.0, 1.0).as_relative()
+	tween_b.tween_property((%Shine2 as Sprite2D), "rotation", -PI / 4.0, 1.0).as_relative()
+	
+
 func stop_anim_idle() -> void:
 	if tween_texture_idle:
 		tween_texture_idle.kill()
@@ -80,8 +91,6 @@ func stop_anim_idle() -> void:
 	if tween_texture_pulse:
 		tween_texture_pulse.kill()
 		
-		
-		
 var tween_click: Tween
 
 
@@ -91,8 +100,6 @@ func anim_click() -> void:
 	
 	if tween_click:
 		tween_click.kill()
-	
-	#stop_anim_idle()
 	
 	node_texture_1.scale = Vector2(1.0+mag, 1.0-mag)
 	node_texture_1.skew = deg_to_rad(10.0 + (7.5 * (randf() - 0.5)))
@@ -125,12 +132,12 @@ func anim_open() -> void:
 	
 	
 func anim_texture_spinning() -> void:
-	var dur := 1.0
+	var dur := 1.2
 	var bg_mag := 1.0
 	
 	# Spin
 	node_texture_1.rotation = 3.5 * PI
-	texture.position.x -= 500.0
+	texture.position.x -= 600.0
 	
 	# Scale and texture
 	texture.texture = asset_star
@@ -151,16 +158,16 @@ func anim_texture_spinning() -> void:
 	await tween_bg.finished
 	tween_bg.kill()
 	
-	_anim_texture_landed(dur)
+	_anim_texture_landed()
 	
 	# await tween.finished # doesn't work since it's set to parallel
 	await get_tree().create_timer(dur).timeout
 	tween.kill()
 	
 
-func _anim_texture_landed(dur: float):
-	var dur_pop := dur * 2.0
-	var dur_bg := dur / 2.0
+func _anim_texture_landed():
+	var dur_pop := 1.6
+	var dur_bg := 0.5
 	var delay_bg := 0.1
 	
 	texture.texture = asset_checkmark
@@ -179,6 +186,7 @@ func _anim_texture_landed(dur: float):
 	tween.tween_property(bg, "color", Color(Color.WHITE, 0.2), dur_bg).set_delay(delay_bg)
 	
 	anim_texture_idle()
+	anim_shine()
 	
 	# await tween.finished # doesn't work since it's set to parallel
 	await get_tree().create_timer(dur_pop).timeout

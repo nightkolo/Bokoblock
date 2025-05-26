@@ -23,9 +23,6 @@ signal state_checked(have_moved: bool)
 ## Emitted when the stage is won.
 signal stage_won()
 
-signal bodies_undoed() ## @deprecated
-signal bodies_stopped_making_move() ## @deprecated
-
 enum WinCondition {
 	MATCH_ALL_STARPOINTS = 0,
 	MATCH_ALL_BLOCKS = 1
@@ -48,9 +45,6 @@ var are_bodies_moving: bool = false
 var is_block_on_starpoint: bool = false
 var match_amount: int = 0
 
-## Returns whether at least at least one [Bokobody] has transformed/made a move.
-var we_have_made_a_move: bool ## @deprecated
-
 var _bodies_stopped: int = 0
 var _prev_positions: Array[Transform2D]
 
@@ -60,12 +54,7 @@ static func set_win_condition(win_cond: WinCondition) -> void:
 
 
 func _ready() -> void:
-	#Engine.time_scale = 1.0/10.0
-	
 	body_stopped.connect(check_if_bodies_stopped)
-
-	#bodies_stopped.connect(check_win)
-	#bodies_stopped.connect(check_bodies)
 	bodies_stopped.connect(_bodies_have_stopped)
 	
 	PlayerInput.movement_input_made.connect(_bodies_have_moved)
@@ -102,17 +91,10 @@ func check_if_bodies_stopped(_is_body: Bokobody) -> void:
 		return
 	
 	_bodies_stopped += 1
-	
-	print(_bodies_stopped)
-	print(num_of_bodies)
-	print("")
-	
+
 	are_bodies_moving = _bodies_stopped != num_of_bodies
 	
 	if !are_bodies_moving:
-		#if PlayerInput.last_input != TransformationType.UNDO:
-			#bodies_stopped_making_move.emit()
-			
 		bodies_stopped.emit()
 		_bodies_stopped = 0
 
@@ -158,7 +140,7 @@ func _bodies_have_stopped() -> void:
 	check_win()
 	check_bodies()
 	
-	we_have_made_a_move = check_if_bodies_made_move()
+	var we_have_made_a_move := check_if_bodies_made_move()
 	state_checked.emit(we_have_made_a_move)
 	
 

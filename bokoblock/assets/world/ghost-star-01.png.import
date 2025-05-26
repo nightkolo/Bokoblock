@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8nynhbor8ohn"
-path="res://.godot/imported/boko-chibi-star-upscale.png-72431cd0b063231afd273ef862b6dbe6.ctex"
+uid="uid://dm64mlb03conr"
+path="res://.godot/imported/ghost-star-01.png-3fad6cee7093aa8f6be4acf8e3f62911.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/boko-chibi-star-upscale.png"
-dest_files=["res://.godot/imported/boko-chibi-star-upscale.png-72431cd0b063231afd273ef862b6dbe6.ctex"]
+source_file="res://assets/world/ghost-star-01.png"
+dest_files=["res://.godot/imported/ghost-star-01.png-3fad6cee7093aa8f6be4acf8e3f62911.ctex"]
 
 [params]
 

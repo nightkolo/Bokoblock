@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1qxiebwbies1"
-path="res://.godot/imported/boko-top-hat-real-star.png-ab77762ac4e95dfc4db8c199e15172cf.ctex"
+uid="uid://c8nynhbor8ohn"
+path="res://.godot/imported/boko-chibi-star-01-upscale.png-ee3462f4568b7b5edc0c2bf4daecc3eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/boko-top-hat-real-star.png"
-dest_files=["res://.godot/imported/boko-top-hat-real-star.png-ab77762ac4e95dfc4db8c199e15172cf.ctex"]
+source_file="res://assets/characters/boko-chibi-star-01-upscale.png"
+dest_files=["res://.godot/imported/boko-chibi-star-01-upscale.png-ee3462f4568b7b5edc0c2bf4daecc3eb.ctex"]
 
 [params]
 

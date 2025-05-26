@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bmld4h85gfbc1" path="res://object/objects/obj_one_color_wall.tscn" id="15_c5dfk"]
 [ext_resource type="Script" path="res://object/scripts/obj_one_color_wall.gd" id="16_nwnu8"]
 [ext_resource type="Texture2D" uid="uid://bff5brsyoo0i2" path="res://assets/objects/one-color-wall-v03.png" id="17_leen3"]
-[ext_resource type="Texture2D" uid="uid://c4i4qyjwbbeo6" path="res://assets/world/one-color-wall-ghost-v01.png" id="18_h8gw6"]
+[ext_resource type="Texture2D" uid="uid://c4i4qyjwbbeo6" path="res://assets/world/ghost-one-color-wall.png" id="18_h8gw6"]
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="19_1it62"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="20_x18vj"]
 

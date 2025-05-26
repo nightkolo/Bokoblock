@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddl1okpm8yv8"]
 
-[ext_resource type="Texture2D" uid="uid://bic6b6u43h37h" path="res://assets/world/particle_rabbitstar_02.png" id="1_qm5nj"]
+[ext_resource type="Texture2D" uid="uid://bic6b6u43h37h" path="res://assets/world/particle-rabbitstar-02.png" id="1_qm5nj"]
 
 [sub_resource type="Curve" id="Curve_barkj"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494505), 0.0, 0.0, 0, 0]

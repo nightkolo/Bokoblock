@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bic6b6u43h37h"
-path="res://.godot/imported/particle_rabbitstar_02.png-39d8bc03b30e72b98b8c5124d4ee6a4a.ctex"
+uid="uid://dsxxqlos3fmiw"
+path="res://.godot/imported/particle-rabbitstar-01.png-06c77908a1d49c00b690d0f9e28ac79e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/world/particle_rabbitstar_02.png"
-dest_files=["res://.godot/imported/particle_rabbitstar_02.png-39d8bc03b30e72b98b8c5124d4ee6a4a.ctex"]
+source_file="res://assets/world/particle-rabbitstar-01.png"
+dest_files=["res://.godot/imported/particle-rabbitstar-01.png-06c77908a1d49c00b690d0f9e28ac79e.ctex"]
 
 [params]
 

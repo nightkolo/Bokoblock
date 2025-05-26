@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5ao1ljin7jd7"
-path="res://.godot/imported/checkerboard-complete-check-large.png-4841158b45dae4263d669d9e51522abc.ctex"
+uid="uid://brjdidnn4ra3m"
+path="res://.godot/imported/checkerboard-uncomplete-checkmark-01.png-ccb85acaa2c91637247a06e6bf9e9256.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/interface/checkerboard-complete-check-large.png"
-dest_files=["res://.godot/imported/checkerboard-complete-check-large.png-4841158b45dae4263d669d9e51522abc.ctex"]
+source_file="res://assets/interface/checkerboard-uncomplete-checkmark-01.png"
+dest_files=["res://.godot/imported/checkerboard-uncomplete-checkmark-01.png-ccb85acaa2c91637247a06e6bf9e9256.ctex"]
 
 [params]
 

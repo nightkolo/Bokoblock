@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1oy2djpuqn4f"
-path="res://.godot/imported/checkmark.png-9b96bf60131ecbb56a966063b9708d4c.ctex"
+uid="uid://bic6b6u43h37h"
+path="res://.godot/imported/particle-rabbitstar-02.png-e5e1f661cd8a9fa5b2674e30614c35f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/interface/checkmark.png"
-dest_files=["res://.godot/imported/checkmark.png-9b96bf60131ecbb56a966063b9708d4c.ctex"]
+source_file="res://assets/world/particle-rabbitstar-02.png"
+dest_files=["res://.godot/imported/particle-rabbitstar-02.png-e5e1f661cd8a9fa5b2674e30614c35f5.ctex"]
 
 [params]
 

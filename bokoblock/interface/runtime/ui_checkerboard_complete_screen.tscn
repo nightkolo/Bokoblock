@@ -1,14 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://dj6dug5c5ssg1"]
+[gd_scene load_steps=17 format=3 uid="uid://dj6dug5c5ssg1"]
 
 [ext_resource type="Script" path="res://interface/runtime/ui_checkerboard_complete_screen.gd" id="1_j5ytb"]
-[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/speech-bubble.png" id="2_rf5y8"]
+[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/ui-panel.png" id="2_rf5y8"]
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="3_ydyc1"]
 [ext_resource type="Theme" uid="uid://c1p6abfdd35ae" path="res://core/resources/theme/theme_panel_rich_label.tres" id="4_vtb1e"]
 [ext_resource type="Theme" uid="uid://otrfm5jo3rs" path="res://core/resources/theme/theme_panel_button.tres" id="4_wkmr3"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_panel.gd" id="5_e55ww"]
-[ext_resource type="Texture2D" uid="uid://c5ao1ljin7jd7" path="res://assets/interface/checkerboard-complete-check-large.png" id="6_ydhfd"]
-[ext_resource type="Texture2D" uid="uid://doxlutmnrb7o0" path="res://assets/world/particle-checkmark-02.png" id="7_kcfhi"]
-[ext_resource type="Texture2D" uid="uid://bic6b6u43h37h" path="res://assets/world/particle_rabbitstar_02.png" id="8_2d8hq"]
+[ext_resource type="Texture2D" uid="uid://c5ao1ljin7jd7" path="res://assets/interface/checkerboard-complete-checkmark-checkerboard-complete.png" id="6_ydhfd"]
+[ext_resource type="Texture2D" uid="uid://dae5i40xndc63" path="res://assets/world/particle-checkmark-outlined.png" id="7_kcfhi"]
+[ext_resource type="Texture2D" uid="uid://bic6b6u43h37h" path="res://assets/world/particle-rabbitstar-02.png" id="8_2d8hq"]
+[ext_resource type="Texture2D" uid="uid://cdajel8g6bfn8" path="res://assets/world/effect-shine-large.png" id="10_0ir3r"]
 
 [sub_resource type="FontVariation" id="FontVariation_vproy"]
 spacing_glyph = -2
@@ -25,11 +26,11 @@ point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_tsa2b"]
 offsets = PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.792683, 1)
-colors = PackedColorArray(1, 0.560784, 1, 1, 1, 1, 1, 1, 1, 0.560784, 1, 1, 1, 1, 1, 1, 1, 0.560784, 1, 1, 1, 1, 1, 1, 1, 0.560784, 1, 1, 1, 1, 1, 1, 1, 0.560784, 1, 1, 1, 1, 1, 1, 1, 0.560784, 1, 1, 1, 0.839865, 0.994651, 0)
+colors = PackedColorArray(1, 1, 0.45098, 1, 1, 1, 1, 1, 1, 1, 0.45098, 1, 1, 1, 1, 1, 1, 1, 0.45098, 1, 1, 1, 1, 1, 1, 1, 0.45098, 1, 1, 1, 1, 1, 1, 1, 0.45098, 1, 1, 1, 1, 1, 1, 1, 0.45098, 1, 1, 0.839865, 0.994651, 0)
 
 [sub_resource type="Curve" id="Curve_v4q4e"]
 max_value = 3.0
-_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1.5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_1xoux"]
@@ -58,7 +59,7 @@ color = Color(1, 1, 1, 0.2)
 
 [node name="Panel" type="NinePatchRect" parent="."]
 unique_name_in_owner = true
-self_modulate = Color(1, 1, 1, 0.9)
+self_modulate = Color(1, 1, 1, 0.95)
 custom_minimum_size = Vector2(450, 400)
 layout_mode = 2
 offset_left = 255.0
@@ -125,6 +126,7 @@ script = ExtResource("5_e55ww")
 [node name="Particles3" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(378, -61)
+emitting = false
 amount = 20
 lifetime = 3.0
 speed_scale = 0.5
@@ -142,6 +144,22 @@ damping_min = 200.0
 damping_max = 240.0
 scale_amount_curve = SubResource("Curve_2begt")
 color_ramp = SubResource("Gradient_tsa2b")
+
+[node name="Shine1" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(0.5, 1, 0.5, 0.5)
+position = Vector2(480, 488)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("10_0ir3r")
+
+[node name="Shine2" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(0.5, 1, 0.5, 0.5)
+position = Vector2(480, 488)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("10_0ir3r")
 
 [node name="TextureNode1" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -168,7 +186,7 @@ color_ramp = SubResource("Gradient_1xoux")
 [node name="Particles2" type="CPUParticles2D" parent="TextureNode1"]
 unique_name_in_owner = true
 emitting = false
-amount = 64
+amount = 32
 lifetime = 11.0
 one_shot = true
 explosiveness = 1.0

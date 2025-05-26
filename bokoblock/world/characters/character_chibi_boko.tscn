@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dkpq6f8l2i2t3"]
+[gd_scene load_steps=27 format=3 uid="uid://dkpq6f8l2i2t3"]
 
 [ext_resource type="Script" path="res://world/characters/character_chibi_boko.gd" id="1_wqlmh"]
 [ext_resource type="Texture2D" uid="uid://cm1103elsnxjn" path="res://assets/characters/boko-chibi-block-upscale.png" id="2_kf2bi"]
@@ -6,52 +6,33 @@
 [ext_resource type="Texture2D" uid="uid://bybhhbt8bks47" path="res://assets/characters/boko-chibi-eyes-upscale.png" id="3_4wble"]
 [ext_resource type="Texture2D" uid="uid://ckb36hquf56im" path="res://assets/characters/boko-chibi-eyes-straight-upscale.png" id="3_5sl3f"]
 [ext_resource type="Texture2D" uid="uid://bhhjechuek4jx" path="res://assets/characters/boko-chibi-top-hat-upscale.png" id="5_cj45q"]
-[ext_resource type="Texture2D" uid="uid://c8nynhbor8ohn" path="res://assets/characters/boko-chibi-star-upscale.png" id="6_jtyel"]
+[ext_resource type="Texture2D" uid="uid://c8nynhbor8ohn" path="res://assets/characters/boko-chibi-star-01-upscale.png" id="6_jtyel"]
 [ext_resource type="Script" path="res://world/characters/character_chibi_boko_top_hat.gd" id="6_y4ahi"]
 [ext_resource type="Texture2D" uid="uid://u5w03rdthrph" path="res://assets/characters/boko-chibi-star-ghost-upscale.png" id="7_8kdi8"]
 [ext_resource type="Texture2D" uid="uid://binu8obp7qvsi" path="res://assets/characters/boko-chibi-eyes-blink-upscale.png" id="7_rq6tq"]
+[ext_resource type="Texture2D" uid="uid://4y0ynd0qnqsk" path="res://assets/characters/boko-chibi-eyes-starpoint.png" id="10_0wlgs"]
 [ext_resource type="Texture2D" uid="uid://ch1rbwrtp72o3" path="res://assets/characters/boko-chibi-eyes-happy-upscale.png" id="10_llbsn"]
 [ext_resource type="Texture2D" uid="uid://csrqbmnxd726y" path="res://assets/characters/boko-chibi-eyes-blink.png" id="11_7tc4l"]
 [ext_resource type="Texture2D" uid="uid://dqe83wclfqvlf" path="res://assets/characters/boko-chibi-eyes-woke-up.png" id="13_s025k"]
-
-[sub_resource type="Gradient" id="Gradient_ol7pp"]
-offsets = PackedFloat32Array(0.25, 0.75)
-colors = PackedColorArray(0, 0, 0, 0.25, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_iiald"]
-gradient = SubResource("Gradient_ol7pp")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Curve" id="Curve_fhb66"]
-_data = [Vector2(0, 0.535891), 0.0, 4.15387, 0, 0, Vector2(0.26009, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.508735), -1.16219, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Gradient" id="Gradient_15mqe"]
-offsets = PackedFloat32Array(0, 0.175, 1)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 0.75, 0.75, 0)
-
-[sub_resource type="Gradient" id="Gradient_a1rbr"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Animation" id="Animation_ky8t7"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:texture")
+tracks/0/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_5sl3f")]
+"values": [ExtResource("3_4wble")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body1/Body2/Head/Node2D/Eyes:position")
+tracks/1/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -63,7 +44,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:flip_v")
+tracks/2/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:flip_v")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -75,7 +56,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Body1/Body2/Head/Node2D/Eyes:scale")
+tracks/3/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -94,8 +75,8 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"stop_zeing"
+"args": [false],
+"method": &"anim_zeing"
 }]
 }
 
@@ -104,7 +85,7 @@ resource_name = "asleep"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:texture")
+tracks/0/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -116,7 +97,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body1/Body2/Head/Node2D/Eyes:scale")
+tracks/1/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -128,7 +109,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:flip_v")
+tracks/2/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:flip_v")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -140,7 +121,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Body1/Body2/Head/Node2D/Eyes:position")
+tracks/3/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -159,8 +140,8 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"start_zeing"
+"args": [true],
+"method": &"anim_zeing"
 }]
 }
 
@@ -171,7 +152,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:texture")
+tracks/0/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -183,7 +164,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body1/Body2/Head/Node2D/Eyes:position")
+tracks/1/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -195,7 +176,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body1/Body2/Head/Node2D/Eyes:scale")
+tracks/2/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -218,6 +199,20 @@ tracks/3/keys = {
 "method": &"stop_zeing"
 }]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"anim_zeing"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_leyk2"]
 resource_name = "closed"
@@ -225,7 +220,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:texture")
+tracks/0/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -237,7 +232,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body1/Body2/Head/Node2D/Eyes:scale")
+tracks/1/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -249,7 +244,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:flip_v")
+tracks/2/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:flip_v")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -261,7 +256,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Body1/Body2/Head/Node2D/Eyes:position")
+tracks/3/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -284,6 +279,20 @@ tracks/4/keys = {
 "method": &"stop_zeing"
 }]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"anim_zeing"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_f05vq"]
 resource_name = "happy"
@@ -291,7 +300,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:texture")
+tracks/0/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -303,7 +312,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:flip_v")
+tracks/1/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:flip_v")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -315,7 +324,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body1/Body2/Head/Node2D/Eyes:scale")
+tracks/2/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -327,7 +336,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Body1/Body2/Head/Node2D/Eyes:position")
+tracks/3/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -350,13 +359,27 @@ tracks/4/keys = {
 "method": &"stop_zeing"
 }]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"anim_zeing"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_xn786"]
 resource_name = "woke_up"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:texture")
+tracks/0/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -368,7 +391,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body1/Body2/Head/Node2D/Eyes/SpriteEyes:flip_v")
+tracks/1/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:flip_v")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -380,7 +403,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body1/Body2/Head/Node2D/Eyes:scale")
+tracks/2/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -392,7 +415,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Body1/Body2/Head/Node2D/Eyes:position")
+tracks/3/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -413,6 +436,20 @@ tracks/4/keys = {
 "values": [{
 "args": [],
 "method": &"stop_zeing"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"anim_zeing"
 }]
 }
 
@@ -426,16 +463,41 @@ _data = {
 "woke_up": SubResource("Animation_xn786")
 }
 
+[sub_resource type="Gradient" id="Gradient_ol7pp"]
+offsets = PackedFloat32Array(0.25, 0.75)
+colors = PackedColorArray(0, 0, 0, 0.125, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iiald"]
+gradient = SubResource("Gradient_ol7pp")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_fhb66"]
+_data = [Vector2(0, 0.535891), 0.0, 4.15387, 0, 0, Vector2(0.26009, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.508735), -1.16219, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_15mqe"]
+offsets = PackedFloat32Array(0, 0.175, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 0.75, 0.75, 0)
+
+[sub_resource type="Gradient" id="Gradient_a1rbr"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="CharacterChibiBoko" type="Node2D"]
 scale = Vector2(0.3, 0.3)
 script = ExtResource("1_wqlmh")
-speaking_speed = 0.095
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimEyes" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_orsp2")
+}
+
+[node name="Shadow" type="Sprite2D" parent="."]
 scale = Vector2(9.5, 9.5)
 texture = SubResource("GradientTexture2D_iiald")
 
 [node name="Z" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
 z_index = 1
 position = Vector2(63.3333, -90)
 emitting = false
@@ -480,7 +542,7 @@ color = Color(1, 0.5, 1, 1)
 color_ramp = SubResource("Gradient_a1rbr")
 hue_variation_max = 1.0
 
-[node name="CPUParticles2D8" type="CPUParticles2D" parent="."]
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
 amount = 4
 speed_scale = 0.25
 randomness = 1.0
@@ -519,16 +581,20 @@ position = Vector2(0, -83)
 unique_name_in_owner = true
 texture = ExtResource("2_kf2bi")
 
-[node name="Node2D" type="Node2D" parent="Body1/Body2/Head"]
+[node name="Eyes1" type="Node2D" parent="Body1/Body2/Head"]
 scale = Vector2(0.5, 0.5)
 
-[node name="Eyes" type="Node2D" parent="Body1/Body2/Head/Node2D"]
-unique_name_in_owner = true
+[node name="Eyes2" type="Node2D" parent="Body1/Body2/Head/Eyes1"]
 scale = Vector2(2, 2)
 
-[node name="SpriteEyes" type="Sprite2D" parent="Body1/Body2/Head/Node2D/Eyes"]
+[node name="SpriteEyes" type="Sprite2D" parent="Body1/Body2/Head/Eyes1/Eyes2"]
 unique_name_in_owner = true
-texture = ExtResource("3_5sl3f")
+texture = ExtResource("3_4wble")
+
+[node name="SpriteEyes2" type="Sprite2D" parent="Body1/Body2/Head/Eyes1/Eyes2"]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("10_0wlgs")
 
 [node name="TopHat" type="Node2D" parent="Body1/Body2/Head" node_paths=PackedStringArray("parent")]
 unique_name_in_owner = true
@@ -558,8 +624,3 @@ unique_name_in_owner = true
 position = Vector2(-68, 5)
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("7_8kdi8")
-
-[node name="AnimEyes" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_orsp2")
-}

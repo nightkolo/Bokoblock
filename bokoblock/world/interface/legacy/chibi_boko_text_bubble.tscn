@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://7vplxcgsvlvh"]
 
-[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/speech-bubble.png" id="2_j6m3c"]
+[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/ui-panel.png" id="2_j6m3c"]
 [ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="8_7krbw"]
 
 [node name="ChibiBoko" type="MarginContainer"]

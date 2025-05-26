@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwduejw5wy1t5"
-path="res://.godot/imported/boko-chibi-eyes-v2.png-b81090f4e1e4397e875453584ab7fff7.ctex"
+uid="uid://c1qxiebwbies1"
+path="res://.godot/imported/boko-chibi-star-02.png-838cd289d328d9aa9443f24e08f4b870.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/boko-chibi-eyes-v2.png"
-dest_files=["res://.godot/imported/boko-chibi-eyes-v2.png-b81090f4e1e4397e875453584ab7fff7.ctex"]
+source_file="res://assets/characters/boko-chibi-star-02.png"
+dest_files=["res://.godot/imported/boko-chibi-star-02.png-838cd289d328d9aa9443f24e08f4b870.ctex"]
 
 [params]
 

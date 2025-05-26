@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm64mlb03conr"
-path="res://.godot/imported/rabbitstar-02.png-5fa73aa63dfc5e1fe033051a776011a4.ctex"
+uid="uid://b1oy2djpuqn4f"
+path="res://.godot/imported/oiled-up-checkmark.png-86d6d2c307b8bd0e436065da0280333b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/world/rabbitstar-02.png"
-dest_files=["res://.godot/imported/rabbitstar-02.png-5fa73aa63dfc5e1fe033051a776011a4.ctex"]
+source_file="res://assets/interface/oiled-up-checkmark.png"
+dest_files=["res://.godot/imported/oiled-up-checkmark.png-86d6d2c307b8bd0e436065da0280333b.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doxlutmnrb7o0"
-path="res://.godot/imported/particle-checkmark-02.png-06421a822046f4db0f6dba661073212b.ctex"
+uid="uid://4y0ynd0qnqsk"
+path="res://.godot/imported/boko-chibi-eyes-starpoint.png-2e6589c577c545874e2ad71c9e90e9df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/world/particle-checkmark-02.png"
-dest_files=["res://.godot/imported/particle-checkmark-02.png-06421a822046f4db0f6dba661073212b.ctex"]
+source_file="res://assets/characters/boko-chibi-eyes-starpoint.png"
+dest_files=["res://.godot/imported/boko-chibi-eyes-starpoint.png-2e6589c577c545874e2ad71c9e90e9df.ctex"]
 
 [params]
 

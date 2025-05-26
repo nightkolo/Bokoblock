@@ -42,7 +42,7 @@ func _ready() -> void:
 	GameMgr.current_ui_handler = self
 	
 
-func the_checkboard_is_done():
+func the_checkerboard_has_been_checkered():
 	checkerboard_complete_screen.open()
 
 	
@@ -62,7 +62,6 @@ func pause_or_unpause() -> void:
 	game_pause_toggled.emit(is_game_paused)
 	
 	pause_screen.visible = is_game_paused
-	
 	
 	
 func reset_stage() -> void:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b46ycimuhecdt"
-path="res://.godot/imported/boko-chibi-star.png-cafdb4066d01fe1e330cd617b6fb00b8.ctex"
+uid="uid://c4i4qyjwbbeo6"
+path="res://.godot/imported/ghost-one-color-wall.png-6b608e15a27b80952ecb70647e9068a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/boko-chibi-star.png"
-dest_files=["res://.godot/imported/boko-chibi-star.png-cafdb4066d01fe1e330cd617b6fb00b8.ctex"]
+source_file="res://assets/world/ghost-one-color-wall.png"
+dest_files=["res://.godot/imported/ghost-one-color-wall.png-6b608e15a27b80952ecb70647e9068a4.ctex"]
 
 [params]
 

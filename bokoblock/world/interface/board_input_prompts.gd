@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@export var top_hat_man: ChibiBoko
+@export var top_hat_man: BoardInfo
 
 func _ready() -> void:
 	GameLogic.stage_won.connect(func():

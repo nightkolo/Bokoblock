@@ -22,13 +22,13 @@ var current_board: Board
 var current_board_id: int = -1
 var current_checkerboard_id: int = -1
 
-var saver_loader: SaverLoader = SaverLoader.new()
-
-const ON_NEWGROUNDS_MIRROR = true
-
 var is_game_manager_resetting: bool = false ## @experimental
 var is_sfx_muted: bool = false
 var is_music_muted: bool = false
+
+var saver_loader: SaverLoader = SaverLoader.new()
+
+const ON_NEWGROUNDS_MIRROR = true
 
 
 func _ready() -> void:
@@ -36,7 +36,7 @@ func _ready() -> void:
 	
 	#load_game_data()
 	
-	game_end.connect(stage_completed)
+	game_end.connect(stage_complete)
 	
 	menu_entered.connect(func(entered: Menus):
 		current_menu = entered
@@ -54,7 +54,7 @@ func _ready() -> void:
 	)
 
 
-func stage_completed() -> void:
+func stage_complete() -> void:
 	if current_board_id / 10.0 == 1.0:
 		open_checkerboard_complete_screen()
 	else:
@@ -63,11 +63,11 @@ func stage_completed() -> void:
 
 func open_checkerboard_complete_screen() -> void:
 	if current_ui_handler:
-		current_ui_handler.the_checkboard_is_done()
+		current_ui_handler.the_checkerboard_has_been_checkered()
 
 
 ## Goes to next stage.
-## [br][br]Enabling [param force_progression] bypasses [member Stage.stage_progression] and forces progression.
+## [br][br]Enabling [param force_progression] bypasses [member Board.stage_progression] and forces progression.
 func goto_next_stage(force_progression: bool = false) -> void:
 	if current_board:
 		if !current_board.stage_progression && !force_progression:

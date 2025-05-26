@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://6gfr648a4tde" path="res://assets/objects/block-greyscale.png" id="2_vu6u0"]
 [ext_resource type="Texture2D" uid="uid://dy7ec8pych8ve" path="res://assets/objects/block-eyes-neutral.png" id="3_7bp01"]
 [ext_resource type="Texture2D" uid="uid://58erdrgwqcbw" path="res://assets/objects/block-ghost.png" id="4_cmisq"]
-[ext_resource type="Texture2D" uid="uid://fht8ceno2w63" path="res://assets/world/star_v01.png" id="4_u4fx5"]
+[ext_resource type="Texture2D" uid="uid://dm64mlb03conr" path="res://assets/world/ghost-star-01.png" id="5_08ca3"]
 [ext_resource type="Texture2D" uid="uid://dqcbjuirvq776" path="res://assets/world/particle_circle_02.png" id="7_jtedv"]
 [ext_resource type="Script" path="res://object/scripts/components/component_bokoblock_animation.gd" id="7_u5igv"]
 [ext_resource type="PackedScene" uid="uid://cmc3pcr6jttko" path="res://object/game/block_button.tscn" id="8_enjm0"]
@@ -51,7 +51,7 @@ color_ramp = SubResource("Gradient_lipoc")
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 scale = Vector2(1e-05, 1e-05)
-texture = ExtResource("4_u4fx5")
+texture = ExtResource("5_08ca3")
 
 [node name="Ghost" type="Sprite2D" parent="Sprites"]
 unique_name_in_owner = true

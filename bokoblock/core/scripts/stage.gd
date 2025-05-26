@@ -36,6 +36,7 @@ var _moves_counted: int = 0:
 func _ready() -> void:
 	GameMgr.current_board = self
 	GameMgr.menu_entered.emit(GameMgr.Menus.RUNTIME)
+	@warning_ignore("static_called_on_instance")
 	GameLogic.set_win_condition(win_condition)
 	
 	if auto_assign_ids:
@@ -61,8 +62,6 @@ func _ready() -> void:
 			_moves_counted += 1
 		)
 
-	#GameMgr.open_checkerboard_complete_screen()
-
 
 func store_stats() -> void:
 	if !save_stats:
@@ -81,7 +80,7 @@ func store_stats() -> void:
 	if GameData.runtime_data[id]["completed"] == false:
 		GameData.runtime_data[id]["completed"] = true
 	
-	if _moves_counted < GameData.runtime_data[id]["move_count"]: # deprecated
+	if _moves_counted < GameData.runtime_data[id]["move_count"]:
 		GameData.runtime_data[id]["move_count"] = _moves_counted
 		
-	#saver_loader.save_game()
+	saver_loader.save_game()

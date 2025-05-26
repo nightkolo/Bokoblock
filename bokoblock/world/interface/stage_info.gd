@@ -1,7 +1,8 @@
+## @experimental: In desperate need for refactoring
+##
 ## Under construction.
 extends Node2D
-class_name ChibiBoko
-# TODO: change to StageInfo
+class_name BoardInfo
 
 signal letter_showing_started()
 signal letter_showing_finished()
@@ -26,7 +27,6 @@ enum BubbleAlign { ## @experimental
 @onready var chibi_boko: CharacterChibiBoko = $CharacterChibiBoko
 @onready var audio: AudioStreamPlayer = $Speech
 @onready var area: Area2D = $Area2D
-
 
 var displayed_text: String
 var current_text: String = ""
@@ -55,7 +55,7 @@ var _tween_bubble_a: Tween
 var _tween_bubble_b: Tween
 var _tween_fade: Tween
 var _letter_show_timer: Timer = Timer.new()
-var _boko_just_woke_up: bool = false
+var _boko_just_woke_up: bool = false 
 
 const _BUBBLE_MARGIN = Vector2.ONE * 35.0
 const _LABEL_MARGIN = Vector2.ONE * 10.0
@@ -98,23 +98,26 @@ func _ready() -> void:
 		area.position.x = (colli_shape.size.x / 2.0) + 30.0
 		)
 	
+	## What was i smoking when i wrote this shit :(
+	## very mature comments, i know
 	
-	if chibi_boko && animate && !sleep:
+	if animate && !sleep:
 		GameLogic.body_entered_starpoint.connect(func():
 			if !GameLogic.has_won:
-				chibi_boko.anim_excited()
+				chibi_boko.anim_excite(true)
 			)
 		GameLogic.body_exited_starpoint.connect(func():
 			if !GameLogic.has_won:
-				chibi_boko.anim_unexcited()
+				chibi_boko.anim_excite(false)
 			)
+			
 			
 		GameMgr.game_just_ended.connect(func():
 			show_text(STAGE_COMPLETE_TEXT)
 			
 			if GameLogic.has_won:
 				chibi_boko.stop_speaking()
-				chibi_boko.be_happy()
+				chibi_boko.pose_happy()
 			)
 		
 		letter_showing_started.connect(func():
@@ -127,13 +130,13 @@ func _ready() -> void:
 			
 			if !GameLogic.has_won:
 				chibi_boko.stop_speaking()
-				chibi_boko.be_neutral()
+				chibi_boko.pose_neutral()
 			
 			label.size += _LABEL_MARGIN
 			anim_bubble_bounce()
 			)
 	elif sleep:
-		chibi_boko.be_asleep()
+		chibi_boko.pose_asleep()
 		
 		GameMgr.game_just_ended.connect(func():
 			_boko_just_woke_up = true
