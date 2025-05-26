@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0nbdjl7inkmr"]
+[gd_scene load_steps=8 format=3 uid="uid://d0nbdjl7inkmr"]
 
 [ext_resource type="Script" path="res://interface/runtime/ui_menu_pause.gd" id="1_e5gcu"]
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_x2cp5"]
 [ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/speech-bubble.png" id="2_i606c"]
-[ext_resource type="Theme" uid="uid://d4fajpwpc4rx" path="res://core/resources/theme/theme_button_pause_menu.tres" id="3_w78lq"]
-[ext_resource type="Script" path="res://interface/animators/anim_button_pause.gd" id="5_b1ou4"]
+[ext_resource type="Theme" uid="uid://c1p6abfdd35ae" path="res://core/resources/theme/theme_panel_rich_label.tres" id="4_po6o3"]
+[ext_resource type="Script" path="res://interface/animators/anim_button_panel.gd" id="5_b1ou4"]
+[ext_resource type="Theme" uid="uid://otrfm5jo3rs" path="res://core/resources/theme/theme_panel_button.tres" id="5_gop5i"]
 
 [sub_resource type="FontVariation" id="FontVariation_q0gsl"]
 spacing_glyph = -2
@@ -40,6 +41,7 @@ theme = ExtResource("1_x2cp5")
 theme_override_constants/margin_bottom = 50
 
 [node name="GodILoveControlNodes" type="NinePatchRect" parent="PauseMenuAgain"]
+self_modulate = Color(1, 1, 1, 0.9)
 custom_minimum_size = Vector2(450, 400)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -69,9 +71,9 @@ layout_mode = 2
 [node name="PauseInfo" type="RichTextLabel" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("4_po6o3")
 theme_override_fonts/normal_font = SubResource("FontVariation_q0gsl")
 bbcode_enabled = true
-text = "[center][color=#232323][font_size=37][wave amp=10.0 freq=4.0][tornado radius=1.5 freq=1.0]=Stage 0-00 Paused="
 fit_content = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer"]
@@ -86,7 +88,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../HBoxContainer/Music")
 focus_neighbor_bottom = NodePath("../ResetButton")
-theme = ExtResource("3_w78lq")
+theme = ExtResource("5_gop5i")
 text = "Continue"
 script = ExtResource("5_b1ou4")
 
@@ -97,19 +99,18 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../ResumeButton")
 focus_neighbor_bottom = NodePath("../ReturnButton")
-theme = ExtResource("3_w78lq")
+theme = ExtResource("5_gop5i")
 text = "Reset"
 script = ExtResource("5_b1ou4")
 
 [node name="ReturnButton" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(200, 55)
 layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../ResetButton")
 focus_neighbor_bottom = NodePath("../HBoxContainer/Music")
-theme = ExtResource("3_w78lq")
+theme = ExtResource("5_gop5i")
 text = "Quit"
 script = ExtResource("5_b1ou4")
 
@@ -125,7 +126,7 @@ focus_neighbor_left = NodePath("../Misc")
 focus_neighbor_top = NodePath("../../ReturnButton")
 focus_neighbor_right = NodePath("../Music")
 focus_neighbor_bottom = NodePath("../../ResumeButton")
-theme = ExtResource("3_w78lq")
+theme = ExtResource("5_gop5i")
 theme_override_font_sizes/font_size = 25
 text = "SFX"
 
@@ -136,18 +137,17 @@ focus_neighbor_left = NodePath("../SFX")
 focus_neighbor_top = NodePath("../../ReturnButton")
 focus_neighbor_right = NodePath("../Misc")
 focus_neighbor_bottom = NodePath("../../ResumeButton")
-theme = ExtResource("3_w78lq")
+theme = ExtResource("5_gop5i")
 theme_override_font_sizes/font_size = 25
 text = "Music"
 
 [node name="Misc" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 focus_neighbor_left = NodePath("../Music")
 focus_neighbor_top = NodePath("../../ReturnButton")
 focus_neighbor_right = NodePath("../SFX")
 focus_neighbor_bottom = NodePath("../../ResumeButton")
-theme = ExtResource("3_w78lq")
+theme = ExtResource("5_gop5i")
 theme_override_font_sizes/font_size = 25
 text = "Effects"

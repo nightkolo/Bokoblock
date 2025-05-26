@@ -12,4 +12,3 @@ script = ExtResource("1_eu7p0")
 visible = false
 
 [node name="StageCompleteScreen" parent="." instance=ExtResource("3_nwfwq")]
-visible = false

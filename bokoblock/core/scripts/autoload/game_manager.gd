@@ -2,14 +2,14 @@
 extends Node
 
 signal stage_entered(is_lvl: int)
-signal menu_entered(entered: GameMenus)
+signal menu_entered(entered: Menus)
 signal game_just_ended()
 signal game_end()
 signal game_reset()
 signal game_data_saved()
 signal game_data_loaded()
 
-enum GameMenus {
+enum Menus {
 	MENUS = 0,
 	PAUSE = 1,
 	CHECKERBOARD_COMPLETE = 2,
@@ -17,8 +17,7 @@ enum GameMenus {
 	RUNTIME = 99
 }
 
-var current_menu: GameMenus = GameMenus.START
-
+var current_menu: Menus = Menus.START
 var current_ui_handler: GameplayUI
 var current_stage: Stage
 var current_stage_id: int = -1:
@@ -37,6 +36,7 @@ var saver_loader: SaverLoader = SaverLoader.new()
 const ON_NEWGROUNDS_MIRROR = true
 
 var _is_game_manager_resetting: bool = false
+
 var sfx_muted: bool = false
 var music_muted: bool = false
 
@@ -48,7 +48,7 @@ func _ready() -> void:
 	
 	game_end.connect(stage_completed)
 	
-	menu_entered.connect(func(entered: GameMenus):
+	menu_entered.connect(func(entered: Menus):
 		current_menu = entered
 		)
 	
@@ -96,9 +96,9 @@ func goto_next_stage(force_progression: bool = false) -> void:
 
 func goto_next_checkerboard() -> void:
 	goto_next_stage(true)
-	#print("Beta finished.")
 	
-	#Trans.slide_to_next_stage("res://interface/menus/thank_you_screen.tscn")
+	await get_tree().create_timer(1.5).timeout
+	Audio.set_music()
 
 
 func goto_prev_stage() -> void:

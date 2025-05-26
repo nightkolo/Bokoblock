@@ -70,7 +70,7 @@ var _moves_counted: int = 0:
 
 func _ready() -> void:
 	GameMgr.current_stage = self
-	GameMgr.menu_entered.emit(GameMgr.GameMenus.RUNTIME)
+	GameMgr.menu_entered.emit(GameMgr.Menus.RUNTIME)
 	GameLogic.set_win_condition(win_condition)
 	
 	if auto_assign_ids:
@@ -126,6 +126,8 @@ func _ready() -> void:
 	#if allow_undoing == false:
 		#for body: Bokobody in GameMgr.current_bodies:
 			#body.no_undo = !allow_undoing
+			
+	#GameMgr.open_checkerboard_complete_screen()
 
 
 func store_stats() -> void:

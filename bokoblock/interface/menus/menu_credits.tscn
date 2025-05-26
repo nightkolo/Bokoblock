@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_dg448"]
 [ext_resource type="Script" path="res://interface/interactors/menu_credits.gd" id="1_m2fj4"]
-[ext_resource type="LabelSettings" uid="uid://bvj46p6mlit00" path="res://core/resources/ui/label_set_credit_author.tres" id="1_ol87i"]
-[ext_resource type="Theme" uid="uid://cls5uwn5pwpbx" path="res://core/resources/theme/theme_button_sided.tres" id="4_64h4q"]
+[ext_resource type="LabelSettings" uid="uid://bvj46p6mlit00" path="res://core/resources/theme/label_set_credit_author.tres" id="1_ol87i"]
+[ext_resource type="Theme" path="res://core/resources/theme/theme_button_sided.tres" id="4_64h4q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vltc8"]
 font_size = 24

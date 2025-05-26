@@ -30,50 +30,37 @@ extends Node
 @onready var one_color_wall_enter: AudioStreamPlayer = $SFX/OneColorWallEnter
 @onready var one_color_wall_hit: AudioStreamPlayer = $SFX/OneColorWallHit
 
+@onready var checkerboard_complete: AudioStreamPlayer = $UI/CheckerboardComplete
+
 #@onready var body_happy_01: AudioStreamPlayer = $SFX/BodyHappy01
 #@onready var body_happy_02: AudioStreamPlayer = $SFX/BodyHappy02
 
 var body_moving: Array[Node]
 var body_turn_click: Array[Node]
-var _stage_complete_jingles: Array[Node]
+#var _stage_complete_jingles: Array[Node]
 
-#var _menu_enter_jingles: Array[Node]
+var original_music_db: float
 var _reset_sound: bool = true
 
 
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 	
-	_stage_complete_jingles = $UI/MenuEnterJingles.get_children()
+	original_music_db = music_stage.volume_db
 	body_moving = $SFX/BodyMoving.get_children()
 	body_turn_click = $SFX/BodyTurnClick.get_children()
 	
-	GameMgr.menu_entered.connect(func(entered: GameMgr.GameMenus):
+	GameMgr.menu_entered.connect(func(entered: GameMgr.Menus):
 		match entered:
 			
-			GameMgr.GameMenus.PAUSE, GameMgr.GameMenus.RUNTIME, GameMgr.GameMenus.CHECKERBOARD_COMPLETE:
-				#AudioServer.set_bus_mute(bus_GameSound, false)
-				
+			GameMgr.Menus.PAUSE, GameMgr.Menus.RUNTIME, GameMgr.Menus.CHECKERBOARD_COMPLETE:
 				if !music_stage.playing:
 					music_stage.play()
 			
 			_:
-				#AudioServer.set_bus_mute(bus_GameSound, true)
-				
 				if music_stage.playing:
 					music_stage.stop()
 	)
-		
-	# TODO: Maybe should not make everything global
-	
-	GameMgr.game_reset.connect(func() -> void:
-		_reset_sound = !_reset_sound
-		
-		if _reset_sound:
-			game_reset_01.play()
-		else:
-			game_reset_02.play()
-		)
 		
 	GameMgr.game_just_ended.connect(func():
 		stage_win.play()
@@ -83,9 +70,9 @@ func _ready() -> void:
 		stage_next.play()
 		)
 	
-	GameLogic.state_checked.connect(func(_have_moved: bool):
-		_check_game_state()
-		)
+	#GameLogic.state_checked.connect(func(_have_moved: bool):
+		#_check_game_state()
+		#)
 	
 	GameLogic.body_hit_move.connect(play_body_move_hit)
 	GameLogic.body_hit_turn.connect(play_body_turn_hit)
@@ -102,9 +89,28 @@ func _ready() -> void:
 			pass
 			)
 
+func lower_higher_music(dur: float = 1.0, low: float = 15.0) -> void:
+	var tween = create_tween()
+	
+	tween.tween_property(Audio.music_stage, "volume_db", Audio.original_music_db-low, dur)
+	tween.tween_property(Audio.music_stage, "volume_db", Audio.original_music_db, dur).set_delay(dur)
 
-func _check_game_state() -> void:
-	pass
+
+func set_music(vol: float = original_music_db) -> void:
+	music_stage.volume_db = vol
+
+
+#func _check_game_state() -> void:
+	#pass
+
+
+func play_reset_sound() -> void:
+	_reset_sound = !_reset_sound
+	
+	if _reset_sound:
+		game_reset_01.play()
+	else:
+		game_reset_02.play()
 
 
 func play_body_move() -> void:

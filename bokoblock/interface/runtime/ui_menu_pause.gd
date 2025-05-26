@@ -68,11 +68,11 @@ func _ready() -> void:
 		)
 	
 	#return_btn.pressed.connect(func():
-		#GameMgr.menu_entered.emit(GameMgr.GameMenus.MENUS)
+		#GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
 		#get_tree().paused = false
 		#get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")
 		#)
 
 
 func update_text() -> void:
-	pause_info.text = BBCODE_TXT + PAUSE_INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_stage_id) + PAUSE_INFO_END
+	pause_info.text = GameplayUI.BBCODE_TXT + PAUSE_INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_stage_id) + PAUSE_INFO_END

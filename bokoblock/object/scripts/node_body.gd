@@ -22,6 +22,7 @@ signal child_block_exited_one_col_wall()
 @export_group("Objects to Assign")
 @export var light_glow: PackedScene = preload("res://world/world/point_light_bokobody_glow.tscn")
 
+var movement_time: float = 0.08 ## Causes issues when movement time is too small
 var child_blocks: Array[Bokoblock]
 #var is_on_starpoint: bool
 var is_moving: bool:
@@ -31,7 +32,6 @@ var is_moving: bool:
 		if !value:
 			_has_stopped()
 		is_moving = value
-#var is_actually_turning: bool ## @deprecated
 var is_turning: bool:
 	get:
 		return is_turning
@@ -47,7 +47,6 @@ var is_on_one_way_wall: bool:
 			GameLogic.state_checked.connect(_on_one_way_wall)
 		is_on_one_way_wall = value
 var is_one_way_wall: OneColorWalls
-var movement_time: float = 0.08 ## Causes issues when movement time is too small
 
 var _tween_move: Tween
 var _tween_turn: Tween
@@ -55,7 +54,6 @@ var _current_last_transform
 var _old_pos: Vector2
 var _old_rot: float
 
-#var poss: Vector2
 
 func _ready() -> void:
 	_setup_node()
@@ -68,12 +66,6 @@ func _ready() -> void:
 	
 	has_moved.connect(_on_transform)
 	has_turned.connect(_on_transform)
-	#move_end.connect(check_state)
-	#turn_end.connect(check_state)
-	#has_moved.connect(func(_moved_to: Vector2):
-		#poss = position
-		#)
-	
 	
 	if auto_assign_animation:
 		var anim := BokobodyAnimationComponent.new()
@@ -85,25 +77,9 @@ func _ready() -> void:
 		block.area_entered.connect(func(area: Area2D):
 			if area is Bokoblock:
 				stop_transforming()
-				
-				#stop_turning()
-				#
-				#print(is_moving)
-				#
-				#if !is_moving:
-					#return
-				#
-				#move_stopped.emit()
-				#GameLogic.body_hit_move.emit()
-				#
-				#GameUtil.reset_tween(_tween_move)
-				#
-				#position = poss
-#
-				#is_moving = false
 			)
 		block.body_entered.connect(func(body: Node2D):
-			if has_hit_object(body):
+			if body is TileMapLayer || body is SleepingBlock:
 				stop_transforming()
 			) 
 		
@@ -142,21 +118,19 @@ func _setup_node() -> void:
 		#is_on_starpoint = false
 
 
+## [param disable_colli] is expermental.
 func turn(p_turn_to: float, disable_colli: bool = false) -> void:
 	if is_turning:
 		return
 	
 	is_turning = true
-	#is_actually_turning = true
 	has_turned.emit(signf(p_turn_to))
 	_old_rot = rotation_degrees
-	#_can_set_record = set_record
 
 	var turn_to: float = 90.0 * signf(p_turn_to) * turning_strength
 	
 	if disable_colli: # Doing a check to avoid runtime slowdown
-		#_disable_colli(true)
-		pass
+		_disable_colli(true)
 		
 	GameUtil.reset_tween(_tween_turn)
 	_tween_turn = create_tween()
@@ -165,18 +139,17 @@ func turn(p_turn_to: float, disable_colli: bool = false) -> void:
 	
 	await _tween_turn.finished
 	
-	#is_actually_turning = false
 	turn_end.emit()
 		
 	if disable_colli: # Doing a check to avoid runtime slowdown
-		#_disable_colli(false)
-		pass
+		_disable_colli(false)
 	
 	#await _turn_delay()
 	is_turning = false
 	normalize_bokobody_rotation()
 
 
+## [param disable_colli] is expermental.
 func move(p_move_to: Vector2, disable_colli: bool = false) -> void:
 	if is_moving:
 		return
@@ -184,7 +157,6 @@ func move(p_move_to: Vector2, disable_colli: bool = false) -> void:
 	is_moving = true
 	has_moved.emit(p_move_to.sign())
 	_old_pos = position
-	#print_debug(_old_pos)
 	
 	for block: Bokoblock in child_blocks:
 		if block.wall_detect(p_move_to):
@@ -194,8 +166,7 @@ func move(p_move_to: Vector2, disable_colli: bool = false) -> void:
 	var move_to: Vector2 = p_move_to.sign() * GameUtil.TILE_SIZE * movement_strength
 	
 	if disable_colli: # Doing a check to avoid runtime slowdown
-		#_disable_colli(true)
-		pass
+		_disable_colli(true)
 	
 	GameUtil.reset_tween(_tween_move)
 	_tween_move = create_tween()
@@ -208,25 +179,19 @@ func move(p_move_to: Vector2, disable_colli: bool = false) -> void:
 	move_end.emit()
 	
 	if disable_colli: # Doing a check to avoid runtime slowdown
-		#_disable_colli(false)
-		pass
+		_disable_colli(false)
 
 
 func stop_moving() -> void:
 	if !is_moving:
 		return
-	
-	#_current_last_transform = Vector2.ZERO
-	
+
 	move_stopped.emit()
 	GameLogic.body_hit_move.emit()
 	
 	GameUtil.reset_tween(_tween_move)
 	
 	position = _old_pos
-	#print_debug(position)
-	
-	#await get_tree().create_timer(0.1).timeout
 	
 	is_moving = false
 	#_disable_colli(false)
@@ -235,8 +200,6 @@ func stop_moving() -> void:
 func stop_turning() -> void:
 	if !is_turning:
 		return
-	
-	#_current_last_transform = 0.0
 	
 	turn_stopped.emit()
 	GameLogic.body_hit_turn.emit()
@@ -249,9 +212,6 @@ func stop_turning() -> void:
 	_tween_turn.tween_property(self,"rotation_degrees",_old_rot,0.06)
 	await _tween_turn.finished
 	
-	#rotation_degrees = _old_rot
-	
-	#is_actually_turning = false
 	#_disable_colli(false)
 	
 	normalize_bokobody_rotation()
@@ -303,7 +263,7 @@ func has_hit_area(area: Area2D) -> bool: ## @deprecated
 		return area is Bokoblock || area is SwitchBlocks
 		
 
-func has_hit_object(body: Node2D) -> bool:
+func has_hit_object(body: Node2D) -> bool: ## @deprecated
 	return body is TileMapLayer || body is SleepingBlock
 
 
@@ -330,7 +290,7 @@ func _on_transform(trans_to) -> void:
 	_current_last_transform = trans_to
 
 
-#func _disable_colli(disable: bool) -> void:
-	#for block: Bokoblock in child_blocks:
-		#if block.get_node_or_null("CollisionShape2D"):
-			#block.get_node_or_null("CollisionShape2D").set_deferred("disabled", disable)
+func _disable_colli(disable: bool) -> void: ## @experimental
+	for block: Bokoblock in child_blocks:
+		if block.get_node_or_null("CollisionShape2D"):
+			block.get_node_or_null("CollisionShape2D").set_deferred("disabled", disable)

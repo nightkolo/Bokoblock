@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_4dd6a"]
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_aksej"]
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_303y8"]
-[ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_6wj83"]
+[ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="10_a6171"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="11_1rbtq"]
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="12_e21ra"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="13_ci68a"]
@@ -57,7 +57,8 @@ tile_set = ExtResource("8_aksej")
 [node name="ChibiBoko" parent="StageWorld" instance=ExtResource("9_303y8")]
 position = Vector2(203, 293)
 
-[node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_6wj83")]
+[node name="BoardNumber" parent="StageWorld" instance=ExtResource("10_a6171")]
+position = Vector2(653, 518)
 
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("11_1rbtq")

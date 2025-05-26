@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmfiavy81h85b"]
+[gd_scene load_steps=8 format=3 uid="uid://dmfiavy81h85b"]
 
 [ext_resource type="Script" path="res://world/interface/stage_info.gd" id="1_hcte0"]
 [ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="2_botg6"]
 [ext_resource type="Texture2D" uid="uid://cywoiajf7bxif" path="res://assets/interface/speech-bubble-03.png" id="3_fkjck"]
-[ext_resource type="Theme" uid="uid://bw14mtcn80nwt" path="res://core/resources/theme/theme_boko_bubble.tres" id="4_fojmy"]
 [ext_resource type="Shape2D" uid="uid://itceb664xr0p" path="res://core/resources/game/chibi_boko_speech_bubble_collision_area.tres" id="6_5rren"]
 [ext_resource type="AudioStream" uid="uid://bge3n81uhhjjg" path="res://audio/sounds/speech_sound.ogg" id="6_aohk3"]
 
@@ -42,7 +41,6 @@ offset_left = 45.0
 offset_top = -23.0
 offset_right = 226.0
 offset_bottom = 40.0
-theme = ExtResource("4_fojmy")
 label_settings = SubResource("LabelSettings_r36co")
 
 [node name="Speech" type="AudioStreamPlayer" parent="."]

@@ -1,9 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://wcao18gadugm"]
+[gd_scene load_steps=3 format=3 uid="uid://wcao18gadugm"]
 
-[ext_resource type="FontVariation" uid="uid://cf4se00q78twy" path="res://core/resources/ui/font_var_game_title_demo.tres" id="1_lesdi"]
+[ext_resource type="FontFile" uid="uid://dkp2nxxmpuwbg" path="res://assets/addons/fonts/Rabbitfont-Bold.ttf" id="1_idw8q"]
+
+[sub_resource type="FontVariation" id="FontVariation_uy74g"]
+base_font = ExtResource("1_idw8q")
+spacing_glyph = -10
 
 [node name="GameTitle" type="RichTextLabel"]
-theme_override_fonts/normal_font = ExtResource("1_lesdi")
+theme_override_fonts/normal_font = SubResource("FontVariation_uy74g")
 bbcode_enabled = true
 text = "[center][font_size=100][outline_size=10][outline_color=#ffffff][wave amp=75.0 freq=2.0][tornado radius=2.0 freq=2.5]BOKOBLOCK"
 fit_content = true

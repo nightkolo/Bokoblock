@@ -19,8 +19,10 @@ func _ready() -> void:
 
 
 func anim_entered():
-	var dur := 0.9
-	var scale_to := 1.1
+	var dur := 0.75
+	var scale_to := 1.15
+	
+	self_modulate = Color(Color.WHITE*1.2)
 	
 	if tween:
 		tween.kill()
@@ -38,8 +40,10 @@ func anim_entered():
 func anim_exited():
 	if tween:
 		tween.kill()
-		
+	
+	self_modulate = Color(Color.WHITE*1.0)
+	
 	tween = create_tween()
-	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(self, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK)
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(self, "scale", Vector2.ONE, 0.9)
 	

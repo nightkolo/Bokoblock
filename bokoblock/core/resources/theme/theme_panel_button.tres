@@ -1,0 +1,21 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://otrfm5jo3rs"]
+
+[ext_resource type="StyleBox" uid="uid://60jf0gt5clcx" path="res://core/resources/theme/button_panel.tres" id="1_r21k1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnmsy"]
+bg_color = Color(0.442769, 0.457487, 0.87595, 1)
+border_width_left = 30
+border_width_right = 30
+border_color = Color(0.401995, 0.410441, 0.842163, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+Button/font_sizes/font_size = 32
+Button/styles/focus = ExtResource("1_r21k1")
+Button/styles/hover = SubResource("StyleBoxFlat_rnmsy")
+Button/styles/normal = ExtResource("1_r21k1")
+Button/styles/pressed = ExtResource("1_r21k1")

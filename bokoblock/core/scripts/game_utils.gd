@@ -18,13 +18,13 @@ enum BokoCharacterPose {
 	HAPPY = 3,
 	WINK = 4
 	}
-enum BackgroundEffect {
+enum BackgroundEffect { ## @deprecated
 	SCROLL = 0,
 	ROTATE = 1,
 	ZOOM = 2,
 	SKEW = 3
 	}
-enum SwitchTypeDecorator {
+enum SwitchTypeDecorator { ## @deprecated
 	Cross = 0,
 	Square = 1
 	}

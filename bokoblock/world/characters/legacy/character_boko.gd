@@ -1,4 +1,4 @@
-## (Very) under construction.
+## @deprecated
 extends Node2D
 class_name CharacterBoko
 

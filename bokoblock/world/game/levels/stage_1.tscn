@@ -17,8 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://b3t86u61yy44r" path="res://assets/interface/input-prompt-a.png" id="18_vcqs0"]
 [ext_resource type="Texture2D" uid="uid://ckrarv4ttydrq" path="res://assets/interface/input-prompt-right.png" id="19_sbdqm"]
 [ext_resource type="Texture2D" uid="uid://dvthxugxlg2t8" path="res://assets/interface/input-prompt-down.png" id="20_t11h7"]
-[ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="21_4s2tv"]
 [ext_resource type="Texture2D" uid="uid://b7vkjf4qgn1nw" path="res://assets/interface/input-prompt-up.png" id="21_8tlne"]
+[ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="21_tr506"]
 [ext_resource type="Texture2D" uid="uid://b818lk06ijvd0" path="res://assets/interface/input-prompt-left.png" id="22_tgc22"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="23_axq0q"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="24_a15l4"]
@@ -35,10 +35,9 @@ spacing_bottom = -6
 font = SubResource("FontVariation_f2h3v")
 font_size = 24
 
-[node name="S1" type="Node2D" node_paths=PackedStringArray("stage_number")]
+[node name="S1" type="Node2D"]
 script = ExtResource("1_yjl42")
 win_condition = 1
-stage_number = NodePath("StageWorld/MoveCounter")
 
 [node name="Cam" parent="." instance=ExtResource("3_s83cp")]
 position = Vector2(520, 382)
@@ -151,8 +150,7 @@ texture = ExtResource("21_8tlne")
 position = Vector2(-74, 0)
 texture = ExtResource("22_tgc22")
 
-[node name="MoveCounter" parent="StageWorld" instance=ExtResource("21_4s2tv")]
-visible = true
+[node name="BoardNumber" parent="StageWorld" instance=ExtResource("21_tr506")]
 position = Vector2(473, 203)
 
 [node name="StageObjects" type="Node2D" parent="."]
