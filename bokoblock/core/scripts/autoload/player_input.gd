@@ -11,10 +11,10 @@ var last_input: GameLogic.TransformationType
 func _unhandled_input(event: InputEvent) -> void:
 	if GameMgr.current_menu == GameMgr.Menus.RUNTIME:
 		
-		if event.is_action_pressed("move_turn_down"):
+		if event.is_action_pressed("move_turn_left"):
 			_call_input_turn(-1.0)
 			
-		if event.is_action_pressed("move_turn_up"):
+		if event.is_action_pressed("move_turn_right"):
 			_call_input_turn(1.0)
 		
 		if event.is_action_pressed("move_right"):

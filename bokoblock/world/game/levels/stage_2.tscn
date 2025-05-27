@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="6_1wm08"]
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_w5cju"]
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_s65qf"]
-[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_a8ve2"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/board_info.tscn" id="9_a8ve2"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="10_qdecl"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="11_vx13m"]
 [ext_resource type="Script" path="res://world/interface/board_input_prompts.gd" id="12_ajqma"]

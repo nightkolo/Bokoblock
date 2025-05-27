@@ -35,15 +35,6 @@ enum BGPalette {
 @export_category("Debug")
 @export var show_collision_tilemap: bool = false
 
-#@export_category("Legacy")
-#@export var checkerboard_color: Color = Color(Color.WHITE / 1.3, 1.0) ## @deprecated
-#@export var custom_background_color: Color = Color(Color.GRAY, 1.0) ## @deprecated
-#@export var randomize_background_effect: bool = false ## @deprecated
-#@export var background_effect: GameUtil.BackgroundEffect = GameUtil.BackgroundEffect.SCROLL ## @deprecated
-#@export var background_color: StageWorldBGColorPreset ## @deprecated
-#@export_group("Modify")
-#@export_range(0.0, 2.0, 0.05, "or_greater", "or_less") var effect_lengths_multiplier: float = 0.5 ## @deprecated
-#@export_group("Miscellanous")
 
 var background_dim: float = 0:
 	set(value):

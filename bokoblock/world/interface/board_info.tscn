@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://dmfiavy81h85b"]
 
-[ext_resource type="Script" path="res://world/interface/stage_info.gd" id="1_hcte0"]
-[ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="2_botg6"]
-[ext_resource type="Texture2D" uid="uid://cywoiajf7bxif" path="res://assets/interface/speech-bubble-03.png" id="3_fkjck"]
-[ext_resource type="Shape2D" uid="uid://itceb664xr0p" path="res://core/resources/game/chibi_boko_speech_bubble_collision_area.tres" id="6_5rren"]
-[ext_resource type="AudioStream" uid="uid://bge3n81uhhjjg" path="res://audio/sounds/speech_sound.ogg" id="6_aohk3"]
+[ext_resource type="Script" path="res://world/interface/board_info.gd" id="1_feupg"]
+[ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="2_nh678"]
+[ext_resource type="Texture2D" uid="uid://cywoiajf7bxif" path="res://assets/interface/speech-bubble.png" id="3_7hrju"]
+[ext_resource type="AudioStream" uid="uid://bge3n81uhhjjg" path="res://audio/sounds/speech_sound.ogg" id="4_xmrbd"]
+[ext_resource type="Shape2D" uid="uid://itceb664xr0p" path="res://core/resources/game/chibi_boko_speech_bubble_collision_area.tres" id="5_6hknb"]
 
 [sub_resource type="FontVariation" id="FontVariation_pgd5m"]
 spacing_top = -5
@@ -19,9 +19,9 @@ shadow_color = Color(0, 0, 0, 0.25)
 shadow_offset = Vector2(3, 3)
 
 [node name="BoardInfo" type="Node2D"]
-script = ExtResource("1_hcte0")
+script = ExtResource("1_feupg")
 
-[node name="CharacterChibiBoko" parent="." instance=ExtResource("2_botg6")]
+[node name="CharacterChibiBoko" parent="." instance=ExtResource("2_nh678")]
 
 [node name="SpeechBubble" type="NinePatchRect" parent="."]
 self_modulate = Color(1, 0.5, 1, 0.851)
@@ -30,7 +30,7 @@ offset_top = -40.0
 offset_right = 81.0
 offset_bottom = 8.0
 pivot_offset = Vector2(0, 24)
-texture = ExtResource("3_fkjck")
+texture = ExtResource("3_7hrju")
 patch_margin_left = 24
 patch_margin_top = 24
 patch_margin_right = 24
@@ -44,11 +44,17 @@ offset_bottom = 40.0
 label_settings = SubResource("LabelSettings_r36co")
 
 [node name="Speech" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_aohk3")
+stream = ExtResource("4_xmrbd")
 volume_db = -48.0
 bus = &"UISound"
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = ExtResource("6_5rren")
+shape = ExtResource("5_6hknb")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xmrbd")
+volume_db = -10.0
+pitch_scale = 0.8
+bus = &"UISound"

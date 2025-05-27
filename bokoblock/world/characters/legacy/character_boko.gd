@@ -2,7 +2,15 @@
 extends Node2D
 class_name CharacterBoko
 
-signal pose_changed(is_pose: GameUtil.BokoCharacterPose)
+signal pose_changed(is_pose: BokoCharacterPose)
+
+enum BokoCharacterPose {
+	NORMAL = 0,
+	THINKING = 1,
+	NO_WORRY = 2,
+	HAPPY = 3,
+	WINK = 4
+}
 
 @onready var node_body_1: Node2D = %Body1
 @onready var node_body_2: Node2D = %Body2
@@ -22,12 +30,12 @@ signal pose_changed(is_pose: GameUtil.BokoCharacterPose)
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var anim_eyes: AnimationPlayer = $AnimEyes
 
-var _eye_pos: Vector2
+# var _eye_pos: Vector2
 var _tween_breathe: Tween
 var _tween_bounce: Tween
 var _tween_star_bounce: Tween
 var _tween_star_rot: Tween
-var _tween_blink: Tween
+# var _tween_blink: Tween
 
 
 func anim_blinking() -> void:
@@ -59,28 +67,28 @@ func _ready() -> void:
 	pose_changed.connect(anim_pose_changed)
 
 
-func anim_change_pose(to_pose: GameUtil.BokoCharacterPose) -> void:
+func anim_change_pose(to_pose: BokoCharacterPose) -> void:
 	pose_changed.emit(to_pose)
 	
 	match to_pose:
 		
-		GameUtil.BokoCharacterPose.NORMAL:
+		BokoCharacterPose.NORMAL:
 			pose_normal()
 			
-		GameUtil.BokoCharacterPose.THINKING:
+		BokoCharacterPose.THINKING:
 			pose_thinking()
 			
-		GameUtil.BokoCharacterPose.NO_WORRY:
+		BokoCharacterPose.NO_WORRY:
 			pose_no_worry()
 			
-		GameUtil.BokoCharacterPose.WINK:
+		BokoCharacterPose.WINK:
 			pose_wink()
 			
-		GameUtil.BokoCharacterPose.HAPPY:
+		BokoCharacterPose.HAPPY:
 			pose_excited()
 
 
-func anim_pose_changed(_is_pose: GameUtil.BokoCharacterPose) -> void:
+func anim_pose_changed(_is_pose: BokoCharacterPose) -> void:
 	anim_bounce()
 
 

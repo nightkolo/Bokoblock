@@ -11,19 +11,6 @@ enum BokoColor {
 	PINK = 5,
 	GREY = 99
 	}
-enum BokoCharacterPose {
-	NORMAL = 0,
-	THINKING = 1,
-	NO_WORRY = 2,
-	HAPPY = 3,
-	WINK = 4
-	}
-enum BackgroundEffect { ## @deprecated
-	SCROLL = 0,
-	ROTATE = 1,
-	ZOOM = 2,
-	SKEW = 3
-	}
 enum SwitchTypeDecorator { ## @deprecated
 	Cross = 0,
 	Square = 1

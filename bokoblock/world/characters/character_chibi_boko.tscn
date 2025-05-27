@@ -465,7 +465,7 @@ _data = {
 
 [sub_resource type="Gradient" id="Gradient_ol7pp"]
 offsets = PackedFloat32Array(0.25, 0.75)
-colors = PackedColorArray(0, 0, 0, 0.125, 0, 0, 0, 0)
+colors = PackedColorArray(0, 0, 0, 0.25, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_iiald"]
 gradient = SubResource("Gradient_ol7pp")

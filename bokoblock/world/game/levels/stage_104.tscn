@@ -12,7 +12,7 @@
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_rfy3d"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="9_g7t73"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_sltp2"]
-[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/stage_info.tscn" id="9_tvf0x"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/board_info.tscn" id="9_tvf0x"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_stvqs"]
 
 [node name="S4" type="Node2D"]

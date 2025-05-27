@@ -18,6 +18,6 @@ func start_game() -> void:
 	GameMgr.self_destruct()
 	GameLogic.self_destruct()
 	
-	get_tree().change_scene_to_file("res://world/game/levels/stage_0.tscn")
+	get_tree().change_scene_to_file("res://world/game/levels/stage_1.tscn")
 	#get_tree().change_scene_to_packed(scene)
 	

@@ -6,11 +6,11 @@ signal letter_showing_started()
 signal letter_showing_finished()
 signal letter_showed()
 signal next_monologue_entered(is_index: int)
-signal boko_pose_set(is_pose: GameUtil.BokoCharacterPose)
+signal boko_pose_set(is_pose: CharacterBoko.BokoCharacterPose)
 
 @export var boko: CharacterBoko
 @export_multiline var monologue_text: Array[String]
-@export var boko_poses: Array[GameUtil.BokoCharacterPose]
+@export var boko_poses: Array[CharacterBoko.BokoCharacterPose]
 @export_group("Modify")
 @export_multiline var bbcode_default: String = "[center][b][font_size=34][outline_size=3][outline_color=#00000040]"
 @export var animate_boko: bool = true
@@ -55,7 +55,7 @@ func _ready() -> void:
 	#anim_bubble_bounce()
 	
 	if boko && animate_boko:
-		boko_pose_set.connect(func(is_pose: GameUtil.BokoCharacterPose):
+		boko_pose_set.connect(func(is_pose: CharacterBoko.BokoCharacterPose):
 			boko.anim_change_pose(is_pose)
 			)
 	
