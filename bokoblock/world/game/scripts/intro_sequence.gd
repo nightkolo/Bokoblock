@@ -1,6 +1,8 @@
 extends Node2D
 class_name Monolog
 
+# TODO: Clean up scene
+
 signal monolog_line_entered(is_index: int)
 signal boko_pose_set(is_pose: BokoPoses)
 
@@ -45,14 +47,14 @@ Let's slide onto Board 1-1!"
 @export var goto_board_1_1: bool = true
 
 @onready var top_hat_man: CharacterChibiBoko = $CharacterChibiBoko
+#@onready var bg: Background = $BG
 
 @onready var monolog_box: NinePatchRect = $MonologBox
 @onready var label: RichTextLabel = %RichTextLabel
 
 @onready var audio_speech: AudioStreamPlayer = $Node/Speech
 @onready var audio_click: AudioStreamPlayer = $Node/Click
-@onready var red: ColorRect = $Red
-
+@onready var bg_red: ColorRect = $Red
 
 var letter_time: float = 0.04
 var space_time: float = 0.08
@@ -123,6 +125,7 @@ func _ready() -> void:
 	
 	boko_pose_set.connect(func(is_pose: BokoPoses):
 		match is_pose:
+			# TODO: Add more poses
 			
 			BokoPoses.NEUTRAL, BokoPoses.ONE_EYE_OPEN_WHEN_IM_SLEEPIN, BokoPoses.DEADPAN:
 				# TODO: Play audio
@@ -166,6 +169,8 @@ func stop() -> void:
 		label.text = ""
 		_current_line_index = 0
 		is_monolog_active = false
+		
+		# TODO: Add transition
 		
 		await get_tree().create_timer(1.0).timeout
 		
@@ -229,7 +234,7 @@ func _show_letter() -> void:
 
 func play_speech(letter: String = "") -> void:
 	var aud := audio_speech.duplicate() as AudioStreamPlayer
-	aud.volume_db = -5.0
+	aud.volume_db = -20.0
 	aud.pitch_scale += randf_range(-0.1,0.1)
 	add_child(aud)
 	
@@ -295,7 +300,8 @@ func boko_is_awake():
 	var tween := create_tween().set_parallel(true)
 	tween.tween_property(monolog_box, "modulate", Color(Color.WHITE,1.0), 1.0)
 	
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(1.25).timeout
+	
 	is_boko_awake = true
 
 
@@ -310,7 +316,7 @@ func anim_return():
 	if _cam:
 		_tween.tween_property(_cam, "zoom", _cam_zoom, 0.125)
 		_tween.tween_property(_cam, "position:y", 60.0, 0.125).as_relative()
-	_tween.tween_property(red, "self_modulate", Color(Color.WHITE, 0.0), 0.1)
+	_tween.tween_property(bg_red, "self_modulate", Color(Color.WHITE, 0.0), 0.1)
 
 
 func anim_waking_up(waking: float):
@@ -322,7 +328,7 @@ func anim_waking_up(waking: float):
 	_tween = create_tween().set_parallel(true)
 	_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	_tween.tween_property(_cam, "zoom", _cam_zoom * (1.0 + (waking / 8.0)), 0.25)
-	_tween.tween_property(red, "self_modulate", Color(Color.WHITE, waking / 2.0), 0.25)
+	_tween.tween_property(bg_red, "self_modulate", Color(Color.WHITE, waking / 2.0), 0.25)
 
 
 func anim_loop_test() -> void: ## @experimental

@@ -11,6 +11,13 @@ signal closer_wake(waking: float)
 @onready var sprite_sign_arrow: Sprite2D = %Arrow
 @onready var nine_patch_rect: NinePatchRect = $Sign1/Sign2/NinePatchRect
 
+@onready var boko_click: Node = $BokoClick
+@onready var boko_wake: Node = $BokoWake
+
+var _click_sounds: Array[Node]
+var _wake_sounds: Array[Node]
+
+
 var times_to_wake: int = 0 
 var times_clicked: int = 0
 var have_woken: bool = false
@@ -26,12 +33,23 @@ func _ready() -> void:
 	
 	anim_arrow()
 	
+	_wake_sounds = boko_wake.get_children()
+	_click_sounds = boko_click.get_children()
+	
+	have_awoken.connect(func():
+		var aud := _wake_sounds.pick_random() as AudioStreamPlayer
+		aud.play()
+		)
+	
 	closer_wake.connect(func(waking: float):
 		pass
 		)
 	
 	wake_up_boko_btn.pressed.connect(func():
 		have_woken = times_clicked == times_to_wake
+		
+		var aud := _click_sounds.pick_random() as AudioStreamPlayer
+		aud.play()
 		
 		if have_woken:
 			have_awoken.emit()
