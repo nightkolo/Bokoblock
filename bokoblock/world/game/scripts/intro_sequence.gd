@@ -40,13 +40,18 @@ I got no mouth so, I won't bite",
 Let's slide onto Board 1-1!"
 ]
 @export var monolog_poses: Array[BokoPoses]
+@export_category("Intro Sequence")
+@export var wake_up_call: WakeUpBoko
+@export var goto_board_1_1: bool = true
 
 @onready var top_hat_man: CharacterChibiBoko = $CharacterChibiBoko
 
+@onready var monolog_box: NinePatchRect = $MonologBox
 @onready var label: RichTextLabel = %RichTextLabel
 
 @onready var audio_speech: AudioStreamPlayer = $Node/Speech
 @onready var audio_click: AudioStreamPlayer = $Node/Click
+@onready var red: ColorRect = $Red
 
 
 var letter_time: float = 0.04
@@ -57,6 +62,8 @@ var speed_it_up: bool = false
 
 var is_monolog_active: bool = false
 var can_advance_line: bool = false
+
+var is_boko_awake: bool = false
 
 ## Text with BBCode
 var raw_text: String
@@ -69,10 +76,13 @@ var _letter_index: int = 0
 var _current_line_index: int
 var _monolog_spawn_timer: Timer
 var _letter_show_timer: Timer = Timer.new()
+var _cam: Camera2D
+var _cam_zoom: Vector2
+var _going_to_1_1: bool = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("game_next_monolog"):
+	if event.is_action_pressed("game_next_monolog") && is_boko_awake && !_going_to_1_1:
 		goto_next_monolog()
 
 
@@ -105,6 +115,12 @@ func _ready() -> void:
 	
 	top_hat_man.pose_asleep()
 	
+	if wake_up_call:
+		_setup_intro_sequence()
+		
+	else:
+		is_boko_awake = true
+	
 	boko_pose_set.connect(func(is_pose: BokoPoses):
 		match is_pose:
 			
@@ -130,9 +146,6 @@ func _ready() -> void:
 		_show_letter()
 		letter_showed.emit()
 		)
-	
-	#anim_loop_test()
-	#start()
 
 
 func start():
@@ -144,12 +157,20 @@ func start():
 
 
 func stop() -> void:
-	if is_monolog_active:
-		label.text = ""
+	if !is_monolog_active:
+		return
+	
+	if goto_board_1_1:
+		_going_to_1_1 = true
 		
+		label.text = ""
 		_current_line_index = 0
 		is_monolog_active = false
-
+		
+		await get_tree().create_timer(1.0).timeout
+		
+		get_tree().change_scene_to_file("res://world/game/levels/stage_1.tscn")
+	
 
 func show_text(text_to_show: String) -> void:
 	if _monolog_spawn_timer != null:
@@ -182,7 +203,6 @@ func _show_letter() -> void:
 	if _letter_index < displayed_text.length():
 		var current_letter := displayed_text[_letter_index]
 		
-
 		if speed_it_up:
 			_letter_show_timer.start(speed_up_time)
 			
@@ -223,6 +243,86 @@ func play_speech(letter: String = "") -> void:
 
 func _has_dialog_spawned() -> bool:
 	return _monolog_spawn_timer.time_left == 0.0
+
+
+func _setup_intro_sequence():
+	top_hat_man.modulate = Color(Color.BLACK)
+	wake_up_call.wake_up_boko_btn.disabled = true
+	
+	_cam = get_node_or_null("Cam")
+	
+	var zoom_dur := 2.0
+	
+	if _cam:
+		_cam_zoom = _cam.zoom
+		
+		_cam.zoom = _cam_zoom - (Vector2.ONE * 0.5)
+		
+	if _tween:
+		_tween.kill()
+		
+	_tween = create_tween().set_parallel(true)
+	_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	
+	if _cam:
+		_tween.tween_property(_cam, "zoom", _cam_zoom, zoom_dur)
+	
+	_tween.tween_property(top_hat_man, "modulate", Color(Color.WHITE), zoom_dur*2.0).set_delay(zoom_dur/2.0)
+	
+	await get_tree().create_timer(zoom_dur).timeout
+	
+	wake_up_call.wake_up_boko_btn.disabled = false
+	wake_up_call.wake_up_boko_btn.grab_focus()
+	wake_up_call.anim_wake_up_boko()
+	
+	wake_up_call.have_awoken.connect(boko_is_awake)
+	
+	if _cam:
+		wake_up_call.closer_wake.connect(anim_waking_up)
+
+
+func boko_is_awake():
+	anim_return()
+	
+	top_hat_man.modulate = Color(Color.WHITE)
+	wake_up_call.wake_up_boko_btn.queue_free()
+	wake_up_call.anim_boko_woke_up()
+	monolog_box.modulate = Color(Color.WHITE,0.0)
+	
+	monolog_box.visible = true
+	start()
+	
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(monolog_box, "modulate", Color(Color.WHITE,1.0), 1.0)
+	
+	await get_tree().create_timer(1.0).timeout
+	is_boko_awake = true
+
+
+var _tween: Tween
+
+func anim_return():
+	if _tween:
+		_tween.kill()
+		
+	_tween = create_tween().set_parallel(true)
+	
+	if _cam:
+		_tween.tween_property(_cam, "zoom", _cam_zoom, 0.125)
+		_tween.tween_property(_cam, "position:y", 60.0, 0.125).as_relative()
+	_tween.tween_property(red, "self_modulate", Color(Color.WHITE, 0.0), 0.1)
+
+
+func anim_waking_up(waking: float):
+	if _tween:
+		_tween.kill()
+	
+	print(_cam_zoom * (1.0 + (waking / 8.0)))
+	
+	_tween = create_tween().set_parallel(true)
+	_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	_tween.tween_property(_cam, "zoom", _cam_zoom * (1.0 + (waking / 8.0)), 0.25)
+	_tween.tween_property(red, "self_modulate", Color(Color.WHITE, waking / 2.0), 0.25)
 
 
 func anim_loop_test() -> void: ## @experimental

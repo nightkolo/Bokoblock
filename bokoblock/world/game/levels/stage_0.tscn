@@ -1,17 +1,28 @@
-[gd_scene load_steps=16 format=3 uid="uid://645xw6bnns5y"]
+[gd_scene load_steps=20 format=3 uid="uid://645xw6bnns5y"]
 
-[ext_resource type="Script" path="res://world/game/levels/stage_0.gd" id="1_omsmu"]
+[ext_resource type="Script" path="res://world/game/scripts/intro_sequence.gd" id="1_omsmu"]
 [ext_resource type="PackedScene" uid="uid://eyhhyen04o6i" path="res://world/world/stage_background.tscn" id="2_2cup4"]
+[ext_resource type="Script" path="res://world/interface/monolog_cam.gd" id="3_2opbh"]
 [ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="3_wuac4"]
 [ext_resource type="Script" path="res://world/interface/monolog_arrow.gd" id="4_8scew"]
 [ext_resource type="Theme" uid="uid://d3mia6877o0a6" path="res://core/resources/theme/theme_monolog_rich_label.tres" id="4_r3ffy"]
 [ext_resource type="Texture2D" uid="uid://bx63jt7ufy33k" path="res://assets/interface/speech-bubble-arrow-base-01.png" id="4_v42vl"]
+[ext_resource type="Script" path="res://world/interface/wake_up_boko.gd" id="5_5ntbg"]
 [ext_resource type="Texture2D" uid="uid://c8n2par26gy13" path="res://assets/interface/speech-bubble-arrow-01.png" id="5_8jie3"]
 [ext_resource type="AudioStream" uid="uid://bge3n81uhhjjg" path="res://audio/sounds/speech_sound.ogg" id="6_74gwj"]
 [ext_resource type="Texture2D" uid="uid://cywoiajf7bxif" path="res://assets/interface/speech-bubble.png" id="6_ipfsi"]
+[ext_resource type="Texture2D" uid="uid://7b0n8ax5mkir" path="res://assets/interface/arrow-01.png" id="7_80x24"]
 [ext_resource type="Texture2D" uid="uid://c4wycfcj253l2" path="res://assets/interface/speech-bubble-arrow-base-02.png" id="7_uaqjo"]
 [ext_resource type="Texture2D" uid="uid://bo3eb686q53kb" path="res://assets/interface/speech-bubble-arrow-02.png" id="8_n2t88"]
 [ext_resource type="AudioStream" uid="uid://dlm40cgfaod04" path="res://audio/sounds/monolog_next.ogg" id="12_cu4m8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dfrn4"]
+font_size = 32
+outline_size = 8
+outline_color = Color(0.25, 0.25, 0.25, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.422)
+shadow_offset = Vector2(3, 3)
 
 [sub_resource type="Animation" id="Animation_hrjaq"]
 length = 0.001
@@ -74,24 +85,71 @@ _data = {
 "clicked": SubResource("Animation_jp3wk")
 }
 
-[node name="Monolog" type="Node2D"]
+[node name="Monolog" type="Node2D" node_paths=PackedStringArray("wake_up_call")]
 script = ExtResource("1_omsmu")
 monolog_poses = Array[int]([1, 0, 69, 3, 69, 2, 69, 4])
-
-[node name="Cam" type="Camera2D" parent="."]
-position = Vector2(480, 420)
-zoom = Vector2(1.125, 1.125)
+wake_up_call = NodePath("WakeUpBoko")
 
 [node name="BG" parent="." instance=ExtResource("2_2cup4")]
 apply_custom_color = true
 custom_color = Color(0.262745, 0.258824, 0.427451, 0.501961)
 
+[node name="Cam" type="Camera2D" parent="."]
+position = Vector2(480, 360)
+zoom = Vector2(1.125, 1.125)
+script = ExtResource("3_2opbh")
+
 [node name="CharacterChibiBoko" parent="." instance=ExtResource("3_wuac4")]
 position = Vector2(480, 360)
 scale = Vector2(0.5, 0.5)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-self_modulate = Color(1, 0.647, 1, 0.25)
+[node name="WakeUpBoko" type="Node2D" parent="."]
+position = Vector2(480, 360)
+script = ExtResource("5_5ntbg")
+
+[node name="WakeUpBokoButton" type="Button" parent="WakeUpBoko"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -68.0
+offset_top = -101.0
+offset_right = 68.0
+offset_bottom = 60.0
+
+[node name="Sign1" type="Node2D" parent="WakeUpBoko"]
+unique_name_in_owner = true
+position = Vector2(0, -68)
+
+[node name="Sign2" type="Node2D" parent="WakeUpBoko/Sign1"]
+unique_name_in_owner = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="WakeUpBoko/Sign1/Sign2"]
+offset_left = -141.0
+offset_top = -164.0
+offset_right = 142.0
+offset_bottom = -90.0
+pivot_offset = Vector2(141, 74)
+texture = ExtResource("6_ipfsi")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 26
+patch_margin_bottom = 26
+
+[node name="Label" type="Label" parent="WakeUpBoko/Sign1/Sign2"]
+offset_left = -113.0
+offset_top = -152.0
+offset_right = 113.0
+offset_bottom = -107.0
+text = "Wake Up Boko"
+label_settings = SubResource("LabelSettings_dfrn4")
+
+[node name="Arrow" type="Sprite2D" parent="WakeUpBoko/Sign1/Sign2"]
+unique_name_in_owner = true
+position = Vector2(1, -62)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_80x24")
+
+[node name="MonologBox" type="NinePatchRect" parent="."]
+visible = false
+self_modulate = Color(1, 0.65, 1, 0.25)
 offset_left = 230.0
 offset_top = 430.0
 offset_right = 730.0
@@ -103,7 +161,7 @@ patch_margin_top = 24
 patch_margin_right = 24
 patch_margin_bottom = 24
 
-[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MonologBox"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 30.0
@@ -115,22 +173,22 @@ theme = ExtResource("4_r3ffy")
 bbcode_enabled = true
 visible_characters_behavior = 1
 
-[node name="MonologArrow" type="Node2D" parent="." node_paths=PackedStringArray("monolog_script")]
-position = Vector2(680, 605)
+[node name="MonologArrow" type="Node2D" parent="MonologBox" node_paths=PackedStringArray("monolog_script")]
+position = Vector2(450, 175)
 scale = Vector2(0.66, 0.66)
 script = ExtResource("4_8scew")
-monolog_script = NodePath("..")
+monolog_script = NodePath("../..")
 
-[node name="Float" type="Node2D" parent="MonologArrow"]
+[node name="Float" type="Node2D" parent="MonologBox/MonologArrow"]
 
-[node name="Base" type="Sprite2D" parent="MonologArrow/Float"]
+[node name="Base" type="Sprite2D" parent="MonologBox/MonologArrow/Float"]
 texture = ExtResource("4_v42vl")
 
-[node name="Arrow" type="Sprite2D" parent="MonologArrow/Float"]
+[node name="Arrow" type="Sprite2D" parent="MonologBox/MonologArrow/Float"]
 position = Vector2(-3, 12)
 texture = ExtResource("5_8jie3")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MonologArrow"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MonologBox/MonologArrow"]
 libraries = {
 "": SubResource("AnimationLibrary_4y1ll")
 }
@@ -146,3 +204,10 @@ bus = &"UISound"
 stream = ExtResource("12_cu4m8")
 volume_db = -10.0
 bus = &"UISound"
+
+[node name="Red" type="ColorRect" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 960.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(1, 0, 0, 0.1)
