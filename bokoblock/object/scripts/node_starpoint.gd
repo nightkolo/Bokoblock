@@ -47,10 +47,6 @@ func _process(_delta: float) -> void:
 	if particles_idle:
 		particles_idle.global_rotation = 0.0
 
-
-func _on_happy() -> void:
-	pass
-
 	
 func _setup_node() -> void:
 	check_satisfaction()

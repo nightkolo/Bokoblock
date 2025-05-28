@@ -42,6 +42,8 @@ var body_turn_click: Array[Node]
 var original_music_db: float
 var _reset_sound: bool = true
 
+var _tween_aud: Tween
+var _is_exitting: bool = false
 
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
@@ -54,11 +56,29 @@ func _ready() -> void:
 		match entered:
 			
 			GameMgr.Menus.PAUSE, GameMgr.Menus.RUNTIME, GameMgr.Menus.CHECKERBOARD_COMPLETE:
+				# TODO: Possible issue when flipping menus fast, could be fixed with transitions
+				
 				if !music_stage.playing:
+					music_stage.volume_db = -80.0
+					
 					music_stage.play()
+					
+					if _tween_aud:
+						_tween_aud.kill()
+						
+					_tween_aud = create_tween()
+					_tween_aud.tween_property(music_stage, "volume_db", original_music_db, 1.5)
 			
 			_:
 				if music_stage.playing:
+					if _tween_aud:
+						_tween_aud.kill()
+						
+					_tween_aud = create_tween()
+					_tween_aud.tween_property(music_stage, "volume_db", -80.0, 0.75)
+					
+					await _tween_aud.finished
+
 					music_stage.stop()
 	)
 		

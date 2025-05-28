@@ -23,6 +23,7 @@ func _ready() -> void:
 	
 	if GameMgr.current_checkerboard_id == 1:
 		sprite.texture = texture_yellow
+		board_number.font_color = Color(Color.BLACK, 0.75)
 	elif GameMgr.current_checkerboard_id == 2:
 		sprite.texture = texture_purple
 		board_number.font_color = Color(Color.WHITE, 0.75)

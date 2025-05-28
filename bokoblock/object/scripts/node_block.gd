@@ -7,7 +7,8 @@ class_name Bokoblock
 signal starpoint_entered(has_entered: bool)
 signal blackpoint_entered(has_entered: bool)
 signal blackpoint_interacted()
-signal button_entered(has_entered: bool) ## @experimental
+
+#signal button_entered(has_entered: bool) ## @deprecated
 
 @export var boko_color: GameUtil.BokoColor
 @export_group("Modify")
@@ -36,8 +37,7 @@ signal button_entered(has_entered: bool) ## @experimental
 var parent_bokobody: Bokobody
 var is_on_starpoint: bool
 var is_on_blackpoint: bool
-var is_on_button: bool ## @experimental: possibly deprecated?
-var limit_eye_movement: bool = true ## @deprecated
+#var is_on_button: bool ## @deprecated
 var texture_eyes: Texture2D
 
 
@@ -61,7 +61,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if limit_eye_movement && sprite_eyes:
+	if sprite_eyes:
 		sprite_eyes.global_rotation = 0.0
 		sprite_eyes.position.x = clamp(sprite_eyes.position.x,-7.0,7.0)
 		sprite_eyes.position.y = clamp(sprite_eyes.position.y,-5.0,5.0)
@@ -102,7 +102,7 @@ func check_state() -> void:
 	var areas: Array[Area2D] = get_overlapping_areas()
 	var l_starpoint: bool = false
 	var l_blackpoint: bool = false
-	var l_button: bool = false # possibly deprecated
+	#var l_button: bool = false # possibly deprecated
 	
 	if areas.size() == 1:
 		if areas[0] is Starpoint:
@@ -110,7 +110,7 @@ func check_state() -> void:
 		
 		l_blackpoint = areas[0] is Blackpoint
 		
-		l_button = areas[0] is ButtonObj
+		#l_button = areas[0] is ButtonObj
 	
 	if l_starpoint && !is_on_starpoint:
 		starpoint_entered.emit(l_starpoint)
@@ -129,12 +129,12 @@ func check_state() -> void:
 	if l_blackpoint:
 		blackpoint_interacted.emit()
 	
-	if l_button && !is_on_button:
-		button_entered.emit(l_button)
-		is_on_button = true
-	elif !l_button && is_on_button:
-		button_entered.emit(l_button)
-		is_on_button = false
+	#if l_button && !is_on_button:
+		#button_entered.emit(l_button)
+		#is_on_button = true
+	#elif !l_button && is_on_button:
+		#button_entered.emit(l_button)
+		#is_on_button = false
 
 
 func can_we_stop_moving_dad() -> bool:

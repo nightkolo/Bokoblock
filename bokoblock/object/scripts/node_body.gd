@@ -24,7 +24,6 @@ signal child_block_exited_one_col_wall()
 
 var movement_time: float = 0.08 ## Causes issues when movement time is too small
 var child_blocks: Array[Bokoblock]
-#var is_on_starpoint: bool
 var is_moving: bool:
 	get:
 		return is_moving
@@ -47,15 +46,11 @@ var is_on_one_way_wall: bool:
 			GameLogic.state_checked.connect(_on_one_way_wall)
 		is_on_one_way_wall = value
 var is_one_way_wall: OneColorWalls
-#var move_cool_down: float = 0.1
 
 var _tween_move: Tween
 var _tween_turn: Tween
 var _current_last_transform
-var _previous_position: Transform2D:
-	set(value):
-		print(value)
-		_previous_position = value
+var _previous_position: Transform2D
 var _old_pos: Vector2
 var _old_rot: float
 
@@ -71,8 +66,6 @@ func _ready() -> void:
 	
 	has_moved.connect(_on_transform)
 	has_turned.connect(_on_transform)
-	
-	#GameLogic.bodies_stopped.connect(entered_blackpoint)
 	
 	if auto_assign_animation:
 		var anim := BokobodyAnimationComponent.new()
@@ -98,30 +91,6 @@ func _ready() -> void:
 				sprite.visible = false
 
 
-func entered_blackpoint() -> void:
-	# Blackpoint calls 
-	
-	await get_tree().create_timer(0.05).timeout
-	
-	var blacked_out: int = 0
-	
-	print("checks")
-	
-	for block: Bokoblock in child_blocks:
-		print(block.is_on_blackpoint)
-		
-		if block.is_on_blackpoint:
-			blacked_out += 1
-	
-	if blacked_out == child_blocks.size():
-		print("is in")
-		GameLogic.body_entered_blackpoints()
-
-
-func somebody_tripped_and_entered_the_blackpoints() -> void:
-	transform = _previous_position
-
-
 func _setup_node() -> void:
 	position = position.snapped(Vector2.ONE * GameUtil.TILE_SIZE)
 	position -= (Vector2.ONE * GameUtil.TILE_SIZE) / 2.0
@@ -139,7 +108,6 @@ func _setup_node() -> void:
 		tween.tween_property(light,"energy",1.0,2.0)
 
 
-## [param disable_colli] is expermental.
 func turn(p_turn_to: float) -> void:
 	if is_turning:
 		return
@@ -161,14 +129,12 @@ func turn(p_turn_to: float) -> void:
 	
 	turn_end.emit()
 	
-	#await _turn_delay()
 	is_turning = false
 	normalize_bokobody_rotation()
 
 
-## [param disable_colli] is expermental.
 func move(p_move_to: Vector2) -> void:
-	if is_moving :
+	if is_moving:
 		return
 
 	_previous_position = transform
@@ -226,6 +192,26 @@ func stop_turning() -> void:
 	
 	normalize_bokobody_rotation()
 	is_turning = false
+
+
+# Blackpoint
+
+func entered_blackpoint() -> void:
+	await get_tree().create_timer(0.05).timeout
+	
+	var blacked_out: int = 0
+	
+	for block: Bokoblock in child_blocks:
+		if block.is_on_blackpoint:
+			blacked_out += 1
+	
+	if blacked_out == child_blocks.size():
+		GameLogic.body_entered_blackpoints()
+
+
+func somebody_tripped_and_entered_the_blackpoints() -> void:
+	transform = _previous_position
+
 
 # One Color Wall
 

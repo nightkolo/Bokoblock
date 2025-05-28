@@ -34,7 +34,7 @@ const ON_NEWGROUNDS_MIRROR = true
 func _ready() -> void:
 	add_child(saver_loader)
 	
-	#load_game_data()
+	load_game_data() 
 	
 	game_end.connect(stage_complete)
 	

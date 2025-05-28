@@ -30,7 +30,7 @@ func _ready() -> void:
 	GameLogic.stage_won.connect(anim_stage_won)
 	
 	block.starpoint_entered.connect(anim_landed_starpoint)
-	block.button_entered.connect(anim_landed_on_button)
+	#block.button_entered.connect(anim_landed_on_button)
 	
 	#block.body_entered.connect(func(body: Node2D):
 		#if (body is TileMapLayer || body is SleepingBlock):
@@ -134,8 +134,8 @@ func anim_hit_wall(transformed_to) -> void:
 	GameUtil.reset_tween(tween_turn)
 	
 	block.sprite_block.skew = deg_to_rad(0.0)
-	if !block.is_on_button:
-		block.sprite_eyes.texture = asset_eye_close
+	#if !block.is_on_button:
+		#block.sprite_eyes.texture = asset_eye_close
 	block.sprite_node_2.modulate = Color(Color.WHITE)
 	
 	match typeof(transformed_to):
@@ -195,8 +195,8 @@ func anim_hit_wall(transformed_to) -> void:
 	await get_tree().create_timer(dur/2.6).timeout
 	if block.is_on_starpoint:
 		block.sprite_eyes.texture = asset_eye_happy
-	elif block.is_on_button: # experimental
-		block.sprite_eyes.texture = asset_eye_on_button
+	#elif block.is_on_button: # experimental
+		#block.sprite_eyes.texture = asset_eye_on_button
 	else:
 		block.sprite_eyes.texture = block.texture_eyes
 
@@ -276,8 +276,8 @@ func anim_poke() -> void:
 	await timer_poke.timeout
 	if block.is_on_starpoint:
 		block.sprite_eyes.texture = asset_eye_happy
-	elif block.is_on_button: # experimental
-		block.sprite_eyes.texture = asset_eye_on_button
+	#elif block.is_on_button: # experimental
+		#block.sprite_eyes.texture = asset_eye_on_button
 	else:
 		block.sprite_eyes.texture = block.texture_eyes
 
@@ -307,7 +307,7 @@ func anim_stage_won() -> void:
 	var modulate_to: Color = Color.WHITE*2.0
 	var rot_to: float = rad_to_deg(PI)
 	
-	block.limit_eye_movement = false
+	# block.limit_eye_movement = false
 	block.sprite_node_2.modulate = Color(Color.WHITE*2.0)
 	
 	var tween := create_tween().set_parallel(true)

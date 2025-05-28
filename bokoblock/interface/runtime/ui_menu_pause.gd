@@ -6,7 +6,7 @@ class_name PauseScreen
 
 @onready var resume_btn: Button = %ResumeButton
 @onready var reset_btn: Button = %ResetButton
-@onready var return_btn: Button = %ReturnButton
+@onready var quit_btn: Button = %ReturnButton
 @onready var sfx_btn: Button = %SFX
 @onready var music_btn: Button = %Music
 @onready var misc_btn: Button = %Misc
@@ -50,6 +50,17 @@ func _ready() -> void:
 		reset_btn.pressed.connect(func():
 			_gameplay_ui.reset_stage()
 			)
+			
+		quit_btn.pressed.connect(func():
+			_gameplay_ui.allow_input = false
+			GameUtil.disable_buttons(btns)
+			GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
+			
+			# TODO: Desperate need of transitions...
+			await get_tree().create_timer(1.0).timeout
+			
+			_gameplay_ui.quit()
+			)
 	
 	music_btn.pressed.connect(func():
 		var muted := GameMgr.is_music_muted
@@ -67,7 +78,7 @@ func _ready() -> void:
 		GameMgr.is_sfx_muted = !muted
 		)
 	
-	#return_btn.pressed.connect(func():
+	#quit_btn.pressed.connect(func():
 		#GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
 		#get_tree().paused = false
 		#get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")

@@ -106,7 +106,7 @@ func _check_cb_progression(cb: int) -> bool:
 	if (cb < 0 || cb > GameUtil.NUMBER_OF_CHECKERBOARDS):
 		return 0
 
-	var begin: int = 1 * ((cb - 1) + 10)
+	var begin: int = 1 * ((	cb - 1) + 10)
 	var end: int = 11 * ((cb - 1) + 10)
 
 	for i: int in range(begin, end):

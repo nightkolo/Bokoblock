@@ -66,6 +66,13 @@ func _ready() -> void:
 	PlayerInput.movement_input_made.connect(_bodies_have_moved)
 	
 	GameMgr.game_reset.connect(_reset_game_logic)
+	GameMgr.menu_entered.connect(func(entered: GameMgr.Menus):
+		match entered:
+			
+			GameMgr.Menus.MENUS:
+				_reset_game_logic()
+		
+		)
 	
 	check_bodies()
 	
@@ -133,9 +140,6 @@ func check_win() -> void:
 		win_stage()
 		
 	win_checked = true
-
-
-	
 
 
 func _bodies_have_moved() -> void:
@@ -225,7 +229,6 @@ func check_if_block_on_blackpoint(blocks: Array[Bokoblock]) -> bool:
 			return true
 	
 	return 0
-
 
 
 func self_destruct() -> void:

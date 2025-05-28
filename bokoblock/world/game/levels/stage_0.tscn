@@ -91,10 +91,11 @@ _data = {
 "clicked": SubResource("Animation_jp3wk")
 }
 
-[node name="Monolog" type="Node2D" node_paths=PackedStringArray("wake_up_call")]
+[node name="Monolog" type="Node2D" node_paths=PackedStringArray("wake_up_call", "cam")]
 script = ExtResource("1_omsmu")
 monolog_poses = Array[int]([1, 0, 69, 3, 69, 2, 69, 4])
 wake_up_call = NodePath("WakeUpBoko")
+cam = NodePath("Cam")
 
 [node name="BG" parent="." instance=ExtResource("2_2cup4")]
 apply_custom_color = true

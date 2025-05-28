@@ -20,7 +20,7 @@ class_name Board
 @export var custom_block_match: int = -1 ## @experimental
 @export_category("Game")
 @export var stage_progression: bool = true
-@export var save_stats: bool = false ## @experimental
+@export var save_stats: bool = true
 @export var win_condition: GameLogic.WinCondition
 
 var saver_loader: SaverLoader
@@ -71,16 +71,43 @@ func store_stats() -> void:
 		push_warning("Cannot save data. saver_loader not assigned.")
 		return
 	
-	var id: String = str(board_id)
+	var board_num: String = str(board_id)
+	var checkerboard_num: String = "10" + str(checkerboard_id)
 	
-	if !GameData.runtime_data.has(id):
-		push_error("Cannot save data. Key %s not found in GameData.runtime_data." % id)
+	if !GameData.runtime_data.has(board_num):
+		push_error("Cannot save data. Key %s not found in GameData.runtime_data." % board_num)
 		return
 	
-	if GameData.runtime_data[id]["completed"] == false:
-		GameData.runtime_data[id]["completed"] = true
+	if !GameData.runtime_data.has(checkerboard_num):
+		push_error("Cannot save data. Key %s not found in GameData.runtime_data." % checkerboard_num)
+		return
 	
-	if _moves_counted < GameData.runtime_data[id]["move_count"]:
-		GameData.runtime_data[id]["move_count"] = _moves_counted
-		
+	if _moves_counted < GameData.runtime_data[board_num]["move_count"]:
+		GameData.runtime_data[board_num]["move_count"] = _moves_counted
+	
+	if GameData.runtime_data[board_num]["completed"] == false:
+		GameData.runtime_data[board_num]["completed"] = true
+	
+	if GameData.runtime_data[checkerboard_num]["completed"] == false:
+		GameData.runtime_data[checkerboard_num]["completed"] = _check_cb_progression(checkerboard_id)
+	
 	saver_loader.save_game()
+
+
+func _check_cb_progression(cb: int) -> bool:
+	var begin: int = 1 + ((	cb - 1) * 10)
+	var end: int = 11 + ((cb - 1) * 10)
+	
+	print(begin, "  ", end)
+	
+	var completed: int = 0
+	
+	for i: int in range(begin, end):
+		if !GameData.runtime_data.has(str(i)):
+			push_warning("Cannot read data for _check_cb_progression. Key %s not found in GameData.runtime_data." % str(i))
+			return false
+			
+		if GameData.runtime_data[str(i)]["completed"] == true:
+			completed += 1
+	
+	return completed == GameUtil.NUMBER_OF_BOARDS_PER_CHECKERBOARD
