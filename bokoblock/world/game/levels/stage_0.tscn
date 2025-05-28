@@ -1,7 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://645xw6bnns5y"]
+[gd_scene load_steps=28 format=3 uid="uid://645xw6bnns5y"]
 
 [ext_resource type="Script" path="res://world/game/scripts/intro_sequence.gd" id="1_omsmu"]
 [ext_resource type="PackedScene" uid="uid://eyhhyen04o6i" path="res://world/world/stage_background.tscn" id="2_2cup4"]
+[ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="2_w0kn8"]
+[ext_resource type="Script" path="res://interface/menus/anim_button.gd" id="3_hfpdr"]
 [ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="3_wuac4"]
 [ext_resource type="Script" path="res://world/interface/monolog_arrow.gd" id="4_8scew"]
 [ext_resource type="Theme" uid="uid://d3mia6877o0a6" path="res://core/resources/theme/theme_monolog_rich_label.tres" id="4_r3ffy"]
@@ -96,6 +98,41 @@ script = ExtResource("1_omsmu")
 monolog_poses = Array[int]([1, 0, 69, 3, 69, 2, 69, 4])
 wake_up_call = NodePath("WakeUpBoko")
 cam = NodePath("Cam")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 70
+
+[node name="SkipButton" type="Button" parent="UI/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("2_w0kn8")
+text = "Skip"
+script = ExtResource("3_hfpdr")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Speech" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("6_74gwj")
+volume_db = -10.0
+bus = &"UISound"
+
+[node name="Click" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("12_cu4m8")
+volume_db = -20.0
+bus = &"UISound"
 
 [node name="BG" parent="." instance=ExtResource("2_2cup4")]
 apply_custom_color = true
@@ -235,21 +272,9 @@ libraries = {
 "": SubResource("AnimationLibrary_4y1ll")
 }
 
-[node name="Node" type="Node" parent="."]
-
-[node name="Speech" type="AudioStreamPlayer" parent="Node"]
-stream = ExtResource("6_74gwj")
-volume_db = -10.0
-bus = &"UISound"
-
-[node name="Click" type="AudioStreamPlayer" parent="Node"]
-stream = ExtResource("12_cu4m8")
-volume_db = -20.0
-bus = &"UISound"
-
-[node name="Red" type="ColorRect" parent="."]
+[node name="WholeLottaRed" type="ColorRect" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 offset_right = 960.0
 offset_bottom = 720.0
 mouse_filter = 2
-color = Color(1, 0, 0, 0.1)
+color = Color(1, 0, 0, 0.3)

@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=3 uid="uid://7inl4rvey7qc"]
+
+[ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_hj10e"]
+[ext_resource type="Script" path="res://interface/interactors/menu_start.gd" id="2_8l4nn"]
+[ext_resource type="PackedScene" uid="uid://wcao18gadugm" path="res://interface/ui/game_title_demo.tscn" id="3_roi50"]
+[ext_resource type="StyleBox" uid="uid://bsppk7f7j58hb" path="res://core/resources/theme/button_block.tres" id="4_j3lcq"]
+[ext_resource type="Script" path="res://interface/animators/anim_button_block.gd" id="5_mubax"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hj10e")
+script = ExtResource("2_8l4nn")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25, 0.1, 0.25, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="GameTitle" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_roi50")]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = -5
+
+[node name="Copyright" type="RichTextLabel" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 8
+bbcode_enabled = true
+text = "[center][font_size=24.0][color=#FFFFFFBF]© 2025"
+fit_content = true
+
+[node name="Author" type="RichTextLabel" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 8
+bbcode_enabled = true
+text = "[center][font_size=24.0][color=#FFFFFFBF]A Demo by [color=#FFFFFFFF]Night Kolo"
+fit_content = true
+
+[node name="MusicAuthor" type="RichTextLabel" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 8
+bbcode_enabled = true
+text = "[center][font_size=24.0][color=#FFFFFFBF]Music by [color=#FFFFFFFF]Avizura"
+fit_content = true
+
+[node name="StartButton" type="Button" parent="." groups=["UIButton"]]
+unique_name_in_owner = true
+clip_contents = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+offset_left = 405.0
+offset_top = 285.0
+offset_right = 555.0
+offset_bottom = 435.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = ExtResource("4_j3lcq")
+theme_override_styles/disabled = ExtResource("4_j3lcq")
+theme_override_styles/pressed = ExtResource("4_j3lcq")
+theme_override_styles/normal = ExtResource("4_j3lcq")
+text = "
+"
+script = ExtResource("5_mubax")
+
+[node name="Label" type="RichTextLabel" parent="StartButton"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+offset_left = -1.0
+offset_top = 50.0
+offset_right = 149.0
+offset_bottom = 106.0
+mouse_filter = 1
+bbcode_enabled = true
+text = "[center][font_size=40]Start?"
+fit_content = true

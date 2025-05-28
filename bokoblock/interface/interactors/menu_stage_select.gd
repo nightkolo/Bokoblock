@@ -22,7 +22,7 @@ func _ready() -> void:
 	display_data()
 	
 	back_btn.pressed.connect(func():
-		get_tree().change_scene_to_file("res://world/game/levels/stage_0.tscn")
+		get_tree().change_scene_to_file("res://interface/menus/menu_start.tscn")
 		)
 		
 	for board_btn: Button in board_btns:

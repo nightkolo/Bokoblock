@@ -53,9 +53,11 @@ Let's slide onto Board 1-1!"
 @onready var monolog_box: NinePatchRect = $MonologBox
 @onready var label: RichTextLabel = %RichTextLabel
 
-@onready var audio_speech: AudioStreamPlayer = $Node/Speech
-@onready var audio_click: AudioStreamPlayer = $Node/Click
-@onready var bg_red: ColorRect = $Red
+@onready var audio_speech: AudioStreamPlayer = $Audio/Speech
+@onready var audio_click: AudioStreamPlayer = $Audio/Click
+@onready var bg_red: ColorRect = $WholeLottaRed
+
+@onready var skip_btn: Button = %SkipButton
 
 var letter_time: float = 0.04
 var space_time: float = 0.08
@@ -68,9 +70,7 @@ var can_advance_line: bool = false
 
 var is_boko_awake: bool = false
 
-## Text with BBCode
 var raw_text: String
-## Text with no BBCode
 var displayed_text: String
 
 const BBCODE_DEFAULT = "[center][tornado radius=0.5 freq=1.0][wave amp=8.0 freq=-5.0]"
@@ -88,7 +88,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		goto_next_monolog()
 
 
-func goto_next_monolog():
+func goto_next_monolog() -> void:
 	if !is_monolog_active:
 		start()
 		return
@@ -122,6 +122,11 @@ func _ready() -> void:
 		
 	else:
 		is_boko_awake = true
+		
+	skip_btn.disabled = true
+	skip_btn.modulate = Color(Color.WHITE, 0.0)
+	
+	_show_skip_button()
 	
 	boko_pose_set.connect(func(is_pose: BokoPoses):
 		match is_pose:
@@ -138,20 +143,20 @@ func _ready() -> void:
 				top_hat_man.pose_happy()
 		)
 	
-	letter_showing_finished.connect(func():
+	letter_showing_finished.connect(func() -> void:
 		speed_it_up = false
 		can_advance_line = true
 		
 		label.self_modulate = Color(Color.WHITE,1.0)
 		)
 	
-	_letter_show_timer.timeout.connect(func():
+	_letter_show_timer.timeout.connect(func() -> void:
 		_show_letter()
 		letter_showed.emit()
 		)
 
 
-func start():
+func start() -> void:
 	if !is_monolog_active:
 		show_text(monolog_lines[_current_line_index])
 			
@@ -163,19 +168,13 @@ func stop() -> void:
 	if !is_monolog_active:
 		return
 	
-	if goto_board_1_1:
-		_going_to_1_1 = true
-		
-		label.text = ""
-		_current_line_index = 0
-		is_monolog_active = false
-		
-		# TODO: Add transition
-		
-		await get_tree().create_timer(1.0).timeout
-		
-		get_tree().change_scene_to_file("res://world/game/levels/stage_1.tscn")
+	label.text = ""
+	_current_line_index = 0
+	is_monolog_active = false
 	
+	if goto_board_1_1:
+		_goto_board_1_1()
+		
 
 func show_text(text_to_show: String) -> void:
 	if _monolog_spawn_timer != null:
@@ -250,11 +249,34 @@ func _has_dialog_spawned() -> bool:
 	return _monolog_spawn_timer.time_left == 0.0
 
 
-func _setup_intro_sequence():
+func _goto_board_1_1() -> void:
+	_going_to_1_1 = true
+		
+	label.text = ""
+	_current_line_index = 0
+	is_monolog_active = false
+	
+	_hide_skip_button()
+	
+	if GameData.runtime_data.has("first_session"):
+		if GameData.runtime_data["first_session"] == true:
+			GameData.runtime_data["first_session"] = false
+			
+			GameMgr.save_game_data()
+			
+	# TODO: Add transition
+	
+	await get_tree().create_timer(1.0).timeout
+	
+	get_tree().change_scene_to_file("res://world/game/levels/stage_1.tscn")
+
+
+
+func _setup_intro_sequence() -> void:
+	var zoom_dur := 4.0
+	
 	top_hat_man.modulate = Color(Color.BLACK)
 	wake_up_call.wake_up_boko_btn.disabled = true
-	
-	var zoom_dur := 2.0
 	
 	_cam_zoom = cam.zoom
 	
@@ -279,7 +301,31 @@ func _setup_intro_sequence():
 	wake_up_call.closer_wake.connect(anim_waking_up)
 
 
-func boko_is_awake():
+func _show_skip_button(appear_in: float = 2.0):
+	if !GameData.runtime_data.has("first_session"):
+		return
+	
+	await get_tree().create_timer(appear_in).timeout
+		
+	if GameData.runtime_data["first_session"] == false:
+		skip_btn.disabled = false
+		
+		skip_btn.pressed.connect(func():
+			get_tree().change_scene_to_file("res://interface/menus/menu_board_select.tscn")
+			)
+		
+		var tween := create_tween()
+		tween.tween_property(skip_btn, "modulate", Color(Color.WHITE, 1.0), 1.0)
+
+
+func _hide_skip_button():
+	skip_btn.disabled = true
+		
+	var tween := create_tween()
+	tween.tween_property(skip_btn, "modulate", Color(Color.WHITE, 0.0), 1.0)
+
+
+func boko_is_awake() -> void:
 	anim_return()
 	
 	top_hat_man.modulate = Color(Color.WHITE)
@@ -300,7 +346,7 @@ func boko_is_awake():
 
 var _tween: Tween
 
-func anim_return():
+func anim_return() -> void:
 	if _tween:
 		_tween.kill()
 		
@@ -311,14 +357,13 @@ func anim_return():
 	_tween.tween_property(bg_red, "self_modulate", Color(Color.WHITE, 0.0), 0.1)
 
 
-func anim_waking_up(waking: float):
+func anim_waking_up(waking: float) -> void:
 	if _tween:
 		_tween.kill()
 	
-	print(_cam_zoom * (1.0 + (waking / 8.0)))
-	
 	_tween = create_tween().set_parallel(true)
 	_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	
 	_tween.tween_property(cam, "zoom", _cam_zoom * (1.0 + (waking / 8.0)), 0.25)
 	_tween.tween_property(bg_red, "self_modulate", Color(Color.WHITE, waking / 2.0), 0.25)
 

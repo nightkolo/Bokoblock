@@ -1,5 +1,6 @@
 class_name GameData extends Node
 static var runtime_data: Dictionary = {
+	"first_session": true,
 	"moves_made": 0,
 	"101": {
 		"completed": false
@@ -95,6 +96,7 @@ static var config_data: Dictionary = {
 	
 }
 const DEFAULT_GAME_DATA = {
+	"first_session": true,
 	"moves_made": 0,
 	"101": {
 		"completed": false

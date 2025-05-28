@@ -17,7 +17,6 @@ signal closer_wake(waking: float)
 var _click_sounds: Array[Node]
 var _wake_sounds: Array[Node]
 
-
 var times_to_wake: int = 0 
 var times_clicked: int = 0
 var have_woken: bool = false
@@ -27,6 +26,7 @@ var tween_swing: Tween
 
 func _ready() -> void:
 	times_to_wake = randi_range(6, 9)
+	#times_to_wake = 1
 	#print(times_to_wake)
 	
 	node_sign_1.visible = false
@@ -65,7 +65,7 @@ var tween_click: Tween
 
 
 func anim_click():
-	nine_patch_rect.scale = Vector2.ONE * 0.9
+	nine_patch_rect.scale = Vector2.ONE * 0.75
 	
 	if tween_click:
 		tween_click.kill()
@@ -147,5 +147,5 @@ func anim_boko_woke_up():
 	
 	tween_b.tween_property(node_sign_1, "position:x", 200.0, dur*3.0).as_relative()
 	
-	tween_b.tween_property(node_sign_1, "modulate", Color(Color.WHITE, 0.0), dur*1.2)
+	tween_b.tween_property(node_sign_1, "modulate", Color(Color.WHITE, 0.0), dur*1.3)
 	

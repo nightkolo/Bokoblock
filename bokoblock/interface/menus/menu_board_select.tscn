@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://p28ce2q4mws"]
+[gd_scene load_steps=9 format=3 uid="uid://p28ce2q4mws"]
 
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_wtwxf"]
 [ext_resource type="Script" path="res://interface/interactors/menu_stage_select.gd" id="2_px0gl"]
-[ext_resource type="StyleBox" uid="uid://ccle6ntx1bp2a" path="res://core/resources/theme/button_menu.tres" id="3_huqlc"]
 [ext_resource type="Script" path="res://interface/menus/anim_button.gd" id="4_4wpgq"]
 [ext_resource type="StyleBox" uid="uid://bnu8j1ich1ikq" path="res://core/resources/theme/button_block_board_select.tres" id="4_kjkkr"]
+[ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="5_aeiv1"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_board_select.gd" id="5_mqg4w"]
 [ext_resource type="Texture2D" uid="uid://brjdidnn4ra3m" path="res://assets/interface/checkerboard-uncomplete-checkmark-01.png" id="8_uxgjx"]
 
@@ -16,17 +16,6 @@ outline_color = Color(0, 0, 0, 1)
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.568627)
 shadow_offset = Vector2(5, 5)
-
-[sub_resource type="Theme" id="Theme_glhn0"]
-Button/colors/font_color = Color(1, 0.85, 1, 1)
-Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/constants/outline_size = 10
-Button/font_sizes/font_size = 32
-Button/styles/disabled = ExtResource("3_huqlc")
-Button/styles/focus = ExtResource("3_huqlc")
-Button/styles/hover = ExtResource("3_huqlc")
-Button/styles/normal = ExtResource("3_huqlc")
-Button/styles/pressed = ExtResource("3_huqlc")
 
 [node name="MenuStageSelect" type="Control"]
 layout_mode = 3
@@ -352,13 +341,59 @@ text = "20
 "
 script = ExtResource("5_mqg4w")
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer" groups=["UIButton"]]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -5
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/VBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme = SubResource("Theme_glhn0")
-text = "Back to Boko"
+focus_neighbor_bottom = NodePath("../OptionsButton")
+theme = ExtResource("5_aeiv1")
+text = "Back to Title"
 script = ExtResource("4_4wpgq")
+
+[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/VBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../BackButton")
+theme = ExtResource("5_aeiv1")
+text = "Options"
+script = ExtResource("4_4wpgq")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_constants/separation = -5
+
+[node name="Copyright" type="RichTextLabel" parent="MarginContainer/VBoxContainer3"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+bbcode_enabled = true
+text = "[font_size=18.0][color=#FFFFFFBF]© 2025"
+fit_content = true
+
+[node name="Author" type="RichTextLabel" parent="MarginContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+bbcode_enabled = true
+text = "[font_size=18.0][color=#FFFFFFBF]BOKOBLOCK Demo by [color=#FFFFFFFF]Night Kolo"
+fit_content = true
+
+[node name="MusicAuthor" type="RichTextLabel" parent="MarginContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+bbcode_enabled = true
+text = "[font_size=18.0][color=#FFFFFFBF]Music by [color=#FFFFFFFF]Avizura"
+fit_content = true
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 visible = false

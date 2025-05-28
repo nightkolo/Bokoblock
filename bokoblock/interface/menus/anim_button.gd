@@ -1,11 +1,62 @@
 extends Button
 
+var tween: Tween
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
-	pass # Replace with function body.
+	pivot_offset = size / 2
+	
+	pressed.connect(anim_pressed)
+	mouse_entered.connect(anim_entered)
+	mouse_exited.connect(anim_exited)
+	focus_entered.connect(anim_entered)
+	focus_exited.connect(anim_exited)
+	button_up.connect(func():
+		pass
+		)
+	button_down.connect(func():
+		pass
+		)
+
+func anim_pressed():
+	var dur := 1.0
+	
+	scale = Vector2(1.2, 0.8)
+	
+	if tween:
+		tween.kill()
+		
+	tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(self, "scale", Vector2.ONE, dur)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func anim_entered():
+	var dur := 1.0
+	#var scale_to := Vector2.ONE * 1.15
+	
+	self_modulate = Color(Color.WHITE*1.2)
+	pivot_offset = Vector2(  0.0 , size.y/2)
+	scale = Vector2(1.25, 0.75)
+	
+	if tween:
+		tween.kill()
+		
+	tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(self, "scale", Vector2.ONE, dur)
+		
+		
+func anim_exited():
+	#var dur := 0.75
+	
+	self_modulate = Color(Color.WHITE*1.0)
+	pivot_offset = Vector2(0.0 , size.y/2)
+	
+	#if tween:
+		#tween.kill()
+		#
+	#tween = create_tween().set_parallel(true)
+	#tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	#tween.tween_property(self, "scale", Vector2.ONE, dur).set_trans(Tween.TRANS_ELASTIC)
+	
