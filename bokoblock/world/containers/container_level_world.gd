@@ -87,7 +87,7 @@ func get_checkboard_checkboard_color(is_preset: BGCheckerboard = checkerboard) -
 			col = Color(Color.WHITE / 1.3, 1.0)
 			
 		BGCheckerboard.TWO:
-			pass
+			col = Color(Color.WHITE / 1.6, 1.0)
 	
 	return col
 
@@ -117,53 +117,54 @@ func get_checkboard_bg_color(is_preset: BGCheckerboard = checkerboard) -> Color:
 			match color_pallete:
 				
 				BGPalette.Palette_1:
-					pass
+					col = Color(0.5, 0.37, 0.37)
 					
 				BGPalette.Palette_2:
-					pass
+					col = Color(0.5, 0.37, 0.37)
+					background_dim = 0.35
 					
 				BGPalette.Palette_3:
-					pass
+					col = Color(0.5, 0.4, 0.4)
 					
 				BGPalette.Palette_4:
-					pass
+					col = Color(0.5, 0.32, 0.4)
 	
 	return col
 
 
 ## @deprecated
-static func set_background_color(is_preset: StageWorldBGColorPreset) -> Color:
-	var col: Color
-	
-	match is_preset:
-		StageWorldBGColorPreset.RANDOMIZE:
-			col = set_background_color(BoardWorld.StageWorldBGColorPreset.values()[randi()%BoardWorld.StageWorldBGColorPreset.size()])
-		
-		StageWorldBGColorPreset.CUSTOM:
-			pass
-			
-		StageWorldBGColorPreset.BLUE:
-			col = Color(0.6,0.6,0.9)
-		
-		StageWorldBGColorPreset.DARK_BLUE:
-			col = Color(0.37,0.37,0.5)
-		
-		StageWorldBGColorPreset.PINK:
-			col = Color(0.9,0.5,0.9)
-		
-		StageWorldBGColorPreset.RED:
-			col = Color(0.9,0.6,0.6)
-		
-		StageWorldBGColorPreset.YELLOW:
-			col = Color(0.9,0.9,0.5)
-		
-		StageWorldBGColorPreset.GREEN:
-			col = Color(0.6,0.9,0.6)
-		
-		StageWorldBGColorPreset.AQUA:
-			col = Color(0.7,0.7,0.8)
-		
-		StageWorldBGColorPreset.GREY:
-			col = Color(Color.GRAY)
-
-	return col
+#static func set_background_color(is_preset: StageWorldBGColorPreset) -> Color:
+	#var col: Color
+	#
+	#match is_preset:
+		#StageWorldBGColorPreset.RANDOMIZE:
+			#col = set_background_color(BoardWorld.StageWorldBGColorPreset.values()[randi()%BoardWorld.StageWorldBGColorPreset.size()])
+		#
+		#StageWorldBGColorPreset.CUSTOM:
+			#pass
+			#
+		#StageWorldBGColorPreset.BLUE:
+			#col = Color(0.6,0.6,0.9)
+		#
+		#StageWorldBGColorPreset.DARK_BLUE:
+			#col = Color(0.37,0.37,0.5)
+		#
+		#StageWorldBGColorPreset.PINK:
+			#col = Color(0.9,0.5,0.9)
+		#
+		#StageWorldBGColorPreset.RED:
+			#col = Color(0.9,0.6,0.6)
+		#
+		#StageWorldBGColorPreset.YELLOW:
+			#col = Color(0.9,0.9,0.5)
+		#
+		#StageWorldBGColorPreset.GREEN:
+			#col = Color(0.6,0.9,0.6)
+		#
+		#StageWorldBGColorPreset.AQUA:
+			#col = Color(0.7,0.7,0.8)
+		#
+		#StageWorldBGColorPreset.GREY:
+			#col = Color(Color.GRAY)
+#
+	#return col

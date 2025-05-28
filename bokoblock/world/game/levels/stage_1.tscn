@@ -48,7 +48,7 @@ zoom = Vector2(1.25, 1.25)
 [node name="BoardWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_m0deh")]
 tile_maps = NodePath("TM")
 
-[node name="StageLight" type="PointLight2D" parent="BoardWorld"]
+[node name="PointLight2D" type="PointLight2D" parent="BoardWorld"]
 position = Vector2(608, 383)
 scale = Vector2(5.625, 7.03125)
 range_item_cull_mask = 2
@@ -79,6 +79,9 @@ info_text = "Land the
  Body on
  the        Starpoints!"
 
+[node name="BoardNumber" parent="BoardWorld" instance=ExtResource("21_tr506")]
+position = Vector2(743, 563)
+
 [node name="Info" type="Node2D" parent="BoardWorld"]
 position = Vector2(245, 474)
 
@@ -88,10 +91,11 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_3iynp")
 script = ExtResource("13_q20si")
 
-[node name="InputPrompts" type="Node2D" parent="BoardWorld/Info"]
+[node name="InputPrompts" type="Node2D" parent="BoardWorld/Info" node_paths=PackedStringArray("top_hat_man")]
 modulate = Color(1, 0.79, 1, 1)
 position = Vector2(66, -42)
 script = ExtResource("14_gyuwq")
+top_hat_man = NodePath("../../BoardInfo")
 
 [node name="InfoBox" type="Label" parent="BoardWorld/Info/InputPrompts"]
 offset_top = 89.0
@@ -149,9 +153,6 @@ texture = ExtResource("21_8tlne")
 [node name="Input-promt-left" type="Sprite2D" parent="BoardWorld/Info/InputPrompts/Node2D2"]
 position = Vector2(-74, 0)
 texture = ExtResource("22_tgc22")
-
-[node name="BoardNumber" parent="BoardWorld" instance=ExtResource("21_tr506")]
-position = Vector2(473, 203)
 
 [node name="BoardObjects" type="Node2D" parent="."]
 script = ExtResource("23_axq0q")

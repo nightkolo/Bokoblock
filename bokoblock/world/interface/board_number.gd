@@ -5,14 +5,28 @@ class_name BoardNumber
 @onready var node_sprite: Node2D = $Node2D
 @onready var sprite: Sprite2D = $Node2D/Sprite2D
 
+@export var appear_in: float = 0.2
 @export var texture_purple: Texture2D = preload("res://assets/interface/move-counter-purple-01.png")
 @export var texture_yellow: Texture2D = preload("res://assets/interface/move-counter-yellow-01.png")
+@export var board_number: LabelSettings = preload("res://core/resources/visuals/board_number.tres")
 
 
 func _ready() -> void:
 	anim_idle()
 	
-	await get_tree().create_timer(0.1).timeout
+	modulate = Color(Color.WHITE, 0.0)
+	label.label_settings = board_number
+	
+	await get_tree().create_timer(appear_in).timeout
+	var tween := create_tween()
+	tween.tween_property(self, "modulate", Color(Color.WHITE, 1.0), 1.0)
+	
+	if GameMgr.current_checkerboard_id == 1:
+		sprite.texture = texture_yellow
+	elif GameMgr.current_checkerboard_id == 2:
+		sprite.texture = texture_purple
+		board_number.font_color = Color(Color.WHITE, 0.75)
+	
 	label.text = str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_board_id)
 
 

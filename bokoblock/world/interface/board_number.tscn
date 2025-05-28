@@ -1,17 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://hl7pstx0ues"]
+[gd_scene load_steps=4 format=3 uid="uid://hl7pstx0ues"]
 
 [ext_resource type="Script" path="res://world/interface/board_number.gd" id="1_2n6m7"]
 [ext_resource type="Texture2D" uid="uid://d30sfyudfk5ns" path="res://assets/interface/move-counter-yellow-01.png" id="2_vjm2s"]
-[ext_resource type="FontFile" uid="uid://cgp77ft8q5j4y" path="res://assets/addons/fonts/Rabbitfont-Black.ttf" id="3_ny3yk"]
-
-[sub_resource type="FontVariation" id="FontVariation_2a7lt"]
-base_font = ExtResource("3_ny3yk")
-spacing_glyph = -2
-
-[sub_resource type="LabelSettings" id="LabelSettings_ucxps"]
-font = SubResource("FontVariation_2a7lt")
-font_size = 24
-font_color = Color(0, 0, 0, 0.75)
+[ext_resource type="LabelSettings" uid="uid://c175yjkfef178" path="res://core/resources/visuals/board_number.tres" id="3_uiu1n"]
 
 [node name="BoardNumber" type="Node2D"]
 script = ExtResource("1_2n6m7")
@@ -36,5 +27,6 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(27, 0)
 size_flags_horizontal = 4
-label_settings = SubResource("LabelSettings_ucxps")
+text = "00-00"
+label_settings = ExtResource("3_uiu1n")
 horizontal_alignment = 1

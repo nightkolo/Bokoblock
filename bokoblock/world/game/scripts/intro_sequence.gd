@@ -44,6 +44,7 @@ Let's slide onto Board 1-1!"
 @export var monolog_poses: Array[BokoPoses]
 @export_category("Intro Sequence")
 @export var wake_up_call: WakeUpBoko
+@export var cam: Camera2D
 @export var goto_board_1_1: bool = true
 
 @onready var top_hat_man: CharacterChibiBoko = $CharacterChibiBoko
@@ -78,7 +79,6 @@ var _letter_index: int = 0
 var _current_line_index: int
 var _monolog_spawn_timer: Timer
 var _letter_show_timer: Timer = Timer.new()
-var _cam: Camera2D
 var _cam_zoom: Vector2
 var _going_to_1_1: bool = false
 
@@ -117,7 +117,7 @@ func _ready() -> void:
 	
 	top_hat_man.pose_asleep()
 	
-	if wake_up_call:
+	if wake_up_call && cam:
 		_setup_intro_sequence()
 		
 	else:
@@ -254,14 +254,11 @@ func _setup_intro_sequence():
 	top_hat_man.modulate = Color(Color.BLACK)
 	wake_up_call.wake_up_boko_btn.disabled = true
 	
-	_cam = get_node_or_null("Cam")
-	
 	var zoom_dur := 2.0
 	
-	if _cam:
-		_cam_zoom = _cam.zoom
-		
-		_cam.zoom = _cam_zoom - (Vector2.ONE * 0.5)
+	_cam_zoom = cam.zoom
+	
+	cam.zoom = _cam_zoom - (Vector2.ONE * 0.5)
 		
 	if _tween:
 		_tween.kill()
@@ -269,9 +266,7 @@ func _setup_intro_sequence():
 	_tween = create_tween().set_parallel(true)
 	_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 	
-	if _cam:
-		_tween.tween_property(_cam, "zoom", _cam_zoom, zoom_dur)
-	
+	_tween.tween_property(cam, "zoom", _cam_zoom, zoom_dur)
 	_tween.tween_property(top_hat_man, "modulate", Color(Color.WHITE), zoom_dur*2.0).set_delay(zoom_dur/2.0)
 	
 	await get_tree().create_timer(zoom_dur).timeout
@@ -281,9 +276,7 @@ func _setup_intro_sequence():
 	wake_up_call.anim_wake_up_boko()
 	
 	wake_up_call.have_awoken.connect(boko_is_awake)
-	
-	if _cam:
-		wake_up_call.closer_wake.connect(anim_waking_up)
+	wake_up_call.closer_wake.connect(anim_waking_up)
 
 
 func boko_is_awake():
@@ -313,9 +306,8 @@ func anim_return():
 		
 	_tween = create_tween().set_parallel(true)
 	
-	if _cam:
-		_tween.tween_property(_cam, "zoom", _cam_zoom, 0.125)
-		_tween.tween_property(_cam, "position:y", 60.0, 0.125).as_relative()
+	_tween.tween_property(cam, "zoom", _cam_zoom, 0.125)
+	_tween.tween_property(cam, "position:y", 60.0, 0.125).as_relative()
 	_tween.tween_property(bg_red, "self_modulate", Color(Color.WHITE, 0.0), 0.1)
 
 
@@ -327,7 +319,7 @@ func anim_waking_up(waking: float):
 	
 	_tween = create_tween().set_parallel(true)
 	_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	_tween.tween_property(_cam, "zoom", _cam_zoom * (1.0 + (waking / 8.0)), 0.25)
+	_tween.tween_property(cam, "zoom", _cam_zoom * (1.0 + (waking / 8.0)), 0.25)
 	_tween.tween_property(bg_red, "self_modulate", Color(Color.WHITE, waking / 2.0), 0.25)
 
 

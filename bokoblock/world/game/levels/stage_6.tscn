@@ -13,13 +13,12 @@
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/board_info.tscn" id="8_1yyig"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="8_uqj2n"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_yn7rw"]
+[ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="10_3ieox"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_imbd3"]
-[ext_resource type="PackedScene" uid="uid://brk4cu2psqw0k" path="res://world/interface/move_counter.tscn" id="10_xbn48"]
 [ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="11_f77q7"]
 
-[node name="Stage6" type="Node2D" node_paths=PackedStringArray("stage_number")]
+[node name="Stage6" type="Node2D"]
 script = ExtResource("1_6fa5p")
-stage_number = NodePath("StageWorld/MoveCounter")
 
 [node name="UI" parent="." instance=ExtResource("2_1itnh")]
 
@@ -61,7 +60,7 @@ position = Vector2(472, 488)
 info_text = "Angry Blocks have
  an attitude..."
 
-[node name="MoveCounter" parent="StageWorld" instance=ExtResource("10_xbn48")]
+[node name="BoardNumber" parent="StageWorld" instance=ExtResource("10_3ieox")]
 position = Vector2(337, 545)
 
 [node name="StageObjects" type="Node2D" parent="."]

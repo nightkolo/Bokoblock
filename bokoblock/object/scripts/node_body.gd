@@ -47,10 +47,15 @@ var is_on_one_way_wall: bool:
 			GameLogic.state_checked.connect(_on_one_way_wall)
 		is_on_one_way_wall = value
 var is_one_way_wall: OneColorWalls
+#var move_cool_down: float = 0.1
 
 var _tween_move: Tween
 var _tween_turn: Tween
 var _current_last_transform
+var _previous_position: Transform2D:
+	set(value):
+		print(value)
+		_previous_position = value
 var _old_pos: Vector2
 var _old_rot: float
 
@@ -67,12 +72,17 @@ func _ready() -> void:
 	has_moved.connect(_on_transform)
 	has_turned.connect(_on_transform)
 	
+	#GameLogic.bodies_stopped.connect(entered_blackpoint)
+	
 	if auto_assign_animation:
 		var anim := BokobodyAnimationComponent.new()
 		add_child(anim)
 		animator = anim
 	
 	await get_tree().create_timer(0.05).timeout
+	
+	(child_blocks[0] as Bokoblock).blackpoint_interacted.connect(entered_blackpoint)
+	
 	for block: Bokoblock in child_blocks:
 		block.area_entered.connect(func(area: Area2D):
 			if area is Bokoblock:
@@ -86,6 +96,30 @@ func _ready() -> void:
 		if !show_blocks:
 			for sprite: Sprite2D in [block.sprite_block, block.sprite_eyes]:
 				sprite.visible = false
+
+
+func entered_blackpoint() -> void:
+	# Blackpoint calls 
+	
+	await get_tree().create_timer(0.05).timeout
+	
+	var blacked_out: int = 0
+	
+	print("checks")
+	
+	for block: Bokoblock in child_blocks:
+		print(block.is_on_blackpoint)
+		
+		if block.is_on_blackpoint:
+			blacked_out += 1
+	
+	if blacked_out == child_blocks.size():
+		print("is in")
+		GameLogic.body_entered_blackpoints()
+
+
+func somebody_tripped_and_entered_the_blackpoints() -> void:
+	transform = _previous_position
 
 
 func _setup_node() -> void:
@@ -105,32 +139,18 @@ func _setup_node() -> void:
 		tween.tween_property(light,"energy",1.0,2.0)
 
 
-#func check_state() -> void:
-	#await GameMgr.process_waittime()
-	#
-	#var has_stood_on_starpoint: bool = GameLogic.check_if_block_on_starpoint(child_blocks)
-	#
-	#if has_stood_on_starpoint && !is_on_starpoint:
-		#starpoint_entered.emit(has_stood_on_starpoint)
-		#is_on_starpoint = true
-	#elif !has_stood_on_starpoint && is_on_starpoint:
-		#starpoint_entered.emit(has_stood_on_starpoint)
-		#is_on_starpoint = false
-
-
 ## [param disable_colli] is expermental.
-func turn(p_turn_to: float, disable_colli: bool = false) -> void:
+func turn(p_turn_to: float) -> void:
 	if is_turning:
 		return
+	
+	_previous_position = transform
 	
 	is_turning = true
 	has_turned.emit(signf(p_turn_to))
 	_old_rot = rotation_degrees
 
 	var turn_to: float = 90.0 * signf(p_turn_to) * turning_strength
-	
-	if disable_colli: # Doing a check to avoid runtime slowdown
-		_disable_colli(true)
 		
 	GameUtil.reset_tween(_tween_turn)
 	_tween_turn = create_tween()
@@ -140,9 +160,6 @@ func turn(p_turn_to: float, disable_colli: bool = false) -> void:
 	await _tween_turn.finished
 	
 	turn_end.emit()
-		
-	if disable_colli: # Doing a check to avoid runtime slowdown
-		_disable_colli(false)
 	
 	#await _turn_delay()
 	is_turning = false
@@ -150,10 +167,12 @@ func turn(p_turn_to: float, disable_colli: bool = false) -> void:
 
 
 ## [param disable_colli] is expermental.
-func move(p_move_to: Vector2, disable_colli: bool = false) -> void:
-	if is_moving:
+func move(p_move_to: Vector2) -> void:
+	if is_moving :
 		return
-		
+
+	_previous_position = transform
+
 	is_moving = true
 	has_moved.emit(p_move_to.sign())
 	_old_pos = position
@@ -165,9 +184,6 @@ func move(p_move_to: Vector2, disable_colli: bool = false) -> void:
 	
 	var move_to: Vector2 = p_move_to.sign() * GameUtil.TILE_SIZE * movement_strength
 	
-	if disable_colli: # Doing a check to avoid runtime slowdown
-		_disable_colli(true)
-	
 	GameUtil.reset_tween(_tween_move)
 	_tween_move = create_tween()
 	_tween_move.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
@@ -177,9 +193,6 @@ func move(p_move_to: Vector2, disable_colli: bool = false) -> void:
 	
 	is_moving = false
 	move_end.emit()
-	
-	if disable_colli: # Doing a check to avoid runtime slowdown
-		_disable_colli(false)
 
 
 func stop_moving() -> void:
@@ -194,7 +207,6 @@ func stop_moving() -> void:
 	position = _old_pos
 	
 	is_moving = false
-	#_disable_colli(false)
 	
 
 func stop_turning() -> void:
@@ -212,11 +224,10 @@ func stop_turning() -> void:
 	_tween_turn.tween_property(self,"rotation_degrees",_old_rot,0.06)
 	await _tween_turn.finished
 	
-	#_disable_colli(false)
-	
 	normalize_bokobody_rotation()
 	is_turning = false
 
+# One Color Wall
 
 func check_if_exited(blocks: Array[Bokoblock]) -> bool:
 	for block: Bokoblock in blocks:
@@ -290,7 +301,7 @@ func _on_transform(trans_to) -> void:
 	_current_last_transform = trans_to
 
 
-func _disable_colli(disable: bool) -> void: ## @experimental
-	for block: Bokoblock in child_blocks:
-		if block.get_node_or_null("CollisionShape2D"):
-			block.get_node_or_null("CollisionShape2D").set_deferred("disabled", disable)
+#func _disable_colli(disable: bool) -> void: ## @experimental
+	#for block: Bokoblock in child_blocks:
+		#if block.get_node_or_null("CollisionShape2D"):
+			#block.get_node_or_null("CollisionShape2D").set_deferred("disabled", disable)

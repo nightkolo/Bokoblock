@@ -58,6 +58,7 @@ func _setup_node() -> void:
 	anim_idle()
 	
 	if sprite_star:
+		sprite_star.rotation_degrees = deg_to_rad(10.0)
 		sprite_star.self_modulate = GameUtil.set_boko_color(what_im_happy_with)
 	
 	if particles_idle:
@@ -85,12 +86,12 @@ func check_satisfaction(modify_happiness: bool = true) -> bool:
 
 func anim_idle() -> void:
 	if sprite_star:
-		var dur := 2.0
+		var dur := 1.0
 		
 		var tween := create_tween().set_loops()
 		tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-		tween.tween_property(sprite_star,"rotation",deg_to_rad(-10.0),dur/2.0)
-		tween.tween_property(sprite_star,"rotation",deg_to_rad(10.0),dur/2.0)
+		tween.tween_property(sprite_star,"rotation",deg_to_rad(-10.0),dur)
+		tween.tween_property(sprite_star,"rotation",deg_to_rad(10.0),dur)
 
 
 func anim_pulse() -> void:

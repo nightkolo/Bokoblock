@@ -1,0 +1,140 @@
+[gd_scene load_steps=19 format=4 uid="uid://cjna5opivqvdw"]
+
+[ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_vgym1"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/miscellanous/gameplay_ui.tscn" id="2_feui6"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_lkuep"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_7ilys"]
+[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="5_1qn8u"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="6_qu0vq"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_cnqki"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_24hnv"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/board_info.tscn" id="9_io2rv"]
+[ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="10_gwepb"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="11_osxv0"]
+[ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="12_6ytfp"]
+[ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="12_on501"]
+[ext_resource type="Script" path="res://object/scripts/node_body.gd" id="12_r6xdr"]
+[ext_resource type="PackedScene" uid="uid://bmld4h85gfbc1" path="res://object/objects/obj_one_color_wall.tscn" id="13_botsa"]
+[ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="13_m3koh"]
+[ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="13_wyepy"]
+[ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="14_m5hch"]
+
+[node name="Board" type="Node2D"]
+script = ExtResource("1_vgym1")
+
+[node name="UI" parent="." instance=ExtResource("2_feui6")]
+
+[node name="Cam" parent="." instance=ExtResource("3_lkuep")]
+position = Vector2(428, 383)
+zoom = Vector2(1.2, 1.2)
+
+[node name="BoardWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_7ilys")]
+checkerboard = 1
+tile_maps = NodePath("TM")
+show_collision_tilemap = true
+
+[node name="PointLight2D" type="PointLight2D" parent="BoardWorld"]
+position = Vector2(428, 383)
+scale = Vector2(4.21875, 9.84375)
+range_item_cull_mask = 2
+texture = ExtResource("5_1qn8u")
+script = ExtResource("6_qu0vq")
+
+[node name="TM" type="Node2D" parent="BoardWorld"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("7_cnqki")
+
+[node name="Collision" type="TileMapLayer" parent="BoardWorld/TM"]
+tile_map_data = PackedByteArray("AAAGAA0AAQAAAAQAAAAGAAwAAQAAAAQAAAAGAAsAAQAAAAQAAAAGAAoAAQAAAAQAAAAGAAkAAQAAAAQAAAAGAAgAAQAAAAQAAAAGAAcAAQAAAAQAAAAGAAYAAQAAAAQAAAAGAAUAAQAAAAQAAAAGAAQAAQAAAAQAAAAGAAMAAQAAAAQAAAAGAAIAAQAAAAQAAAAHAAkAAQAAAAQAAAAHAAgAAQAAAAQAAAAHAAcAAQAAAAQAAAAMAAkAAQAAAAQAAAAMAAgAAQAAAAQAAAAMAAcAAQAAAAQAAAAGAA4AAQAAAAQAAAAGAA8AAQAAAAQAAAAMAA8AAQAAAAQAAAAGAAEAAQAAAAQAAAALAAkAAQAAAAQAAAALAAgAAQAAAAQAAAALAAcAAQAAAAQAAAAMAAoAAQAAAAQAAAAMAAsAAQAAAAQAAAAMAAwAAQAAAAQAAAAMAA0AAQAAAAQAAAAMAA4AAQAAAAQAAAAMAAYAAQAAAAQAAAAMAAUAAQAAAAQAAAAMAAQAAQAAAAQAAAAMAAMAAQAAAAQAAAAMAAIAAQAAAAQAAAAMAAEAAQAAAAQAAAAGABAAAQAAAAQAAAAHABAAAQAAAAQAAAAIABAAAQAAAAQAAAAJABAAAQAAAAQAAAAKABAAAQAAAAQAAAALABAAAQAAAAQAAAAMABAAAQAAAAQAAAAGAAAAAQAAAAQAAAAHAAAAAQAAAAQAAAAIAAAAAQAAAAQAAAAJAAAAAQAAAAQAAAAKAAAAAQAAAAQAAAALAAAAAQAAAAQAAAAMAAAAAQAAAAQAAAA=")
+tile_set = ExtResource("8_24hnv")
+
+[node name="Checkerboard" type="TileMapLayer" parent="BoardWorld/TM"]
+self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
+light_mask = 2
+tile_set = ExtResource("8_24hnv")
+
+[node name="Outline" type="TileMapLayer" parent="BoardWorld/TM"]
+tile_set = ExtResource("8_24hnv")
+
+[node name="ChibiBoko" parent="BoardWorld" instance=ExtResource("9_io2rv")]
+position = Vector2(608, 518)
+sleep = true
+
+[node name="BoardNumber" parent="BoardWorld" instance=ExtResource("10_gwepb")]
+position = Vector2(563, 383)
+
+[node name="BoardObjects" type="Node2D" parent="."]
+script = ExtResource("11_osxv0")
+
+[node name="Endpoints" type="Node2D" parent="BoardObjects"]
+script = ExtResource("12_6ytfp")
+
+[node name="Starpoint" parent="BoardObjects/Endpoints" instance=ExtResource("13_m3koh")]
+position = Vector2(428, 473)
+what_im_happy_with = 2
+
+[node name="Starpoint2" parent="BoardObjects/Endpoints" instance=ExtResource("13_m3koh")]
+position = Vector2(428, 518)
+what_im_happy_with = 1
+
+[node name="Starpoint3" parent="BoardObjects/Endpoints" instance=ExtResource("13_m3koh")]
+position = Vector2(428, 563)
+what_im_happy_with = 1
+
+[node name="Starpoint4" parent="BoardObjects/Endpoints" instance=ExtResource("13_m3koh")]
+position = Vector2(338, 203)
+what_im_happy_with = 2
+
+[node name="Starpoint5" parent="BoardObjects/Endpoints" instance=ExtResource("13_m3koh")]
+position = Vector2(338, 248)
+what_im_happy_with = 3
+
+[node name="Starpoint6" parent="BoardObjects/Endpoints" instance=ExtResource("13_m3koh")]
+position = Vector2(338, 293)
+
+[node name="OneColorWalls" type="Area2D" parent="BoardObjects"]
+script = ExtResource("12_on501")
+what_im_looking_for = 2
+
+[node name="OneColorWall" parent="BoardObjects/OneColorWalls" instance=ExtResource("13_botsa")]
+position = Vector2(383, 338)
+
+[node name="OneColorWall2" parent="BoardObjects/OneColorWalls" instance=ExtResource("13_botsa")]
+position = Vector2(428, 338)
+
+[node name="OneColorWall3" parent="BoardObjects/OneColorWalls" instance=ExtResource("13_botsa")]
+position = Vector2(473, 338)
+
+[node name="SleepingBlock" parent="BoardObjects" instance=ExtResource("14_m5hch")]
+position = Vector2(518, 248)
+
+[node name="Bokobody" type="Node2D" parent="BoardObjects"]
+position = Vector2(518, 518)
+script = ExtResource("12_r6xdr")
+turning_strength = 2
+
+[node name="Block" parent="BoardObjects/Bokobody" instance=ExtResource("13_wyepy")]
+boko_color = 3
+
+[node name="Block2" parent="BoardObjects/Bokobody" instance=ExtResource("13_wyepy")]
+position = Vector2(0, -45)
+
+[node name="Block3" parent="BoardObjects/Bokobody" instance=ExtResource("13_wyepy")]
+position = Vector2(0, 45)
+boko_color = 2
+
+[node name="Bokobody2" type="Node2D" parent="BoardObjects"]
+position = Vector2(338, 518)
+script = ExtResource("12_r6xdr")
+turning_strength = -1
+
+[node name="Block" parent="BoardObjects/Bokobody2" instance=ExtResource("13_wyepy")]
+boko_color = 1
+
+[node name="Block2" parent="BoardObjects/Bokobody2" instance=ExtResource("13_wyepy")]
+position = Vector2(0, -45)
+boko_color = 1
+
+[node name="Block3" parent="BoardObjects/Bokobody2" instance=ExtResource("13_wyepy")]
+position = Vector2(0, 45)
+boko_color = 2

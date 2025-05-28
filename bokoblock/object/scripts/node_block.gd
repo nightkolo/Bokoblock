@@ -5,6 +5,8 @@ extends Area2D
 class_name Bokoblock
 
 signal starpoint_entered(has_entered: bool)
+signal blackpoint_entered(has_entered: bool)
+signal blackpoint_interacted()
 signal button_entered(has_entered: bool) ## @experimental
 
 @export var boko_color: GameUtil.BokoColor
@@ -33,6 +35,7 @@ signal button_entered(has_entered: bool) ## @experimental
 
 var parent_bokobody: Bokobody
 var is_on_starpoint: bool
+var is_on_blackpoint: bool
 var is_on_button: bool ## @experimental: possibly deprecated?
 var limit_eye_movement: bool = true ## @deprecated
 var texture_eyes: Texture2D
@@ -44,7 +47,7 @@ func _ready() -> void:
 	
 	GameLogic.current_blocks.append(self)
 	GameLogic.bodies_stopped.connect(check_state)
-	
+
 	if get_parent() is Bokobody:
 		parent_bokobody = get_parent() as Bokobody
 		
@@ -95,17 +98,17 @@ func _setup_parent() -> void:
 
 
 func check_state() -> void:
-	# TODO: Remove boilerplate code,
-	# this function was refactored to make Bokoblocks work for the Debug Cards test area,
-	# which isn't needed anymore. 
-	
+	# TODO: Remove button
 	var areas: Array[Area2D] = get_overlapping_areas()
 	var l_starpoint: bool = false
+	var l_blackpoint: bool = false
 	var l_button: bool = false # possibly deprecated
 	
 	if areas.size() == 1:
 		if areas[0] is Starpoint:
 			l_starpoint = (areas[0] as Starpoint).what_im_happy_with == boko_color
+		
+		l_blackpoint = areas[0] is Blackpoint
 		
 		l_button = areas[0] is ButtonObj
 	
@@ -115,7 +118,17 @@ func check_state() -> void:
 	elif !l_starpoint && is_on_starpoint:
 		starpoint_entered.emit(l_starpoint)
 		is_on_starpoint = false
-		
+	
+	if l_blackpoint && !is_on_blackpoint:
+		blackpoint_entered.emit(l_blackpoint)
+		is_on_blackpoint = true
+	elif !l_blackpoint && is_on_blackpoint:
+		blackpoint_entered.emit(l_blackpoint)
+		is_on_blackpoint = false
+	
+	if l_blackpoint:
+		blackpoint_interacted.emit()
+	
 	if l_button && !is_on_button:
 		button_entered.emit(l_button)
 		is_on_button = true

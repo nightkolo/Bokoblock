@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://q6e8c82jp1nu"]
+
+[ext_resource type="Script" path="res://object/scripts/obj_blackpoint.gd" id="1_m8csp"]
+[ext_resource type="Texture2D" uid="uid://lhogvaaclniu" path="res://assets/objects/blackpoint-shadow.png" id="2_pys4l"]
+[ext_resource type="Texture2D" uid="uid://yg33k7j5aat3" path="res://assets/objects/blackpoint-04.png" id="3_nd3cd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0xwx"]
+size = Vector2(40, 40)
+
+[sub_resource type="Animation" id="Animation_df0vy"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75),
+"transitions": PackedFloat32Array(100, 100, 100, 100, 100, 100, 100, 100),
+"update": 0,
+"values": [0.0698132, 0.0, -0.0698132, -0.139626, -0.0698132, 0.0, 0.0698132, 0.139626]
+}
+
+[sub_resource type="Animation" id="Animation_8t4i7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7siv6"]
+_data = {
+"RESET": SubResource("Animation_8t4i7"),
+"idle": SubResource("Animation_df0vy")
+}
+
+[sub_resource type="Gradient" id="Gradient_8obck"]
+colors = PackedColorArray(1, 1, 1, 0.4, 1, 1, 1, 0)
+
+[node name="Blackpoint" type="Area2D"]
+script = ExtResource("1_m8csp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_u0xwx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7siv6")
+}
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Shadow" type="Sprite2D" parent="Sprites"]
+position = Vector2(0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_pys4l")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_nd3cd")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 6
+lifetime = 0.4
+speed_scale = 0.13
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 200)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angle_min = 45.0
+angle_max = 45.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+color = Color(0, 0, 0, 1)
+color_ramp = SubResource("Gradient_8obck")
