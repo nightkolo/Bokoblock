@@ -44,6 +44,8 @@ func display_data():
 func anim_pressed():
 	var dur := 1.0
 	
+	Audio.ui_button_click.play()
+	
 	scale = Vector2(1.2, 0.8)
 	
 	if tween:
@@ -58,6 +60,8 @@ func anim_entered():
 	var dur := 0.75
 	var scale_to := Vector2.ONE * 1.15
 	
+	play_aud()
+	
 	self_modulate = Color(Color.WHITE*1.2)
 	
 	if tween:
@@ -66,8 +70,19 @@ func anim_entered():
 	tween = create_tween().set_parallel(true)
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_property(self, "scale", scale_to, dur).set_trans(Tween.TRANS_ELASTIC)
+	
+	
 		
-		
+func play_aud():
+	var aud := Audio.ui_button_hover.duplicate() as AudioStreamPlayer
+	add_child(aud)
+	aud.pitch_scale = randf_range(0.8, 1.2)
+	aud.play()
+	
+	await aud.finished
+	aud.queue_free()
+
+
 func anim_exited():
 	var dur := 0.75
 	

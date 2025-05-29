@@ -7,9 +7,17 @@ signal move_end()
 signal turn_end()
 signal move_stopped()
 signal turn_stopped()
+
+# Starpoint
 signal starpoint_entered(has_entered: bool)
+
+# One Color Wall
 signal child_block_entered_one_col_wall(is_block: Bokoblock)
 signal child_block_exited_one_col_wall()
+
+# Blackpoint
+signal somebody_entered_blackpoint()
+signal returned_from_blackpoint()
 
 @export var movement_strength: int = 1
 @export_range(-4, 4) var turning_strength: int = 1
@@ -194,8 +202,7 @@ func stop_turning() -> void:
 	is_turning = false
 
 
-# Blackpoint
-
+#### Blackpoint
 func entered_blackpoint() -> void:
 	await get_tree().create_timer(0.05).timeout
 	
@@ -210,11 +217,16 @@ func entered_blackpoint() -> void:
 
 
 func somebody_tripped_and_entered_the_blackpoints() -> void:
+	somebody_entered_blackpoint.emit()
+	
+	await animator.somebody_entered_blackpoint_animation_finished
+	
 	transform = _previous_position
+	
+	returned_from_blackpoint.emit()
+####
 
-
-# One Color Wall
-
+#### One Color Wall
 func check_if_exited(blocks: Array[Bokoblock]) -> bool:
 	for block: Bokoblock in blocks:
 		if is_one_way_wall in block.get_overlapping_areas():
@@ -235,7 +247,7 @@ func _on_one_way_wall(_have_moved: bool) -> void:
 		Audio.one_color_wall_exit.play()
 		
 		GameLogic.state_checked.disconnect(_on_one_way_wall)
-
+####
 
 func stop_transforming() -> void:
 	stop_moving()
@@ -248,20 +260,6 @@ func normalize_bokobody_rotation() -> void:
 
 func is_transforming() -> bool:
 	return (is_moving || is_turning)
-
-
-var is_on_top_switch_block: bool ## @deprecated
-
-# It works but it's so hacky...
-func has_hit_area(area: Area2D) -> bool: ## @deprecated
-	if is_on_top_switch_block:
-		return area is Bokoblock
-	else:
-		return area is Bokoblock || area is SwitchBlocks
-		
-
-func has_hit_object(body: Node2D) -> bool: ## @deprecated
-	return body is TileMapLayer || body is SleepingBlock
 
 
 func get_current_last_transform():

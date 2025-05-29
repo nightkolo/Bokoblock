@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_wtwxf"]
 [ext_resource type="Script" path="res://interface/interactors/menu_stage_select.gd" id="2_px0gl"]
-[ext_resource type="Script" path="res://interface/menus/anim_button.gd" id="4_4wpgq"]
+[ext_resource type="Script" path="res://interface/animators/anim_button.gd" id="4_4wpgq"]
 [ext_resource type="StyleBox" uid="uid://bnu8j1ich1ikq" path="res://core/resources/theme/button_block_board_select.tres" id="4_kjkkr"]
 [ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="5_aeiv1"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_board_select.gd" id="5_mqg4w"]
@@ -345,22 +345,22 @@ script = ExtResource("5_mqg4w")
 layout_mode = 2
 theme_override_constants/separation = -5
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/VBoxContainer" groups=["UIButton"]]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-focus_neighbor_bottom = NodePath("../OptionsButton")
-theme = ExtResource("5_aeiv1")
-text = "Back to Title"
-script = ExtResource("4_4wpgq")
-
 [node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/VBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-focus_neighbor_top = NodePath("../BackButton")
+focus_neighbor_bottom = NodePath("../BackButton")
 theme = ExtResource("5_aeiv1")
 text = "Options"
+script = ExtResource("4_4wpgq")
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/VBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../OptionsButton")
+theme = ExtResource("5_aeiv1")
+text = "Back to Title"
 script = ExtResource("4_4wpgq")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer"]

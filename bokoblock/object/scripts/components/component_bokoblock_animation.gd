@@ -4,15 +4,13 @@ class_name BokoblockAnimationComponent
 @export_category("Assets")
 @export var asset_eye_close: Texture2D = preload("res://assets/objects/block-eye-close.png")
 @export var asset_eye_happy: Texture2D = preload("res://assets/objects/block-eyes-happy.png")
+@export var asset_eye_dizzy: Texture2D = preload("res://assets/objects/block-eyes-dizzy.png")
 @export var asset_eye_on_button: Texture2D = preload("res://assets/objects/block-eyes-on-button.png")
 
 @onready var block: Bokoblock = get_parent() as Bokoblock
 
 var timer_poke: Timer = Timer.new()
 #var timer_look_at_me: Timer = Timer.new() ## @deprecated
-
-var _is_being_removed: bool = false # experimental
-
 
 func _ready() -> void:
 	if !(block is Bokoblock):
@@ -30,6 +28,7 @@ func _ready() -> void:
 	GameLogic.stage_won.connect(anim_stage_won)
 	
 	block.starpoint_entered.connect(anim_landed_starpoint)
+	block.blackpoint_entered.connect(anim_landed_blackpoint)
 	#block.button_entered.connect(anim_landed_on_button)
 	
 	#block.body_entered.connect(func(body: Node2D):
@@ -134,8 +133,7 @@ func anim_hit_wall(transformed_to) -> void:
 	GameUtil.reset_tween(tween_turn)
 	
 	block.sprite_block.skew = deg_to_rad(0.0)
-	#if !block.is_on_button:
-		#block.sprite_eyes.texture = asset_eye_close
+	block.sprite_eyes.texture = asset_eye_close
 	block.sprite_node_2.modulate = Color(Color.WHITE)
 	
 	match typeof(transformed_to):
@@ -195,8 +193,8 @@ func anim_hit_wall(transformed_to) -> void:
 	await get_tree().create_timer(dur/2.6).timeout
 	if block.is_on_starpoint:
 		block.sprite_eyes.texture = asset_eye_happy
-	#elif block.is_on_button: # experimental
-		#block.sprite_eyes.texture = asset_eye_on_button
+	elif block.is_on_blackpoint:
+		block.sprite_eyes.texture = asset_eye_dizzy
 	else:
 		block.sprite_eyes.texture = block.texture_eyes
 
@@ -276,8 +274,8 @@ func anim_poke() -> void:
 	await timer_poke.timeout
 	if block.is_on_starpoint:
 		block.sprite_eyes.texture = asset_eye_happy
-	#elif block.is_on_button: # experimental
-		#block.sprite_eyes.texture = asset_eye_on_button
+	elif block.is_on_blackpoint:
+		block.sprite_eyes.texture = asset_eye_dizzy
 	else:
 		block.sprite_eyes.texture = block.texture_eyes
 
@@ -307,7 +305,6 @@ func anim_stage_won() -> void:
 	var modulate_to: Color = Color.WHITE*2.0
 	var rot_to: float = rad_to_deg(PI)
 	
-	# block.limit_eye_movement = false
 	block.sprite_node_2.modulate = Color(Color.WHITE*2.0)
 	
 	var tween := create_tween().set_parallel(true)
@@ -386,37 +383,47 @@ func anim_exited_starpoint() -> void:
 	tween_starpoint.tween_property(block.sprite_node_1,"modulate",Color(Color.WHITE),dur/6.0)
 
 
-var tween_button: Tween ## @experimental
+var tween_blackpoint: Tween
 
-func anim_entered_button() -> void: ## @experimental
+func anim_entered_blackpoint() -> void:
 	var dur: float = 0.4
 	
-	block.sprite_eyes.texture = asset_eye_on_button
-	if tween_button:
-		tween_button.kill()
+	block.sprite_eyes.texture = asset_eye_dizzy
 	
-	block.sprite_node_1.scale = Vector2.ZERO
+	if tween_blackpoint:
+		tween_blackpoint.kill()
 	
-	tween_button = create_tween().set_parallel(true)
-	tween_button.set_ease(Tween.EASE_OUT)
-	tween_button.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
-	tween_button.tween_property(block.sprite_block,"modulate",Color(Color.WHITE/1.25, 1.0),dur/2.0)
-		
-
-func anim_exited_button() -> void: ## @experimental
-	var dur: float = 1.0
-	
-	block.sprite_eyes.texture = block.texture_eyes
 	block.sprite_node_1.scale = Vector2.ONE / 2.0
 	
-	if tween_button:
-		tween_button.kill()
-	tween_button = create_tween().set_parallel(true)
-	tween_button.set_ease(Tween.EASE_OUT)
-	tween_button.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_ELASTIC)
-	tween_button.tween_property(block.sprite_block,"modulate",Color(Color.WHITE),dur/4.0)
+	tween_blackpoint = create_tween().set_parallel(true)
+	tween_blackpoint.set_ease(Tween.EASE_OUT)
+	tween_blackpoint.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
+	tween_blackpoint.tween_property(block.sprite_node_1,"modulate",Color(Color.WHITE*0.6, 1.0),dur/2.0)
+		
+
+func anim_exited_blackpoint() -> void:
+	var dur: float = 0.5
+	
+	if block.is_on_starpoint:
+		block.sprite_eyes.texture = asset_eye_happy
+	else:
+		block.sprite_eyes.texture = block.texture_eyes
+	block.sprite_node_1.scale = Vector2.ONE / 4.0
+	
+	if tween_blackpoint:
+		tween_blackpoint.kill()
+	tween_blackpoint = create_tween().set_parallel(true)
+	tween_blackpoint.set_ease(Tween.EASE_OUT)
+	tween_blackpoint.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_BACK)
+	tween_blackpoint.tween_property(block.sprite_node_1,"modulate",Color(Color.WHITE, 1.0),dur/6.0)
 
 
+func anim_landed_blackpoint(has_landed: bool) -> void:
+	if has_landed:
+		anim_entered_blackpoint()
+	else:
+		anim_exited_blackpoint()
+		
 
 func anim_landed_starpoint(has_landed: bool) -> void:
 	if has_landed:
@@ -424,47 +431,6 @@ func anim_landed_starpoint(has_landed: bool) -> void:
 	else:
 		anim_exited_starpoint()
 
-
-func anim_landed_on_button(has_landed: bool) -> void: ## @experimental
-	if has_landed:
-		anim_entered_button()
-	else:
-		anim_exited_button()
-
-
-var tween_bokocolor: Tween ## @experimental
-
-func anim_bokocolor_changed() -> void: ## @experimental
-	var dur: float = 0.75
-	
-	block.sprite_eyes.texture = block.texture_eyes
-	block.sprite_node_1.scale = Vector2.ONE / 1.385
-	
-	if tween_bokocolor:
-		tween_bokocolor.kill()
-	tween_bokocolor = create_tween().set_parallel(true)
-	tween_bokocolor.set_ease(Tween.EASE_OUT)
-	tween_bokocolor.tween_property(block.sprite_node_1,"scale",Vector2.ONE,dur).set_trans(Tween.TRANS_ELASTIC)
-	tween_bokocolor.tween_property(block.sprite_node_1,"modulate",Color(Color.WHITE),dur/4.0)
-
-
-func anim_removed() -> void: ## @experimental
-	if _is_being_removed:
-		return
-	
-	_is_being_removed = true
-	
-	var dur: float = 0.3
-	var rot_to: float = PI * signf(randf() - 0.5)
-	
-	block.sprite_eyes.texture = asset_eye_close
-	block.modulate = Color(Color.WHITE/2)
-	
-	var tween := create_tween().set_parallel(true)
-	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
-	tween.tween_property(block.sprite_node_1,"scale",Vector2.ZERO,dur)
-	tween.tween_property(block.sprite_node_1,"rotation",rot_to,dur)
-	
 	
 func anim_entered_one_color_wall() -> void: ## @deprecated: Used by [OneColorWalls1]
 	if block.parent_bokobody:

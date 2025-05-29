@@ -41,7 +41,7 @@ func _unhandled_input(event: InputEvent) -> void:
 # 	GameLogic.has_moved()
 	
 	
-func _call_input_move(move_to: Vector2 = Vector2.ZERO):
+func _call_input_move(move_to: Vector2 = Vector2.ZERO) -> void:
 	if !GameLogic.can_move(): 
 		return
 	
@@ -53,7 +53,7 @@ func _call_input_move(move_to: Vector2 = Vector2.ZERO):
 	GameLogic.has_moved()
 
 
-func _call_input_turn(turn_to: float = 0.0):
+func _call_input_turn(turn_to: float = 0.0) -> void:
 	if !GameLogic.can_move(): 
 		return
 	

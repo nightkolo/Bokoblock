@@ -8,7 +8,8 @@ extends Node
 #var music_menu: AudioStreamPlayer ## @experimental
 @onready var music_stage: AudioStreamPlayer = $Music/StageMusic
 
-#@onready var game_paused: AudioStreamPlayer = $UI/GamePaused
+@onready var game_start: AudioStreamPlayer = $UI/GameStart
+@onready var game_paused: AudioStreamPlayer = $UI/GamePaused
 @onready var game_reset_01: AudioStreamPlayer = $UI/GameReset01
 @onready var game_reset_02: AudioStreamPlayer = $UI/GameReset02
 #@onready var game_start: AudioStreamPlayer = $UI/GameStart
@@ -32,6 +33,9 @@ extends Node
 
 @onready var checkerboard_complete: AudioStreamPlayer = $UI/CheckerboardComplete
 
+@onready var ui_button_click: AudioStreamPlayer = $UI/UiButtonClick
+@onready var ui_button_hover: AudioStreamPlayer = $UI/UiButtonHover
+
 #@onready var body_happy_01: AudioStreamPlayer = $SFX/BodyHappy01
 #@onready var body_happy_02: AudioStreamPlayer = $SFX/BodyHappy02
 
@@ -43,7 +47,6 @@ var original_music_db: float
 var _reset_sound: bool = true
 
 var _tween_aud: Tween
-var _is_exitting: bool = false
 
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
@@ -90,10 +93,6 @@ func _ready() -> void:
 		stage_next.play()
 		)
 	
-	#GameLogic.state_checked.connect(func(_have_moved: bool):
-		#_check_game_state()
-		#)
-	
 	GameLogic.body_hit_move.connect(play_body_move_hit)
 	GameLogic.body_hit_turn.connect(play_body_turn_hit)
 	
@@ -118,10 +117,6 @@ func lower_higher_music(dur: float = 1.0, low: float = 15.0) -> void:
 
 func set_music(vol: float = original_music_db) -> void:
 	music_stage.volume_db = vol
-
-
-#func _check_game_state() -> void:
-	#pass
 
 
 func play_reset_sound() -> void:

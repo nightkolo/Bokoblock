@@ -8,8 +8,6 @@ signal starpoint_entered(has_entered: bool)
 signal blackpoint_entered(has_entered: bool)
 signal blackpoint_interacted()
 
-#signal button_entered(has_entered: bool) ## @deprecated
-
 @export var boko_color: GameUtil.BokoColor
 @export_group("Modify")
 @export var animator: BokoblockAnimationComponent
@@ -37,7 +35,6 @@ signal blackpoint_interacted()
 var parent_bokobody: Bokobody
 var is_on_starpoint: bool
 var is_on_blackpoint: bool
-#var is_on_button: bool ## @deprecated
 var texture_eyes: Texture2D
 
 
@@ -58,6 +55,11 @@ func _ready() -> void:
 		_setup_parent()
 		
 		parent_bokobody.child_blocks.append(self)
+		
+		parent_bokobody.returned_from_blackpoint.connect(func():
+			await get_tree().create_timer(0.1).timeout
+			check_state(false)
+			)
 
 
 func _process(_delta: float) -> void:
@@ -97,21 +99,17 @@ func _setup_parent() -> void:
 		sprite_eyes.texture = texture_eyes
 
 
-func check_state() -> void:
-	# TODO: Remove button
+func check_state(emit_blackpoint_interacted_signal: bool = true) -> void:
 	var areas: Array[Area2D] = get_overlapping_areas()
 	var l_starpoint: bool = false
 	var l_blackpoint: bool = false
-	#var l_button: bool = false # possibly deprecated
-	
+
 	if areas.size() == 1:
 		if areas[0] is Starpoint:
 			l_starpoint = (areas[0] as Starpoint).what_im_happy_with == boko_color
 		
 		l_blackpoint = areas[0] is Blackpoint
-		
-		#l_button = areas[0] is ButtonObj
-	
+
 	if l_starpoint && !is_on_starpoint:
 		starpoint_entered.emit(l_starpoint)
 		is_on_starpoint = true
@@ -126,15 +124,8 @@ func check_state() -> void:
 		blackpoint_entered.emit(l_blackpoint)
 		is_on_blackpoint = false
 	
-	if l_blackpoint:
+	if l_blackpoint && emit_blackpoint_interacted_signal:
 		blackpoint_interacted.emit()
-	
-	#if l_button && !is_on_button:
-		#button_entered.emit(l_button)
-		#is_on_button = true
-	#elif !l_button && is_on_button:
-		#button_entered.emit(l_button)
-		#is_on_button = false
 
 
 func can_we_stop_moving_dad() -> bool:

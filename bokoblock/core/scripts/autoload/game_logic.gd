@@ -38,20 +38,18 @@ static var win_condition: WinCondition
 var current_bodies: Array[Bokobody]
 var current_blocks: Array[Bokoblock]
 var current_starpoints: Array[Starpoint]
-var blackpoint: bool
 
 var has_won: bool = false
 var win_checked: bool = true
 var are_bodies_moving: bool = false
-var is_block_on_starpoint: bool = false
 var match_amount: int = 0
+
+var is_block_on_starpoint: bool = false
+var blackpoint_animating: bool = false
 
 var _bodies_stopped: int = 0
 var _prev_positions: Array[Transform2D]
-var _blackpoint_cool_down: bool = false:
-	set(value):
-		print(value)
-		_blackpoint_cool_down = value
+var _blackpoint_cool_down: bool = false
 var _blackpoint_cool_down_time: float = 0.08
 
 
@@ -65,13 +63,11 @@ func _ready() -> void:
 	
 	PlayerInput.movement_input_made.connect(_bodies_have_moved)
 	
-	GameMgr.game_reset.connect(_reset_game_logic)
 	GameMgr.menu_entered.connect(func(entered: GameMgr.Menus):
 		match entered:
 			
 			GameMgr.Menus.MENUS:
 				_reset_game_logic()
-		
 		)
 	
 	check_bodies()
@@ -182,7 +178,6 @@ func body_entered_blackpoint() -> void:
 
 
 ## Called by [Bokobody] when it evaluates that it has entered the Blackpoints during the cool down period.
-## 
 func body_entered_blackpoints() -> void:
 	for body: Bokobody in current_bodies:
 		body.somebody_tripped_and_entered_the_blackpoints()
@@ -194,7 +189,7 @@ func win_stage() -> void:
 
 
 func can_move() -> bool:
-	return !are_bodies_moving && win_checked && !has_won && !_blackpoint_cool_down
+	return !are_bodies_moving && win_checked && !has_won && !_blackpoint_cool_down && !blackpoint_animating
 
 
 func has_moved() -> void:
@@ -244,6 +239,9 @@ func _reset_game_logic() -> void:
 	win_checked = true
 	are_bodies_moving = false
 	is_block_on_starpoint = false
+	
+	blackpoint_animating = false
+	_blackpoint_cool_down = false
 	
 	match_amount = 0
 	_bodies_stopped = 0

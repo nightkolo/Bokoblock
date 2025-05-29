@@ -23,13 +23,28 @@ var current_board_id: int = -1
 var current_checkerboard_id: int = -1
 
 var is_game_manager_resetting: bool = false ## @experimental
-var is_sfx_muted: bool = false
-var is_music_muted: bool = false
 
 var saver_loader: SaverLoader = SaverLoader.new()
 
 const ON_NEWGROUNDS_MIRROR = true
 
+#### Config
+@onready var SFX_BUS_ID: int = AudioServer.get_bus_index("SFX")
+@onready var Music_BUS_ID: int = AudioServer.get_bus_index("Music")
+
+var _game_sfx_muted: bool = false:
+	get:
+		return _game_sfx_muted
+	set(value):
+		AudioServer.set_bus_mute(SFX_BUS_ID, value)
+		_game_sfx_muted = value
+var _game_music_muted: bool = false:
+	get:
+		return _game_music_muted
+	set(value):
+		AudioServer.set_bus_mute(Music_BUS_ID, value)
+		_game_music_muted = value
+####
 
 func _ready() -> void:
 	add_child(saver_loader)
@@ -43,19 +58,19 @@ func _ready() -> void:
 		)
 	
 	game_reset.connect(func():
+		GameLogic.self_destruct()
 		_reset_game_manager()
 		get_tree().reload_current_scene()
 		)
 	
 	game_just_ended.connect(func():
-		# Awaits complete animation
 		await get_tree().create_timer(GameUtil.stage_complete_anim_waittime).timeout
 		game_end.emit()
 	)
 
 
 func stage_complete() -> void:
-	if current_board_id / 10.0 == 1.0:
+	if current_board_id / current_checkerboard_id == 10:
 		open_checkerboard_complete_screen()
 	else:
 		goto_next_stage()
@@ -82,6 +97,8 @@ func goto_next_stage(force_progression: bool = false) -> void:
 	
 	if next_lvl_id <= GameUtil.NUMBER_OF_BOARDS: 
 		Trans.slide_to_next_stage(next_lvl_path)
+	else:
+		Trans.slide_to_next_stage("res://interface/menus/thank_you_screen.tscn")
 
 
 func goto_next_checkerboard() -> void:
@@ -103,6 +120,22 @@ func goto_prev_stage() -> void:
 	
 	if next_lvl_id <= GameUtil.NUMBER_OF_BOARDS: 
 		get_tree().change_scene_to_file(next_lvl_path)
+
+
+func set_game_sfx_muted(value: bool) -> void:
+	_game_sfx_muted = value
+
+
+func get_game_sfx_muted_setting() -> bool:
+	return _game_sfx_muted
+
+
+func set_game_music_muted(value: bool) -> void:
+	_game_music_muted = value
+
+
+func get_game_music_muted_setting() -> bool:
+	return _game_music_muted
 
 
 func reset_game() -> void:

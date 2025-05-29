@@ -5,6 +5,7 @@ extends Control
 @export var texture_checkerboard_uncomplete_checkmark: Texture = preload("res://assets/interface/checkerboard-uncomplete-checkmark-01.png")
 
 @onready var back_btn: Button = %BackButton
+@onready var options_btn: Button = %OptionsButton
 
 @onready var btns: Array[Node] = get_tree().get_nodes_in_group("UIButton")
 @onready var board_btns: Array[Node] = get_tree().get_nodes_in_group("UIBoardButton")
@@ -24,7 +25,11 @@ func _ready() -> void:
 	back_btn.pressed.connect(func():
 		get_tree().change_scene_to_file("res://interface/menus/menu_start.tscn")
 		)
-		
+	
+	options_btn.pressed.connect(func():
+		get_tree().change_scene_to_file("res://interface/menus/menu_options.tscn")
+		)
+	
 	for board_btn: Button in board_btns:
 		board_btn.pressed.connect(func():
 			goto_level(board_btn.name.to_int())
@@ -33,7 +38,7 @@ func _ready() -> void:
 	btn_b_1.grab_focus()
 
 
-func display_data():
+func display_data() -> void:
 	if !GameData.runtime_data.has("101"):
 		push_warning("Cannot display data. Keys 101 not found in GameData.runtime_data.")
 		return
@@ -54,13 +59,17 @@ func display_data():
 
 
 func goto_level(board_id: int) -> void:
+	if Trans.is_transitioning:
+		return
+	
 	GameUtil.disable_buttons(board_btns)
 	GameUtil.disable_buttons(btns)
 	
-	await get_tree().create_timer(0.5).timeout
+	#await get_tree().create_timer(0.5).timeout
 	
 	if (board_id >= 1 && board_id <= GameUtil.NUMBER_OF_BOARDS):
-		get_tree().change_scene_to_file(GameUtil.STAGE_FILE_BEGIN + str(board_id) + GameUtil.STAGE_FILE_END)
+		#Audio.game_start.play()
+		Trans.slide_to_scene(GameUtil.STAGE_FILE_BEGIN + str(board_id) + GameUtil.STAGE_FILE_END)
 
 	else:
 		print('"Board CB-' + str(board_id) + '" is non-existent :(')

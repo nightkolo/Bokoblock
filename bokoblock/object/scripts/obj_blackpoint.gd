@@ -14,8 +14,6 @@ var is_landed_on: bool:
 
 
 func _ready() -> void:
-	GameLogic.blackpoint = true
-	
 	anim_idle()
 	anim_shadow()
 	

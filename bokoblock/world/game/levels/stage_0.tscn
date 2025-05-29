@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://world/game/scripts/intro_sequence.gd" id="1_omsmu"]
 [ext_resource type="PackedScene" uid="uid://eyhhyen04o6i" path="res://world/world/stage_background.tscn" id="2_2cup4"]
 [ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="2_w0kn8"]
-[ext_resource type="Script" path="res://interface/menus/anim_button.gd" id="3_hfpdr"]
+[ext_resource type="Script" path="res://interface/animators/anim_button.gd" id="3_hfpdr"]
 [ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="3_wuac4"]
 [ext_resource type="Script" path="res://world/interface/monolog_arrow.gd" id="4_8scew"]
 [ext_resource type="Theme" uid="uid://d3mia6877o0a6" path="res://core/resources/theme/theme_monolog_rich_label.tres" id="4_r3ffy"]
@@ -113,13 +113,18 @@ theme_override_constants/margin_top = 70
 theme_override_constants/margin_right = 70
 theme_override_constants/margin_bottom = 70
 
-[node name="SkipButton" type="Button" parent="UI/MarginContainer"]
-unique_name_in_owner = true
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+
+[node name="SkipButton" type="Button" parent="UI/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 theme = ExtResource("2_w0kn8")
-text = "Skip"
+text = "(esc) Skip"
 script = ExtResource("3_hfpdr")
 
 [node name="Audio" type="Node" parent="."]

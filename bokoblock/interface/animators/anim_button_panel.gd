@@ -6,6 +6,7 @@ var tween: Tween
 func _ready() -> void:
 	pivot_offset = size / 2
 	
+	pressed.connect(anim_pressed)
 	mouse_entered.connect(anim_entered)
 	mouse_exited.connect(anim_exited)
 	focus_entered.connect(anim_entered)
@@ -17,10 +18,15 @@ func _ready() -> void:
 		pass
 		)
 
+func anim_pressed():
+	Audio.ui_button_click.play()
+
 
 func anim_entered():
 	var dur := 0.75
 	var scale_to := 1.15
+	
+	Audio.ui_button_hover.play()
 	
 	self_modulate = Color(Color.WHITE*1.2)
 	

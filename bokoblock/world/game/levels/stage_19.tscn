@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://bfsqrn04fq7ns"]
+[gd_scene load_steps=16 format=4 uid="uid://bfsqrn04fq7ns"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_4tp28"]
 [ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/miscellanous/gameplay_ui.tscn" id="2_csylo"]
@@ -9,7 +9,9 @@
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_ug7hf"]
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_jtavi"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="9_c2irj"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/board_info.tscn" id="9_ooi4s"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="10_7yrx0"]
+[ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="10_re8ei"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="11_k8e1v"]
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="12_i1axy"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="13_roete"]
@@ -25,6 +27,7 @@ zoom = Vector2(1.4, 1.4)
 
 [node name="SW" parent="." instance=ExtResource("4_73pbt")]
 checkerboard = 1
+color_pallete = 1
 
 [node name="StageLight" type="PointLight2D" parent="SW"]
 position = Vector2(562, 359.5)
@@ -51,6 +54,13 @@ tile_set = ExtResource("8_jtavi")
 tile_map_data = PackedByteArray("AAAIAAwAAQAGAAEAAAAJAAwAAQAKAAAAAAAKAAwAAQAKAAAAAAALAAwAAQAFAAEAAAALAAsAAQAIAAAAAAAMAAsAAQAKAAAAAAANAAsAAQAKAAAAAAAOAAsAAQAFAAEAAAAOAAoAAQAIAAEAAAAOAAkAAQAIAAEAAAAOAAgAAQAFAAAAAAANAAgAAQACAAMAAAAMAAgAAQACAAMAAAALAAgAAQABAAMAAAAPAAgAAQAKAAAAAAAQAAgAAQAFAAEAAAAQAAcAAQAIAAEAAAAQAAYAAQAIAAEAAAAQAAUAAQAIAAEAAAAQAAQAAQAIAAEAAAAQAAMAAQAFAAIAAAAPAAMAAQAJAAMAAAAOAAMAAQAJAAMAAAANAAMAAQAGAAIAAAANAAQAAQALAAIAAAANAAUAAQALAAMAAAAMAAQAAQAFAAIAAAALAAQAAQAJAAMAAAAKAAQAAQAJAAMAAAAJAAQAAQAJAAMAAAAIAAQAAQAGAAIAAAAIAAUAAQALAAIAAAAIAAYAAQALAAIAAAAIAAcAAQALAAIAAAAIAAgAAQALAAIAAAAIAAkAAQALAAIAAAAIAAoAAQALAAIAAAAIAAsAAQALAAIAAAAMAAUAAQAIAAMAAAAHAAwAAQAJAAIAAAAHAA0AAQAJAAIAAAAIAA0AAQAJAAIAAAAJAA0AAQAJAAIAAAAKAA0AAQAJAAIAAAALAA0AAQAJAAIAAAAMAA0AAQAJAAIAAAAMAAwAAQAJAAIAAAANAAwAAQAJAAIAAAAOAAwAAQAJAAIAAAAPAAwAAQAJAAIAAAAPAAsAAQAJAAIAAAAPAAoAAQAJAAIAAAAPAAkAAQAJAAIAAAAQAAkAAQAJAAIAAAARAAkAAQAJAAIAAAARAAgAAQAJAAIAAAARAAcAAQAJAAIAAAARAAYAAQAJAAIAAAARAAUAAQAJAAIAAAARAAQAAQAJAAIAAAARAAMAAQAJAAIAAAARAAIAAQAJAAIAAAAQAAIAAQAJAAIAAAAPAAIAAQAJAAIAAAAOAAIAAQAJAAIAAAANAAIAAQAJAAIAAAAMAAIAAQAJAAIAAAAMAAMAAQAJAAIAAAALAAMAAQAJAAIAAAAKAAMAAQAJAAIAAAAJAAMAAQAJAAIAAAAIAAMAAQAJAAIAAAAHAAMAAQAJAAIAAAAHAAQAAQAJAAIAAAAHAAUAAQAJAAIAAAAHAAYAAQAJAAIAAAAHAAcAAQAJAAIAAAAHAAgAAQAJAAIAAAAHAAkAAQAJAAIAAAAHAAoAAQAJAAIAAAAHAAsAAQAJAAIAAAAHAAIAAQAJAAIAAAAIAAIAAQAJAAIAAAAJAAIAAQAJAAIAAAAKAAIAAQAJAAIAAAALAAIAAQAJAAIAAAA=")
 tile_set = ExtResource("8_jtavi")
 
+[node name="BoardInfo" parent="SW" instance=ExtResource("9_ooi4s")]
+position = Vector2(698, 428)
+sleep = true
+
+[node name="BoardNumber" parent="SW" instance=ExtResource("10_re8ei")]
+position = Vector2(653, 518)
+
 [node name="SO" type="Node2D" parent="."]
 script = ExtResource("9_c2irj")
 
@@ -72,7 +82,6 @@ what_im_happy_with = 3
 [node name="Bokobody" type="Node2D" parent="SO"]
 position = Vector2(653, 248)
 script = ExtResource("12_i1axy")
-turning_strength = -1
 
 [node name="Block" parent="SO/Bokobody" instance=ExtResource("13_roete")]
 boko_color = 3

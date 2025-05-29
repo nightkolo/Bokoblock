@@ -13,6 +13,7 @@ func _ready() -> void:
 
 func start_game() -> void:
 	#var scene = preload("res://interface/menus/loading_screen.tscn")
+	Audio.game_start.play()
 	
 	start_btn.disabled = true
 	GameMgr.self_destruct()
@@ -20,6 +21,7 @@ func start_game() -> void:
 	
 	# TODO: Add transition
 	
-	get_tree().change_scene_to_file("res://world/game/levels/stage_0.tscn")
+	Trans.slide_to_scene("res://world/game/levels/stage_0.tscn")
+	#get_tree().change_scene_to_file("res://world/game/levels/stage_0.tscn")
 	#get_tree().change_scene_to_packed(scene)
 	

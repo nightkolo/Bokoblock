@@ -41,10 +41,6 @@ func _ready() -> void:
 		aud.play()
 		)
 	
-	closer_wake.connect(func(waking: float):
-		pass
-		)
-	
 	wake_up_boko_btn.pressed.connect(func():
 		have_woken = times_clicked == times_to_wake
 		

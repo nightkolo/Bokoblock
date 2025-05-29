@@ -14,10 +14,9 @@
 [ext_resource type="Script" path="res://object/scripts/node_body.gd" id="12_su3da"]
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="13_n8576"]
 
-[node name="Stage" type="Node2D" node_paths=PackedStringArray("stage_number")]
+[node name="Stage" type="Node2D"]
 script = ExtResource("1_g32i8")
 stage_progression = false
-stage_number = NodePath("StageWorld/MoveCounter")
 
 [node name="UI" parent="." instance=ExtResource("2_1bvv3")]
 

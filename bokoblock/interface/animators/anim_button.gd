@@ -5,6 +5,7 @@ var tween: Tween
 
 func _ready() -> void:
 	pivot_offset = size / 2
+	size_flags_horizontal = SizeFlags.SIZE_SHRINK_CENTER
 	
 	pressed.connect(anim_pressed)
 	mouse_entered.connect(anim_entered)
@@ -21,6 +22,8 @@ func _ready() -> void:
 func anim_pressed():
 	var dur := 1.0
 	
+	Audio.ui_button_click.play()
+	
 	scale = Vector2(1.2, 0.8)
 	
 	if tween:
@@ -34,6 +37,7 @@ func anim_pressed():
 func anim_entered():
 	var dur := 1.0
 	#var scale_to := Vector2.ONE * 1.15
+	Audio.ui_button_hover.play()
 	
 	self_modulate = Color(Color.WHITE*1.2)
 	pivot_offset = Vector2(  0.0 , size.y/2)

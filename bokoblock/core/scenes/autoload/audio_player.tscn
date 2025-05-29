@@ -1,9 +1,11 @@
-[gd_scene load_steps=29 format=4 uid="uid://bnsy5pe5wp0l7"]
+[gd_scene load_steps=31 format=4 uid="uid://bnsy5pe5wp0l7"]
 
 [ext_resource type="Script" path="res://core/scripts/system_audio.gd" id="1_ukka2"]
 [ext_resource type="AudioStream" uid="uid://2ji8u08uk0kf" path="res://audio/music/stage_music.mp3" id="2_m6v6f"]
 [ext_resource type="AudioStream" uid="uid://crnv8dsd4vvo4" path="res://audio/sounds/game_paused.ogg" id="3_6powf"]
+[ext_resource type="AudioStream" uid="uid://cgqrj65dfl0ch" path="res://audio/sounds/ui_button_click.ogg" id="3_fk3op"]
 [ext_resource type="AudioStream" uid="uid://cg8han0t5b58a" path="res://audio/sounds/game_reset_01.ogg" id="4_an76p"]
+[ext_resource type="AudioStream" uid="uid://b60wufd6fjpm5" path="res://audio/sounds/ui_button_hover.ogg" id="4_e4tey"]
 [ext_resource type="AudioStream" uid="uid://cav2ppfwlmf4y" path="res://audio/sounds/game_reset_02.ogg" id="5_f1yt8"]
 [ext_resource type="AudioStream" uid="uid://d2ktxscd3lhhb" path="res://audio/sounds/game_start.wav" id="6_012bo"]
 [ext_resource type="AudioStream" uid="uid://dwex32p0sitnk" path="res://audio/sounds/menu_exit.wav" id="12_50xne"]
@@ -48,19 +50,29 @@ parameters/looping = true
 
 [node name="UI" type="Node" parent="."]
 
+[node name="UiButtonClick" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("3_fk3op")
+volume_db = -30.0
+bus = &"UISound"
+
+[node name="UiButtonHover" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("4_e4tey")
+volume_db = -30.0
+bus = &"UISound"
+
 [node name="GamePaused" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("3_6powf")
-volume_db = -10.0
+volume_db = -15.0
 bus = &"UISound"
 
 [node name="GameReset01" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("4_an76p")
-volume_db = -22.727
+volume_db = -20.0
 bus = &"UISound"
 
 [node name="GameReset02" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("5_f1yt8")
-volume_db = -22.727
+volume_db = -20.0
 bus = &"UISound"
 
 [node name="GameStart" type="AudioStreamPlayer" parent="UI"]
@@ -86,7 +98,7 @@ bus = &"UISound"
 [node name="CheckerboardComplete" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("13_bpwbv")
 volume_db = -10.0
-bus = &"GameSound"
+bus = &"UISound"
 
 [node name="SFX" type="Node" parent="."]
 

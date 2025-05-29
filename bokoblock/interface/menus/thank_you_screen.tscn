@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://02qrak73qwne"]
+[gd_scene load_steps=7 format=3 uid="uid://02qrak73qwne"]
 
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_6kjc3"]
 [ext_resource type="Script" path="res://interface/interactors/thank_you_screen.gd" id="2_lgjum"]
-[ext_resource type="Theme" uid="uid://cls5uwn5pwpbx" path="res://core/resources/theme/theme_button_sided.tres" id="2_tu6iy"]
+[ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="3_763on"]
+[ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="5_hymxa"]
 
 [sub_resource type="FontVariation" id="FontVariation_ljwrp"]
 spacing_top = -4
@@ -62,5 +63,9 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("2_tu6iy")
+theme = ExtResource("3_763on")
 text = "Back to Start"
+
+[node name="CharacterChibiBoko2" parent="." instance=ExtResource("5_hymxa")]
+visible = false
+position = Vector2(473, 158)

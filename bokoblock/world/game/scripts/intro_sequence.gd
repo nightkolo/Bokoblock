@@ -84,6 +84,10 @@ var _going_to_1_1: bool = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("game_cancel"):
+		if !skip_btn.disabled:
+			skip_btn.grab_focus()
+	
 	if event.is_action_pressed("game_next_monolog") && is_boko_awake && !_going_to_1_1:
 		goto_next_monolog()
 
@@ -268,7 +272,7 @@ func _goto_board_1_1() -> void:
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	get_tree().change_scene_to_file("res://world/game/levels/stage_1.tscn")
+	Trans.slide_to_scene("res://world/game/levels/stage_1.tscn", 0.75)
 
 
 

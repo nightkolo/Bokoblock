@@ -56,8 +56,8 @@ static func set_boko_color(is_bokocolor: BokoColor, set_strength: float = 1.0, s
 			col = Color(Color(1.0,1.0,0.5)*s,a)
 			
 		BokoColor.GREEN:
-			col = Color(Color(1.0,0.5,0.5)*s,a)
-			#col = Color(Color.GREEN*s,a)
+			#col = Color(Color(1.0,0.5,0.5)*s,a)
+			col = Color(Color.GREEN*s,a)
 			
 		BokoColor.PINK:
 			col = Color(Color.PINK*s,a)

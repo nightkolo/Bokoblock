@@ -19,9 +19,9 @@ const BBCODE_TXT = "
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if allow_input:
+	if allow_input && !Trans.is_transitioning:
 		
-		if event.is_action_pressed("game_pause") && !Trans.is_transitioning:
+		if event.is_action_pressed("game_pause"):
 			match GameMgr.current_menu:
 				
 				GameMgr.Menus.RUNTIME, GameMgr.Menus.PAUSE:
@@ -42,21 +42,25 @@ func _ready() -> void:
 	GameMgr.current_ui_handler = self
 	
 
-func the_checkerboard_has_been_checkered():
+func the_checkerboard_has_been_checkered() -> void:
 	checkerboard_complete_screen.open()
 
 	
-func pause_or_unpause() -> void:
+func pause_or_unpause(pause: bool = !is_game_paused) -> void:
 	if GameLogic.has_won:
 		return
 	
-	is_game_paused = !is_game_paused
+	is_game_paused = pause
 	
 	if is_game_paused:
 		GameMgr.menu_entered.emit(GameMgr.Menus.PAUSE)
+		
+		Audio.game_paused.play()
 		Audio.set_music(Audio.original_music_db - 15.0)
 	else:
 		GameMgr.menu_entered.emit(GameMgr.Menus.RUNTIME)
+		
+		Audio.game_start.play()
 		Audio.set_music()
 	
 	game_pause_toggled.emit(is_game_paused)
@@ -68,15 +72,26 @@ func quit() -> void:
 	GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
 	
 	return_to_run()
-	get_tree().change_scene_to_file("res://interface/menus/menu_board_select.tscn")
+	Trans.slide_to_scene("res://interface/menus/menu_board_select.tscn")
 
 	
 func reset_stage() -> void:
+	if Trans.is_transitioning:
+		return
+		
+	#is_resetting = true
+	
 	Audio.play_reset_sound()
 	return_to_run()
-	GameMgr.reset_game()
-
+	#GameMgr.reset_game()
+	Trans.reset_board()
+	
+	#is_resetting = false
+	
 
 func return_to_run() -> void:
 	#Audio.set_music()
 	is_game_paused = false
+	
+	pause_screen.visible = false
+	

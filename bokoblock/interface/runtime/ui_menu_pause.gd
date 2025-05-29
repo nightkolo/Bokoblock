@@ -39,6 +39,7 @@ func _ready() -> void:
 	visibility_changed.connect(func():
 		if visible:
 			resume_btn.grab_focus()
+			update_options()
 			update_text()
 		)
 		
@@ -56,33 +57,33 @@ func _ready() -> void:
 			GameUtil.disable_buttons(btns)
 			GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
 			
-			# TODO: Desperate need of transitions...
-			await get_tree().create_timer(1.0).timeout
-			
 			_gameplay_ui.quit()
 			)
 	
-	music_btn.pressed.connect(func():
-		var muted := GameMgr.is_music_muted
-		
-		AudioServer.set_bus_mute(bus_Music, !muted)
-		
-		GameMgr.is_music_muted = !muted
-		)
-		
 	sfx_btn.pressed.connect(func():
-		var muted := GameMgr.is_sfx_muted
+		var setting := GameMgr.get_game_sfx_muted_setting()
+		GameMgr.set_game_sfx_muted(!setting)
 		
-		AudioServer.set_bus_mute(bus_SFX, !muted)
-		
-		GameMgr.is_sfx_muted = !muted
+		update_options()
 		)
+	music_btn.pressed.connect(func():
+		var setting := GameMgr.get_game_music_muted_setting()
+		GameMgr.set_game_music_muted(!setting)
+		
+		update_options()
+		)
+
+
+func update_options() -> void:
+	if GameMgr.get_game_sfx_muted_setting():
+		sfx_btn.text = "SFX:OFF"
+	else:
+		sfx_btn.text = "SFX:ON"
 	
-	#quit_btn.pressed.connect(func():
-		#GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
-		#get_tree().paused = false
-		#get_tree().change_scene_to_file("res://interface/menus/menu_title_screen.tscn")
-		#)
+	if GameMgr.get_game_music_muted_setting():
+		music_btn.text = "Music:OFF"
+	else:
+		music_btn.text = "Music:ON"
 
 
 func update_text() -> void:

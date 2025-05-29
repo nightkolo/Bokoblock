@@ -91,7 +91,9 @@ func _ready() -> void:
 	
 	area.area_entered.connect(_on_area_interacted)
 	area.area_exited.connect(_on_area_interacted)
-		
+	
+	colli_shape.size = Vector2.ONE * 20.0
+	
 	label.resized.connect(func():
 		bubble.size = label.size + _BUBBLE_MARGIN
 		colli_shape.size = label.size + _BUBBLE_MARGIN + (Vector2.ONE * 10.0)

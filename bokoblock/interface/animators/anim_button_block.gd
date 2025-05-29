@@ -2,10 +2,14 @@ extends Button
 
 
 func _ready() -> void:
-	pass
-	#await get_tree().create_timer(0.1).timeout
-	#size = Vector2.ONE * 100.0
+	pressed.connect(anim_pressed)
+	mouse_entered.connect(anim_entered)
+	focus_entered.connect(anim_entered)
+	
+	
+func anim_pressed():
+	Audio.ui_button_click.play()
+	
 
-
-#func _process(delta: float) -> void:
-	#size = Vector2.ONE * 100.0
+func anim_entered():
+	Audio.ui_button_hover.play()
