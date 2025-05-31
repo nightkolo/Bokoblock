@@ -15,10 +15,10 @@ spacing_bottom = -5
 [sub_resource type="LabelSettings" id="LabelSettings_1q4ik"]
 font = SubResource("FontVariation_181fw")
 font_size = 32
-outline_size = 5
-outline_color = Color(0.1, 0.1, 0.1, 1)
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
 shadow_size = 5
-shadow_color = Color(0, 0, 0, 0.1)
+shadow_color = Color(0, 0, 0, 0.05)
 shadow_offset = Vector2(4, 4)
 
 [node name="StartMenu" type="Control"]

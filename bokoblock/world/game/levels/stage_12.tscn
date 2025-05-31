@@ -56,7 +56,7 @@ tile_map_data = PackedByteArray("AAD///7/AQAIAAAAAAD/////AQAIAAEAAAD//wAAAQAIAAE
 tile_set = ExtResource("6_kukrg")
 
 [node name="ChibiBoko" parent="BoardWorld" instance=ExtResource("9_5ly3d")]
-position = Vector2(293, 473)
+position = Vector2(383, 473)
 sleep = true
 
 [node name="BoardNumber" parent="BoardWorld" instance=ExtResource("10_57how")]

@@ -27,12 +27,12 @@
 [ext_resource type="PackedScene" uid="uid://dbvbelcosunmx" path="res://object/objects/obj_block.tscn" id="27_w11ve"]
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/board_info.tscn" id="28_t0wdl"]
 
-[sub_resource type="FontVariation" id="FontVariation_f2h3v"]
+[sub_resource type="FontVariation" id="FontVariation_hnlec"]
 spacing_top = -6
 spacing_bottom = -6
 
 [sub_resource type="LabelSettings" id="LabelSettings_ov8fp"]
-font = SubResource("FontVariation_f2h3v")
+font = SubResource("FontVariation_hnlec")
 font_size = 24
 
 [node name="Board" type="Node2D"]

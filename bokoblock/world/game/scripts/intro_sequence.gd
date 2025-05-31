@@ -20,26 +20,27 @@ enum BokoPoses {
 }
 
 @export_multiline var monolog_lines: Array[String] = [
-	"[font_size=48][shake]Wha- huh?",
+	"[font_size=48][shake rate=20.0 level=10]Wha- huh?",
 
 	"Oh, a new specimen,
 I've heard [rainbow freq=0.4 sat=0.2 val=1.0 speed=0.5][font_size=36]great[/font_size][/rainbow] things about you.",
 	
 	"[color=lightgray]Why hello there![/color]
 My name is [color=yellow][wave amp=25.0 freq=5.0 connected=0.0][font_size=35]Boko[/font_size][/wave][/color],
-call me... [i]uhh",
+call me... [i]uhhh",
 	
 	"Listen, [color=yellow][font_size=35]Boko[/font_size][/color]'s just fine, alright?",
 	
-	"[rainbow sat=0.2 freq=0.4 val=1.0][tornado radius=1.0 freq=5.0]Are you a thinky type?[/tornado][/rainbow] I would like to play a [shake][color=yellow]game[/color][/shake] with you!",
+	"[rainbow sat=0.2 freq=0.4 val=1.0][tornado radius=1.0 freq=5.0]Are you a thinky type?[/tornado][/rainbow] I would like to play a [shake rate=20.0 level=10][color=yellow]game[/color][/shake] with you!",
 	
-	"Don't get twisted,
-I got no mouth so, I won't bite",
+	"Don't worry,
+I got no mouth, so I won't bite",
 	
 	"I’ll be your guide, guru, and occasionally confused observer!",
 	
 	"Get your fingers ready,
-Let's slide onto Board 1-1!"
+Let's slide onto
+Board 1-1!"
 ]
 @export var monolog_poses: Array[BokoPoses]
 @export_category("Intro Sequence")
@@ -56,6 +57,7 @@ Let's slide onto Board 1-1!"
 @onready var audio_speech: AudioStreamPlayer = $Audio/Speech
 @onready var audio_click: AudioStreamPlayer = $Audio/Click
 @onready var bg_red: ColorRect = $WholeLottaRed
+#@onready var click_on_him_label: Label = $Label
 
 @onready var skip_btn: Button = %SkipButton
 
@@ -73,7 +75,7 @@ var is_boko_awake: bool = false
 var raw_text: String
 var displayed_text: String
 
-const BBCODE_DEFAULT = "[center][tornado radius=0.5 freq=1.0][wave amp=8.0 freq=-5.0]"
+const BBCODE_DEFAULT = "[center][tornado radius=0.5 freq=1.0][wave amp=9.0 freq=-5.0]"
 
 var _letter_index: int = 0
 var _current_line_index: int
@@ -281,6 +283,7 @@ func _setup_intro_sequence() -> void:
 	
 	top_hat_man.modulate = Color(Color.BLACK)
 	wake_up_call.wake_up_boko_btn.disabled = true
+	#click_on_him_label.self_modulate = Color(Color.WHITE, 0.0)
 	
 	_cam_zoom = cam.zoom
 	
@@ -303,6 +306,11 @@ func _setup_intro_sequence() -> void:
 	
 	wake_up_call.have_awoken.connect(boko_is_awake)
 	wake_up_call.closer_wake.connect(anim_waking_up)
+	
+	#await get_tree().create_timer(6.0).timeout
+#
+	#var tween := create_tween()
+	#tween.tween_property(click_on_him_label, "self_modulate", Color(Color.WHITE, 0.5), 1.0)
 
 
 func _show_skip_button(appear_in: float = 2.0):
@@ -334,6 +342,7 @@ func boko_is_awake() -> void:
 	
 	top_hat_man.modulate = Color(Color.WHITE)
 	wake_up_call.wake_up_boko_btn.queue_free()
+	#click_on_him_label.queue_free()
 	wake_up_call.anim_boko_woke_up()
 	monolog_box.modulate = Color(Color.WHITE,0.0)
 	

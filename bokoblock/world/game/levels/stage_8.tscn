@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://sdg1iqnk0gun"]
+[gd_scene load_steps=21 format=4 uid="uid://sdg1iqnk0gun"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_4xwxe"]
 [ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/miscellanous/gameplay_ui.tscn" id="2_7bofo"]
@@ -15,8 +15,19 @@
 [ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="10_1dco0"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_stvqs"]
 [ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="11_8b2s4"]
+[ext_resource type="Script" path="res://world/interface/board_input_prompts.gd" id="13_818uq"]
 [ext_resource type="PackedScene" uid="uid://bmld4h85gfbc1" path="res://object/objects/obj_one_color_wall.tscn" id="13_si2pf"]
 [ext_resource type="Script" path="res://object/scripts/node_one_color_walls.gd" id="16_1c7qc"]
+
+[sub_resource type="FontVariation" id="FontVariation_7hg2h"]
+spacing_glyph = -1
+spacing_space = 1
+spacing_top = -4
+spacing_bottom = -4
+
+[sub_resource type="LabelSettings" id="LabelSettings_wgi12"]
+font = SubResource("FontVariation_7hg2h")
+font_size = 22
 
 [node name="Stage" type="Node2D"]
 script = ExtResource("1_4xwxe")
@@ -63,11 +74,28 @@ tile_map_data = PackedByteArray("AAAGAP//AQAKAAAAAAAFAP//AQAKAAAAAAAEAP//AQAKAAA
 tile_set = ExtResource("8_jwosy")
 
 [node name="ChibiBoko" parent="StageWorld" instance=ExtResource("9_g541j")]
-position = Vector2(203, 248)
+position = Vector2(293, 248)
 sleep = true
 
 [node name="BoardNumber" parent="StageWorld" instance=ExtResource("10_1dco0")]
-position = Vector2(653, 518)
+position = Vector2(698, 338)
+
+[node name="Info" type="Node2D" parent="StageWorld"]
+position = Vector2(245, 474)
+
+[node name="InputPrompts" type="Node2D" parent="StageWorld/Info"]
+modulate = Color(1, 0.79, 1, 1)
+position = Vector2(66, -42)
+script = ExtResource("13_818uq")
+
+[node name="InfoBox" type="Label" parent="StageWorld/Info/InputPrompts"]
+offset_left = 181.0
+offset_top = 40.0
+offset_right = 386.0
+offset_bottom = 112.0
+text = "Press [R] to Reset
+[esc] to Pause"
+label_settings = SubResource("LabelSettings_wgi12")
 
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("11_8b2s4")

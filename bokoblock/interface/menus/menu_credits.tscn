@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://di8et7u8v2hel"]
+[gd_scene load_steps=5 format=3 uid="uid://di8et7u8v2hel"]
 
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_dg448"]
 [ext_resource type="Script" path="res://interface/interactors/menu_credits.gd" id="1_m2fj4"]
 [ext_resource type="LabelSettings" uid="uid://bvj46p6mlit00" path="res://core/resources/theme/label_set_credit_author.tres" id="1_ol87i"]
-[ext_resource type="Theme" path="res://core/resources/theme/theme_button_sided.tres" id="4_64h4q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vltc8"]
 font_size = 24
@@ -92,5 +91,4 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-theme = ExtResource("4_64h4q")
 text = "Back to Title"

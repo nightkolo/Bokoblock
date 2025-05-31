@@ -30,13 +30,13 @@ func _ready() -> void:
 		$MarginContainer2.visible = false
 		$MarginContainer.visible = true
 		
-		sfx_btn.grab_focus()
+		music_btn.grab_focus()
 		)
 	no_progress_btn.pressed.connect(func():
 		$MarginContainer2.visible = false
 		$MarginContainer.visible = true
 		
-		sfx_btn.grab_focus()
+		music_btn.grab_focus()
 		)
 	
 	sfx_btn.pressed.connect(func():
@@ -52,7 +52,7 @@ func _ready() -> void:
 		update_text()
 		)
 		
-	sfx_btn.grab_focus()
+	music_btn.grab_focus()
 
 
 func update_text() -> void:

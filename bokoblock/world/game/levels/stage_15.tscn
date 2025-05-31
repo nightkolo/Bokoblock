@@ -31,8 +31,8 @@ checkerboard = 1
 color_pallete = 3
 
 [node name="StageLight" type="PointLight2D" parent="SW2"]
-position = Vector2(472, 337)
-scale = Vector2(7.03125, 5.625)
+position = Vector2(472, 315.5)
+scale = Vector2(7.03125, 3.51563)
 range_item_cull_mask = 2
 texture = ExtResource("5_b4g0x")
 script = ExtResource("6_8dmtw")

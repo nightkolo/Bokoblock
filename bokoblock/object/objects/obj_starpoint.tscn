@@ -59,18 +59,18 @@ color_ramp = SubResource("Gradient_riy83")
 
 [node name="StarpointWrong" type="AudioStreamPlayer2D" parent="Aud"]
 stream = ExtResource("4_mshei")
-volume_db = -16.364
+volume_db = -14.4
 panning_strength = 2.0
 bus = &"GameSound"
 
 [node name="StarpointExit" type="AudioStreamPlayer2D" parent="Aud"]
 stream = ExtResource("5_orj63")
-volume_db = -20.909
+volume_db = -18.4
 panning_strength = 2.0
 bus = &"GameSound"
 
 [node name="StarpointEnter" type="AudioStreamPlayer2D" parent="Aud"]
 stream = ExtResource("6_tdijy")
-volume_db = -16.364
+volume_db = -14.4
 panning_strength = 2.0
 bus = &"GameSound"

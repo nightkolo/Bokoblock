@@ -85,7 +85,6 @@ offset_top = 285.0
 offset_right = 555.0
 offset_bottom = 435.0
 size_flags_horizontal = 4
-mouse_filter = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = ExtResource("4_y7clw")
 theme_override_styles/disabled = ExtResource("4_y7clw")
@@ -104,8 +103,7 @@ offset_right = 149.0
 offset_bottom = 181.0
 mouse_filter = 1
 bbcode_enabled = true
-text = "[center][font_size=40]Start?
-[center][font_size=20][color=#ffffff40](enter)"
+text = "[center][font_size=40]Start?"
 fit_content = true
 
 [node name="Label" type="Label" parent="."]

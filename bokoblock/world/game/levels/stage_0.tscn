@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://645xw6bnns5y"]
+[gd_scene load_steps=29 format=3 uid="uid://645xw6bnns5y"]
 
 [ext_resource type="Script" path="res://world/game/scripts/intro_sequence.gd" id="1_omsmu"]
 [ext_resource type="PackedScene" uid="uid://eyhhyen04o6i" path="res://world/world/stage_background.tscn" id="2_2cup4"]
@@ -31,6 +31,9 @@ outline_color = Color(0.25, 0.25, 0.25, 1)
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 0.422)
 shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ovet"]
+font_size = 24
 
 [sub_resource type="Animation" id="Animation_hrjaq"]
 length = 0.001
@@ -230,6 +233,16 @@ volume_db = -30.0
 [node name="BokoAwake03" type="AudioStreamPlayer" parent="WakeUpBoko/BokoWake"]
 stream = ExtResource("14_pekh2")
 volume_db = -30.0
+
+[node name="Label" type="Label" parent="WakeUpBoko"]
+offset_left = -144.0
+offset_top = 70.0
+offset_right = 144.0
+offset_bottom = 104.0
+text = "Keep clicking him
+(press space)"
+label_settings = SubResource("LabelSettings_2ovet")
+horizontal_alignment = 1
 
 [node name="MonologBox" type="NinePatchRect" parent="."]
 visible = false

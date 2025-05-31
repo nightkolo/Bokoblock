@@ -1,18 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://02qrak73qwne"]
+[gd_scene load_steps=8 format=3 uid="uid://02qrak73qwne"]
 
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_6kjc3"]
 [ext_resource type="Script" path="res://interface/interactors/thank_you_screen.gd" id="2_lgjum"]
 [ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="3_763on"]
+[ext_resource type="Texture2D" uid="uid://cywoiajf7bxif" path="res://assets/interface/speech-bubble.png" id="3_ukmia"]
 [ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="5_hymxa"]
 
 [sub_resource type="FontVariation" id="FontVariation_ljwrp"]
 spacing_top = -4
 spacing_bottom = -4
 
-[sub_resource type="LabelSettings" id="LabelSettings_fb8nv"]
+[sub_resource type="LabelSettings" id="LabelSettings_puqv4"]
 font = SubResource("FontVariation_ljwrp")
-font_size = 40
-font_color = Color(1, 1, 0.847059, 1)
+font_size = 32
 
 [node name="ThankYouScreen" type="Control"]
 layout_mode = 3
@@ -33,6 +33,20 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.25, 0.1, 0.25, 1)
 
+[node name="SpeechBubble" type="NinePatchRect" parent="."]
+self_modulate = Color(1, 0.5, 1, 0.851)
+layout_mode = 0
+offset_left = 188.0
+offset_top = 220.0
+offset_right = 773.0
+offset_bottom = 400.0
+pivot_offset = Vector2(0, 24)
+texture = ExtResource("3_ukmia")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -41,7 +55,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 100
+theme_override_constants/margin_top = 250
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
@@ -52,10 +66,14 @@ theme_override_constants/separation = 30
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "End of Beta,
-Thank you for Playtesting!
-- Kolo"
-label_settings = SubResource("LabelSettings_fb8nv")
+text = "End of Demo,
+Thank you for Playing!
+
+
+
+- Kolo
+"
+label_settings = SubResource("LabelSettings_puqv4")
 horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
@@ -67,5 +85,5 @@ theme = ExtResource("3_763on")
 text = "Back to Start"
 
 [node name="CharacterChibiBoko2" parent="." instance=ExtResource("5_hymxa")]
-visible = false
-position = Vector2(473, 158)
+position = Vector2(480, 158)
+scale = Vector2(0.5, 0.5)

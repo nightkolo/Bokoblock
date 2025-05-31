@@ -101,12 +101,6 @@ func _ready() -> void:
 		)
 	PlayerInput.input_turn.connect(play_body_turn)
 
-	await get_tree().create_timer(0.1).timeout
-	if GameMgr.current_ui_handler:
-		GameMgr.current_ui_handler.game_pause_toggled.connect(func(_is_paused: bool):
-			# TODO: lower music volume
-			pass
-			)
 
 func lower_higher_music(dur: float = 1.0, low: float = 15.0) -> void:
 	var tween = create_tween()

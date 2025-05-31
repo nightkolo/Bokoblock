@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=4 uid="uid://c21r25mgurpf0"]
+[gd_scene load_steps=18 format=4 uid="uid://c21r25mgurpf0"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_06khc"]
 [ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/miscellanous/gameplay_ui.tscn" id="2_d0wcj"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_3h4lc"]
 [ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_dou5e"]
+[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="5_aqb2j"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="6_jbt7n"]
 [ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_38t8t"]
 [ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_bh5ym"]
 [ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/board_info.tscn" id="9_nwn1k"]
@@ -29,6 +31,13 @@ zoom = Vector2(1.25, 1.25)
 checkerboard = 1
 color_pallete = 3
 tile_maps = NodePath("TM")
+
+[node name="StageLight" type="PointLight2D" parent="BoardWorld"]
+position = Vector2(428, 383)
+scale = Vector2(5.625, 7.03125)
+range_item_cull_mask = 2
+texture = ExtResource("5_aqb2j")
+script = ExtResource("6_jbt7n")
 
 [node name="TM" type="Node2D" parent="BoardWorld"]
 scale = Vector2(0.5, 0.5)

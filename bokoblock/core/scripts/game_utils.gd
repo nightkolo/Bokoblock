@@ -11,10 +11,6 @@ enum BokoColor {
 	PINK = 5,
 	GREY = 99
 	}
-enum SwitchTypeDecorator { ## @deprecated
-	Cross = 0,
-	Square = 1
-	}
 
 static var stage_complete_anim_waittime: float = 1.5
 
@@ -33,7 +29,6 @@ static func disable_buttons(btns: Array[Node], disable: bool = true) -> void:
 			continue
 			
 		btn.disabled = disable
-
 
 
 static func set_boko_color(is_bokocolor: BokoColor, set_strength: float = 1.0, set_alpha: float = 1.0) -> Color:
@@ -56,7 +51,6 @@ static func set_boko_color(is_bokocolor: BokoColor, set_strength: float = 1.0, s
 			col = Color(Color(1.0,1.0,0.5)*s,a)
 			
 		BokoColor.GREEN:
-			#col = Color(Color(1.0,0.5,0.5)*s,a)
 			col = Color(Color.GREEN*s,a)
 			
 		BokoColor.PINK:

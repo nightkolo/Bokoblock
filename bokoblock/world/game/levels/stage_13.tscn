@@ -24,6 +24,7 @@ script = ExtResource("1_r4gi1")
 [node name="UI" parent="." instance=ExtResource("2_u5ejr")]
 
 [node name="Cam" parent="." instance=ExtResource("3_6p3x3")]
+position = Vector2(495, 360)
 zoom = Vector2(1.35, 1.35)
 
 [node name="BoardWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_0uryb")]
@@ -57,7 +58,10 @@ tile_map_data = PackedByteArray("AAAJAAkAAQALAAMAAAAIAAkAAQAJAAMAAAAHAAkAAQAGAAI
 tile_set = ExtResource("8_aksej")
 
 [node name="ChibiBoko" parent="BoardWorld" instance=ExtResource("9_303y8")]
-position = Vector2(203, 293)
+position = Vector2(225.5, 293)
+info_text = "Avoid landing
+ on the
+ Blackpoints..."
 
 [node name="BoardNumber" parent="BoardWorld" instance=ExtResource("10_a6171")]
 position = Vector2(653, 518)

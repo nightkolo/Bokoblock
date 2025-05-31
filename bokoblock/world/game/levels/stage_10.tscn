@@ -64,11 +64,11 @@ tile_map_data = PackedByteArray("AAADAP//AQAKAAAAAAACAP//AQAKAAAAAAABAP//AQAKAAA
 tile_set = ExtResource("8_rfy3d")
 
 [node name="ChibiBoko" parent="StageWorld" instance=ExtResource("9_tvf0x")]
-position = Vector2(338, 248)
+position = Vector2(360.5, 260.5)
 sleep = true
 
 [node name="BoardNumber" parent="StageWorld" instance=ExtResource("11_nlhaa")]
-position = Vector2(428, 608)
+position = Vector2(518, 608)
 
 [node name="StageObjects" type="Node2D" parent="."]
 script = ExtResource("9_g7t73")

@@ -364,7 +364,6 @@ text = "Back to Title"
 script = ExtResource("4_4wpgq")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
@@ -376,7 +375,7 @@ layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
 bbcode_enabled = true
-text = "[font_size=18.0][color=#FFFFFFBF]© 2025"
+text = "[font_size=18.0][color=#FFFFFFBF]© 2025 [color=#FFFFFFFF]Night Kolo"
 fit_content = true
 
 [node name="Author" type="RichTextLabel" parent="MarginContainer/VBoxContainer3"]
@@ -384,7 +383,7 @@ layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
 bbcode_enabled = true
-text = "[font_size=18.0][color=#FFFFFFBF]BOKOBLOCK Demo by [color=#FFFFFFFF]Night Kolo"
+text = "[font_size=24.0][color=#FFFFFFBF]A Demo by [color=#FFFFFFFF]Night Kolo"
 fit_content = true
 
 [node name="MusicAuthor" type="RichTextLabel" parent="MarginContainer/VBoxContainer3"]
@@ -392,7 +391,7 @@ layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
 bbcode_enabled = true
-text = "[font_size=18.0][color=#FFFFFFBF]Music by [color=#FFFFFFFF]Avizura"
+text = "[font_size=24.0][color=#FFFFFFBF]Music by [color=#FFFFFFFF]Avizura"
 fit_content = true
 
 [node name="ColorRect2" type="ColorRect" parent="."]

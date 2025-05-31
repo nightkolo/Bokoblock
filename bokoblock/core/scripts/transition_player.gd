@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var anim: AnimationPlayer = $Anim
 
+## omg, i'm so proud bestie!!
 var is_transitioning: bool
 
 
@@ -56,14 +57,14 @@ func reset_board() -> void:
 	is_transitioning = true
 	($Trans2 as Node2D).visible = true
 	
-	anim.play(&"fade_in", -1, 2.0)
+	anim.play(&"fade_in", -1, 2.3)
 	Audio.lower_higher_music(0.3)
 	
 	await anim.animation_finished
 	
 	GameMgr.reset_game()
 	
-	anim.play(&"fade_out", -1, 2.0)
+	anim.play(&"fade_out", -1, 2.3)
 	
 	await anim.animation_finished
 	

@@ -44,7 +44,7 @@ script = ExtResource("1_ukka2")
 
 [node name="StageMusic" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("2_m6v6f")
-volume_db = -27.273
+volume_db = -24.0
 bus = &"Music"
 parameters/looping = true
 
@@ -62,22 +62,22 @@ bus = &"UISound"
 
 [node name="GamePaused" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("3_6powf")
-volume_db = -15.0
+volume_db = -13.2
 bus = &"UISound"
 
 [node name="GameReset01" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("4_an76p")
-volume_db = -20.0
+volume_db = -17.6
 bus = &"UISound"
 
 [node name="GameReset02" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("5_f1yt8")
-volume_db = -20.0
+volume_db = -17.6
 bus = &"UISound"
 
 [node name="GameStart" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("6_012bo")
-volume_db = -15.0
+volume_db = -13.2
 bus = &"UISound"
 
 [node name="MenuExit" type="AudioStreamPlayer" parent="UI"]
@@ -87,17 +87,17 @@ bus = &"UISound"
 
 [node name="StageNext" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("13_x1h4r")
-volume_db = -13.636
+volume_db = -12.0
 bus = &"UISound"
 
 [node name="StageWin" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("15_yp5gw")
-volume_db = -13.636
+volume_db = -10.0
 bus = &"UISound"
 
 [node name="CheckerboardComplete" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("13_bpwbv")
-volume_db = -10.0
+volume_db = -8.8
 bus = &"UISound"
 
 [node name="SFX" type="Node" parent="."]
@@ -114,22 +114,22 @@ bus = &"GameSound"
 
 [node name="BlockTurnHit" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("26_y6kkm")
-volume_db = -23.636
+volume_db = -20.799
 bus = &"GameSound"
 
 [node name="BlockTurnHit2" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("19_4fq0t")
-volume_db = -23.636
+volume_db = -20.799
 bus = &"GameSound"
 
 [node name="BlockMoveHit" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("33_igb24")
-volume_db = -27.273
+volume_db = -24.0
 bus = &"GameSound"
 
 [node name="BlockMoveHit2" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("20_pjyn3")
-volume_db = -13.636
+volume_db = -12.0
 bus = &"GameSound"
 
 [node name="BlockTurn1" type="AudioStreamPlayer" parent="SFX"]
@@ -144,17 +144,17 @@ bus = &"GameSound"
 
 [node name="OneColorWallExit" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("25_42aws")
-volume_db = -18.182
+volume_db = -16.0
 bus = &"GameSound"
 
 [node name="OneColorWallEnter" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("26_1gnms")
-volume_db = -18.182
+volume_db = -16.0
 bus = &"GameSound"
 
 [node name="OneColorWallHit" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("27_43h34")
-volume_db = -18.182
+volume_db = -16.0
 bus = &"GameSound"
 
 [node name="Random1" type="AudioStreamPlayer" parent="SFX"]
@@ -165,27 +165,27 @@ bus = &"GameSound"
 
 [node name="BlockMoving" type="AudioStreamPlayer" parent="SFX/BodyMoving"]
 stream = ExtResource("17_k7hjh")
-volume_db = -22.727
+volume_db = -20.0
 bus = &"GameSound"
 
 [node name="BlockMoving2" type="AudioStreamPlayer" parent="SFX/BodyMoving"]
 stream = ExtResource("18_16tqr")
-volume_db = -22.727
+volume_db = -20.0
 bus = &"GameSound"
 
 [node name="BlockMoving3" type="AudioStreamPlayer" parent="SFX/BodyMoving"]
 stream = ExtResource("19_1ty8t")
-volume_db = -22.727
+volume_db = -20.0
 bus = &"GameSound"
 
 [node name="BodyTurnClick" type="Node" parent="SFX"]
 
 [node name="BodyTurnClick1" type="AudioStreamPlayer" parent="SFX/BodyTurnClick"]
 stream = ExtResource("16_2krml")
-volume_db = -20.455
+volume_db = -18.0
 bus = &"GameSound"
 
 [node name="BodyTurnClick2" type="AudioStreamPlayer" parent="SFX/BodyTurnClick"]
 stream = ExtResource("32_0enu8")
-volume_db = -20.455
+volume_db = -18.0
 bus = &"GameSound"

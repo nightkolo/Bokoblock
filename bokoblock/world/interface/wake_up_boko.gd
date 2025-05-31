@@ -13,6 +13,7 @@ signal closer_wake(waking: float)
 
 @onready var boko_click: Node = $BokoClick
 @onready var boko_wake: Node = $BokoWake
+@onready var label: Label = $Label
 
 var _click_sounds: Array[Node]
 var _wake_sounds: Array[Node]
@@ -30,6 +31,7 @@ func _ready() -> void:
 	#print(times_to_wake)
 	
 	node_sign_1.visible = false
+	label.self_modulate = Color(Color.WHITE, 0.0)
 	
 	anim_arrow()
 	
@@ -57,6 +59,14 @@ func _ready() -> void:
 			closer_wake.emit( float(times_clicked) / float(times_to_wake) )
 		)
 
+
+func click_notice():
+	await get_tree().create_timer(6.0).timeout
+
+	var tween := create_tween()
+	tween.tween_property(label, "self_modulate", Color(Color.WHITE, 0.5), 1.0)
+
+
 var tween_click: Tween
 
 
@@ -82,6 +92,7 @@ func anim_wake_up_boko():
 	
 	node_sign_1.visible = true
 	
+	click_notice()
 	anim_swing(dur)
 	
 	var tween := create_tween().set_parallel(true)
@@ -123,6 +134,8 @@ func anim_arrow():
 
 func anim_boko_woke_up():
 	var dur := 0.5
+	
+	label.visible = false
 	
 	if tween_swing:
 		tween_swing.kill()

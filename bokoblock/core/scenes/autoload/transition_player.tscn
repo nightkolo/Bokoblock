@@ -53,37 +53,6 @@ tracks/3/keys = {
 "values": [Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_1i7sl"]
-resource_name = "slide_in"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Trans1/Node2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(2, 2),
-"update": 0,
-"values": [Vector2(1160, 0), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_80kvd"]
-resource_name = "slide_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Trans1/Node2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.5, 0.5),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-1160, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_bluiq"]
 resource_name = "fade_in"
 length = 0.3
@@ -116,6 +85,22 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_1i7sl"]
+resource_name = "slide_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Trans1/Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(1160, 0), Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_hymar"]
 resource_name = "slide_in_2"
 length = 0.5
@@ -142,6 +127,21 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(0.5, 0.5),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -360)]
+}
+
+[sub_resource type="Animation" id="Animation_80kvd"]
+resource_name = "slide_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Trans1/Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1160, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_v7sqt"]
@@ -202,6 +202,7 @@ color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 1160, 0, 960, 720, -200, 720)
 
 [node name="Trans2" type="Node2D" parent="."]
+visible = false
 
 [node name="Node2D" type="Node2D" parent="Trans2"]
 modulate = Color(1, 1, 1, 0)
@@ -217,6 +218,7 @@ grow_vertical = 2
 color = Color(0.75, 0.75, 0.75, 1)
 
 [node name="Trans3" type="Node2D" parent="."]
+visible = false
 
 [node name="Node2D" type="Node2D" parent="Trans3"]
 
