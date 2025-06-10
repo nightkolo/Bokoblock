@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dkpq6f8l2i2t3"]
+[gd_scene load_steps=29 format=3 uid="uid://dkpq6f8l2i2t3"]
 
 [ext_resource type="Script" path="res://world/characters/character_chibi_boko.gd" id="1_wqlmh"]
 [ext_resource type="Texture2D" uid="uid://cm1103elsnxjn" path="res://assets/characters/boko-chibi-block-upscale.png" id="2_kf2bi"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://world/characters/character_chibi_boko_top_hat.gd" id="6_y4ahi"]
 [ext_resource type="Texture2D" uid="uid://u5w03rdthrph" path="res://assets/characters/boko-chibi-star-ghost-upscale.png" id="7_8kdi8"]
 [ext_resource type="Texture2D" uid="uid://binu8obp7qvsi" path="res://assets/characters/boko-chibi-eyes-blink-upscale.png" id="7_rq6tq"]
+[ext_resource type="Texture2D" uid="uid://dd3qreupxtiol" path="res://assets/characters/boko-chibi-eyes-deadpan.png" id="8_a13dl"]
 [ext_resource type="Texture2D" uid="uid://4y0ynd0qnqsk" path="res://assets/characters/boko-chibi-eyes-starpoint.png" id="10_0wlgs"]
 [ext_resource type="Texture2D" uid="uid://ch1rbwrtp72o3" path="res://assets/characters/boko-chibi-eyes-happy-upscale.png" id="10_llbsn"]
 [ext_resource type="Texture2D" uid="uid://csrqbmnxd726y" path="res://assets/characters/boko-chibi-eyes-blink.png" id="11_7tc4l"]
@@ -92,57 +93,57 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("11_7tc4l")]
+"values": [ExtResource("7_rq6tq")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:scale")
+tracks/1/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:flip_v")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(4, 4)]
+"update": 1,
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:flip_v")
+tracks/2/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
 }
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [true],
 "method": &"anim_zeing"
 }]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
 }
 
 [sub_resource type="Animation" id="Animation_0cl3v"]
@@ -192,20 +193,6 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"stop_zeing"
-}]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -275,20 +262,6 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"stop_zeing"
-}]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
 "args": [false],
 "method": &"anim_zeing"
 }]
@@ -352,20 +325,6 @@ tracks/4/path = NodePath(".")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"stop_zeing"
-}]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -434,23 +393,60 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"stop_zeing"
-}]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
 "args": [false],
 "method": &"anim_zeing"
 }]
+}
+
+[sub_resource type="Animation" id="Animation_67131"]
+resource_name = "deadpan"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_a13dl")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2/SpriteEyes:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body1/Body2/Head/Eyes1/Eyes2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 24)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_orsp2"]
@@ -459,6 +455,7 @@ _data = {
 "asleep": SubResource("Animation_f7sku"),
 "blinking": SubResource("Animation_0cl3v"),
 "closed": SubResource("Animation_leyk2"),
+"deadpan": SubResource("Animation_67131"),
 "happy": SubResource("Animation_f05vq"),
 "woke_up": SubResource("Animation_xn786")
 }

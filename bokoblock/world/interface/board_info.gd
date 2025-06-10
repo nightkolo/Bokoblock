@@ -106,11 +106,13 @@ func _ready() -> void:
 	if animate && !sleep:
 		GameLogic.body_entered_starpoint.connect(func():
 			if !GameLogic.has_won:
-				chibi_boko.anim_excite(true)
+				pass
+				#chibi_boko.anim_excite(true)
 			)
 		GameLogic.body_exited_starpoint.connect(func():
 			if !GameLogic.has_won:
-				chibi_boko.anim_excite(false)
+				pass
+				#chibi_boko.anim_excite(false)
 			)
 			
 			
@@ -146,7 +148,7 @@ func _ready() -> void:
 			show_text(WAKE_UP_CALL)
 			
 			if GameLogic.has_won:
-				chibi_boko.wake_up()
+				chibi_boko.pose_woke()
 			)
 	
 	_letter_show_timer.timeout.connect(func():

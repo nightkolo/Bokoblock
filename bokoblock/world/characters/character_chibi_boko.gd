@@ -1,9 +1,9 @@
-## Under construction
 extends Node2D
 class_name CharacterChibiBoko
 
 @export_group("Assets")
 @export var texture_eyes_regular: Texture2D = preload("res://assets/characters/boko-chibi-eyes-upscale.png")
+@export var texture_eyes_deadpan: Texture2D = preload("res://assets/characters/boko-chibi-eyes-deadpan.png")
 @export var texture_4_star: Texture2D = preload("res://assets/characters/boko-chibi-star-01-upscale.png")
 @export var texture_5_star: Texture2D = preload("res://assets/characters/boko-chibi-star-02.png")
 
@@ -25,16 +25,66 @@ class_name CharacterChibiBoko
 @onready var star_dark: Sprite2D = %StarDark
 @onready var sprite_star_ghost: Sprite2D = %StarGhost
 
-# This is the worst code I've ever fucking wrote...
-# Refactored.. pain
-
 var _process_star_spinning: bool
+
+
+
+var tween_poke: Tween
+
+func anim_poke() -> void:
+	
+	if tween_poke:
+		tween_poke.kill()
+	
+	anim_wobble_top_hat(10.0, 1.5)
+	
+	tween_poke = create_tween().set_parallel(true)
+	tween_poke.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	
+	var dur_bounce := 1.0 * 0.3
+	var dur_delay := dur_bounce / 15.55
+	var up: Vector2
+	var down: Vector2
+	var rot_to := signf(randf()-0.5) * (5.0 + (randf() * 4.0))
+	var skew_to := signf(randf()-0.5) * (5.0 + (randf() * 4.0))
+	
+	up = (Vector2.ONE / 1.3)
+	down = (Vector2.ONE * 1.3)
+	
+	sprite_head.scale = up
+	sprite_head.rotation_degrees = rot_to
+	sprite_head.skew = deg_to_rad(skew_to)
+	
+	tween_poke.tween_property(sprite_head,"scale:x",1.0,dur_bounce)
+	tween_poke.tween_property(sprite_head,"rotation_degrees",0.0,dur_bounce)
+	tween_poke.tween_property(sprite_head,"skew",0.0,dur_bounce)
+	tween_poke.tween_property(sprite_head,"scale:y",1.0,dur_bounce).set_delay(dur_delay)
+	
 
 
 func _process(delta: float) -> void:
 	if _process_star_spinning:
 		sprite_star.rotation += delta * (PI/2.0)
 		star_dark.rotation += -1 * delta * (PI/2.0)
+
+
+
+func pose_deadpan() -> void:
+	node_top_hat.set_process(true)
+	
+	anim_bounce(true)
+	
+	anim_blink(true)
+	anim_star_spinning(false)
+	anim_breathing(true)
+	anim_star_spinning(false)
+	
+	anim_wobble_top_hat(13.0, 1.2)
+	
+	anim.play(&"deadpan")
+	
+	#sprite_eyes_1.texture = texture_eyes_deadpan
+	#sprite_eyes_1.flip_v = false
 
 
 func pose_neutral() -> void:
@@ -67,6 +117,7 @@ func pose_happy(spin_star: bool = true) -> void:
 	anim_breathing(false)
 	anim_star_ghost()
 	anim_star_spinning(spin_star)
+	anim_zeing(true)
 	
 	anim.play(&"happy")
 	
@@ -83,6 +134,7 @@ func pose_happy(spin_star: bool = true) -> void:
 func pose_asleep() -> void:
 	anim_breathing(true)
 	anim_star_spinning(false)
+	anim_zeing(true)
 	
 	anim.play(&"asleep")
 
@@ -92,6 +144,7 @@ func pose_woke() -> void:
 	anim_bounce(false)
 	anim_wobble_top_hat()
 	anim_star_spinning(false)
+	anim_zeing(false)
 	
 	anim.play(&"woke_up")
 
@@ -173,6 +226,8 @@ func stop_speaking() -> void:
 
 
 func anim_blink(blink: bool = true) -> void:
+	anim_zeing(false)
+	
 	if blink:
 		anim.play(&"blinking")
 	else:
@@ -313,141 +368,3 @@ func anim_bounce(back: bool = false) -> void:
 func _reset_tween(t: Tween) -> void:
 	if t:
 		t.kill()
-
-
-## Loser functions
-
-func anim_bounce_back() -> void: ## @deprecated
-	pass
-	#var bounce_to := Vector2(1.2,0.8)
-	#var ease_in := 0.5/4.0
-	#
-	#_reset_tween(tween_bounce_2)
-	#tween_bounce_2 = create_tween().set_parallel(true)
-	#tween_bounce_2.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	#tween_bounce_2.tween_property(node_body_2,"scale",bounce_to,ease_in)
-	#tween_bounce_2.tween_property(node_body_2,"scale",Vector2.ONE,bounce_dur).set_delay(ease_in)
-
-
-func anim_excited() -> void: ## @deprecated
-	pass
-	#var dur := 0.75
-	#var stretch_to := Vector2(0.875,1.25)
-	#var stretch_from := Vector2(1.25,0.75)
-	#
-	#sprite_star.scale = Vector2.ZERO
-	#sprite_star.texture = texture_5_star
-	#anim_star_spinning(true)
-	#anim_star_ghost()
-	#
-	#node_body_2.scale = stretch_from
-	#_reset_tween(tween_bounce)
-	#
-	#tween_bounce = create_tween().set_parallel(true)
-	#tween_bounce.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	#tween_bounce.tween_property(node_body_2,"scale",stretch_to,dur)
-	#tween_bounce.tween_property(sprite_star,"scale",Vector2.ONE,dur*2.0)
-	#tween_bounce.tween_property(node_body_2,"scale",Vector2.ONE,dur/1.5).set_delay(dur/1.25)
-
-
-## @deprecated
-## When you tell her you play League of Legends
-func anim_unexcited() -> void:
-	pass 
-	#anim_star_spinning(false)
-	#sprite_star.texture = texture_4_star
-
-
-func eyes_happy() -> void: ## @deprecated
-	anim.play(&"happy")
-
-
-func start_breathing() -> void: ## @deprecated
-	pass
-	#var dur := 1.0
-	#var factor := 1.01
-	#_reset_tween(tween_breathe)
-	#
-	#tween_breathe = create_tween().set_loops()
-	#
-	#tween_breathe.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
-	#tween_breathe.tween_property(node_body_1,"scale",Vector2(1.01*factor,0.87/factor),dur)
-	#tween_breathe.tween_property(node_body_1,"scale",Vector2.ONE,dur)
-
-
-## @deprecated
-## Don't worry, chibi boko has no lungs, the breathing is just an illusion.
-## This function is also fucking deprecated (excuse me)
-func stop_breathing() -> void:
-	pass
-	#_reset_tween(tween_breathe)
-	#node_body_1.scale = Vector2.ONE
-
-
-
-var tween_star_rot: Tween
-
-func _anim_star_spin(_spin_to: float = randf_range(25.0,90.0)) -> void: ## @deprecated
-	pass
-	#var dur := 2.5
-	#var rand_sign: float = sign(randf()-0.5)
-	#
-	#_reset_tween(tween_star_rot)
-	#
-	#sprite_star.rotation = deg_to_rad(spin_to) * rand_sign
-	#
-	#tween_star_rot = create_tween()
-	#tween_star_rot.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	#
-	#tween_star_rot.tween_property(sprite_star,"rotation",0.0,dur)
-
-
-
-var tween_star_bounce: Tween
-
- ## @deprecated: just removing some functions
-func _anim_star_bounce(_bounce_down_to: float = 0.75, _duration: float = 1.25) -> void:
-	pass
-	#var dur := duration
-	#var delay := dur / 13.33
-	#
-	#_reset_tween(tween_star_bounce)
-	#
-	#sprite_star.scale = Vector2.ONE * bounce_down_to
-	#
-	#tween_star_bounce = create_tween().set_parallel(true)
-	#tween_star_bounce.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	#
-	#tween_star_bounce.tween_property(sprite_star,"scale:x",1.0,dur)
-	#tween_star_bounce.tween_property(sprite_star,"scale:y",1.0,dur).set_delay(delay)
-	
-
-func stop_blinking() -> void: ## @deprecated
-	pass
-	
-
-func start_star_spinning() -> void: ## @deprecated
-	pass
-
-func stop_star_spinning() -> void: ## @deprecated
-	pass
-
-
-
-
-
-func start_zeing() -> void: ## @deprecated
-	#particle_z.emitting = true
-	pass
-
-
-func stop_zeing() -> void: ## @deprecated
-	#particle_z.emitting = false
-	pass
-	
-	
-func wake_up() -> void: ## @deprecated
-	anim_bounce(false)
-	anim_wobble_top_hat()
-	
-	anim.play(&"woke_up")

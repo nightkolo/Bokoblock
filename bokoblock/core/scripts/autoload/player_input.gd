@@ -9,7 +9,7 @@ var last_input: GameLogic.TransformationType
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if GameMgr.current_menu == GameMgr.Menus.RUNTIME && !Trans.is_transitioning:
+	if GameMgr.current_menu == GameMgr.Menus.RUNTIME &&  !Trans.is_transitioning:
 		
 		if event.is_action_pressed("move_turn_left"):
 			_call_input_turn(-1.0)

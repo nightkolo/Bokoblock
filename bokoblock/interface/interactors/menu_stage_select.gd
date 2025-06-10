@@ -1,13 +1,18 @@
-extends Control
-# TODO: make a MainMenus class like previously in Rabbitball, if necessary
+class_name BoardSelectScreen
+extends MainMenu
+
+signal entered_cb_1()
+signal entered_cb_2()
 
 @export var texture_checkerboard_complete_checkmark: Texture = preload("res://assets/interface/checkerboard-complete-checkmark-02.png")
 @export var texture_checkerboard_uncomplete_checkmark: Texture = preload("res://assets/interface/checkerboard-uncomplete-checkmark-01.png")
 
-@onready var back_btn: Button = %BackButton
-@onready var options_btn: Button = %OptionsButton
 
-@onready var btns: Array[Node] = get_tree().get_nodes_in_group("UIButton")
+# TODO: make a MainMenus class like previously in Rabbitball, if necessary
+
+@onready var back_btn: Button = %BackButton
+@onready var btn_b_1: Button = %BtnB1
+
 @onready var board_btns: Array[Node] = get_tree().get_nodes_in_group("UIBoardButton")
 
 @onready var cb_1_check: Node2D = $CB1check
@@ -16,26 +21,58 @@ extends Control
 @onready var cb_1_check_sprite: Sprite2D = %CB1checkSprite
 @onready var cb_2_check_sprite: Sprite2D = %CB2checkSprite
 
-@onready var btn_b_1: Button = %BtnB1
+var cb_entered: int = 1
 
 
 func _ready() -> void:
 	display_data()
 	
-	back_btn.pressed.connect(func():
-		get_tree().change_scene_to_file("res://interface/menus/menu_start.tscn")
+	#entered_cb_1.connect(func():
+		#print("entered_cb_1")
+		#)
+	#entered_cb_2.connect(func():
+		#print("entered_cb_2")
+		#)
+	
+	is_showing.connect(func():
+		btn_b_1.grab_focus()
 		)
 	
-	options_btn.pressed.connect(func():
-		get_tree().change_scene_to_file("res://interface/menus/menu_options.tscn")
+	back_btn.pressed.connect(func():
+		back_button_pressed.emit()
 		)
 	
 	for board_btn: Button in board_btns:
+		var board_num := board_btn.name.to_int()
+		
 		board_btn.pressed.connect(func():
-			goto_level(board_btn.name.to_int())
+			goto_level(board_num)
 			)
+			
+		if board_num >= 1 && board_num <= 10:
+			board_btn.focus_entered.connect(_cb_1_entered)
+			board_btn.mouse_entered.connect(_cb_1_entered)
+			
+		elif board_num >= 11 && board_num <= 20:
+			board_btn.focus_entered.connect(_cb_2_entered)
+			board_btn.mouse_entered.connect(_cb_2_entered)
+		
 	
 	btn_b_1.grab_focus()
+
+
+func _cb_1_entered() -> void:
+	if cb_entered != 1:
+				
+		cb_entered = 1
+		entered_cb_1.emit()
+
+
+func _cb_2_entered() -> void:
+	if cb_entered != 2:
+	
+		cb_entered = 2
+		entered_cb_2.emit()
 
 
 func display_data() -> void:

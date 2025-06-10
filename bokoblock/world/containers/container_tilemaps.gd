@@ -19,7 +19,8 @@ func _ready() -> void:
 	
 
 func _setup_nodes() -> void:
-	self.scale = Vector2.ONE / 2.0
+	#self.scale = Vector2.ONE / 2.0
+	pass
 	
 	#if apply_parent_values && get_parent() is StageWorld:
 		#parent_level_world = get_parent() as StageWorld

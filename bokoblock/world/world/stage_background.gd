@@ -2,14 +2,14 @@
 extends CanvasLayer
 class_name Background
 
-@export var apply_custom_color: bool = false
+@export var apply_custom_color: bool = false ## @experimental
 @export var custom_color: Color
-@export_range(0.0, 1.0, 0.05) var background_dim: float = 0.25:
-	get:
-		return background_dim
-	set(value):
-		bg_dim.self_modulate = Color(Color.WHITE, value)
-		background_dim = value
+@export_range(0.0, 1.0, 0.05) var background_dim: float = 0.25
+	#get:
+		#return background_dim
+	#set(value):
+		#bg_dim.self_modulate = Color(Color.WHITE, value)
+		#background_dim = value
 
 @onready var texture_bg: TextureRect = $Texture/TextureRect
 @onready var texture_node: Node2D = $Texture
@@ -25,6 +25,8 @@ func _ready() -> void:
 
 func _setup_node() -> void:
 	spin_bg()
+	
+	bg_dim.self_modulate = Color(Color.WHITE, background_dim)
 		
 		
 func spin_bg() -> void:

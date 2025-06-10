@@ -40,6 +40,13 @@ window/size/window_width_override=1920
 window/size/window_height_override=1440
 window/stretch/mode="canvas_items"
 
+[editor]
+
+movie_writer/movie_file="/Users/kolo/Documents/Gamedev/vids/boko.avi"
+movie_writer/size/mode=3
+movie_writer/size/window_width_override=1920
+movie_writer/size/viewport_width=960
+
 [global_group]
 
 UIButton=""

@@ -12,11 +12,9 @@ signal letter_showed()
 
 enum BokoPoses {
 	NEUTRAL = 0,
-	WOKE = 1,
 	EXCITED = 69,
 	CONFUSED = 2,
-	DEADPAN = 3,
-	ONE_EYE_OPEN_WHEN_IM_SLEEPIN = 4
+	DEADPAN = 3
 }
 
 @export_multiline var monolog_lines: Array[String] = [
@@ -26,10 +24,10 @@ enum BokoPoses {
 I've heard [rainbow freq=0.4 sat=0.2 val=1.0 speed=0.5][font_size=36]great[/font_size][/rainbow] things about you.",
 	
 	"[color=lightgray]Why hello there![/color]
-My name is [color=yellow][wave amp=25.0 freq=5.0 connected=0.0][font_size=35]Boko[/font_size][/wave][/color],
+My name is [color=yellow][wave amp=25.0 freq=5.0 connected=0.0][font_size=35]Poko[/font_size][/wave][/color],
 call me... [i]uhhh",
 	
-	"Listen, [color=yellow][font_size=35]Boko[/font_size][/color]'s just fine, alright?",
+	"Listen, [color=yellow][font_size=35]Poko[/font_size][/color]'s just fine, alright?",
 	
 	"[rainbow sat=0.2 freq=0.4 val=1.0][tornado radius=1.0 freq=5.0]Are you a thinky type?[/tornado][/rainbow] I would like to play a [shake rate=20.0 level=10][color=yellow]game[/color][/shake] with you!",
 	
@@ -88,6 +86,8 @@ var _going_to_1_1: bool = false
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("game_cancel"):
 		if !skip_btn.disabled:
+			skip_btn.pressed.emit()
+			
 			skip_btn.grab_focus()
 	
 	if event.is_action_pressed("game_next_monolog") && is_boko_awake && !_going_to_1_1:
@@ -138,11 +138,14 @@ func _ready() -> void:
 		match is_pose:
 			# TODO: Add more poses
 			
-			BokoPoses.NEUTRAL, BokoPoses.ONE_EYE_OPEN_WHEN_IM_SLEEPIN, BokoPoses.DEADPAN:
+			BokoPoses.NEUTRAL:
 				# TODO: Play audio
 				top_hat_man.pose_neutral()
-				
-			BokoPoses.WOKE, BokoPoses.CONFUSED:
+			
+			BokoPoses.DEADPAN:
+				top_hat_man.pose_deadpan()
+			
+			BokoPoses.CONFUSED:
 				top_hat_man.pose_woke()
 				
 			BokoPoses.EXCITED:

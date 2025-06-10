@@ -5,7 +5,7 @@ var tween: Tween
 
 func _ready() -> void:
 	pivot_offset = size / 2
-	size_flags_horizontal = SizeFlags.SIZE_SHRINK_CENTER
+	#size_flags_horizontal = SizeFlags.SIZE_SHRINK_CENTER
 	
 	pressed.connect(anim_pressed)
 	mouse_entered.connect(anim_entered)

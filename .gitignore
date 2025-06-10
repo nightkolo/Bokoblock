@@ -1,5 +1,6 @@
 bokoblock/.godot/
 bokoblock/export/
+bokoblock/world/game/playground/
 bokoblock/export_presets.cfg
 .vscode/
 .DS_Store

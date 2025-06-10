@@ -19,7 +19,7 @@ const BBCODE_TXT = "
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if allow_input && !Trans.is_transitioning && !GameLogic.has_won: # Bruh.
+	if allow_input && !Trans.is_transitioning: # Bruh.
 		
 		if event.is_action_pressed("game_pause"):
 			match GameMgr.current_menu:
@@ -33,8 +33,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				GameMgr.Menus.RUNTIME:
 					reset_stage()
 					
-		#if event.is_action_pressed("skip_level"):
-			#GameMgr.goto_next_stage()
+		if event.is_action_pressed("skip_level"):
+			GameMgr.goto_next_stage()
 		#
 		#if event.is_action_pressed("prev_level"):
 			#GameMgr.goto_prev_stage()
@@ -79,7 +79,7 @@ func quit() -> void:
 	GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
 	
 	return_to_run()
-	Trans.slide_to_scene("res://interface/menus/menu_board_select.tscn")
+	Trans.slide_to_scene("res://interface/menus/main_menus_scene.tscn")
 
 	
 func reset_stage() -> void:

@@ -1,17 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2hyhl2j3cera"]
+[gd_scene load_steps=7 format=3 uid="uid://d2hyhl2j3cera"]
 
-[ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_5vas1"]
-[ext_resource type="Theme" uid="uid://cls5uwn5pwpbx" path="res://core/resources/theme/theme_button_sided.tres" id="1_my005"]
 [ext_resource type="PackedScene" uid="uid://wcao18gadugm" path="res://interface/ui/game_title_demo.tscn" id="2_imu71"]
 [ext_resource type="Script" path="res://interface/interactors/menu_title_screen.gd" id="2_qjgxv"]
-[ext_resource type="FontVariation" uid="uid://bpy0c6b217yv1" path="res://core/resources/theme/font_var_button.tres" id="3_mt7dq"]
+[ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="3_qc6yc"]
+[ext_resource type="Script" path="res://interface/animators/anim_button.gd" id="4_ki3e0"]
 
-[sub_resource type="FontVariation" id="FontVariation_n18tc"]
+[sub_resource type="FontVariation" id="FontVariation_225m5"]
 spacing_top = -4
 spacing_bottom = -4
 
 [sub_resource type="LabelSettings" id="LabelSettings_de2am"]
-font = SubResource("FontVariation_n18tc")
+font = SubResource("FontVariation_225m5")
 font_size = 24
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
@@ -19,18 +18,11 @@ shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.5)
 shadow_offset = Vector2(4, 4)
 
-[node name="MainMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_5vas1")
+[node name="TitleScreen" type="CanvasLayer"]
 script = ExtResource("2_qjgxv")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -38,82 +30,83 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.25, 0.1, 0.25, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
+[node name="Main" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Main"]
 layout_mode = 2
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="Main/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/MarginContainer/VBoxContainer3"]
 layout_mode = 2
 
-[node name="GameTitle" parent="MarginContainer/MarginContainer/VBoxContainer3/VBoxContainer" instance=ExtResource("2_imu71")]
+[node name="GameTitle" parent="Main/MarginContainer/VBoxContainer3/VBoxContainer" instance=ExtResource("2_imu71")]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/MarginContainer/VBoxContainer3"]
+[node name="CenterContainer" type="CenterContainer" parent="Main/MarginContainer/VBoxContainer3"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CenterContainer2" type="CenterContainer" parent="MarginContainer/MarginContainer/VBoxContainer3"]
+[node name="CenterContainer2" type="CenterContainer" parent="Main/MarginContainer/VBoxContainer3"]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer3/CenterContainer2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 12
 
-[node name="StartButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2" groups=["UIButton"]]
+[node name="StartButton" type="Button" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2" groups=["UIButton"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 focus_neighbor_top = NodePath("../CreditsButton")
-theme = ExtResource("1_my005")
-theme_override_fonts/font = ExtResource("3_mt7dq")
+theme = ExtResource("3_qc6yc")
 text = "Start"
+script = ExtResource("4_ki3e0")
 
-[node name="SelectStageButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2" groups=["UIButton"]]
+[node name="SelectStageButton" type="Button" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2" groups=["UIButton"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-theme = ExtResource("1_my005")
-theme_override_fonts/font = ExtResource("3_mt7dq")
-text = "Select Stage"
+theme = ExtResource("3_qc6yc")
+text = "Select Board"
+script = ExtResource("4_ki3e0")
 
-[node name="CreditsButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2" groups=["UIButton"]]
+[node name="CreditsButton" type="Button" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2" groups=["UIButton"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 focus_neighbor_bottom = NodePath("../StartButton")
-theme = ExtResource("1_my005")
-theme_override_fonts/font = ExtResource("3_mt7dq")
+theme = ExtResource("3_qc6yc")
 text = "Credits"
+script = ExtResource("4_ki3e0")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Main"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = -5
 
-[node name="CR" type="Label" parent="MarginContainer/VBoxContainer2"]
-visible = false
+[node name="CR" type="Label" parent="Main/VBoxContainer2"]
 layout_mode = 2
 text = "© 2025
 Night Kolo"
 label_settings = SubResource("LabelSettings_de2am")
 
-[node name="DemoInfo" type="Label" parent="MarginContainer/VBoxContainer2"]
+[node name="DemoInfo" type="Label" parent="Main/VBoxContainer2"]
+visible = false
 layout_mode = 2
 text = "Alpha 0
 by Night Kolo"

@@ -4,6 +4,8 @@ class_name WakeUpBoko
 signal have_awoken()
 signal closer_wake(waking: float)
 
+@export var top_hat_man: CharacterChibiBoko
+
 @onready var wake_up_boko_btn: Button = $WakeUpBokoButton
 
 @onready var node_sign_1: Node2D = %Sign1
@@ -54,6 +56,7 @@ func _ready() -> void:
 		else:
 			times_clicked += 1
 			
+			top_hat_man.anim_poke()
 			anim_click()
 			
 			closer_wake.emit( float(times_clicked) / float(times_to_wake) )

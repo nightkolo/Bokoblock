@@ -51,7 +51,9 @@ func _ready() -> void:
 		add_child(dev_ui)
 	
 	if save_stats:
-		GameMgr.game_just_ended.connect(store_stats)
+		if stage_progression:
+			#GameMgr.game_just_ended.connect(store_stats)
+			pass
 		
 		var SL: SaverLoader = SaverLoader.new()
 		add_child(SL)

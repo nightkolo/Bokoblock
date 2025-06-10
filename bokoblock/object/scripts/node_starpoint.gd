@@ -16,12 +16,13 @@ var is_happy: bool = false:
 		return is_happy
 	set(value):
 		if value:
+			audio_entered.play()
 			anim_happy()
 		
 		if value != is_happy && !GameLogic.has_won:
 			if value:
-				#anim_happy()
-				audio_entered.play()
+				pass
+				#audio_entered.play()
 			else:
 				audio_exited.play()
 				
