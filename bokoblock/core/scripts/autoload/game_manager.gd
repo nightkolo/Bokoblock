@@ -57,7 +57,6 @@ func _ready() -> void:
 	if ON_NEWGROUNDS_MIRROR:
 		load_game_medals_data()
 		
-		MedalMgr.unlocked("BOKOBLOCK")
 		MedalMgr.unlock_a_medal("bokoblock")
 	
 	game_end.connect(stage_complete)
@@ -171,7 +170,6 @@ func save_game_medals_data() -> void:
 
 func load_game_medals_data() -> void:
 	saver_loader.load_medals()
-
 
 
 func process_waittime(wait: float = 0.05) -> void: ## @deprecated

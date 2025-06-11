@@ -86,9 +86,11 @@ var _going_to_1_1: bool = false
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("game_cancel"):
 		if !skip_btn.disabled:
-			skip_btn.pressed.emit()
+			#skip_btn.pressed.emit()
 			
-			skip_btn.grab_focus()
+			get_tree().change_scene_to_file("res://interface/menus/main_menus_scene.tscn")
+			
+			#skip_btn.grab_focus()
 	
 	if event.is_action_pressed("game_next_monolog") && is_boko_awake && !_going_to_1_1:
 		goto_next_monolog()

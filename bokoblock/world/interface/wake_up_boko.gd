@@ -41,8 +41,7 @@ func _ready() -> void:
 	_click_sounds = boko_click.get_children()
 	
 	have_awoken.connect(func():
-		MedalMgr.unlocked("Wake Up Poko")
-		MedalMgr.unlock_a_medal("wake_up_call")
+		MedalMgr.unlock_a_medal("wake")
 		
 		var aud := _wake_sounds.pick_random() as AudioStreamPlayer
 		aud.play()

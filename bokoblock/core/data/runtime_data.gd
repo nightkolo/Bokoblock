@@ -94,7 +94,7 @@ static var medal_data: Dictionary = {
 	
 	# Progression
 	"bokoblock": false,
-	"wake_up_call": false,
+	"wake": false,
 	"cb1_comp": false,
 	"cb2_comp": false,
 	"game_comp": false,
@@ -112,7 +112,7 @@ static var medal_data: Dictionary = {
 	"600moves": false,
 	
 	# Misc
-	"poke_the_block": false,
+	"poke": false,
 	"curiosity": false
 }
 static var config_data: Dictionary = {
@@ -123,7 +123,7 @@ const DEFAULT_MEDAL_DATA = {
 	
 	# Progression
 	"bokoblock": false,
-	"wake_up_call": false,
+	"wake": false,
 	"cb1_comp": false,
 	"cb2_comp": false,
 	"game_comp": false,
@@ -141,7 +141,7 @@ const DEFAULT_MEDAL_DATA = {
 	"600moves": false,
 	
 	# Misc
-	"poke_the_block": false,
+	"poke": false,
 	"curiosity": false
 }
 const DEFAULT_GAME_DATA = {

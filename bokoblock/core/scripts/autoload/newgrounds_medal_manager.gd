@@ -11,7 +11,7 @@ func _ready() -> void:
 	# Medals are checkered when GameMgr.game_data_saved is emitted
 	# GameMgr.game_data_saved is emitted by Stage (Level code) on GameMgr.game_just_ended.
 	# Stage sets the runtime_data,
-	# then this autoload checks for progression medals.
+	# then this autoload checks for progression medals from runtime_data.
 	GameMgr.game_data_saved.connect(func():
 		check_board_progression_medals()
 		check_player_stat_medals()
@@ -34,17 +34,26 @@ func unlock_a_medal(medal_code: String) -> void:
 		print("Could not find " + str(medal_code) + " in GameData.medal_data.")
 		return
 	
+	# Unlock checks can cause a complicated issue:
+	# GameData.medal_data only checks for browser sessions, and not the Newgrounds Account specifically.
+	# Why is this a problem? well, if a user unlocks some medals on a Newgrounds account,
+	# Then switches to another Newgrounds account (staying on the same browser),  
+	# The user wouldn't be able to unlock those medals on that account, as again...
+	# GameData.medal_data only checks for BROWSER SESSIONS, and NOT the Newgrounds Account.
+	# Thus, I can't do an unlock check, and instead unlock the medal at all costs. 
+	# ....I'm also hoesntly not skilled enough to troubleshoot this :(
+	
+	#await NG.medal_unlock(medal_id)
+	
 	if GameData.medal_data[medal_code] == false:
 		GameData.medal_data[medal_code] = true
-	
-		#await NG.medal_unlock(medal_id)
 		
 		print("Medal unlocked: ", medal_code)
 		
 		GameMgr.save_game_medals_data()
+	
 
-
-func update_player_moves_stats():
+func update_player_moves_stats() -> void:
 	GameData.runtime_data["moves_made"] += 1
 
 
@@ -57,27 +66,11 @@ func check_player_stat_medals() -> void:
 
 
 func check_board_progression_medals() -> void:
-	#checked("Checkerboard 1 Complete", GameData.runtime_data["101"]["completed"])
-	#checked("Checkerboard 2 Complete", GameData.runtime_data["102"]["completed"])
-	#checked("Poko Approves", GameData.runtime_data["101"]["completed"] == true && GameData.runtime_data["102"]["completed"] == true)
-	#
 	if GameData.runtime_data["101"]["completed"] == true:
-		unlocked("Checkerboard 1 Complete")
 		unlock_a_medal("cb1_comp")
 			
 	if GameData.runtime_data["102"]["completed"] == true:
-		unlocked("Checkerboard 2 Complete")
 		unlock_a_medal("cb2_comp")
 	
 	if GameData.runtime_data["101"]["completed"] == true && GameData.runtime_data["102"]["completed"] == true:
-		unlocked("Poko Approves")
 		unlock_a_medal("game_comp")
-
-
-func checked(medal_example: String, res): ## @deprecated
-	print("Checked: ", medal_example, ". Result: ", str(res))
-
-
-func unlocked(_medal_example: String): ## @deprecated
-	#print("Unlocked: ", medal_example)
-	pass

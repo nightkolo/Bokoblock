@@ -77,7 +77,7 @@ func save_game() -> void:
 
 	file.close()
 	
-	print("Save successful! :D")
+	print("Game save successful! :D")
 
 
 func load_game() -> void:
@@ -104,7 +104,7 @@ func load_game() -> void:
 
 	file.close()
 	
-	print("Load successful! :D")
+	print("Game load successful! :D")
 
 
 func new_game() -> void:
