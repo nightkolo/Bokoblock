@@ -5,6 +5,8 @@ signal game_pause_toggled(is_paused: bool)
 
 @onready var pause_screen: PauseScreen = $PauseMenu
 @onready var checkerboard_complete_screen: CBCompleteScreen = $StageCompleteScreen
+@onready var medal_unlocked_popup: MedalUnlockedPopup = $MedalUnlockedPopup
+
 
 var allow_input: bool = true
 var is_game_paused: bool = false:
@@ -49,7 +51,11 @@ func _ready() -> void:
 	GameMgr.current_ui_handler = self
 	
 
-func the_checkerboard_has_been_checkered() -> void:
+func a_medal_has_been_unlocked() -> void:
+	medal_unlocked_popup.anim_medal_unlocked()
+	
+	
+func the_checkerboard_has_been_checkered() -> void: ## ???
 	checkerboard_complete_screen.open()
 
 	

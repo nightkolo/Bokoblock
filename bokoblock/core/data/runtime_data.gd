@@ -90,57 +90,59 @@ static var runtime_data: Dictionary = {
 	}
 }
 static var medal_data: Dictionary = {
-	# Progression
+	# HARD_CODED - DO NOT MODIFY UNLESS YOU KNOW WHAT YOU'RE DOING.
 	
-	"Welcome to BOKOBLOCK": false,
-	"Wake Up Call": false,
-	"CB1Complete": false,
-	"CB2Complete": false,
-	"GameComplete": false,
+	# Progression
+	"bokoblock": false,
+	"wake_up_call": false,
+	"cb1_comp": false,
+	"cb2_comp": false,
+	"game_comp": false,
 	
 	# Board-specific
-	"Your Moves are Precious": false,
-	"A Block for a Block": false,
-	"Count your Steps": false,
-	"Watch your Step": false,
-	"Pharaoh's Tomb": false,
-	"Blocks in Black": false,
+	"4_1": false,
+	"5_1": false,
+	"6_1": false,
+	"14_1": false,
+	"15_1": false,
+	"20_1": false,
 	
 	# Stats
-	"Move King": false,
-	"Move Maestro": false,
+	"200moves": false,
+	"600moves": false,
 	
 	# Misc
-	"Poke the Block": false,
-	"Curiosity": false
+	"poke_the_block": false,
+	"curiosity": false
 }
 static var config_data: Dictionary = {
 	
 }
 const DEFAULT_MEDAL_DATA = {
-	# Progression
+	# HARD_CODED - DO NOT MODIFY UNLESS YOU KNOW WHAT YOU'RE DOING.
 	
-	"Welcome to BOKOBLOCK": false,
-	"Wake Up Call": false,
-	"CB1Complete": false,
-	"CB2Complete": false,
-	"GameComplete": false,
+	# Progression
+	"bokoblock": false,
+	"wake_up_call": false,
+	"cb1_comp": false,
+	"cb2_comp": false,
+	"game_comp": false,
 	
 	# Board-specific
-	"Your Moves are Precious": false,
-	"A Block for a Block": false,
-	"Count your Steps": false,
-	"Watch your Step": false,
-	"Pharaoh's Tomb": false,
-	"Blocks in Black": false,
+	"4_1": false,
+	"5_1": false,
+	"6_1": false,
+	"14_1": false,
+	"15_1": false,
+	"20_1": false,
 	
 	# Stats
-	"Move King": false,
-	"Move Maestro": false,
+	"200moves": false,
+	"600moves": false,
 	
 	# Misc
-	"Poke the Block": false,
-	"Curiosity": false
+	"poke_the_block": false,
+	"curiosity": false
 }
 const DEFAULT_GAME_DATA = {
 	"first_session": true,

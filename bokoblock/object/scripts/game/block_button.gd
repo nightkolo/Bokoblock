@@ -14,5 +14,7 @@ func _on_pressed():
 		if block.animator:
 			block.animator.anim_poke()
 			
-			MedalMgr.unlocked("Poke the Blocks")
-			#MedalMgr.unlock_a_medal()
+			if GameData.medal_data["poke_the_block"] == false: 
+				GameMgr.current_ui_handler.a_medal_has_been_unlocked()
+			
+				MedalMgr.unlock_a_medal("poke_the_block")

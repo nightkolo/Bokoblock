@@ -39,14 +39,14 @@ func load_medals() -> void:
 
 	var file: FileAccess = FileAccess.open(MEDAL_SAVE_LOCATION, FileAccess.READ)
 	
-	var saved_data = JSON.parse_string(file.get_as_text())
+	var saved_medals = JSON.parse_string(file.get_as_text())
 	
-	if typeof(saved_data) != TYPE_DICTIONARY:
-		push_error("Invalid save file format.")
+	if typeof(saved_medals) != TYPE_DICTIONARY:
+		push_error("Invalid medal save file format.")
 		new_game_medals()
 		return
 	
-	GameData.medal_data = (saved_data as Dictionary).duplicate(true)
+	GameData.medal_data = (saved_medals as Dictionary).duplicate(true)
 	
 	medals_loaded.emit()
 	GameMgr.game_medals_data_loaded.emit()

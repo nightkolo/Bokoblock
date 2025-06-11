@@ -16,10 +16,14 @@
 [ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="10_1ij0t"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="10_y58fl"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="11_th0if"]
-[ext_resource type="Script" path="res://world/game/scripts/board_medal_unlocker.gd" id="17_8rwwf"]
+[ext_resource type="Script" path="res://world/game/scripts/component_board_medal_unlocker.gd" id="17_8rwwf"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_pb1e4")
+
+[node name="BoardMedalUnlockerComponent" type="Node" parent="." node_paths=PackedStringArray("body_of_interest_1")]
+script = ExtResource("17_8rwwf")
+body_of_interest_1 = NodePath("../BoardObjects/Bokobody")
 
 [node name="UI" parent="." instance=ExtResource("2_wo7hu")]
 
@@ -113,8 +117,3 @@ boko_color = 2
 [node name="Block4" parent="BoardObjects/Bokobody" instance=ExtResource("8_bmhxp")]
 position = Vector2(0, 45)
 boko_color = 2
-
-[node name="MedalUnlockerComponent" type="Node" parent="." node_paths=PackedStringArray("body_of_interest_1")]
-script = ExtResource("17_8rwwf")
-current_board = 1
-body_of_interest_1 = NodePath("../BoardObjects/Bokobody")

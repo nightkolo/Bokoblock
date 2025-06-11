@@ -16,10 +16,13 @@
 [ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="10_3ieox"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_imbd3"]
 [ext_resource type="PackedScene" uid="uid://bp0yxas1oob3e" path="res://object/objects/obj_sleeping_block.tscn" id="11_f77q7"]
-[ext_resource type="Script" path="res://world/game/scripts/board_medal_unlocker.gd" id="17_x44c8"]
+[ext_resource type="Script" path="res://world/game/scripts/component_board_medal_unlocker.gd" id="17_x44c8"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_6fa5p")
+
+[node name="BoardMedalUnlockerComponent" type="Node" parent="."]
+script = ExtResource("17_x44c8")
 
 [node name="UI" parent="." instance=ExtResource("2_1itnh")]
 
@@ -124,7 +127,3 @@ boko_color = 1
 [node name="Block3" parent="BoardObjects/Bokobody2" instance=ExtResource("8_uqj2n")]
 position = Vector2(0, -45)
 boko_color = 1
-
-[node name="MedalUnlockerComponent" type="Node" parent="."]
-script = ExtResource("17_x44c8")
-current_board = 2

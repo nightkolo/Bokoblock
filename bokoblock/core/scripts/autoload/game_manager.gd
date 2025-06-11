@@ -58,7 +58,7 @@ func _ready() -> void:
 		load_game_medals_data()
 		
 		MedalMgr.unlocked("BOKOBLOCK")
-		#await MedalMgr.unlock_a_medal()
+		MedalMgr.unlock_a_medal("bokoblock")
 	
 	game_end.connect(stage_complete)
 	

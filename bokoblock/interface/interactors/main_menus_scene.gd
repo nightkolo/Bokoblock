@@ -71,6 +71,9 @@ func _ready() -> void:
 	
 	menu_title.credits_btn_pressed.connect(func():
 		enter_main_menu(MainMenus.CREDITS)
+		
+		MedalMgr.unlocked("curiosity")
+		MedalMgr.unlock_a_medal("curiosity")
 		)
 	
 	for menu: MainMenu in menus:

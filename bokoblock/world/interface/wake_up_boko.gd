@@ -42,7 +42,7 @@ func _ready() -> void:
 	
 	have_awoken.connect(func():
 		MedalMgr.unlocked("Wake Up Poko")
-		#MedalMgr.unlock_a_medal()
+		MedalMgr.unlock_a_medal("wake_up_call")
 		
 		var aud := _wake_sounds.pick_random() as AudioStreamPlayer
 		aud.play()
