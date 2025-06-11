@@ -30,6 +30,7 @@ var _moves_counted: int = 0:
 	get:
 		return _moves_counted
 	set(value):
+		print(value)
 		_moves_counted = mini(999, value)
 
 
@@ -52,8 +53,8 @@ func _ready() -> void:
 	
 	if save_stats:
 		if stage_progression:
-			#GameMgr.game_just_ended.connect(store_stats)
-			pass
+			GameMgr.game_just_ended.connect(store_stats)
+			
 		
 		var SL: SaverLoader = SaverLoader.new()
 		add_child(SL)

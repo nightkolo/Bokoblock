@@ -100,6 +100,7 @@ size_flags_vertical = 8
 theme_override_constants/separation = -5
 
 [node name="CR" type="Label" parent="Main/VBoxContainer2"]
+self_modulate = Color(0.15, 0.15, 0.15, 1)
 layout_mode = 2
 text = "© 2025
 Night Kolo"

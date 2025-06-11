@@ -7,12 +7,15 @@ signal game_end()
 signal game_reset()
 signal game_data_saved()
 signal game_data_loaded()
+signal game_medals_data_saved()
+signal game_medals_data_loaded()
 
 enum Menus {
 	MENUS = 0,
 	PAUSE = 1,
 	CHECKERBOARD_COMPLETE = 2,
 	START = 3,
+	CREDITS = 4,
 	RUNTIME = 99
 }
 
@@ -51,6 +54,12 @@ func _ready() -> void:
 	
 	load_game_data() 
 	
+	if ON_NEWGROUNDS_MIRROR:
+		load_game_medals_data()
+		
+		MedalMgr.unlocked("BOKOBLOCK")
+		#await MedalMgr.unlock_a_medal()
+	
 	game_end.connect(stage_complete)
 	
 	menu_entered.connect(func(entered: Menus):
@@ -70,6 +79,7 @@ func _ready() -> void:
 
 
 func stage_complete() -> void:
+	@warning_ignore("integer_division")
 	if current_board_id / current_checkerboard_id == 10:
 		open_checkerboard_complete_screen()
 	else:
@@ -98,7 +108,8 @@ func goto_next_stage(force_progression: bool = false) -> void:
 	if next_lvl_id <= GameUtil.NUMBER_OF_BOARDS: 
 		Trans.slide_to_next_stage(next_lvl_path)
 	else:
-		Trans.slide_to_next_stage("res://interface/menus/thank_you_screen.tscn")
+		Trans.slide_to_credits()
+		#Trans.slide_to_next_stage("res://interface/menus/main_menus_scene.tscn")
 
 
 func goto_next_checkerboard() -> void:
@@ -152,6 +163,15 @@ func save_game_data() -> void:
 
 func load_game_data() -> void:
 	saver_loader.load_game()
+
+
+func save_game_medals_data() -> void:
+	saver_loader.save_medals()
+
+
+func load_game_medals_data() -> void:
+	saver_loader.load_medals()
+
 
 
 func process_waittime(wait: float = 0.05) -> void: ## @deprecated

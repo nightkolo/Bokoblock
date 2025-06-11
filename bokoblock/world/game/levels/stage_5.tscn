@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://dhmvqkbijliqf"]
+[gd_scene load_steps=18 format=4 uid="uid://dhmvqkbijliqf"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_pb1e4"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_fvmt0"]
@@ -16,8 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="10_1ij0t"]
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="10_y58fl"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="11_th0if"]
+[ext_resource type="Script" path="res://world/game/scripts/board_medal_unlocker.gd" id="17_8rwwf"]
 
-[node name="S5" type="Node2D"]
+[node name="Board" type="Node2D"]
 script = ExtResource("1_pb1e4")
 
 [node name="UI" parent="." instance=ExtResource("2_wo7hu")]
@@ -26,36 +27,36 @@ script = ExtResource("1_pb1e4")
 position = Vector2(518, 338)
 zoom = Vector2(1.3, 1.3)
 
-[node name="StageWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("3_euyvo")]
+[node name="BoardWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("3_euyvo")]
 color_pallete = 1
 tile_maps = NodePath("TM")
 
-[node name="StageLight" type="PointLight2D" parent="StageWorld"]
+[node name="StageLight" type="PointLight2D" parent="BoardWorld"]
 position = Vector2(450.5, 338)
 scale = Vector2(6.32813, 7.03125)
 range_item_cull_mask = 2
 texture = ExtResource("6_w7u2f")
 script = ExtResource("7_syf41")
 
-[node name="TM" type="Node2D" parent="StageWorld"]
+[node name="TM" type="Node2D" parent="BoardWorld"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("4_1giat")
 
-[node name="Collision" type="TileMapLayer" parent="StageWorld/TM"]
+[node name="Collision" type="TileMapLayer" parent="BoardWorld/TM"]
 tile_map_data = PackedByteArray("AAAKAAYAAQAAAAQAAAAJAAYAAQAAAAQAAAAIAAYAAQAAAAQAAAAHAAYAAQAAAAQAAAAGAAYAAQAAAAQAAAAFAAYAAQAAAAQAAAAGAAIAAQAAAAQAAAAHAAIAAQAAAAQAAAAIAAIAAQAAAAQAAAAJAAIAAQAAAAQAAAAKAAIAAQAAAAQAAAALAAIAAQAAAAQAAAAMAAIAAQAAAAQAAAAOAAMAAQAAAAQAAAAOAAQAAQAAAAQAAAAOAAUAAQAAAAQAAAAKAAcAAQAAAAQAAAAKAAgAAQAAAAQAAAAOAAkAAQAAAAQAAAAOAAgAAQAAAAQAAAAOAAcAAQAAAAQAAAAOAAYAAQAAAAQAAAAOAAoAAQAAAAQAAAANAAIAAQAAAAQAAAANAAMAAQAAAAQAAAAFAAMAAQAAAAQAAAAKAAkAAQAAAAQAAAAKAAoAAQAAAAQAAAAFAAUAAQAAAAQAAAAFAAQAAQAAAAQAAAAGAAMAAQAAAAQAAAANAAsAAQAAAAQAAAAKAAwAAQAAAAQAAAALAAwAAQAAAAQAAAAMAAwAAQAAAAQAAAAKAAsAAQAAAAQAAAAOAAsAAQAAAAQAAAANAAwAAQAAAAQAAAA=")
 tile_set = ExtResource("5_lv4gk")
 
-[node name="Checkerboard" type="TileMapLayer" parent="StageWorld/TM"]
+[node name="Checkerboard" type="TileMapLayer" parent="BoardWorld/TM"]
 self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
 light_mask = 2
 tile_map_data = PackedByteArray("AAAGAAQABwABAAEAAAAGAAUABwABAAIAAAAHAAMABwACAAAAAAAHAAQABwACAAEAAAAHAAUABwACAAIAAAAIAAMABwADAAAAAAAIAAQABwADAAEAAAAIAAUABwADAAIAAAAJAAMABwAAAAAAAAAJAAQABwAAAAEAAAAJAAUABwAAAAIAAAAKAAMABwABAAAAAAAKAAQABwABAAEAAAAKAAUABwABAAIAAAALAAMABwACAAAAAAALAAQABwACAAEAAAALAAUABwACAAIAAAALAAYABwACAAMAAAAMAAMABwADAAAAAAAMAAQABwADAAEAAAAMAAUABwADAAIAAAAMAAYABwADAAMAAAALAAcABwACAAAAAAALAAgABwACAAEAAAALAAkABwACAAIAAAALAAoABwACAAMAAAAMAAcABwADAAAAAAAMAAgABwADAAEAAAAMAAkABwADAAIAAAAMAAoABwADAAMAAAALAAsABwACAAAAAAAMAAsABwADAAAAAAANAAcABwAAAAAAAAANAAgABwAAAAEAAAANAAkABwAAAAIAAAANAAoABwAAAAMAAAANAAQABwAAAAEAAAANAAUABwAAAAIAAAANAAYABwAAAAMAAAA=")
 tile_set = ExtResource("5_lv4gk")
 
-[node name="Outline" type="TileMapLayer" parent="StageWorld/TM"]
+[node name="Outline" type="TileMapLayer" parent="BoardWorld/TM"]
 tile_map_data = PackedByteArray("AAAOAAsAAQAFAAEAAAAOAAoAAQAIAAEAAAAOAAkAAQAIAAEAAAAOAAgAAQAIAAEAAAAOAAcAAQAIAAEAAAAOAAYAAQAIAAEAAAAOAAUAAQAIAAEAAAAOAAQAAQAIAAEAAAAOAAMAAQAFAAIAAAANAAMAAQAIAAMAAAANAAIAAQAFAAIAAAAMAAIAAQAJAAMAAAALAAIAAQAJAAMAAAAKAAIAAQAJAAMAAAAJAAIAAQAJAAMAAAAIAAIAAQAJAAMAAAAHAAIAAQAJAAMAAAAGAAIAAQAGAAIAAAAGAAMAAQALAAMAAAAFAAMAAQAGAAIAAAAFAAQAAQALAAIAAAAFAAUAAQALAAIAAAAFAAYAAQAGAAEAAAAGAAYAAQAKAAAAAAAHAAYAAQAKAAAAAAAIAAYAAQAKAAAAAAAJAAYAAQAKAAAAAAAKAAYAAQALAAAAAAAKAAcAAQALAAIAAAAKAAgAAQALAAIAAAAKAAkAAQALAAIAAAAKAAoAAQALAAIAAAAKAAsAAQALAAIAAAAKAAwAAQAGAAEAAAALAAwAAQAKAAAAAAAMAAwAAQAKAAAAAAANAAwAAQAFAAEAAAANAAsAAQAIAAAAAAADAAEAAQAKAAAAAAADAAIAAQAJAAIAAAADAAMAAQAJAAIAAAADAAQAAQAJAAIAAAADAAUAAQAJAAIAAAADAAYAAQAJAAIAAAADAAcAAQAJAAIAAAADAAgAAQAJAAIAAAADAAkAAQAJAAIAAAADAAoAAQAJAAIAAAADAAsAAQAJAAIAAAADAAwAAQAJAAIAAAADAA0AAQAJAAMAAAAEAA0AAQAJAAMAAAAFAA0AAQAJAAMAAAAGAA0AAQAJAAMAAAAHAA0AAQAJAAMAAAAIAA0AAQAJAAMAAAAJAA0AAQAJAAMAAAAKAA0AAQAJAAMAAAALAA0AAQAJAAMAAAAMAA0AAQAJAAMAAAANAA0AAQAJAAMAAAAOAA0AAQAJAAMAAAAPAA0AAQAJAAMAAAAQAA0AAQAJAAMAAAARAA0AAQAJAAMAAAASAA0AAQAJAAMAAAAVAA0AAQALAAMAAAAUAA0AAQAJAAMAAAATAA0AAQAJAAMAAAAVAAwAAQALAAIAAAAVAAsAAQALAAIAAAAVAAkAAQALAAIAAAAVAAoAAQALAAIAAAAVAAgAAQALAAIAAAAVAAcAAQALAAIAAAAVAAYAAQALAAIAAAAVAAUAAQALAAIAAAAVAAMAAQALAAIAAAATAAEAAQAKAAAAAAASAAEAAQAKAAAAAAARAAEAAQAKAAAAAAAQAAEAAQAKAAAAAAAPAAEAAQAKAAAAAAAOAAEAAQAKAAAAAAANAAEAAQAKAAAAAAAMAAEAAQAKAAAAAAALAAEAAQAKAAAAAAAKAAEAAQAKAAAAAAAJAAEAAQAKAAAAAAAIAAEAAQAKAAAAAAAHAAEAAQAKAAAAAAAGAAEAAQAKAAAAAAAFAAEAAQAKAAAAAAAEAAEAAQAKAAAAAAAVAAIAAQALAAIAAAAVAAEAAQALAAAAAAAUAAEAAQAKAAAAAAAVAAQAAQALAAIAAAAJAAwAAQAJAAIAAAAJAAsAAQAJAAIAAAAJAAoAAQAJAAIAAAAJAAkAAQAJAAIAAAAJAAgAAQAJAAIAAAAJAAcAAQAJAAIAAAAIAAwAAQAJAAIAAAAIAAsAAQAJAAIAAAAIAAoAAQAJAAIAAAAIAAkAAQAJAAIAAAAIAAgAAQAJAAIAAAAIAAcAAQAJAAIAAAAHAAwAAQAJAAIAAAAHAAsAAQAJAAIAAAAHAAoAAQAJAAIAAAAHAAkAAQAJAAIAAAAHAAgAAQAJAAIAAAAHAAcAAQAJAAIAAAAGAAwAAQAJAAIAAAAGAAsAAQAJAAIAAAAGAAoAAQAJAAIAAAAGAAkAAQAJAAIAAAAGAAgAAQAJAAIAAAAGAAcAAQAJAAIAAAAFAAwAAQAJAAIAAAAFAAsAAQAJAAIAAAAFAAoAAQAJAAIAAAAFAAkAAQAJAAIAAAAFAAgAAQAJAAIAAAAFAAcAAQAJAAIAAAAFAAIAAQAJAAIAAAAEAAwAAQAJAAIAAAAEAAsAAQAJAAIAAAAEAAoAAQAJAAIAAAAEAAkAAQAJAAIAAAAEAAgAAQAJAAIAAAAEAAcAAQAJAAIAAAAEAAYAAQAJAAIAAAAEAAUAAQAJAAIAAAAEAAQAAQAJAAIAAAAEAAMAAQAJAAIAAAAEAAIAAQAJAAIAAAAUAAwAAQAJAAIAAAAUAAsAAQAJAAIAAAAUAAoAAQAJAAIAAAAUAAkAAQAJAAIAAAAUAAgAAQAJAAIAAAAUAAcAAQAJAAIAAAAUAAYAAQAJAAIAAAAUAAUAAQAJAAIAAAAUAAQAAQAJAAIAAAAUAAMAAQAJAAIAAAAUAAIAAQAJAAIAAAATAAwAAQAJAAIAAAATAAsAAQAJAAIAAAATAAoAAQAJAAIAAAATAAkAAQAJAAIAAAATAAgAAQAJAAIAAAATAAcAAQAJAAIAAAATAAYAAQAJAAIAAAATAAUAAQAJAAIAAAATAAQAAQAJAAIAAAATAAMAAQAJAAIAAAATAAIAAQAJAAIAAAASAAwAAQAJAAIAAAASAAsAAQAJAAIAAAASAAoAAQAJAAIAAAASAAkAAQAJAAIAAAASAAgAAQAJAAIAAAASAAcAAQAJAAIAAAASAAYAAQAJAAIAAAASAAUAAQAJAAIAAAASAAQAAQAJAAIAAAASAAMAAQAJAAIAAAASAAIAAQAJAAIAAAARAAwAAQAJAAIAAAARAAsAAQAJAAIAAAARAAoAAQAJAAIAAAARAAkAAQAJAAIAAAARAAgAAQAJAAIAAAARAAcAAQAJAAIAAAARAAYAAQAJAAIAAAARAAUAAQAJAAIAAAARAAQAAQAJAAIAAAARAAMAAQAJAAIAAAARAAIAAQAJAAIAAAAQAAwAAQAJAAIAAAAQAAsAAQAJAAIAAAAQAAoAAQAJAAIAAAAQAAkAAQAJAAIAAAAQAAgAAQAJAAIAAAAQAAcAAQAJAAIAAAAQAAYAAQAJAAIAAAAQAAUAAQAJAAIAAAAQAAQAAQAJAAIAAAAQAAMAAQAJAAIAAAAQAAIAAQAJAAIAAAAPAAwAAQAJAAIAAAAPAAsAAQAJAAIAAAAPAAoAAQAJAAIAAAAPAAkAAQAJAAIAAAAPAAgAAQAJAAIAAAAPAAcAAQAJAAIAAAAPAAYAAQAJAAIAAAAPAAUAAQAJAAIAAAAPAAQAAQAJAAIAAAAPAAMAAQAJAAIAAAAPAAIAAQAJAAIAAAAOAAwAAQAJAAIAAAAOAAIAAQAJAAIAAAACAAEAAQAIAAAAAAACAAIAAQAIAAEAAAACAAMAAQAIAAEAAAACAAQAAQAIAAEAAAACAAUAAQAIAAEAAAACAAYAAQAIAAEAAAACAAcAAQAIAAEAAAACAAgAAQAIAAEAAAACAA0AAQAIAAMAAAACAAwAAQAIAAEAAAACAAsAAQAIAAEAAAACAAoAAQAIAAEAAAACAAkAAQAIAAEAAAA=")
 tile_set = ExtResource("5_lv4gk")
 
-[node name="ChibiBoko" parent="StageWorld" instance=ExtResource("8_6ewiw")]
+[node name="ChibiBoko" parent="BoardWorld" instance=ExtResource("8_6ewiw")]
 position = Vector2(698, 248)
 info_text = "Sleepy Blocks
  are sleep
@@ -64,51 +65,56 @@ info_text = "Sleepy Blocks
  University."
 sleep = true
 
-[node name="BoardNumber" parent="StageWorld" instance=ExtResource("10_1ij0t")]
+[node name="BoardNumber" parent="BoardWorld" instance=ExtResource("10_1ij0t")]
 position = Vector2(698, 473)
 
-[node name="StageObjects" type="Node2D" parent="."]
+[node name="BoardObjects" type="Node2D" parent="."]
 script = ExtResource("6_tvaxc")
 
-[node name="SleepingBlock" parent="StageObjects" instance=ExtResource("9_rdjro")]
+[node name="SleepingBlock" parent="BoardObjects" instance=ExtResource("9_rdjro")]
 position = Vector2(473, 248)
 
-[node name="SleepingBlock2" parent="StageObjects" instance=ExtResource("9_rdjro")]
+[node name="SleepingBlock2" parent="BoardObjects" instance=ExtResource("9_rdjro")]
 position = Vector2(608, 293)
 
-[node name="Endpoints" type="Node2D" parent="StageObjects"]
+[node name="Endpoints" type="Node2D" parent="BoardObjects"]
 position = Vector2(563, 473)
 script = ExtResource("10_y58fl")
 overwrite = true
 what_theyre_happy_with = 2
 
-[node name="Starpoint" parent="StageObjects/Endpoints" instance=ExtResource("11_th0if")]
+[node name="Starpoint" parent="BoardObjects/Endpoints" instance=ExtResource("11_th0if")]
 position = Vector2(0, -45)
 
-[node name="Starpoint2" parent="StageObjects/Endpoints" instance=ExtResource("11_th0if")]
+[node name="Starpoint2" parent="BoardObjects/Endpoints" instance=ExtResource("11_th0if")]
 position = Vector2(0, -90)
 
-[node name="Starpoint3" parent="StageObjects/Endpoints" instance=ExtResource("11_th0if")]
+[node name="Starpoint3" parent="BoardObjects/Endpoints" instance=ExtResource("11_th0if")]
 position = Vector2(45, -90)
 
-[node name="Starpoint4" parent="StageObjects/Endpoints" instance=ExtResource("11_th0if")]
+[node name="Starpoint4" parent="BoardObjects/Endpoints" instance=ExtResource("11_th0if")]
 position = Vector2(-45, -90)
 
-[node name="Bokobody" type="Node2D" parent="StageObjects"]
+[node name="Bokobody" type="Node2D" parent="BoardObjects"]
 position = Vector2(338, 203)
 script = ExtResource("7_hls8j")
 
-[node name="Block" parent="StageObjects/Bokobody" instance=ExtResource("8_bmhxp")]
+[node name="Block" parent="BoardObjects/Bokobody" instance=ExtResource("8_bmhxp")]
 boko_color = 2
 
-[node name="Block2" parent="StageObjects/Bokobody" instance=ExtResource("8_bmhxp")]
+[node name="Block2" parent="BoardObjects/Bokobody" instance=ExtResource("8_bmhxp")]
 position = Vector2(0, -45)
 boko_color = 2
 
-[node name="Block3" parent="StageObjects/Bokobody" instance=ExtResource("8_bmhxp")]
+[node name="Block3" parent="BoardObjects/Bokobody" instance=ExtResource("8_bmhxp")]
 position = Vector2(-45, 0)
 boko_color = 2
 
-[node name="Block4" parent="StageObjects/Bokobody" instance=ExtResource("8_bmhxp")]
+[node name="Block4" parent="BoardObjects/Bokobody" instance=ExtResource("8_bmhxp")]
 position = Vector2(0, 45)
 boko_color = 2
+
+[node name="MedalUnlockerComponent" type="Node" parent="." node_paths=PackedStringArray("body_of_interest_1")]
+script = ExtResource("17_8rwwf")
+current_board = 1
+body_of_interest_1 = NodePath("../BoardObjects/Bokobody")

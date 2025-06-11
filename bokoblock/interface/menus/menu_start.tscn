@@ -65,7 +65,7 @@ fit_content = true
 layout_mode = 2
 size_flags_vertical = 8
 bbcode_enabled = true
-text = "[center][font_size=24.0][color=#FFFFFFBF]A Demo by [color=#FFFFFFFF]Night Kolo"
+text = "[center][font_size=24.0][color=#FFFFFFBF]A Game by [color=#FFFFFFFF]Night Kolo"
 fit_content = true
 
 [node name="MusicAuthor" type="RichTextLabel" parent="MarginContainer/VBoxContainer2"]
@@ -107,6 +107,7 @@ text = "[center][font_size=40]Start?"
 fit_content = true
 
 [node name="Label" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 646.0
 offset_top = 78.0

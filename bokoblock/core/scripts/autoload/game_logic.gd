@@ -103,10 +103,6 @@ func check_if_bodies_stopped(_is_body: Bokobody) -> void:
 
 	are_bodies_moving = _bodies_stopped != num_of_bodies
 	
-	print("")
-	print(_bodies_stopped)
-	print(num_of_bodies)
-	
 	if !are_bodies_moving:
 		bodies_stopped.emit()
 		_bodies_stopped = 0

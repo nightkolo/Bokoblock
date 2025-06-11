@@ -79,6 +79,16 @@ what_im_happy_with = 3
 position = Vector2(607, 472)
 what_im_happy_with = 3
 
+[node name="Endpoint5" parent="SO/Endpoints" instance=ExtResource("11_k8e1v")]
+position = Vector2(518, 338)
+what_im_happy_with = 2
+
+[node name="Endpoint6" parent="SO/Endpoints" instance=ExtResource("11_k8e1v")]
+position = Vector2(563, 338)
+
+[node name="Endpoint7" parent="SO/Endpoints" instance=ExtResource("11_k8e1v")]
+position = Vector2(608, 338)
+
 [node name="Bokobody" type="Node2D" parent="SO"]
 position = Vector2(653, 248)
 script = ExtResource("12_i1axy")
@@ -99,12 +109,10 @@ position = Vector2(473, 473)
 script = ExtResource("12_i1axy")
 
 [node name="Block" parent="SO/Bokobody2" instance=ExtResource("13_roete")]
-boko_color = 99
 
 [node name="Block3" parent="SO/Bokobody2" instance=ExtResource("13_roete")]
-position = Vector2(0, -45)
-boko_color = 99
+position = Vector2(0, 45)
 
 [node name="Block4" parent="SO/Bokobody2" instance=ExtResource("13_roete")]
-position = Vector2(0, 45)
-boko_color = 99
+position = Vector2(0, -45)
+boko_color = 2

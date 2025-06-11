@@ -36,7 +36,11 @@ var _tween_cb: Tween
 
 
 func _ready() -> void:
-	GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
+	if GameMgr.current_menu == GameMgr.Menus.CREDITS:
+		enter_main_menu(MainMenus.CREDITS)
+	else:
+		enter_main_menu(MainMenus.TITLE)
+		GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
 	
 	menu_title.start_btn.grab_focus()
 	
@@ -62,6 +66,7 @@ func _ready() -> void:
 	
 	menu_title.select_board_btn_pressed.connect(func():
 		enter_main_menu(MainMenus.BOARD_SELECT)
+		menu_board_select.display_data()
 		)
 	
 	menu_title.credits_btn_pressed.connect(func():

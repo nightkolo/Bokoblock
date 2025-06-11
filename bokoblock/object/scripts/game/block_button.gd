@@ -13,3 +13,6 @@ func _on_pressed():
 	if block is Bokoblock:
 		if block.animator:
 			block.animator.anim_poke()
+			
+			MedalMgr.unlocked("Poke the Blocks")
+			#MedalMgr.unlock_a_medal()

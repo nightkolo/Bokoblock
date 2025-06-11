@@ -69,7 +69,6 @@ func _ready() -> void:
 	if !no_move:
 		GameLogic.current_bodies.append(self)
 		
-		
 		PlayerInput.input_move.connect(move)
 		PlayerInput.input_turn.connect(turn)
 	
@@ -82,7 +81,6 @@ func _ready() -> void:
 		animator = anim
 	
 	await get_tree().create_timer(0.05).timeout
-	
 	
 	(child_blocks[0] as Bokoblock).blackpoint_interacted.connect(entered_blackpoint)
 	

@@ -23,11 +23,12 @@ func _ready() -> void:
 		pass
 		)
 
-func display_data():
+
+func display_data() -> void:
 	board_id = self.name.to_int()
 	
 	var board_num: String = str(board_id)
-	
+
 	if !GameData.runtime_data.has(board_num):
 		push_warning("Cannot display data. Key %s not found in GameData.runtime_data." % board_num)
 		return
@@ -35,13 +36,13 @@ func display_data():
 	if !(board_id >= 0 && board_id <= GameUtil.NUMBER_OF_BOARDS):
 		push_warning("Cannot display data. Key %s is out of bounds from GameUtil.NUMBER_OF_BOARDS." % board_num)
 		return
-		
-	if GameData.runtime_data[board_num]["completed"]:
+	
+	if GameData.runtime_data[board_num]["completed"] == true:
 		var check := board_checkmark.instantiate()
 		add_child(check)
 
 
-func anim_pressed():
+func anim_pressed() -> void:
 	var dur := 1.0
 	
 	Audio.ui_button_click.play()
@@ -56,7 +57,7 @@ func anim_pressed():
 	tween.tween_property(self, "scale", Vector2.ONE, dur)
 
 
-func anim_entered():
+func anim_entered() -> void:
 	var dur := 0.75
 	var scale_to := Vector2.ONE * 1.15
 	
@@ -73,7 +74,7 @@ func anim_entered():
 	
 	
 		
-func play_aud():
+func play_aud() -> void:
 	var aud := Audio.ui_button_hover.duplicate() as AudioStreamPlayer
 	add_child(aud)
 	aud.pitch_scale = randf_range(0.8, 1.2)
@@ -83,7 +84,7 @@ func play_aud():
 	aud.queue_free()
 
 
-func anim_exited():
+func anim_exited() -> void:
 	var dur := 0.75
 	
 	self_modulate = Color(Color.WHITE*1.0)

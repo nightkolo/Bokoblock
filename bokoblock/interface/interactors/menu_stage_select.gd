@@ -36,13 +36,16 @@ func _ready() -> void:
 	
 	is_showing.connect(func():
 		btn_b_1.grab_focus()
+		
+		for board_btn: BoardSelectButton in board_btns:
+			board_btn.display_data()
 		)
 	
 	back_btn.pressed.connect(func():
 		back_button_pressed.emit()
 		)
 	
-	for board_btn: Button in board_btns:
+	for board_btn: BoardSelectButton in board_btns:
 		var board_num := board_btn.name.to_int()
 		
 		board_btn.pressed.connect(func():

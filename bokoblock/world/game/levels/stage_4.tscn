@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://lgffitdp3bb5"]
+[gd_scene load_steps=17 format=4 uid="uid://lgffitdp3bb5"]
 
 [ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_377xv"]
 [ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="2_1vhod"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://object/scripts/game/container_endpoints.gd" id="9_p00od"]
 [ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="10_43ubv"]
 [ext_resource type="PackedScene" uid="uid://dc3cprf4ks4be" path="res://object/objects/obj_starpoint.tscn" id="10_621oc"]
+[ext_resource type="Script" path="res://world/game/scripts/board_medal_unlocker.gd" id="16_e560l"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_377xv")
@@ -130,3 +131,6 @@ boko_color = 1
 [node name="Block3" parent="BoardObjects/Bokobody2" instance=ExtResource("8_dcm4r")]
 position = Vector2(45, 0)
 boko_color = 1
+
+[node name="BoardMedalUnlockerComponent" type="Node" parent="."]
+script = ExtResource("16_e560l")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://di8et7u8v2hel"]
+[gd_scene load_steps=8 format=3 uid="uid://di8et7u8v2hel"]
 
 [ext_resource type="Script" path="res://interface/interactors/menu_credits.gd" id="1_m2fj4"]
+[ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="2_741l2"]
 
 [sub_resource type="FontVariation" id="FontVariation_dsutm"]
 spacing_glyph = -1
@@ -132,4 +133,5 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme = ExtResource("2_741l2")
 text = "Back to Title"

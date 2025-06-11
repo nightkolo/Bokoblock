@@ -90,10 +90,57 @@ static var runtime_data: Dictionary = {
 	}
 }
 static var medal_data: Dictionary = {
+	# Progression
 	
+	"Welcome to BOKOBLOCK": false,
+	"Wake Up Call": false,
+	"CB1Complete": false,
+	"CB2Complete": false,
+	"GameComplete": false,
+	
+	# Board-specific
+	"Your Moves are Precious": false,
+	"A Block for a Block": false,
+	"Count your Steps": false,
+	"Watch your Step": false,
+	"Pharaoh's Tomb": false,
+	"Blocks in Black": false,
+	
+	# Stats
+	"Move King": false,
+	"Move Maestro": false,
+	
+	# Misc
+	"Poke the Block": false,
+	"Curiosity": false
 }
 static var config_data: Dictionary = {
 	
+}
+const DEFAULT_MEDAL_DATA = {
+	# Progression
+	
+	"Welcome to BOKOBLOCK": false,
+	"Wake Up Call": false,
+	"CB1Complete": false,
+	"CB2Complete": false,
+	"GameComplete": false,
+	
+	# Board-specific
+	"Your Moves are Precious": false,
+	"A Block for a Block": false,
+	"Count your Steps": false,
+	"Watch your Step": false,
+	"Pharaoh's Tomb": false,
+	"Blocks in Black": false,
+	
+	# Stats
+	"Move King": false,
+	"Move Maestro": false,
+	
+	# Misc
+	"Poke the Block": false,
+	"Curiosity": false
 }
 const DEFAULT_GAME_DATA = {
 	"first_session": true,

@@ -326,7 +326,7 @@ func _show_skip_button(appear_in: float = 2.0):
 		skip_btn.disabled = false
 		
 		skip_btn.pressed.connect(func():
-			get_tree().change_scene_to_file("res://interface/menus/menu_board_select.tscn")
+			get_tree().change_scene_to_file("res://interface/menus/main_menus_scene.tscn")
 			)
 		
 		var tween := create_tween()
