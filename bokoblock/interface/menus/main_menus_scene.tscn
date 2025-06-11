@@ -79,6 +79,7 @@ pivot_offset = Vector2(900, 720)
 texture = ExtResource("3_2cpjf")
 
 [node name="TitleScreen" parent="." instance=ExtResource("5_nf347")]
+visible = false
 
 [node name="MenuStageSelect" parent="." instance=ExtResource("6_t1hg8")]
 visible = false

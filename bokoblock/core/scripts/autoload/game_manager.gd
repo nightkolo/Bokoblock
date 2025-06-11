@@ -54,6 +54,11 @@ func _ready() -> void:
 	
 	load_game_data() 
 	
+	if ON_NEWGROUNDS_MIRROR:
+		NG.on_session_change.connect(session_change)
+		
+		load_game_medals_data()
+	
 	game_end.connect(stage_complete)
 	
 	menu_entered.connect(func(entered: Menus):
@@ -70,22 +75,16 @@ func _ready() -> void:
 		await get_tree().create_timer(GameUtil.stage_complete_anim_waittime).timeout
 		game_end.emit()
 	)
-	
-	NG.on_session_change.connect(session_change)
-	
-	await get_tree().create_timer(1.0).timeout
-	
-	if ON_NEWGROUNDS_MIRROR:
-		load_game_medals_data()
-		
-		await MedalMgr.unlock_a_medal("bokoblock", NewgroundsIds.MedalId.WelcomeToBokoblock)
 
 
 func session_change(s: NewgroundsSession) -> void:
-	if s.signed_in():
+	if s.is_signed_in():
 		print("Newgrounds.io - Signed in")
+		
 	else:
 		print("Newgrounds.io - Not signed in")
+		
+	await MedalMgr.unlock_a_medal("bokoblock", NewgroundsIds.MedalId.WelcomeToBokoblock)
 
 
 func stage_complete() -> void:
