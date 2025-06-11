@@ -41,12 +41,12 @@ func _ready() -> void:
 	_click_sounds = boko_click.get_children()
 	
 	have_awoken.connect(func():
-		MedalMgr.unlock_a_medal("wake")
-		
 		var aud := _wake_sounds.pick_random() as AudioStreamPlayer
 		aud.play()
+		
+		await MedalMgr.unlock_a_medal("wake", NewgroundsIds.MedalId.WakeUpPoko)
 		)
-	
+
 	wake_up_boko_btn.pressed.connect(func():
 		have_woken = times_clicked == times_to_wake
 		
@@ -65,7 +65,7 @@ func _ready() -> void:
 		)
 
 
-func click_notice():
+func click_notice() -> void:
 	await get_tree().create_timer(6.0).timeout
 
 	var tween := create_tween()
@@ -75,7 +75,7 @@ func click_notice():
 var tween_click: Tween
 
 
-func anim_click():
+func anim_click() -> void:
 	nine_patch_rect.scale = Vector2.ONE * 0.75
 	
 	if tween_click:
@@ -88,7 +88,7 @@ func anim_click():
 	
 
 
-func anim_wake_up_boko():
+func anim_wake_up_boko() -> void:
 	var dur := 1.0
 	
 	node_sign_2.modulate = Color(Color.WHITE, 0.0)
@@ -130,14 +130,14 @@ func anim_swing(dur: float):
 	tween_swing.tween_property(node_sign_1,"rotation", -mag, loop_dur)
 	
 
-func anim_arrow():
+func anim_arrow() -> void:
 	var tween := create_tween().set_loops()
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 	tween.tween_property(sprite_sign_arrow, "position:y", 10.0, 0.7).as_relative()
 	tween.tween_property(sprite_sign_arrow, "position:y", -10.0, 0.7).as_relative()
 	
 
-func anim_boko_woke_up():
+func anim_boko_woke_up() -> void:
 	var dur := 0.5
 	
 	label.visible = false

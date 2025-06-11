@@ -72,7 +72,7 @@ func _ready() -> void:
 	menu_title.credits_btn_pressed.connect(func():
 		enter_main_menu(MainMenus.CREDITS)
 		
-		MedalMgr.unlock_a_medal("curiosity")
+		await MedalMgr.unlock_a_medal("curiosity", NewgroundsIds.MedalId.Curiosity)
 		)
 	
 	for menu: MainMenu in menus:

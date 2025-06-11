@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpj5rph2x2wgj"]
+
+[ext_resource type="Script" path="res://interface/runtime/overlay/medal_unlocked_popup.gd" id="1_fgwg5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vjg7n"]
+font_size = 36
+font_color = Color(1, 1, 0.5, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.298)
+shadow_offset = Vector2(5, 5)
+
+[node name="MedalUnlockedPopup" type="MarginContainer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 120
+script = ExtResource("1_fgwg5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Medal Unlocked!"
+label_settings = SubResource("LabelSettings_vjg7n")

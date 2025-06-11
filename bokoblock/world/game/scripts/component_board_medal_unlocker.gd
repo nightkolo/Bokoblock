@@ -1,7 +1,5 @@
 ## @experimental
 ## [Stage] Component for unlocking Board-specific medals.
-##
-## Probably, didn't implement this the best way, but... yeah
 extends Node
 class_name BoardMedalUnlockerComponent
 
@@ -28,47 +26,44 @@ func _display_msg(result: bool) -> void:
 func _ready() -> void:
 	GameMgr.game_data_saved.connect(func():
 		# Checks for move count medals
+		# It is made awkwardly this way, because Godot is stupid
 		
 		match GameMgr.current_board_id:
 			
 			4:
-				if not GameData.medal_data.has("4_1"):
-					return
-				
 				if GameData.runtime_data["4"]["move_count"] <= 8:
 					
-					if GameData.medal_data["4_1"] == false:
-						GameMgr.current_ui_handler.a_medal_has_been_unlocked()
+					# Null checks, can't do early return for the algorithm's sake.
+					if GameData.medal_data.has("4_1"):
+						if GameData.medal_data["4_1"] == false:
+							GameMgr.current_ui_handler.a_medal_has_been_unlocked()
 					
-					MedalMgr.unlock_a_medal("4_1")
+					# Turns medal_data["4_1"] to true and unlocks medal.
+					await MedalMgr.unlock_a_medal("4_1", NewgroundsIds.MedalId.YourMovesArePrecious)
 					
 				else:
 					_display_msg(GameData.medal_data["4_1"])
 			
-			6: 
-				if not GameData.medal_data.has("6_1"):
-					return
-				
+			6:
 				if GameData.runtime_data["6"]["move_count"] <= 14:
-						
-					if GameData.medal_data["6_1"] == false:
-						GameMgr.current_ui_handler.a_medal_has_been_unlocked()
 					
-					MedalMgr.unlock_a_medal("6_1")
+					if GameData.medal_data.has("6_1"):
+						if GameData.medal_data["6_1"] == false:
+							GameMgr.current_ui_handler.a_medal_has_been_unlocked()
+					
+					await MedalMgr.unlock_a_medal("6_1", NewgroundsIds.MedalId.CountYourSteps)
 					
 				else:
 					_display_msg(GameData.medal_data["6_1"])
 			
 			15:
-				if not GameData.medal_data.has("15_1"):
-					return
-				
 				if GameData.runtime_data["15"]["move_count"] <= 22:
 					
-					if GameData.medal_data["15_1"] == false:
-						GameMgr.current_ui_handler.a_medal_has_been_unlocked()
+					if GameData.medal_data.has("15_1"):
+						if GameData.medal_data["15_1"] == false:
+							GameMgr.current_ui_handler.a_medal_has_been_unlocked()
 						
-					MedalMgr.unlock_a_medal("15_1")
+					await MedalMgr.unlock_a_medal("15_1", NewgroundsIds.MedalId.LocomoteReaper)
 					
 				else:
 					_display_msg(GameData.medal_data["15_1"])
@@ -81,8 +76,8 @@ func _ready() -> void:
 		match GameMgr.current_board_id:
 			
 			5:
-				if not GameData.medal_data.has("5_1"):
-					return
+				#if not GameData.medal_data.has("5_1"):
+					#return
 				
 				if !has_hit_sleepy_block:
 					GameMgr.current_ui_handler.a_medal_has_been_unlocked()
@@ -93,32 +88,32 @@ func _ready() -> void:
 					# I'm also hoesntly not skilled enough to troubleshooting this.
 					
 					#if GameData.medal_data["5_1"] == false:
-					MedalMgr.unlock_a_medal("5_1")
+					await MedalMgr.unlock_a_medal("5_1", NewgroundsIds.MedalId.ABlockForABlock)
 				else:
 					_display_msg(false)
 			
 			14:
-				if not GameData.medal_data.has("14_1"):
-					return
+				#if not GameData.medal_data.has("14_1"):
+					#return
 				
 				if !has_hit_blackpoint:
 					GameMgr.current_ui_handler.a_medal_has_been_unlocked()
 
 					#if GameData.medal_data["14_1"] == false:
-					MedalMgr.unlock_a_medal("14_1")
+					await MedalMgr.unlock_a_medal("14_1", NewgroundsIds.MedalId.WatchYourStep)
 
 				else:
 					_display_msg(false)
 			
 			20:
-				if not GameData.medal_data.has("20_1"):
-					return
+				#if not GameData.medal_data.has("20_1"):
+					#return
 				
 				if !has_hit_blackpoint:
 					GameMgr.current_ui_handler.a_medal_has_been_unlocked()
 					
 					#if GameData.medal_data["20_1"] == false:
-					MedalMgr.unlock_a_medal("20_1")
+					await MedalMgr.unlock_a_medal("20_1", NewgroundsIds.MedalId.BlackIsYourEnemy)
 
 				else:
 					_display_msg(false)

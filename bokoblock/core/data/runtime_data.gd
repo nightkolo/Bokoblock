@@ -92,6 +92,8 @@ static var runtime_data: Dictionary = {
 static var medal_data: Dictionary = {
 	# HARD_CODED - DO NOT MODIFY UNLESS YOU KNOW WHAT YOU'RE DOING.
 	
+	# TODO: Possible issues with save data when versioning
+	
 	# Progression
 	"bokoblock": false,
 	"wake": false,
@@ -120,6 +122,8 @@ static var config_data: Dictionary = {
 }
 const DEFAULT_MEDAL_DATA = {
 	# HARD_CODED - DO NOT MODIFY UNLESS YOU KNOW WHAT YOU'RE DOING.
+	
+	# TODO: Possible issues with save data when versioning
 	
 	# Progression
 	"bokoblock": false,

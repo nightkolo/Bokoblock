@@ -28,6 +28,8 @@ PlayerInput="*res://core/scripts/autoload/player_input.gd"
 GameMgr="*res://core/scripts/autoload/game_manager.gd"
 Trans="*res://core/scenes/autoload/transition_player.tscn"
 MedalMgr="*res://core/scripts/autoload/newgrounds_medal_manager.gd"
+NG="*res://addons/newgrounds/scripts/newgrounds.tscn"
+NGCloudSave="*res://addons/newgrounds/scripts/newgrounds_cloudsave.gd"
 
 [debug]
 
@@ -48,10 +50,15 @@ movie_writer/size/mode=3
 movie_writer/size/window_width_override=1920
 movie_writer/size/viewport_width=960
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/newgrounds/plugin.cfg")
+
 [global_group]
 
 UIButton=""
 UIBoardButton=""
+CloudSave="Newgrounds Cloudsave"
 
 [gui]
 
@@ -142,6 +149,12 @@ prev_level={
 2d_physics/layer_2="Block"
 2d_physics/layer_3="Starpoint"
 2d_physics/layer_4="Object"
+
+[newgrounds.io]
+
+app_id="60368:EW4yU9Ne"
+AES-128_key="muIAk1i5nL3OsyD4V3M83Q=="
+opened_getting_started_page=true
 
 [rendering]
 

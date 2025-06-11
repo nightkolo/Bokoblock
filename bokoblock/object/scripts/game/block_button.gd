@@ -17,4 +17,4 @@ func _on_pressed():
 			if GameData.medal_data["poke"] == false: 
 				GameMgr.current_ui_handler.a_medal_has_been_unlocked()
 			
-				MedalMgr.unlock_a_medal("poke")
+				await MedalMgr.unlock_a_medal("poke", NewgroundsIds.MedalId.CanYouPokeTheBlocks)

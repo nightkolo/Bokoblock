@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MedalResource" load_steps=2 format=3 uid="uid://cbf6k8tftxwvm"]
+
+[ext_resource type="Script" path="res://addons/newgrounds/data/medal_resource.gd" id="1_7vse4"]
+
+[resource]
+script = ExtResource("1_7vse4")
+name = "Can You Poke the Blocks?"
+description = "Yes, you can!"
+icon_url = "https://apifiles.ngfiles.com/icons/medal_secret.png"
+id = 84989
+secret = true
+unlocked = false
+value = 0
+difficulty = 4

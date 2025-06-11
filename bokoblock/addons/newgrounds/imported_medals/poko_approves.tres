@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MedalResource" load_steps=2 format=3 uid="uid://0pq684ect755"]
+
+[ext_resource type="Script" path="res://addons/newgrounds/data/medal_resource.gd" id="1_cmos7"]
+
+[resource]
+script = ExtResource("1_cmos7")
+name = "Poko Approves"
+description = "Complete all the Boards in the game."
+icon_url = "https://apifiles.ngfiles.com/icons/medal_secret.png"
+id = 84980
+secret = true
+unlocked = false
+value = 0
+difficulty = 3

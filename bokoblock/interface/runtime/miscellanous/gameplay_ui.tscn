@@ -1,18 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2td8hv4f264o"]
+[gd_scene load_steps=5 format=3 uid="uid://c2td8hv4f264o"]
 
 [ext_resource type="Script" path="res://interface/runtime/miscellanous/gameplay_ui.gd" id="1_eu7p0"]
 [ext_resource type="PackedScene" uid="uid://d0nbdjl7inkmr" path="res://interface/runtime/ui_menu_pause.tscn" id="1_o3ryy"]
 [ext_resource type="PackedScene" uid="uid://dj6dug5c5ssg1" path="res://interface/runtime/ui_checkerboard_complete_screen.tscn" id="3_nwfwq"]
-[ext_resource type="Script" path="res://interface/runtime/miscellanous/medal_unlocked_popup.gd" id="4_cwxqu"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_vjg7n"]
-font_size = 36
-font_color = Color(1, 1, 0.5, 1)
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 5
-shadow_color = Color(0, 0, 0, 0.298)
-shadow_offset = Vector2(5, 5)
+[ext_resource type="PackedScene" uid="uid://cpj5rph2x2wgj" path="res://interface/runtime/overlay/medal_unlocked_popup.tscn" id="4_t0cg6"]
 
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
@@ -23,23 +14,4 @@ visible = false
 
 [node name="StageCompleteScreen" parent="." instance=ExtResource("3_nwfwq")]
 
-[node name="MedalUnlockedPopup" type="MarginContainer" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 120
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 120
-script = ExtResource("4_cwxqu")
-
-[node name="Label" type="Label" parent="MedalUnlockedPopup"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-text = "Medal Unlocked!"
-label_settings = SubResource("LabelSettings_vjg7n")
+[node name="MedalUnlockedPopup" parent="." instance=ExtResource("4_t0cg6")]
