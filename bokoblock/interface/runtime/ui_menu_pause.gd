@@ -90,6 +90,8 @@ func _ready() -> void:
 
 
 func update_options() -> void:
+	update_text()
+	
 	if GameMgr.get_game_sfx_muted_setting():
 		sfx_btn.text = "SFX:OFF"
 	else:
@@ -113,4 +115,8 @@ func update_options() -> void:
 
 
 func update_text() -> void:
-	pause_info.text = GameplayUI.BBCODE_TXT + PAUSE_INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_board_id) + PAUSE_INFO_END
+	if GameMgr.get_reduce_motion_setting():
+		pause_info.text = GameplayUI.BBCODE_TXT_NO_MOTION + PAUSE_INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_board_id) + PAUSE_INFO_END
+	else:
+		pause_info.text = GameplayUI.BBCODE_TXT + PAUSE_INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_board_id) + PAUSE_INFO_END
+		

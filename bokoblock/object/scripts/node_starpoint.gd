@@ -10,10 +10,7 @@ class_name Starpoint
 @export_group("Assets")
 @export var asset_starpoint: Texture2D = preload("res://assets/objects/starpoint.png")
 @export_subgroup("Assets colorblind mode")
-@export var asset_starpoint_cb_1: Texture2D = preload("res://assets/objects/starpoint-colorblind-01.png")
-@export var asset_starpoint_cb_2: Texture2D = preload("res://assets/objects/starpoint-colorblind-02.png")
-@export var asset_starpoint_cb_3: Texture2D = preload("res://assets/objects/starpoint-colorblind-03.png")
-@export var asset_starpoint_cb_4: Texture2D = preload("res://assets/objects/starpoint-colorblind-04.png")
+@export var asset_starpoint_cb: Texture2D = preload("res://assets/objects/starpoint-colorblind-01.png")
 @export_group("SFX")
 @export var audio_wrong: AudioStreamPlayer2D
 @export var audio_entered: AudioStreamPlayer2D
@@ -39,7 +36,6 @@ var is_landed_on: bool = false:
 		
 		if value && !is_happy:
 			audio_wrong.play()
-			
 
 
 func _ready() -> void:
@@ -48,10 +44,12 @@ func _ready() -> void:
 	GameMgr.colorblind_mode_setting_set.connect(func(_is_on: bool):
 		_set_star_texture()
 		)
+		
 	GameMgr.game_pause_toggled.connect(func(p: bool):
 		if !p:
 			_set_star_texture()
 		)
+		
 	GameLogic.current_starpoints.append(self)
 
 
@@ -73,35 +71,12 @@ func _setup_node() -> void:
 
 
 func _set_star_texture() -> void:
-	var l_texture: Texture
+	sprite_star.self_modulate = GameUtil.set_boko_color(what_im_happy_with)
 	
 	if GameMgr.get_colorblind_mode_setting():
-		if tween_pulse:
-			tween_pulse.kill()
-		
-		match colorblind_label:
-			
-			GameUtil.ColorblindLabel.Label_1:
-				l_texture = asset_starpoint_cb_1
-				
-			GameUtil.ColorblindLabel.Label_2:
-				l_texture = asset_starpoint_cb_2
-				
-			GameUtil.ColorblindLabel.Label_3:
-				l_texture = asset_starpoint_cb_3
-				
-			GameUtil.ColorblindLabel.Label_4:
-				l_texture = asset_starpoint_cb_4
-				
-		sprite_star.self_modulate = Color(Color.WHITE, 1.0)
-	
+		sprite_star.texture = asset_starpoint_cb
 	else:
-		anim_pulse()
-		
-		l_texture = asset_starpoint
-		sprite_star.self_modulate = GameUtil.set_boko_color(what_im_happy_with)
-	
-	sprite_star.texture = l_texture
+		sprite_star.texture = asset_starpoint
 
 
 func setup_node() -> void:

@@ -2,12 +2,13 @@ extends Camera2D
 class_name BokosCamera
 
 @export var dynamic_camera: bool = false
-@export var shake_strength: float = 6.0
+@export var shake_strength: float = 6.5
 @export var shake_duration: float = 0.5
 
 var original_pos: Vector2
 
 var _tween: Tween
+
 
 func _ready() -> void:
 	original_pos = position
@@ -17,6 +18,9 @@ func _ready() -> void:
 
 
 func shake_camera(turn_to: float) -> void:
+	if GameMgr.get_reduce_motion_setting():
+		return
+	
 	if _tween:
 		_tween.kill()
 	

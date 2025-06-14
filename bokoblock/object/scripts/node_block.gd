@@ -21,14 +21,8 @@ signal blackpoint_interacted()
 @export var asset_eye_angry: Texture2D = preload("res://assets/objects/block-eyes-angry.png")
 @export var asset_eye_scaredy: Texture2D = preload("res://assets/objects/block-eyes-scaredy.png")
 @export_subgroup("Assets Colorblind mode")
-@export var asset_cb_1_block: Texture2D = preload("res://assets/objects/block-colorblind-01.png")
-@export var asset_cb_1_block_center: Texture2D = preload("res://assets/objects/block-colorblind-01-center.png")
-@export var asset_cb_2_block: Texture2D = preload("res://assets/objects/block-colorblind-02.png")
-@export var asset_cb_2_block_center: Texture2D = preload("res://assets/objects/block-colorblind-02-center.png")
-@export var asset_cb_3_block: Texture2D = preload("res://assets/objects/block-colorblind-03.png")
-@export var asset_cb_3_block_center: Texture2D = preload("res://assets/objects/block-colorblind-03-center.png")
-@export var asset_cb_4_block: Texture2D = preload("res://assets/objects/block-colorblind-04.png")
-@export var asset_cb_4_block_center: Texture2D = preload("res://assets/objects/block-colorblind-04-center.png")
+@export var asset_cb_block: Texture2D = preload("res://assets/objects/block-colorblind-01.png")
+@export var asset_cb_block_center: Texture2D = preload("res://assets/objects/block-colorblind-01-center.png")
 
 @onready var ray_cast: RayCast2D = %RayCast2D
 @onready var sprite_block: Sprite2D = %Block
@@ -55,8 +49,9 @@ func _ready() -> void:
 	GameMgr.colorblind_mode_setting_set.connect(func(_is_on: bool):
 		_setup_block_texture()
 		)
-	GameMgr.game_pause_toggled.connect(func(p: bool):
-		if !p:
+		
+	GameMgr.game_pause_toggled.connect(func(is_paused: bool):
+		if !is_paused:
 			_setup_block_texture()
 		)
 	
@@ -100,10 +95,9 @@ func _setup_node() -> void:
 
 func _setup_block_texture() -> void:
 	if auto_check_center:
-		_set_block_texture(self.position == Vector2.ZERO)
+		set_block_texture(self.position == Vector2.ZERO)
 	else:
-		_set_block_texture(set_as_center)
-
+		set_block_texture(set_as_center)
 
 
 func _setup_parent() -> void:
@@ -169,73 +163,25 @@ func wall_detect(direction: Vector2) -> bool:
 	return ray_cast.is_colliding()
 
 
-func _set_block_texture(is_center: bool) -> void:
-	var l_texture: Texture
-	
+func set_block_texture(is_center_block: bool = false) -> void:
 	sprite_block.self_modulate = GameUtil.set_boko_color(boko_color)
 	
-	if is_center:
-		self.z_index = 1
-		
-	else:
-		self.z_index = 0
-	
-	match colorblind_label:
-				
-		GameUtil.ColorblindLabel.Label_1:
-			sprite_eyes.self_modulate = Color(Color.WHITE, 1.0)
-			
-		GameUtil.ColorblindLabel.Label_2:
-			sprite_eyes.self_modulate = Color(Color.WHITE/2.0, 1.0)
-			
-		GameUtil.ColorblindLabel.Label_3:
-			sprite_eyes.self_modulate = Color(Color.BLACK, 1.0)
-			
-		GameUtil.ColorblindLabel.Label_4:
-			sprite_eyes.self_modulate = Color(Color.WHITE/2.0, 1.0)
-	
-	
 	if GameMgr.get_colorblind_mode_setting():
-		if is_center:
-			match colorblind_label:
-				
-				GameUtil.ColorblindLabel.Label_1:
-					l_texture = asset_cb_1_block_center
-					
-					
-				GameUtil.ColorblindLabel.Label_2:
-					l_texture = asset_cb_2_block_center
-					
-					
-				GameUtil.ColorblindLabel.Label_3:
-					l_texture = asset_cb_3_block_center
-					
-					
-				GameUtil.ColorblindLabel.Label_4:
-					l_texture = asset_cb_4_block_center
-					
-
+		sprite_eyes.self_modulate = Color(Color.BLACK, 1.0)
+		
+		if is_center_block:
+			sprite_block.texture = asset_cb_block
+			self.z_index = 1
 		else:
-			match colorblind_label:
-				
-				GameUtil.ColorblindLabel.Label_1:
-					l_texture = asset_cb_1_block
-					
-				GameUtil.ColorblindLabel.Label_2:
-					l_texture = asset_cb_2_block
-					
-				GameUtil.ColorblindLabel.Label_3:
-					l_texture = asset_cb_3_block
-
-				GameUtil.ColorblindLabel.Label_4:
-					l_texture = asset_cb_4_block
-
+			sprite_block.texture = asset_cb_block_center
+			self.z_index = 0
+		
 	else:
 		sprite_eyes.self_modulate = Color(Color.WHITE, 0.8)
 		
-		if is_center:
-			l_texture = asset_block_center
+		if is_center_block:
+			sprite_block.texture = asset_block_center
+			self.z_index = 1
 		else:
-			l_texture = asset_block
-			
-	sprite_block.texture = l_texture
+			sprite_block.texture = asset_block
+			self.z_index = 0

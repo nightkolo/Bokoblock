@@ -8,9 +8,27 @@ class_name OneColorWall
 
 
 func _ready() -> void:
+	GameMgr.colorblind_mode_setting_set.connect(func(_is_on: bool):
+		set_texture()
+		)
+	GameMgr.game_pause_toggled.connect(func(p: bool):
+		if !p:
+			set_texture()
+		)
+	
+	set_texture()
+	
 	anim_idle()
 	await get_tree().create_timer(1.0).timeout
 	anim_idle_2()
+
+
+func set_texture() -> void:
+	if GameMgr.get_colorblind_mode_setting():
+		sprite_2d.texture = preload("res://assets/objects/one-color-wall-colorblind.png")
+	else:
+		sprite_2d.texture = preload("res://assets/objects/one-color-wall.png")
+		
 
 
 func anim_idle() -> void:

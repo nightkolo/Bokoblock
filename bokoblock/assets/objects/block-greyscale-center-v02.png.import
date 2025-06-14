@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bbv0vtkfubqev"
-path="res://.godot/imported/block-greyscale-center-v2.png-cf4313e40cfa023a5be6a796d98f8eed.ctex"
+path="res://.godot/imported/block-greyscale-center-v02.png-fd8c464fd71b78c5223128ea49c4718a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/block-greyscale-center-v2.png"
-dest_files=["res://.godot/imported/block-greyscale-center-v2.png-cf4313e40cfa023a5be6a796d98f8eed.ctex"]
+source_file="res://assets/objects/block-greyscale-center-v02.png"
+dest_files=["res://.godot/imported/block-greyscale-center-v02.png-fd8c464fd71b78c5223128ea49c4718a.ctex"]
 
 [params]
 

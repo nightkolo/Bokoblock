@@ -43,28 +43,52 @@ static func set_boko_color(is_bokocolor: BokoColor, set_strength: float = 1.0, s
 	var s := set_strength
 	var a := set_alpha
 	
-	match is_bokocolor:
-		
-		BokoColor.AQUA:
-			col = Color(Color(1.0,0.77,1.0)*s,a) # I lied, cry about it.
+	if GameMgr.get_colorblind_mode_setting():
+		match is_bokocolor:
 			
-		BokoColor.RED:
-			col = Color(Color(1.0,0.5,0.5)*s,a)
-		
-		BokoColor.BLUE:
-			col = Color(Color(0.5,0.5,1.0)*s,a)
+			BokoColor.AQUA:
+				col = Color(Color(1.0,0.77,1.0)*s,a) # I lied, cry about it.
+				
+			BokoColor.RED:
+				col = Color(Color(1.0,0.0,0.0)*s,a)
 			
-		BokoColor.YELLOW:
-			col = Color(Color(1.0,1.0,0.5)*s,a)
+			BokoColor.BLUE:
+				col = Color(Color(0.0,0.0,1.0)*s,a)
+				
+			BokoColor.YELLOW:
+				col = Color(Color(1.0,1.0,0.0)*s,a)
+				
+			BokoColor.GREEN:
+				col = Color(Color(0.0,0.5,0.0)*s,a)
+				
+			BokoColor.PINK:
+				col = Color(Color.PINK*s,a)
+				
+			BokoColor.GREY:
+				col = Color(Color.GRAY*s,a)
+	else:
+		match is_bokocolor:
 			
-		BokoColor.GREEN:
-			col = Color(Color.GREEN*s,a)
+			BokoColor.AQUA:
+				col = Color(Color(1.0,0.77,1.0)*s,a) # I lied, cry about it.
+				
+			BokoColor.RED:
+				col = Color(Color(1.0,0.5,0.5)*s,a)
 			
-		BokoColor.PINK:
-			col = Color(Color.PINK*s,a)
-			
-		BokoColor.GREY:
-			col = Color(Color.GRAY*s,a)
+			BokoColor.BLUE:
+				col = Color(Color(0.5,0.5,1.0)*s,a)
+				
+			BokoColor.YELLOW:
+				col = Color(Color(1.0,1.0,0.5)*s,a)
+				
+			BokoColor.GREEN:
+				col = Color(Color.GREEN*s,a)
+				
+			BokoColor.PINK:
+				col = Color(Color.PINK*s,a)
+				
+			BokoColor.GREY:
+				col = Color(Color.GRAY*s,a)
 			
 	return col
 

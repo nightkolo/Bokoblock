@@ -7,7 +7,6 @@ signal game_pause_toggled(is_paused: bool)
 @onready var checkerboard_complete_screen: CBCompleteScreen = $StageCompleteScreen
 @onready var medal_unlocked_popup: MedalUnlockedPopup = $MedalUnlockedPopup
 
-
 var allow_input: bool = true
 var is_game_paused: bool = false:
 	get:
@@ -18,6 +17,8 @@ var is_game_paused: bool = false:
 
 const BBCODE_TXT = "
 [outline_size=8][outline_color=#3f3f3f][color=#ffffff][center][font_size=37][wave amp=20.0 freq=2.0][tornado radius=2.5 freq=4.0]"
+const BBCODE_TXT_NO_MOTION = "
+[outline_size=8][outline_color=#3f3f3f][color=#ffffff][center][font_size=37]"
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -49,6 +50,7 @@ func _ready() -> void:
 	allow_input = true
 	
 	GameMgr.current_ui_handler = self
+	
 	game_pause_toggled.connect(func(is_paused: bool):
 		GameMgr.game_pause_toggled.emit(is_paused)
 		)

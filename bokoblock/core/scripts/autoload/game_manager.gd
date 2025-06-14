@@ -129,45 +129,21 @@ func goto_prev_stage() -> void:
 signal reduce_motion_setting_set(is_on: bool)
 signal colorblind_mode_setting_set(is_on: bool)
 
-
 @onready var SFX_BUS_ID: int = AudioServer.get_bus_index("SFX")
 @onready var Music_BUS_ID: int = AudioServer.get_bus_index("Music")
 
-
-var _reduce_motion_on: bool:
+var _reduce_motion_on: bool = false:
 	get:
 		return _reduce_motion_on
 	set(value):
 		reduce_motion_setting_set.emit(value)
 		_reduce_motion_on = value
-		
-var _colorblind_mode_on: bool = true:
+var _colorblind_mode_on: bool = false:
 	get:
 		return _colorblind_mode_on
 	set(value):
 		colorblind_mode_setting_set.emit(value)
 		_colorblind_mode_on = value
-
-
-
-func set_reduce_motion_setting(value: bool) -> void:
-	_reduce_motion_on = value
-
-
-func get_reduce_motion_setting() -> bool:
-	return _reduce_motion_on
-
-
-func set_colorblind_mode_setting(value: bool) -> void:
-	_colorblind_mode_on = value
-
-
-func get_colorblind_mode_setting() -> bool:
-	return _colorblind_mode_on
-
-
-
-
 var _game_sfx_muted: bool = false:
 	get:
 		return _game_sfx_muted
@@ -198,6 +174,21 @@ func get_game_music_muted_setting() -> bool:
 	return _game_music_muted
 
 
+func set_reduce_motion_setting(value: bool) -> void:
+	_reduce_motion_on = value
+
+
+func get_reduce_motion_setting() -> bool:
+	return _reduce_motion_on
+
+
+func set_colorblind_mode_setting(value: bool) -> void:
+	_colorblind_mode_on = value
+
+
+func get_colorblind_mode_setting() -> bool:
+	return _colorblind_mode_on
+	
 ####
 
 func reset_game() -> void:

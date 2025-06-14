@@ -67,8 +67,11 @@ func open() -> void:
 
 
 func update_text() -> void:
-	cb_complete_info.text = GameplayUI.BBCODE_TXT + _INFO_BEGIN + str(GameMgr.current_checkerboard_id) + _INFO_END
-
+	if GameMgr.get_reduce_motion_setting():
+		cb_complete_info.text = GameplayUI.BBCODE_TXT_NO_MOTION + _INFO_BEGIN + str(GameMgr.current_checkerboard_id) + _INFO_END
+	else:
+		cb_complete_info.text = GameplayUI.BBCODE_TXT + _INFO_BEGIN + str(GameMgr.current_checkerboard_id) + _INFO_END
+		
 
 func anim_shine():
 	var tween_a = create_tween().set_loops()
