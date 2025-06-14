@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0nbdjl7inkmr"]
+[gd_scene load_steps=9 format=3 uid="uid://d0nbdjl7inkmr"]
 
 [ext_resource type="Script" path="res://interface/runtime/ui_menu_pause.gd" id="1_e5gcu"]
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_x2cp5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://c1p6abfdd35ae" path="res://core/resources/theme/theme_panel_rich_label.tres" id="4_po6o3"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_panel.gd" id="5_b1ou4"]
 [ext_resource type="Theme" uid="uid://otrfm5jo3rs" path="res://core/resources/theme/theme_panel_button.tres" id="5_gop5i"]
+[ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="7_qn642"]
 
 [sub_resource type="FontVariation" id="FontVariation_q0gsl"]
 spacing_glyph = -2
@@ -86,7 +87,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 55)
 layout_mode = 2
 size_flags_horizontal = 4
-focus_neighbor_top = NodePath("../HBoxContainer/Music")
+focus_neighbor_top = NodePath("../VBoxContainer/HBoxContainer/Music")
 focus_neighbor_bottom = NodePath("../ResetButton")
 theme = ExtResource("5_gop5i")
 text = "Continue"
@@ -109,48 +110,62 @@ custom_minimum_size = Vector2(200, 55)
 layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../ResetButton")
-focus_neighbor_bottom = NodePath("../HBoxContainer/Music")
+focus_neighbor_bottom = NodePath("../VBoxContainer/Areyoucolorblinded")
 theme = ExtResource("5_gop5i")
 text = "Quit"
 script = ExtResource("5_b1ou4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -10
+
+[node name="Areyoucolorblinded" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/VBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../../ReturnButton")
+focus_neighbor_bottom = NodePath("../ReduceMotionButton")
+theme = ExtResource("7_qn642")
+theme_override_font_sizes/font_size = 30
+text = "Colorblind Mode: OFF"
+script = ExtResource("5_b1ou4")
+
+[node name="ReduceMotionButton" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/VBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../Areyoucolorblinded")
+focus_neighbor_bottom = NodePath("../HBoxContainer/Music")
+theme = ExtResource("7_qn642")
+theme_override_font_sizes/font_size = 30
+text = "Reduce Motion: OFF"
+script = ExtResource("5_b1ou4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="SFX" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
+[node name="SFX" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_left = NodePath("../Misc")
-focus_neighbor_top = NodePath("../../ReturnButton")
+focus_neighbor_top = NodePath("../../ReduceMotionButton")
 focus_neighbor_right = NodePath("../Music")
-focus_neighbor_bottom = NodePath("../../ResumeButton")
+focus_neighbor_bottom = NodePath("../../../ResumeButton")
 theme = ExtResource("5_gop5i")
 theme_override_font_sizes/font_size = 25
 text = "SFX: OFF"
 script = ExtResource("5_b1ou4")
 
-[node name="Music" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
+[node name="Music" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../SFX")
-focus_neighbor_top = NodePath("../../ReturnButton")
-focus_neighbor_right = NodePath("../Misc")
-focus_neighbor_bottom = NodePath("../../ResumeButton")
+focus_neighbor_top = NodePath("../../ReduceMotionButton")
+focus_neighbor_bottom = NodePath("../../../ResumeButton")
 theme = ExtResource("5_gop5i")
 theme_override_font_sizes/font_size = 25
 text = "Music: OFF"
 script = ExtResource("5_b1ou4")
-
-[node name="Misc" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-focus_neighbor_left = NodePath("../Music")
-focus_neighbor_top = NodePath("../../ReturnButton")
-focus_neighbor_right = NodePath("../SFX")
-focus_neighbor_bottom = NodePath("../../ResumeButton")
-theme = ExtResource("5_gop5i")
-theme_override_font_sizes/font_size = 25
-text = "Effects"

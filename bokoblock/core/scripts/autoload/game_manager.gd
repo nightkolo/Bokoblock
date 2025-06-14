@@ -2,6 +2,7 @@
 extends Node
 
 signal menu_entered(entered: Menus)
+signal game_pause_toggled(is_paused: bool)
 signal game_just_ended()
 signal game_end()
 signal game_reset()
@@ -31,23 +32,6 @@ var saver_loader: SaverLoader = SaverLoader.new()
 
 const ON_NEWGROUNDS_MIRROR = true
 
-#### Config
-@onready var SFX_BUS_ID: int = AudioServer.get_bus_index("SFX")
-@onready var Music_BUS_ID: int = AudioServer.get_bus_index("Music")
-
-var _game_sfx_muted: bool = false:
-	get:
-		return _game_sfx_muted
-	set(value):
-		AudioServer.set_bus_mute(SFX_BUS_ID, value)
-		_game_sfx_muted = value
-var _game_music_muted: bool = false:
-	get:
-		return _game_music_muted
-	set(value):
-		AudioServer.set_bus_mute(Music_BUS_ID, value)
-		_game_music_muted = value
-####
 
 func _ready() -> void:
 	add_child(saver_loader)
@@ -141,6 +125,62 @@ func goto_prev_stage() -> void:
 	if next_lvl_id <= GameUtil.NUMBER_OF_BOARDS: 
 		get_tree().change_scene_to_file(next_lvl_path)
 
+#### Config
+signal reduce_motion_setting_set(is_on: bool)
+signal colorblind_mode_setting_set(is_on: bool)
+
+
+@onready var SFX_BUS_ID: int = AudioServer.get_bus_index("SFX")
+@onready var Music_BUS_ID: int = AudioServer.get_bus_index("Music")
+
+
+var _reduce_motion_on: bool:
+	get:
+		return _reduce_motion_on
+	set(value):
+		reduce_motion_setting_set.emit(value)
+		_reduce_motion_on = value
+		
+var _colorblind_mode_on: bool = true:
+	get:
+		return _colorblind_mode_on
+	set(value):
+		colorblind_mode_setting_set.emit(value)
+		_colorblind_mode_on = value
+
+
+
+func set_reduce_motion_setting(value: bool) -> void:
+	_reduce_motion_on = value
+
+
+func get_reduce_motion_setting() -> bool:
+	return _reduce_motion_on
+
+
+func set_colorblind_mode_setting(value: bool) -> void:
+	_colorblind_mode_on = value
+
+
+func get_colorblind_mode_setting() -> bool:
+	return _colorblind_mode_on
+
+
+
+
+var _game_sfx_muted: bool = false:
+	get:
+		return _game_sfx_muted
+	set(value):
+		AudioServer.set_bus_mute(SFX_BUS_ID, value)
+		_game_sfx_muted = value
+var _game_music_muted: bool = false:
+	get:
+		return _game_music_muted
+	set(value):
+		AudioServer.set_bus_mute(Music_BUS_ID, value)
+		_game_music_muted = value
+		
 
 func set_game_sfx_muted(value: bool) -> void:
 	_game_sfx_muted = value
@@ -157,6 +197,8 @@ func set_game_music_muted(value: bool) -> void:
 func get_game_music_muted_setting() -> bool:
 	return _game_music_muted
 
+
+####
 
 func reset_game() -> void:
 	game_reset.emit()

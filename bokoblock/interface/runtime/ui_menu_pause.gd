@@ -7,9 +7,12 @@ class_name PauseScreen
 @onready var resume_btn: Button = %ResumeButton
 @onready var reset_btn: Button = %ResetButton
 @onready var quit_btn: Button = %ReturnButton
+
 @onready var sfx_btn: Button = %SFX
 @onready var music_btn: Button = %Music
-@onready var misc_btn: Button = %Misc
+
+@onready var colorblind_btn: Button = %Areyoucolorblinded
+@onready var reduce_motion_btn: Button = %ReduceMotionButton
 
 @onready var pause_info: RichTextLabel = %PauseInfo
 
@@ -60,6 +63,18 @@ func _ready() -> void:
 			_gameplay_ui.quit()
 			)
 	
+	reduce_motion_btn.pressed.connect(func():
+		var setting := GameMgr.get_reduce_motion_setting()
+		GameMgr.set_reduce_motion_setting(!setting)
+		
+		update_options()
+		)
+	colorblind_btn.pressed.connect(func():
+		var setting := GameMgr.get_colorblind_mode_setting()
+		GameMgr.set_colorblind_mode_setting(!setting)
+		
+		update_options()
+		)
 	sfx_btn.pressed.connect(func():
 		var setting := GameMgr.get_game_sfx_muted_setting()
 		GameMgr.set_game_sfx_muted(!setting)
@@ -84,6 +99,17 @@ func update_options() -> void:
 		music_btn.text = "Music:OFF"
 	else:
 		music_btn.text = "Music:ON"
+		
+	if GameMgr.get_reduce_motion_setting():
+		reduce_motion_btn.text = "Reduce Motion: ON"
+	else:
+		reduce_motion_btn.text = "Reduce Motion: OFF"
+		
+	if GameMgr.get_colorblind_mode_setting():
+		colorblind_btn.text = "Colorblind Mode: ON"
+	else:
+		colorblind_btn.text = "Colorblind Mode: OFF"
+
 
 
 func update_text() -> void:

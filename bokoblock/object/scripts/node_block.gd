@@ -9,16 +9,26 @@ signal blackpoint_entered(has_entered: bool)
 signal blackpoint_interacted()
 
 @export var boko_color: GameUtil.BokoColor
+@export var colorblind_label: GameUtil.ColorblindLabel
 @export_group("Modify")
 @export var animator: BokoblockAnimationComponent
 @export var auto_check_center: bool = true
 @export var set_as_center: bool = false
-@export_category("Assets")
+@export_group("Assets")
 @export var asset_block: Texture2D = preload("res://assets/objects/block-greyscale.png")
-@export var asset_center_block: Texture2D = preload("res://assets/objects/block-greyscale-center.png")
+@export var asset_block_center: Texture2D = preload("res://assets/objects/block-greyscale-center.png")
 @export var asset_eye_normal: Texture2D = preload("res://assets/objects/block-eyes-neutral.png")
 @export var asset_eye_angry: Texture2D = preload("res://assets/objects/block-eyes-angry.png")
 @export var asset_eye_scaredy: Texture2D = preload("res://assets/objects/block-eyes-scaredy.png")
+@export_subgroup("Assets Colorblind mode")
+@export var asset_cb_1_block: Texture2D = preload("res://assets/objects/block-colorblind-01.png")
+@export var asset_cb_1_block_center: Texture2D = preload("res://assets/objects/block-colorblind-01-center.png")
+@export var asset_cb_2_block: Texture2D = preload("res://assets/objects/block-colorblind-02.png")
+@export var asset_cb_2_block_center: Texture2D = preload("res://assets/objects/block-colorblind-02-center.png")
+@export var asset_cb_3_block: Texture2D = preload("res://assets/objects/block-colorblind-03.png")
+@export var asset_cb_3_block_center: Texture2D = preload("res://assets/objects/block-colorblind-03-center.png")
+@export var asset_cb_4_block: Texture2D = preload("res://assets/objects/block-colorblind-04.png")
+@export var asset_cb_4_block_center: Texture2D = preload("res://assets/objects/block-colorblind-04-center.png")
 
 @onready var ray_cast: RayCast2D = %RayCast2D
 @onready var sprite_block: Sprite2D = %Block
@@ -41,6 +51,14 @@ var texture_eyes: Texture2D
 func _ready() -> void:
 	_setup_node()
 	check_state()
+	
+	GameMgr.colorblind_mode_setting_set.connect(func(_is_on: bool):
+		_setup_block_texture()
+		)
+	GameMgr.game_pause_toggled.connect(func(p: bool):
+		if !p:
+			_setup_block_texture()
+		)
 	
 	GameLogic.current_blocks.append(self)
 	GameLogic.bodies_stopped.connect(check_state)
@@ -77,12 +95,15 @@ func _setup_node() -> void:
 	collision_layer = 1
 	collision_mask = 7
 	
-	sprite_block.self_modulate = GameUtil.set_boko_color(boko_color)
-	
+	_setup_block_texture()
+
+
+func _setup_block_texture() -> void:
 	if auto_check_center:
-		_set_as_center_block(self.position == Vector2.ZERO)
+		_set_block_texture(self.position == Vector2.ZERO)
 	else:
-		_set_as_center_block(set_as_center)
+		_set_block_texture(set_as_center)
+
 
 
 func _setup_parent() -> void:
@@ -148,10 +169,73 @@ func wall_detect(direction: Vector2) -> bool:
 	return ray_cast.is_colliding()
 
 
-func _set_as_center_block(is_center: bool) -> void:
+func _set_block_texture(is_center: bool) -> void:
+	var l_texture: Texture
+	
+	sprite_block.self_modulate = GameUtil.set_boko_color(boko_color)
+	
 	if is_center:
-		sprite_block.texture = asset_center_block
 		self.z_index = 1
+		
 	else:
-		sprite_block.texture = asset_block
 		self.z_index = 0
+	
+	match colorblind_label:
+				
+		GameUtil.ColorblindLabel.Label_1:
+			sprite_eyes.self_modulate = Color(Color.WHITE, 1.0)
+			
+		GameUtil.ColorblindLabel.Label_2:
+			sprite_eyes.self_modulate = Color(Color.WHITE/2.0, 1.0)
+			
+		GameUtil.ColorblindLabel.Label_3:
+			sprite_eyes.self_modulate = Color(Color.BLACK, 1.0)
+			
+		GameUtil.ColorblindLabel.Label_4:
+			sprite_eyes.self_modulate = Color(Color.WHITE/2.0, 1.0)
+	
+	
+	if GameMgr.get_colorblind_mode_setting():
+		if is_center:
+			match colorblind_label:
+				
+				GameUtil.ColorblindLabel.Label_1:
+					l_texture = asset_cb_1_block_center
+					
+					
+				GameUtil.ColorblindLabel.Label_2:
+					l_texture = asset_cb_2_block_center
+					
+					
+				GameUtil.ColorblindLabel.Label_3:
+					l_texture = asset_cb_3_block_center
+					
+					
+				GameUtil.ColorblindLabel.Label_4:
+					l_texture = asset_cb_4_block_center
+					
+
+		else:
+			match colorblind_label:
+				
+				GameUtil.ColorblindLabel.Label_1:
+					l_texture = asset_cb_1_block
+					
+				GameUtil.ColorblindLabel.Label_2:
+					l_texture = asset_cb_2_block
+					
+				GameUtil.ColorblindLabel.Label_3:
+					l_texture = asset_cb_3_block
+
+				GameUtil.ColorblindLabel.Label_4:
+					l_texture = asset_cb_4_block
+
+	else:
+		sprite_eyes.self_modulate = Color(Color.WHITE, 0.8)
+		
+		if is_center:
+			l_texture = asset_block_center
+		else:
+			l_texture = asset_block
+			
+	sprite_block.texture = l_texture

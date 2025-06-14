@@ -2,8 +2,8 @@
 extends CanvasLayer
 class_name Background
 
-@export var apply_custom_color: bool = false ## @experimental
-@export var custom_color: Color
+#@export var apply_custom_color: bool = false ## @experimental
+#@export var custom_color: Color
 @export_range(0.0, 1.0, 0.05) var background_dim: float = 0.25
 	#get:
 		#return background_dim
@@ -19,16 +19,31 @@ class_name Background
 func _ready() -> void:
 	_setup_node()
 	
-	if apply_custom_color:
-		texture_bg.self_modulate = custom_color
+	GameMgr.reduce_motion_setting_set.connect(func(is_on: bool):
+		if is_on:
+			if spin_tween:
+				spin_tween.kill()
+			
+			texture_node.rotation = deg_to_rad(45.0)
+		else:
+			spin_bg()
+		)
+	
+	#if apply_custom_color:
+		#texture_bg.self_modulate = custom_color
 
 
 func _setup_node() -> void:
-	spin_bg()
+	if GameMgr.get_reduce_motion_setting():
+		texture_node.rotation = deg_to_rad(45.0)
+	else:
+		spin_bg()
 	
 	bg_dim.self_modulate = Color(Color.WHITE, background_dim)
 		
-		
+
+var spin_tween: Tween
+
 func spin_bg() -> void:
 	var spin_dir: float
 	
@@ -41,6 +56,9 @@ func spin_bg() -> void:
 	else:
 		spin_dir = -1
 	
-	var tween = create_tween().set_loops()
+	if spin_tween:
+		spin_tween.kill()
 	
-	tween.tween_property(texture_node,"rotation", PI * spin_dir , 30.0).as_relative()
+	spin_tween = create_tween().set_loops()
+	
+	spin_tween.tween_property(texture_node,"rotation", PI * spin_dir , 30.0).as_relative()

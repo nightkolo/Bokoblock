@@ -49,6 +49,9 @@ func _ready() -> void:
 	allow_input = true
 	
 	GameMgr.current_ui_handler = self
+	game_pause_toggled.connect(func(is_paused: bool):
+		GameMgr.game_pause_toggled.emit(is_paused)
+		)
 	
 
 func a_medal_has_been_unlocked() -> void:

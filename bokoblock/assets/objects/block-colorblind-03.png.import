@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuibm0pkclu2y"
-path="res://.godot/imported/starpoint-v06.png-b44dba6ae246ca523d17f8341bb1bf75.ctex"
+uid="uid://bxcnub16e4i2q"
+path="res://.godot/imported/block-colorblind-03.png-9d4ccb2285ccabefdcdf73afd840fc22.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/starpoint-v06.png"
-dest_files=["res://.godot/imported/starpoint-v06.png-b44dba6ae246ca523d17f8341bb1bf75.ctex"]
+source_file="res://assets/objects/block-colorblind-03.png"
+dest_files=["res://.godot/imported/block-colorblind-03.png-9d4ccb2285ccabefdcdf73afd840fc22.ctex"]
 
 [params]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://object/scripts/obj_blackpoint.gd" id="1_m8csp"]
 [ext_resource type="Texture2D" uid="uid://lhogvaaclniu" path="res://assets/objects/blackpoint-shadow.png" id="2_pys4l"]
-[ext_resource type="Texture2D" uid="uid://yg33k7j5aat3" path="res://assets/objects/blackpoint-04.png" id="3_nd3cd"]
+[ext_resource type="Texture2D" uid="uid://yg33k7j5aat3" path="res://assets/objects/blackpoint.png" id="3_nd3cd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u0xwx"]
 size = Vector2(40, 40)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dc3cprf4ks4be"]
 
 [ext_resource type="Script" path="res://object/scripts/node_starpoint.gd" id="1_mwqlu"]
-[ext_resource type="Texture2D" uid="uid://cuibm0pkclu2y" path="res://assets/objects/starpoint-v06.png" id="2_6hu3d"]
+[ext_resource type="Texture2D" uid="uid://cuibm0pkclu2y" path="res://assets/objects/starpoint.png" id="2_6hu3d"]
 [ext_resource type="Texture2D" uid="uid://ymrgpw8mlvmd" path="res://core/resources/visuals/gradient_starpoint_shadow.tres" id="3_hcarx"]
 [ext_resource type="AudioStream" uid="uid://c3ik72oiusy5y" path="res://audio/sfx/starpoint_wrong.wav" id="4_mshei"]
 [ext_resource type="AudioStream" uid="uid://r6tcr30eiv7n" path="res://audio/sfx/starpoint_exited.ogg" id="5_orj63"]

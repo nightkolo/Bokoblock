@@ -18,8 +18,19 @@ func _ready() -> void:
 		pass
 		)
 
-func anim_pressed():
+func anim_pressed() -> void:
+	var dur := 1.0
+	
 	Audio.ui_button_click.play()
+	
+	scale = Vector2(1.35, 0.95)
+	
+	if tween:
+		tween.kill()
+		
+	tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(self, "scale", Vector2.ONE * 1.15, dur)
 
 
 func anim_entered():

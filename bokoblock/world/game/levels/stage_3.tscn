@@ -89,14 +89,17 @@ what_im_happy_with = 2
 [node name="Endpoint4" parent="StageObjects/Endpoints" instance=ExtResource("11_qlx30")]
 position = Vector2(652, 382)
 what_im_happy_with = 1
+colorblind_label = 3
 
 [node name="Endpoint5" parent="StageObjects/Endpoints" instance=ExtResource("11_qlx30")]
 position = Vector2(652, 337)
 what_im_happy_with = 1
+colorblind_label = 3
 
 [node name="Endpoint6" parent="StageObjects/Endpoints" instance=ExtResource("11_qlx30")]
 position = Vector2(697, 337)
 what_im_happy_with = 1
+colorblind_label = 3
 
 [node name="Bokobody" type="Node2D" parent="StageObjects"]
 position = Vector2(293, 428)
@@ -120,10 +123,13 @@ script = ExtResource("8_dxav2")
 [node name="Block" parent="StageObjects/Bokobody2" instance=ExtResource("9_0jy2d")]
 position = Vector2(0, -45)
 boko_color = 1
+colorblind_label = 3
 
 [node name="Block3" parent="StageObjects/Bokobody2" instance=ExtResource("9_0jy2d")]
 position = Vector2(-45, 0)
 boko_color = 1
+colorblind_label = 3
 
 [node name="Block4" parent="StageObjects/Bokobody2" instance=ExtResource("9_0jy2d")]
 boko_color = 1
+colorblind_label = 3

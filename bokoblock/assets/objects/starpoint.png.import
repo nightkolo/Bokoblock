@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cn8nd4vaiyh3f"
-path="res://.godot/imported/blackpoint-03.png-873ff3049c962cb74000fa6016155797.ctex"
+uid="uid://cuibm0pkclu2y"
+path="res://.godot/imported/starpoint.png-963bf38ef2b6c7e3ba5d8fad9c64643f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/blackpoint-03.png"
-dest_files=["res://.godot/imported/blackpoint-03.png-873ff3049c962cb74000fa6016155797.ctex"]
+source_file="res://assets/objects/starpoint.png"
+dest_files=["res://.godot/imported/starpoint.png-963bf38ef2b6c7e3ba5d8fad9c64643f.ctex"]
 
 [params]
 

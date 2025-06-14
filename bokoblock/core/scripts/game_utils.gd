@@ -12,6 +12,13 @@ enum BokoColor {
 	GREY = 99
 	}
 
+enum ColorblindLabel {
+	Label_1 = 0,
+	Label_2 = 1,
+	Label_3 = 2,
+	Label_4 = 3
+}
+
 static var stage_complete_anim_waittime: float = 1.5
 
 const GAME_SCREEN_SIZE = Vector2(960.0,720.0)

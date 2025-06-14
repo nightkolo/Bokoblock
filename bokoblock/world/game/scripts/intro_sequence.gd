@@ -84,7 +84,7 @@ var _going_to_1_1: bool = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("game_cancel"):
+	if event.is_action_pressed("game_skip_monolog"):
 		if !skip_btn.disabled:
 			#skip_btn.pressed.emit()
 			

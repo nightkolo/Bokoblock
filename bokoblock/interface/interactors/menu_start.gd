@@ -5,6 +5,11 @@ extends Control
 @onready var btns: Array[Node] = get_tree().get_nodes_in_group("UIButton")
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("game_start"):
+		start_game()
+
+
 func _ready() -> void:
 	start_btn.grab_focus()
 	

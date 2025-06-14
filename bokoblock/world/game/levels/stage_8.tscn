@@ -140,10 +140,12 @@ script = ExtResource("7_eplui")
 
 [node name="Block" parent="StageObjects/Bokobody" instance=ExtResource("8_ghctb")]
 boko_color = 1
+colorblind_label = 1
 
 [node name="Block2" parent="StageObjects/Bokobody" instance=ExtResource("8_ghctb")]
 position = Vector2(45, 0)
 boko_color = 1
+colorblind_label = 1
 
 [node name="Block3" parent="StageObjects/Bokobody" instance=ExtResource("8_ghctb")]
 position = Vector2(-45, 0)
@@ -155,10 +157,12 @@ turning_strength = -1
 
 [node name="Block2" parent="StageObjects/Bokobody2" instance=ExtResource("8_ghctb")]
 boko_color = 3
+colorblind_label = 2
 
 [node name="Block" parent="StageObjects/Bokobody2" instance=ExtResource("8_ghctb")]
 position = Vector2(45, 0)
 boko_color = 3
+colorblind_label = 2
 
 [node name="Block3" parent="StageObjects/Bokobody2" instance=ExtResource("8_ghctb")]
 position = Vector2(-45, 0)
