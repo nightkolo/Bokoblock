@@ -1,14 +1,13 @@
 extends Node2D
 class_name BoardNumber
 
-@onready var label: Label = %Label
-@onready var node_sprite: Node2D = $Node2D
-@onready var sprite: Sprite2D = $Node2D/Sprite2D
-
-@export var appear_in: float = 0.2
 @export var texture_purple: Texture2D = preload("res://assets/interface/move-counter-purple-01.png")
 @export var texture_yellow: Texture2D = preload("res://assets/interface/move-counter-yellow-01.png")
 @export var board_number: LabelSettings = preload("res://core/resources/visuals/board_number.tres")
+
+@onready var label: Label = %Label
+@onready var node_sprite: Node2D = $Node2D
+@onready var sprite: Sprite2D = $Node2D/Sprite2D
 
 
 func _ready() -> void:
@@ -17,21 +16,25 @@ func _ready() -> void:
 	modulate = Color(Color.WHITE, 0.0)
 	label.label_settings = board_number
 	
-	await get_tree().create_timer(appear_in).timeout
+	await get_tree().create_timer(0.1).timeout
+	
 	var tween := create_tween()
 	tween.tween_property(self, "modulate", Color(Color.WHITE, 1.0), 1.0)
 	
-	if GameMgr.current_checkerboard_id == 1:
-		sprite.texture = texture_yellow
-		board_number.font_color = Color(Color.BLACK, 0.75)
-	elif GameMgr.current_checkerboard_id == 2:
-		sprite.texture = texture_purple
-		board_number.font_color = Color(Color.WHITE, 0.75)
+	match GameMgr.current_checkerboard_id:
+		
+		1:
+			sprite.texture = texture_yellow
+			board_number.font_color = Color(Color.BLACK, 0.75)
+	
+		2:
+			sprite.texture = texture_purple
+			board_number.font_color = Color(Color.WHITE, 0.75)
 	
 	label.text = str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_board_id)
 
 
-func anim_idle():
+func anim_idle() -> void:
 	var dur_hover := 1.2
 	var dur_rot := 2.2
 	var mag_hover := 5.0 # magnitude

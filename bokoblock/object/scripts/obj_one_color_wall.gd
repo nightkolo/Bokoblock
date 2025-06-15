@@ -11,8 +11,8 @@ func _ready() -> void:
 	GameMgr.colorblind_mode_setting_set.connect(func(_is_on: bool):
 		set_texture()
 		)
-	GameMgr.game_pause_toggled.connect(func(p: bool):
-		if !p:
+	GameMgr.game_pause_toggled.connect(func(is_paused: bool):
+		if !is_paused:
 			set_texture()
 		)
 	
@@ -35,36 +35,23 @@ func anim_idle() -> void:
 	var dur := 2.0
 	
 	var tween = create_tween().set_loops()
-	#var tween_rot = create_tween().set_loops()
-
 	var tween_fade = create_tween().set_loops()
-	
 	
 	tween.tween_property(cross, "scale", Vector2.ZERO,0.0)
 	tween.tween_property(cross, "scale", Vector2.ONE * 0.5,dur)
 	
-	
-	#tween_rot.tween_property(cross, "rotation", PI / 4.0 ,0.0)
-	#tween_rot.tween_property(cross, "rotation", 0.0,dur)
-	
 	tween_fade.tween_property(cross, "self_modulate", Color(Color.WHITE, 0.25), 0.0)
 	tween_fade.tween_property(cross, "self_modulate", Color(Color.WHITE, 0.0), dur / 2.0).set_delay(dur / 2.0)
+
 
 func anim_idle_2() -> void:
 	var dur := 2.0
 	
 	var tween = create_tween().set_loops()
-	#var tween_rot = create_tween().set_loops()
-
 	var tween_fade = create_tween().set_loops()
-	
 	
 	tween.tween_property(cross_2, "scale", Vector2.ZERO,0.0)
 	tween.tween_property(cross_2, "scale", Vector2.ONE * 0.5,dur)
-	
-	
-	#tween_rot.tween_property(cross_2, "rotation", PI / 4.0 ,0.0)
-	#tween_rot.tween_property(cross_2, "rotation", 0.0,dur)
 	
 	tween_fade.tween_property(cross_2, "self_modulate", Color(Color.WHITE, 0.25), 0.0)
 	tween_fade.tween_property(cross_2, "self_modulate", Color(Color.WHITE, 0.0), dur / 2.0).set_delay(dur / 2.0)

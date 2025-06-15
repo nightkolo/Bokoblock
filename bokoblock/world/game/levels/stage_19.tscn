@@ -27,7 +27,7 @@ zoom = Vector2(1.4, 1.4)
 
 [node name="SW" parent="." instance=ExtResource("4_73pbt")]
 checkerboard = 1
-color_pallete = 1
+color_pallete = 3
 
 [node name="StageLight" type="PointLight2D" parent="SW"]
 position = Vector2(562, 359.5)
@@ -56,7 +56,6 @@ tile_set = ExtResource("8_jtavi")
 
 [node name="BoardInfo" parent="SW" instance=ExtResource("9_ooi4s")]
 position = Vector2(698, 428)
-sleep = true
 
 [node name="BoardNumber" parent="SW" instance=ExtResource("10_re8ei")]
 position = Vector2(653, 518)

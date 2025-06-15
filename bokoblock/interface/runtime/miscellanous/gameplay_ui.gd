@@ -6,6 +6,8 @@ signal game_pause_toggled(is_paused: bool)
 @onready var pause_screen: PauseScreen = $PauseMenu
 @onready var checkerboard_complete_screen: CBCompleteScreen = $StageCompleteScreen
 @onready var medal_unlocked_popup: MedalUnlockedPopup = $MedalUnlockedPopup
+@onready var reset_btn: Button = %ResetButton
+@onready var reset_screen: MarginContainer = $ResetScreen
 
 var allow_input: bool = true
 var is_game_paused: bool = false:
@@ -20,15 +22,20 @@ const BBCODE_TXT = "
 const BBCODE_TXT_NO_MOTION = "
 [outline_size=8][outline_color=#3f3f3f][color=#ffffff][center][font_size=37]"
 
+var _tween: Tween
+
 
 func _unhandled_input(event: InputEvent) -> void:
-	if allow_input && !Trans.is_transitioning: # Bruh.
+	if allow_input && !Trans.is_transitioning:
 		
 		if event.is_action_pressed("game_pause"):
 			match GameMgr.current_menu:
 				
 				GameMgr.Menus.RUNTIME, GameMgr.Menus.PAUSE:
-					pause_or_unpause()
+					if GameLogic.has_won:
+						reset_stage() # for controller input
+					else:
+						pause_or_unpause()
 			
 		if event.is_action_pressed("game_reset"):
 			match GameMgr.current_menu:
@@ -38,23 +45,46 @@ func _unhandled_input(event: InputEvent) -> void:
 					
 		if event.is_action_pressed("skip_level"):
 			GameMgr.goto_next_stage()
-		#
-		#if event.is_action_pressed("prev_level"):
-			#GameMgr.goto_prev_stage()
-		
 	
 	
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
+	GameMgr.current_ui_handler = self
+	
+	_hide_reset_button()
 	
 	allow_input = true
-	
-	GameMgr.current_ui_handler = self
+	reset_screen.visible = false
+	reset_btn.disabled = true
+	reset_btn.self_modulate = Color(Color.WHITE, 0.0)
 	
 	game_pause_toggled.connect(func(is_paused: bool):
 		GameMgr.game_pause_toggled.emit(is_paused)
 		)
 	
+	GameMgr.game_just_ended.connect(_show_reset_button)
+	GameMgr.game_end.connect(_hide_reset_button)
+	
+	
+func _show_reset_button() -> void:
+	if GameUtil.is_board_completed():
+		reset_screen.visible = true
+		reset_btn.disabled = false
+		
+		reset_btn.pressed.connect(reset_stage)
+		
+		_tween = create_tween()
+		_tween.tween_property(reset_btn, "self_modulate", Color(Color.WHITE, 1.0), 0.5)
+
+
+func _hide_reset_button() -> void:
+	if _tween:
+		_tween.kill()
+	
+	reset_screen.visible = false
+	reset_btn.disabled = true
+	reset_btn.self_modulate = Color(Color.WHITE, 0.0)
+
 
 func a_medal_has_been_unlocked() -> void:
 	medal_unlocked_popup.anim_medal_unlocked()
@@ -96,20 +126,17 @@ func quit() -> void:
 func reset_stage() -> void:
 	if Trans.is_transitioning:
 		return
-		
-	#is_resetting = true
+	
+	if GameLogic.has_won:
+		## has_resetted_during_board_win is only set to false by GameMgr.
+		GameMgr.has_resetted_during_board_win = true
 	
 	Audio.play_reset_sound()
 	return_to_run()
-	#GameMgr.reset_game()
 	Trans.reset_board()
 	
-	#is_resetting = false
 	
-
 func return_to_run() -> void:
-	#Audio.set_music()
 	is_game_paused = false
 	
 	pause_screen.visible = false
-	

@@ -16,8 +16,8 @@ class_name Board
 		GameMgr.current_checkerboard_id = value
 		checkerboard_id = value
 @export_group("Miscellanous")
-@export var show_dev_ui: bool = false
-@export var custom_block_match: int = -1 ## @experimental
+@export var show_dev_ui: bool = false ## @experimental
+@export var custom_block_match: int = -1
 @export_category("Game")
 @export var stage_progression: bool = true
 @export var save_stats: bool = true
@@ -30,7 +30,6 @@ var _moves_counted: int = 0:
 	get:
 		return _moves_counted
 	set(value):
-		print(value)
 		_moves_counted = mini(999, value)
 
 
@@ -54,7 +53,6 @@ func _ready() -> void:
 	if save_stats:
 		if stage_progression:
 			GameMgr.game_just_ended.connect(store_stats)
-			
 		
 		var SL: SaverLoader = SaverLoader.new()
 		add_child(SL)

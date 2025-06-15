@@ -3,6 +3,7 @@ class_name SleepingBlock
 
 var _sprite: Sprite2D
 
+
 func _ready() -> void:
 	collision_layer = 4
 	collision_mask = 0

@@ -28,11 +28,10 @@ script = ExtResource("17_5xhiq")
 
 [node name="Cam" parent="." instance=ExtResource("3_r1pre")]
 position = Vector2(473, 338)
-zoom = Vector2(1.4, 1.4)
+zoom = Vector2(1.45, 1.45)
 
 [node name="BoardWorld" parent="." instance=ExtResource("4_x45lh")]
 checkerboard = 1
-color_pallete = 3
 
 [node name="StageLight" type="PointLight2D" parent="BoardWorld"]
 position = Vector2(472, 315.5)
@@ -61,10 +60,6 @@ tile_set = ExtResource("8_lo1qh")
 
 [node name="ChibiBoko" parent="BoardWorld" instance=ExtResource("9_fj2is")]
 position = Vector2(338, 473)
-info_text = "Angry Blocks,
- They're still happy
- on Starpoints though."
-sleep = true
 
 [node name="BoardNumber" parent="BoardWorld" instance=ExtResource("10_o53o8")]
 position = Vector2(653, 473)

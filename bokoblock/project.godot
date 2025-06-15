@@ -14,6 +14,7 @@ config/name="BOKOBLOCK"
 config/version="0.1.0"
 run/main_scene="res://interface/menus/menu_start.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/image="res://assets/engine/splash-screen.png"
 config/icon="res://assets/engine/icon.svg"
 
 [audio]

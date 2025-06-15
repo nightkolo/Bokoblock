@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://eyhhyen04o6i"]
+[gd_scene load_steps=5 format=3 uid="uid://eyhhyen04o6i"]
 
 [ext_resource type="Script" path="res://world/world/stage_background.gd" id="1_n48j3"]
-[ext_resource type="Texture2D" uid="uid://b5vh0nswyrv70" path="res://assets/backgrounds/bg-credits.png" id="2_gm0vq"]
-[ext_resource type="Texture2D" uid="uid://bjf01m4j30qhm" path="res://core/resources/visuals/stage_background_dimmer.tres" id="3_blukp"]
+[ext_resource type="Texture2D" uid="uid://b5vh0nswyrv70" path="res://assets/backgrounds/bg-main.png" id="2_gm0vq"]
+[ext_resource type="Texture2D" uid="uid://owijnnd3d76f" path="res://core/resources/visuals/gradient_bg_shade.tres" id="4_4cj82"]
+[ext_resource type="Texture2D" uid="uid://dqn2o0rdex2x3" path="res://assets/backgrounds/bg-light.png" id="4_et0kp"]
 
 [node name="BG" type="CanvasLayer"]
 process_mode = 3
@@ -10,9 +11,14 @@ layer = -10
 script = ExtResource("1_n48j3")
 
 [node name="Texture" type="Node2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(480, 360)
 
-[node name="TextureRect" type="TextureRect" parent="Texture"]
+[node name="Texture2" type="Node2D" parent="Texture"]
+unique_name_in_owner = true
+
+[node name="TextureRect" type="TextureRect" parent="Texture/Texture2"]
+unique_name_in_owner = true
 self_modulate = Color(0.37, 0.37, 0.5, 0.5)
 light_mask = 4
 offset_left = -898.0
@@ -22,9 +28,16 @@ offset_bottom = 720.0
 scale = Vector2(0.83, 0.83)
 pivot_offset = Vector2(900, 720)
 texture = ExtResource("2_gm0vq")
+metadata/_edit_use_anchors_ = true
 
-[node name="BGDim" type="Sprite2D" parent="."]
-self_modulate = Color(1, 1, 1, 0.25)
-position = Vector2(494.5, 359.5)
-scale = Vector2(4.04297, 765)
-texture = ExtResource("3_blukp")
+[node name="Light" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.1)
+position = Vector2(480, 360)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_et0kp")
+
+[node name="Shade" type="Sprite2D" parent="."]
+position = Vector2(473, 360.5)
+scale = Vector2(15.4687, 11.9531)
+texture = ExtResource("4_4cj82")

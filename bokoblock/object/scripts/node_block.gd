@@ -1,5 +1,3 @@
-## Under construction
-##
 ## Preferably use [url]res://object/objects/obj_block.tscn[\url].
 extends Area2D
 class_name Bokoblock
@@ -9,7 +7,6 @@ signal blackpoint_entered(has_entered: bool)
 signal blackpoint_interacted()
 
 @export var boko_color: GameUtil.BokoColor
-@export var colorblind_label: GameUtil.ColorblindLabel
 @export_group("Modify")
 @export var animator: BokoblockAnimationComponent
 @export var auto_check_center: bool = true
@@ -20,7 +17,7 @@ signal blackpoint_interacted()
 @export var asset_eye_normal: Texture2D = preload("res://assets/objects/block-eyes-neutral.png")
 @export var asset_eye_angry: Texture2D = preload("res://assets/objects/block-eyes-angry.png")
 @export var asset_eye_scaredy: Texture2D = preload("res://assets/objects/block-eyes-scaredy.png")
-@export_subgroup("Assets Colorblind mode")
+@export_subgroup("Assets colorblind mode")
 @export var asset_cb_block: Texture2D = preload("res://assets/objects/block-colorblind-01.png")
 @export var asset_cb_block_center: Texture2D = preload("res://assets/objects/block-colorblind-01-center.png")
 

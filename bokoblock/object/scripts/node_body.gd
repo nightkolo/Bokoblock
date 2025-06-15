@@ -283,9 +283,3 @@ func _has_stopped() -> void:
 
 func _on_transform(trans_to) -> void:
 	_current_last_transform = trans_to
-
-
-#func _disable_colli(disable: bool) -> void: ## @experimental
-	#for block: Bokoblock in child_blocks:
-		#if block.get_node_or_null("CollisionShape2D"):
-			#block.get_node_or_null("CollisionShape2D").set_deferred("disabled", disable)

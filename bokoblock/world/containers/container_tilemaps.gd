@@ -1,26 +1,25 @@
-## Under construction
 extends Node2D
 class_name TileMaps
 
-@export var apply_parent_values: bool = true
+#@export var apply_parent_values: bool = true
 
 @onready var child_tilemaps: Array[Node] = get_children()
 
-var parent_level_world: BoardWorld
-var checkerboard_color: Color = Color.WHITE
-var show_collision_tilemap: bool = false
+#var parent_level_world: BoardWorld
+#var checkerboard_color: Color = Color.WHITE
+#var show_collision_tilemap: bool = false
 
 # A 1 0.77 0.77 0.8
 # A 2 0.8 0.8 0.7
 # Area 3 0.8, 0.7, 0.7
 
-func _ready() -> void:
-	_setup_nodes()
+#func _ready() -> void:
+	#_setup_nodes()
 	
 
-func _setup_nodes() -> void:
+#func _setup_nodes() -> void:
 	#self.scale = Vector2.ONE / 2.0
-	pass
+	#pass
 	
 	#if apply_parent_values && get_parent() is StageWorld:
 		#parent_level_world = get_parent() as StageWorld

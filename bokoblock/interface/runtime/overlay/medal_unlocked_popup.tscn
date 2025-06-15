@@ -12,7 +12,6 @@ shadow_color = Color(0, 0, 0, 0.298)
 shadow_offset = Vector2(5, 5)
 
 [node name="MedalUnlockedPopup" type="MarginContainer"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

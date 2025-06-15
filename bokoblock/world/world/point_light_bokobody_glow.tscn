@@ -1,8 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3y7ahtk7vqog"]
+[gd_scene load_steps=3 format=3 uid="uid://c3y7ahtk7vqog"]
 
-[ext_resource type="Texture2D" uid="uid://ci5ud5an8nfu6" path="res://core/resources/visuals/gradient_bokoblock_glow.tres" id="1_622d8"]
+[sub_resource type="Gradient" id="Gradient_1gdm8"]
+offsets = PackedFloat32Array(0, 0.75)
+colors = PackedColorArray(0.264753, 0.264753, 0.264753, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rq0xv"]
+gradient = SubResource("Gradient_1gdm8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="PointLight2D" type="PointLight2D"]
 scale = Vector2(2.8, 2.8)
 range_item_cull_mask = 2
-texture = ExtResource("1_622d8")
+texture = SubResource("GradientTexture2D_rq0xv")

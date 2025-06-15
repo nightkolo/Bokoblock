@@ -53,8 +53,9 @@ bus = &"UISound"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = ExtResource("5_6hknb")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_xmrbd")
-volume_db = -10.0
-pitch_scale = 0.8
-bus = &"UISound"
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -26.0
+offset_top = -30.0
+offset_right = 29.0
+offset_bottom = 30.0

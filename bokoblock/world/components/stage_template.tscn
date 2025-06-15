@@ -1,0 +1,55 @@
+[gd_scene load_steps=12 format=3 uid="uid://1jr3hnyoqmva"]
+
+[ext_resource type="Script" path="res://core/scripts/stage.gd" id="1_veymn"]
+[ext_resource type="PackedScene" uid="uid://c2td8hv4f264o" path="res://interface/runtime/miscellanous/gameplay_ui.tscn" id="2_uktfl"]
+[ext_resource type="PackedScene" uid="uid://brxyd2eqdblj4" path="res://object/game/game_cam.tscn" id="3_mto3f"]
+[ext_resource type="PackedScene" uid="uid://cedpkr87ujyh1" path="res://world/components/level_world.tscn" id="4_u1hyd"]
+[ext_resource type="Texture2D" uid="uid://b0kqtj21y0y7f" path="res://core/resources/visuals/gradient_stage_checkboard_shadow.tres" id="5_viv33"]
+[ext_resource type="Script" path="res://world/world/stage_light.gd" id="6_dkoli"]
+[ext_resource type="Script" path="res://world/containers/container_tilemaps.gd" id="7_gp5x4"]
+[ext_resource type="TileSet" uid="uid://dsk4kuh8k4bve" path="res://core/resources/tileset/tileset_world_02.tres" id="8_2nexa"]
+[ext_resource type="PackedScene" uid="uid://dmfiavy81h85b" path="res://world/interface/board_info.tscn" id="9_pg1o8"]
+[ext_resource type="PackedScene" uid="uid://hl7pstx0ues" path="res://world/interface/board_number.tscn" id="10_4dbvu"]
+[ext_resource type="Script" path="res://world/containers/container_level_object.gd" id="11_la2oy"]
+
+[node name="Board" type="Node2D"]
+script = ExtResource("1_veymn")
+stage_progression = false
+
+[node name="UI" parent="." instance=ExtResource("2_uktfl")]
+
+[node name="Cam" parent="." instance=ExtResource("3_mto3f")]
+
+[node name="BoardWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_u1hyd")]
+auto_assign = false
+tile_maps = NodePath("TM")
+show_collision_tilemap = true
+
+[node name="PointLight2D" type="PointLight2D" parent="BoardWorld"]
+position = Vector2(517, 382)
+scale = Vector2(8.4375, 7.03125)
+range_item_cull_mask = 2
+texture = ExtResource("5_viv33")
+script = ExtResource("6_dkoli")
+
+[node name="TM" type="Node2D" parent="BoardWorld"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("7_gp5x4")
+
+[node name="Collision" type="TileMapLayer" parent="BoardWorld/TM"]
+tile_set = ExtResource("8_2nexa")
+
+[node name="Checkerboard" type="TileMapLayer" parent="BoardWorld/TM"]
+self_modulate = Color(0.769231, 0.769231, 0.769231, 1)
+light_mask = 2
+tile_set = ExtResource("8_2nexa")
+
+[node name="Outline" type="TileMapLayer" parent="BoardWorld/TM"]
+tile_set = ExtResource("8_2nexa")
+
+[node name="ChibiBoko" parent="BoardWorld" instance=ExtResource("9_pg1o8")]
+
+[node name="BoardNumber" parent="BoardWorld" instance=ExtResource("10_4dbvu")]
+
+[node name="BoardObjects" type="Node2D" parent="."]
+script = ExtResource("11_la2oy")

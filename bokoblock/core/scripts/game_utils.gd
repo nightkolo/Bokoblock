@@ -12,22 +12,26 @@ enum BokoColor {
 	GREY = 99
 	}
 
-enum ColorblindLabel {
-	Label_1 = 0,
-	Label_2 = 1,
-	Label_3 = 2,
-	Label_4 = 3
-}
-
-static var stage_complete_anim_waittime: float = 1.5
-
-const GAME_SCREEN_SIZE = Vector2(960.0,720.0)
 const TILE_SIZE = 45.0 
 const NUMBER_OF_BOARDS_PER_CHECKERBOARD = 10
 const NUMBER_OF_BOARDS = 20
 const NUMBER_OF_CHECKERBOARDS = 2
 const STAGE_FILE_BEGIN = "res://world/game/levels/stage_"
 const STAGE_FILE_END = ".tscn"
+
+
+static func get_board_complete_anim_waittime() -> float:
+	if is_board_completed():
+		return 2.25
+	else:
+		return 1.5
+
+
+static func is_board_completed() -> bool:
+	if !GameData.runtime_data.has(str(GameMgr.current_board_id)):
+		return false
+		
+	return GameData.runtime_data[str(GameMgr.current_board_id)]["completed"] == true
 
 
 static func disable_buttons(btns: Array[Node], disable: bool = true) -> void:
@@ -40,62 +44,57 @@ static func disable_buttons(btns: Array[Node], disable: bool = true) -> void:
 
 static func set_boko_color(is_bokocolor: BokoColor, set_strength: float = 1.0, set_alpha: float = 1.0) -> Color:
 	var col: Color
-	var s := set_strength
-	var a := set_alpha
 	
 	if GameMgr.get_colorblind_mode_setting():
 		match is_bokocolor:
 			
 			BokoColor.AQUA:
-				col = Color(Color(1.0,0.77,1.0)*s,a) # I lied, cry about it.
+				col = Color(Color(1.0,0.77,1.0)*set_strength,set_alpha) # I lied, cry about it.
 				
 			BokoColor.RED:
-				col = Color(Color(1.0,0.0,0.0)*s,a)
+				col = Color(Color(1.0,0.0,0.0)*set_strength,set_alpha)
 			
 			BokoColor.BLUE:
-				col = Color(Color(0.0,0.0,1.0)*s,a)
+				col = Color(Color(0.0,0.0,1.0)*set_strength,set_alpha)
 				
 			BokoColor.YELLOW:
-				col = Color(Color(1.0,1.0,0.0)*s,a)
+				col = Color(Color(1.0,1.0,0.0)*set_strength,set_alpha)
 				
 			BokoColor.GREEN:
-				col = Color(Color(0.0,0.5,0.0)*s,a)
+				col = Color(Color(0.0,0.5,0.0)*set_strength,set_alpha)
 				
 			BokoColor.PINK:
-				col = Color(Color.PINK*s,a)
+				col = Color(Color.PINK*set_strength,set_alpha)
 				
 			BokoColor.GREY:
-				col = Color(Color.GRAY*s,a)
+				col = Color(Color.GRAY*set_strength,set_alpha)
+
 	else:
 		match is_bokocolor:
 			
 			BokoColor.AQUA:
-				col = Color(Color(1.0,0.77,1.0)*s,a) # I lied, cry about it.
+				col = Color(Color(1.0,0.77,1.0)*set_strength,set_alpha)
 				
 			BokoColor.RED:
-				col = Color(Color(1.0,0.5,0.5)*s,a)
+				col = Color(Color(1.0,0.5,0.5)*set_strength,set_alpha)
 			
 			BokoColor.BLUE:
-				col = Color(Color(0.5,0.5,1.0)*s,a)
+				col = Color(Color(0.5,0.5,1.0)*set_strength,set_alpha)
 				
 			BokoColor.YELLOW:
-				col = Color(Color(1.0,1.0,0.5)*s,a)
+				col = Color(Color(1.0,1.0,0.5)*set_strength,set_alpha)
 				
 			BokoColor.GREEN:
-				col = Color(Color.GREEN*s,a)
+				col = Color(Color.GREEN*set_strength,set_alpha)
 				
 			BokoColor.PINK:
-				col = Color(Color.PINK*s,a)
+				col = Color(Color.PINK*set_strength,set_alpha)
 				
 			BokoColor.GREY:
-				col = Color(Color.GRAY*s,a)
+				col = Color(Color.GRAY*set_strength,set_alpha)
 			
 	return col
-
-
-static func check_file_exists(file_path: String) -> bool:
-	return FileAccess.file_exists(file_path)
-
+	
 
 static func reset_tween(t: Tween) -> void:
 	if t:

@@ -26,7 +26,8 @@ var current_board: Board
 var current_board_id: int = -1
 var current_checkerboard_id: int = -1
 
-var is_game_manager_resetting: bool = false ## @experimental
+#var is_game_manager_resetting: bool = false ## @experimental
+var has_resetted_during_board_win: bool = false
 
 var saver_loader: SaverLoader = SaverLoader.new()
 
@@ -43,7 +44,12 @@ func _ready() -> void:
 		
 		load_game_medals_data()
 	
-	game_end.connect(stage_complete)
+	game_end.connect(func():
+		if !has_resetted_during_board_win:
+			stage_complete()
+			
+		has_resetted_during_board_win = false
+		)
 	
 	menu_entered.connect(func(entered: Menus):
 		current_menu = entered
@@ -51,12 +57,12 @@ func _ready() -> void:
 	
 	game_reset.connect(func():
 		GameLogic.self_destruct()
-		_reset_game_manager()
+		#_reset_game_manager()
 		get_tree().reload_current_scene()
 		)
 	
 	game_just_ended.connect(func():
-		await get_tree().create_timer(GameUtil.stage_complete_anim_waittime).timeout
+		await get_tree().create_timer(GameUtil.get_board_complete_anim_waittime()).timeout
 		game_end.emit()
 	)
 
@@ -92,7 +98,7 @@ func goto_next_stage(force_progression: bool = false) -> void:
 			print("current_board.stage_progression is false, progression stopped.")
 			return
 	
-	_reset_game_manager()
+	#_reset_game_manager()
 	GameLogic.self_destruct()
 	
 	var next_lvl_id := current_board_id + 1
@@ -116,7 +122,7 @@ func goto_prev_stage() -> void:
 	if current_board:
 		return
 	
-	_reset_game_manager()
+	#_reset_game_manager()
 	GameLogic.self_destruct()
 	
 	var next_lvl_id := current_board_id - 1
@@ -126,6 +132,7 @@ func goto_prev_stage() -> void:
 		get_tree().change_scene_to_file(next_lvl_path)
 
 #### Config
+
 signal reduce_motion_setting_set(is_on: bool)
 signal colorblind_mode_setting_set(is_on: bool)
 
@@ -219,12 +226,13 @@ func process_waittime(wait: float = 0.05) -> void: ## @deprecated
 	await get_tree().create_timer(wait).timeout
 
 
-func self_destruct() -> void: ## @experimental
-	_reset_game_manager()
+func self_destruct() -> void: ## @deprecated
+	#_reset_game_manager()
+	pass
 	
 
-func _reset_game_manager() -> void:
-	pass
+#func _reset_game_manager() -> void:
+	#pass
 	#if !is_game_manager_resetting:
 		#is_game_manager_resetting = true
 		#

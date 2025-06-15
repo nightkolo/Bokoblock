@@ -28,11 +28,9 @@ class_name CharacterChibiBoko
 var _process_star_spinning: bool
 
 
-
 var tween_poke: Tween
 
 func anim_poke() -> void:
-	
 	if tween_poke:
 		tween_poke.kill()
 	
@@ -42,23 +40,22 @@ func anim_poke() -> void:
 	tween_poke.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	
 	var dur_bounce := 1.0 * 0.3
-	var dur_delay := dur_bounce / 15.55
-	var up: Vector2
-	var down: Vector2
+	#var dur_delay := dur_bounce / 15.55
+	var up := (Vector2.ONE / 1.3)
+	#var down: Vector2
 	var rot_to := signf(randf()-0.5) * (5.0 + (randf() * 4.0))
 	var skew_to := signf(randf()-0.5) * (5.0 + (randf() * 4.0))
-	
-	up = (Vector2.ONE / 1.3)
-	down = (Vector2.ONE * 1.3)
+
+	#down = (Vector2.ONE * 1.3)
 	
 	sprite_head.scale = up
 	sprite_head.rotation_degrees = rot_to
 	sprite_head.skew = deg_to_rad(skew_to)
 	
-	tween_poke.tween_property(sprite_head,"scale:x",1.0,dur_bounce)
+	#tween_poke.tween_property(sprite_head,"scale:x",1.0,dur_bounce)
 	tween_poke.tween_property(sprite_head,"rotation_degrees",0.0,dur_bounce)
 	tween_poke.tween_property(sprite_head,"skew",0.0,dur_bounce)
-	tween_poke.tween_property(sprite_head,"scale:y",1.0,dur_bounce).set_delay(dur_delay)
+	tween_poke.tween_property(sprite_head,"scale",Vector2.ONE,dur_bounce)
 	
 
 
@@ -132,6 +129,7 @@ func pose_happy(spin_star: bool = true) -> void:
 
 
 func pose_asleep() -> void:
+	anim_bounce(true)
 	anim_breathing(true)
 	anim_star_spinning(false)
 	anim_zeing(true)

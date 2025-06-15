@@ -62,12 +62,6 @@ tile_set = ExtResource("5_lv4gk")
 
 [node name="ChibiBoko" parent="BoardWorld" instance=ExtResource("8_6ewiw")]
 position = Vector2(698, 248)
-info_text = "Sleepy Blocks
- are sleep
- deprived,
- like Kolo at
- University."
-sleep = true
 
 [node name="BoardNumber" parent="BoardWorld" instance=ExtResource("10_1ij0t")]
 position = Vector2(698, 473)

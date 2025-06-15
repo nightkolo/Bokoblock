@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://645xw6bnns5y"]
+[gd_scene load_steps=29 format=3 uid="uid://645xw6bnns5y"]
 
 [ext_resource type="Script" path="res://world/game/scripts/intro_sequence.gd" id="1_omsmu"]
 [ext_resource type="PackedScene" uid="uid://eyhhyen04o6i" path="res://world/world/stage_background.tscn" id="2_2cup4"]
@@ -24,17 +24,12 @@
 [ext_resource type="AudioStream" uid="uid://c4hca3jxd1n22" path="res://audio/sounds/boko_awake_02.ogg" id="13_bh06s"]
 [ext_resource type="AudioStream" uid="uid://dr0ap5p3f3qlm" path="res://audio/sounds/boko_awake_03.ogg" id="14_pekh2"]
 
-[sub_resource type="FontVariation" id="FontVariation_bnyyf"]
-spacing_glyph = -2
-spacing_space = 1
-
 [sub_resource type="LabelSettings" id="LabelSettings_bmq6d"]
-font = SubResource("FontVariation_bnyyf")
-font_size = 34
-font_color = Color(0, 0, 0, 1)
-outline_color = Color(0, 0, 0, 1)
+font_size = 32
+outline_size = 8
+outline_color = Color(0.25, 0.25, 0.25, 1)
 shadow_size = 0
-shadow_color = Color(0, 0, 0, 0.1)
+shadow_color = Color(0, 0, 0, 0.422)
 shadow_offset = Vector2(3, 3)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2ovet"]
@@ -147,11 +142,12 @@ stream = ExtResource("12_cu4m8")
 volume_db = -20.0
 bus = &"UISound"
 
-[node name="BG" parent="." instance=ExtResource("2_2cup4")]
-
 [node name="Cam" type="Camera2D" parent="."]
 position = Vector2(480, 360)
 zoom = Vector2(1.125, 1.125)
+
+[node name="BG" parent="." instance=ExtResource("2_2cup4")]
+show_light = false
 
 [node name="CharacterChibiBoko" parent="." instance=ExtResource("3_wuac4")]
 position = Vector2(480, 360)
@@ -294,7 +290,7 @@ libraries = {
 "": SubResource("AnimationLibrary_4y1ll")
 }
 
-[node name="WholeLottaRed" type="ColorRect" parent="."]
+[node name="RedBG" type="ColorRect" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 offset_right = 960.0
 offset_bottom = 720.0

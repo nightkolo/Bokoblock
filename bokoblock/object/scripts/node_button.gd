@@ -1,4 +1,4 @@
-## Under construction
+## @deprecated
 extends Area2D
 class_name ButtonObj
 
@@ -7,7 +7,7 @@ class_name ButtonObj
 signal button_held(is_held: bool)
 
 @export var switch_blockss_to_trigger: Array[SwitchBlocks]
-@export var switch_type_decorator: GameUtil.SwitchTypeDecorator
+#@export var switch_type_decorator: GameUtil.SwitchTypeDecorator
 @export_group("Nodes to Assign")
 @export var node_sprites: Node2D
 @export var sprite_head: Sprite2D
@@ -56,13 +56,13 @@ func _setup_node():
 	collision_layer = 4
 	collision_mask = 15
 	
-	match switch_type_decorator:
-		
-		GameUtil.SwitchTypeDecorator.Cross:
-			sprite_head.texture = texture_cross
-			
-		GameUtil.SwitchTypeDecorator.Square:
-			sprite_head.texture = texture_square
+	#match switch_type_decorator:
+		#
+		#GameUtil.SwitchTypeDecorator.Cross:
+			#sprite_head.texture = texture_cross
+			#
+		#GameUtil.SwitchTypeDecorator.Square:
+			#sprite_head.texture = texture_square
 
 
 func check_state() -> bool:

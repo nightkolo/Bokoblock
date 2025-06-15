@@ -57,11 +57,6 @@ tile_set = ExtResource("5_0afa2")
 
 [node name="ChibiBoko" parent="StageWorld" instance=ExtResource("8_7xvra")]
 position = Vector2(743, 518)
-info_text = "If you get stuck,
- Press Z
- to Undo
- R to Reset"
-sleep = true
 
 [node name="BoardNumber" parent="StageWorld" instance=ExtResource("10_atpyt")]
 position = Vector2(473, 518)

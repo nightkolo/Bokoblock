@@ -59,7 +59,6 @@ tile_set = ExtResource("8_bh5ym")
 
 [node name="ChibiBoko" parent="BoardWorld" instance=ExtResource("9_nwn1k")]
 position = Vector2(653, 563)
-sleep = true
 
 [node name="BoardNumber" parent="BoardWorld" instance=ExtResource("10_bi35a")]
 position = Vector2(653, 428)

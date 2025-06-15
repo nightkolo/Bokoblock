@@ -1,5 +1,5 @@
 ## @experimental
-## [Stage] Component for unlocking Board-specific medals.
+## [Board] Component for unlocking Board-specific medals.
 extends Node
 class_name BoardMedalUnlockerComponent
 
@@ -16,7 +16,7 @@ var has_hit_sleepy_block: bool = false
 # The user wouldn't be able to unlock those medals on that account, as again...
 # GameData.medal_data only checks for BROWSER SESSIONS, and NOT the Newgrounds Account.
 # Thus, I can't do an unlock check, and instead unlock a medal at all costs. 
-# I'm also hoesntly not skilled enough to troubleshoot this :(
+# I'm also honestly not skilled enough to troubleshoot this :(
 
 
 func _display_msg(result: bool) -> void:

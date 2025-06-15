@@ -2,14 +2,12 @@ extends Area2D
 class_name Starpoint
 
 @export var what_im_happy_with: GameUtil.BokoColor
-@export var colorblind_label: GameUtil.ColorblindLabel
 @export_group("Object to Assign")
 @export var sprite_star: Sprite2D
 @export var particles_idle: CPUParticles2D
 @export var particles_star: PackedScene = preload("res://world/world/particles_starpoint_happy.tscn")
 @export_group("Assets")
 @export var asset_starpoint: Texture2D = preload("res://assets/objects/starpoint.png")
-@export_subgroup("Assets colorblind mode")
 @export var asset_starpoint_cb: Texture2D = preload("res://assets/objects/starpoint-colorblind-01.png")
 @export_group("SFX")
 @export var audio_wrong: AudioStreamPlayer2D
@@ -45,8 +43,8 @@ func _ready() -> void:
 		_set_star_texture()
 		)
 		
-	GameMgr.game_pause_toggled.connect(func(p: bool):
-		if !p:
+	GameMgr.game_pause_toggled.connect(func(is_paused: bool):
+		if !is_paused:
 			_set_star_texture()
 		)
 		
@@ -109,7 +107,6 @@ func anim_idle() -> void:
 
 
 var tween_pulse: Tween
-
 
 func anim_pulse() -> void:
 	if sprite_star:

@@ -20,8 +20,6 @@ extends Node
 @onready var body_turn_1: AudioStreamPlayer = $SFX/BlockTurn1
 @onready var body_turn_2: AudioStreamPlayer = $SFX/BlockTurn2
 
-#@onready var body_turning_sound: AudioStreamPlayer = $SFX/BlockTurningSound
-
 @onready var body_turn_hit_1: AudioStreamPlayer = $SFX/BlockTurnHit
 @onready var body_turn_hit_2: AudioStreamPlayer = $SFX/BlockTurnHit2
 @onready var body_move_hit_1: AudioStreamPlayer = $SFX/BlockMoveHit
@@ -36,12 +34,8 @@ extends Node
 @onready var ui_button_click: AudioStreamPlayer = $UI/UiButtonClick
 @onready var ui_button_hover: AudioStreamPlayer = $UI/UiButtonHover
 
-#@onready var body_happy_01: AudioStreamPlayer = $SFX/BodyHappy01
-#@onready var body_happy_02: AudioStreamPlayer = $SFX/BodyHappy02
-
 var body_moving: Array[Node]
 var body_turn_click: Array[Node]
-#var _stage_complete_jingles: Array[Node]
 
 var original_music_db: float
 var _reset_sound: bool = true
@@ -90,7 +84,8 @@ func _ready() -> void:
 		)
 		
 	GameMgr.game_end.connect(func():
-		stage_next.play()
+		if !GameMgr.has_resetted_during_board_win:
+			stage_next.play()
 		)
 	
 	GameLogic.body_hit_move.connect(play_body_move_hit)

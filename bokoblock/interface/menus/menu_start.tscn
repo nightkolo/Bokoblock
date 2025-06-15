@@ -1,10 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpujkicds0iny"]
+[gd_scene load_steps=9 format=3 uid="uid://dpujkicds0iny"]
 
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_w2k3w"]
 [ext_resource type="Script" path="res://interface/interactors/menu_start.gd" id="1_wuuvm"]
 [ext_resource type="StyleBox" uid="uid://bsppk7f7j58hb" path="res://core/resources/theme/button_block.tres" id="4_y7clw"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_block.gd" id="6_2qulo"]
 [ext_resource type="PackedScene" uid="uid://wcao18gadugm" path="res://interface/ui/game_title_demo.tscn" id="8_pnkpd"]
+
+[sub_resource type="Gradient" id="Gradient_ab7aa"]
+offsets = PackedFloat32Array(0.3, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.25)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kqbau"]
+gradient = SubResource("Gradient_ab7aa")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="LabelSettings" id="LabelSettings_atw8y"]
 font_size = 32
@@ -26,7 +35,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.25, 0.1, 0.25, 1)
+color = Color(0.3, 0.125, 0.3, 1)
+
+[node name="Shade" type="Sprite2D" parent="."]
+position = Vector2(473, 360.5)
+scale = Vector2(15.4687, 11.9531)
+texture = SubResource("GradientTexture2D_kqbau")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -100,13 +114,13 @@ layout_mode = 2
 offset_left = -1.0
 offset_top = 50.0
 offset_right = 149.0
-offset_bottom = 181.0
+offset_bottom = 106.0
 mouse_filter = 1
 bbcode_enabled = true
 text = "[center][font_size=40]Start?"
 fit_content = true
 
-[node name="Label" type="Label" parent="."]
+[node name="DemoLabel" type="Label" parent="."]
 visible = false
 layout_mode = 0
 offset_left = 646.0

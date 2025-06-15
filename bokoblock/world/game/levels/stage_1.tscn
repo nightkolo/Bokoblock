@@ -39,11 +39,11 @@ font_size = 24
 script = ExtResource("1_yjl42")
 win_condition = 1
 
+[node name="UI" parent="." instance=ExtResource("3_dikwh")]
+
 [node name="Cam" parent="." instance=ExtResource("3_s83cp")]
 position = Vector2(520, 382)
 zoom = Vector2(1.25, 1.25)
-
-[node name="UI" parent="." instance=ExtResource("3_dikwh")]
 
 [node name="BoardWorld" parent="." node_paths=PackedStringArray("tile_maps") instance=ExtResource("4_m0deh")]
 tile_maps = NodePath("TM")

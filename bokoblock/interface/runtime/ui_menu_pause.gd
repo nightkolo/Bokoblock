@@ -93,14 +93,14 @@ func update_options() -> void:
 	update_text()
 	
 	if GameMgr.get_game_sfx_muted_setting():
-		sfx_btn.text = "SFX:OFF"
+		sfx_btn.text = "Sounds: OFF"
 	else:
-		sfx_btn.text = "SFX:ON"
+		sfx_btn.text = "Sounds: ON"
 	
 	if GameMgr.get_game_music_muted_setting():
-		music_btn.text = "Music:OFF"
+		music_btn.text = "Music: OFF"
 	else:
-		music_btn.text = "Music:ON"
+		music_btn.text = "Music: ON"
 		
 	if GameMgr.get_reduce_motion_setting():
 		reduce_motion_btn.text = "Reduce Motion: ON"

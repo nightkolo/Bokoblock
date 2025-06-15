@@ -46,6 +46,7 @@ func unlock_a_medal(medal_code: String, medal_id: int) -> void:
 	#for medal: MedalResource in medals:
 		#if medal.id == medal_id:
 			#print("Medal Name: " + str(medal.name) + ". ID: " + str(medal.id) + ". Unlocked: " + str(medal.unlocked))
+			#break
 	
 	if !GameData.medal_data.has(medal_code):
 		return

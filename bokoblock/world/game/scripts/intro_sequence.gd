@@ -1,8 +1,6 @@
 extends Node2D
 class_name Monolog
 
-# TODO: Clean up scene
-
 signal monolog_line_entered(is_index: int)
 signal boko_pose_set(is_pose: BokoPoses)
 
@@ -47,15 +45,14 @@ Board 1-1!"
 @export var goto_board_1_1: bool = true
 
 @onready var top_hat_man: CharacterChibiBoko = $CharacterChibiBoko
-#@onready var bg: Background = $BG
+@onready var bg: Background = $BG
 
 @onready var monolog_box: NinePatchRect = $MonologBox
 @onready var label: RichTextLabel = %RichTextLabel
 
 @onready var audio_speech: AudioStreamPlayer = $Audio/Speech
 @onready var audio_click: AudioStreamPlayer = $Audio/Click
-@onready var bg_red: ColorRect = $WholeLottaRed
-#@onready var click_on_him_label: Label = $Label
+@onready var bg_red: ColorRect = $RedBG
 
 @onready var skip_btn: Button = %SkipButton
 
@@ -86,11 +83,7 @@ var _going_to_1_1: bool = false
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("game_skip_monolog"):
 		if !skip_btn.disabled:
-			#skip_btn.pressed.emit()
-			
-			get_tree().change_scene_to_file("res://interface/menus/main_menus_scene.tscn")
-			
-			#skip_btn.grab_focus()
+			skip()
 	
 	if event.is_action_pressed("game_next_monolog") && is_boko_awake && !_going_to_1_1:
 		goto_next_monolog()
@@ -185,7 +178,12 @@ func stop() -> void:
 	
 	if goto_board_1_1:
 		_goto_board_1_1()
-		
+
+
+func skip() -> void:
+	_hide_skip_button()
+	Trans.slide_to_scene("res://interface/menus/main_menus_scene.tscn", 1.0)
+
 
 func show_text(text_to_show: String) -> void:
 	if _monolog_spawn_timer != null:
@@ -275,8 +273,6 @@ func _goto_board_1_1() -> void:
 			
 			GameMgr.save_game_data()
 			
-	# TODO: Add transition
-	
 	await get_tree().create_timer(1.0).timeout
 	
 	Trans.slide_to_scene("res://world/game/levels/stage_1.tscn", 0.75)
@@ -288,7 +284,6 @@ func _setup_intro_sequence() -> void:
 	
 	top_hat_man.modulate = Color(Color.BLACK)
 	wake_up_call.wake_up_boko_btn.disabled = true
-	#click_on_him_label.self_modulate = Color(Color.WHITE, 0.0)
 	
 	_cam_zoom = cam.zoom
 	
@@ -312,11 +307,6 @@ func _setup_intro_sequence() -> void:
 	wake_up_call.have_awoken.connect(boko_is_awake)
 	wake_up_call.closer_wake.connect(anim_waking_up)
 	
-	#await get_tree().create_timer(6.0).timeout
-#
-	#var tween := create_tween()
-	#tween.tween_property(click_on_him_label, "self_modulate", Color(Color.WHITE, 0.5), 1.0)
-
 
 func _show_skip_button(appear_in: float = 2.0):
 	if !GameData.runtime_data.has("first_session"):
@@ -327,15 +317,13 @@ func _show_skip_button(appear_in: float = 2.0):
 	if GameData.runtime_data["first_session"] == false:
 		skip_btn.disabled = false
 		
-		skip_btn.pressed.connect(func():
-			get_tree().change_scene_to_file("res://interface/menus/main_menus_scene.tscn")
-			)
+		skip_btn.pressed.connect(skip)
 		
 		var tween := create_tween()
 		tween.tween_property(skip_btn, "modulate", Color(Color.WHITE, 1.0), 1.0)
 
 
-func _hide_skip_button():
+func _hide_skip_button() -> void:
 	skip_btn.disabled = true
 		
 	var tween := create_tween()
@@ -347,7 +335,6 @@ func boko_is_awake() -> void:
 	
 	top_hat_man.modulate = Color(Color.WHITE)
 	wake_up_call.wake_up_boko_btn.queue_free()
-	#click_on_him_label.queue_free()
 	wake_up_call.anim_boko_woke_up()
 	monolog_box.modulate = Color(Color.WHITE,0.0)
 	
