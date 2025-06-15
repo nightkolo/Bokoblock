@@ -25,7 +25,7 @@ func anim_pressed() -> void:
 	
 	Audio.ui_button_click.play()
 	
-	scale = Vector2(1.35, 0.95)
+	self.scale = Vector2(1.35, 0.95)
 	
 	if tween:
 		tween.kill()

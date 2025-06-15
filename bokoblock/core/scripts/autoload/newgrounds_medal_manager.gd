@@ -36,7 +36,7 @@ func unlock_a_medal(medal_code: String, medal_id: int) -> void:
 	# The user wouldn't be able to unlock those medals on that account, as again...
 	# GameData.medal_data only checks for BROWSER SESSIONS, and NOT the Newgrounds Account.
 	# Thus, I can't do an unlock check, and instead unlock the medal at all costs. 
-	# ....I'm also hoesntly not skilled enough to troubleshoot this :(
+	# ....I'm also honestly not skilled enough to troubleshoot this :(
 	
 	await NG.medal_unlock(medal_id)
 	

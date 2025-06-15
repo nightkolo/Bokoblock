@@ -8,9 +8,6 @@ class_name PauseScreen
 @onready var reset_btn: Button = %ResetButton
 @onready var quit_btn: Button = %ReturnButton
 
-@onready var sfx_btn: Button = %SFX
-@onready var music_btn: Button = %Music
-
 @onready var colorblind_btn: Button = %Areyoucolorblinded
 @onready var reduce_motion_btn: Button = %ReduceMotionButton
 
@@ -75,32 +72,10 @@ func _ready() -> void:
 		
 		update_options()
 		)
-	sfx_btn.pressed.connect(func():
-		var setting := GameMgr.get_game_sfx_muted_setting()
-		GameMgr.set_game_sfx_muted(!setting)
-		
-		update_options()
-		)
-	music_btn.pressed.connect(func():
-		var setting := GameMgr.get_game_music_muted_setting()
-		GameMgr.set_game_music_muted(!setting)
-		
-		update_options()
-		)
 
 
 func update_options() -> void:
 	update_text()
-	
-	if GameMgr.get_game_sfx_muted_setting():
-		sfx_btn.text = "Sounds: OFF"
-	else:
-		sfx_btn.text = "Sounds: ON"
-	
-	if GameMgr.get_game_music_muted_setting():
-		music_btn.text = "Music: OFF"
-	else:
-		music_btn.text = "Music: ON"
 		
 	if GameMgr.get_reduce_motion_setting():
 		reduce_motion_btn.text = "Reduce Motion: ON"

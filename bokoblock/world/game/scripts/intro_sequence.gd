@@ -278,7 +278,6 @@ func _goto_board_1_1() -> void:
 	Trans.slide_to_scene("res://world/game/levels/stage_1.tscn", 0.75)
 
 
-
 func _setup_intro_sequence() -> void:
 	var zoom_dur := 4.0
 	
@@ -371,23 +370,3 @@ func anim_waking_up(waking: float) -> void:
 	
 	_tween.tween_property(cam, "zoom", _cam_zoom * (1.0 + (waking / 8.0)), 0.25)
 	_tween.tween_property(bg_red, "self_modulate", Color(Color.WHITE, waking / 2.0), 0.25)
-
-
-func anim_loop_test() -> void: ## @experimental
-	top_hat_man.pose_happy()
-	
-	await get_tree().create_timer(2.5).timeout
-	
-	top_hat_man.pose_asleep()
-
-	await get_tree().create_timer(2.5).timeout
-	
-	top_hat_man.pose_woke()
-
-	await get_tree().create_timer(2.5).timeout
-	
-	top_hat_man.pose_neutral()
-
-	await get_tree().create_timer(2.5).timeout
-	
-	anim_loop_test()

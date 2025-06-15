@@ -69,7 +69,6 @@ func _ready() -> void:
 					_display_msg(GameData.medal_data["15_1"])
 		)
 	
-	
 	GameMgr.game_just_ended.connect(func():
 		# Checks for condition medals
 		

@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2hyhl2j3cera"]
+[gd_scene load_steps=11 format=3 uid="uid://d2hyhl2j3cera"]
 
 [ext_resource type="PackedScene" uid="uid://wcao18gadugm" path="res://interface/ui/game_title_demo.tscn" id="2_imu71"]
 [ext_resource type="Script" path="res://interface/interactors/menu_title_screen.gd" id="2_qjgxv"]
 [ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="3_qc6yc"]
 [ext_resource type="Script" path="res://interface/animators/anim_button.gd" id="4_ki3e0"]
+[ext_resource type="Script" path="res://interface/interactors/audio_options_container.gd" id="5_is32b"]
+[ext_resource type="Script" path="res://interface/animators/anim_button_icon.gd" id="6_mmakm"]
+[ext_resource type="Texture2D" uid="uid://cjnkkcvft8weq" path="res://assets/interface/option-sfx.png" id="7_jrgp0"]
+[ext_resource type="Texture2D" uid="uid://dq78ts4vio54n" path="res://assets/interface/option-music.png" id="8_06imj"]
 
 [sub_resource type="FontVariation" id="FontVariation_225m5"]
 spacing_top = -4
@@ -45,7 +49,7 @@ theme_override_constants/margin_bottom = 100
 [node name="MarginContainer" type="MarginContainer" parent="Main"]
 layout_mode = 2
 theme_override_constants/margin_top = 50
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_bottom = 25
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Main/MarginContainer"]
 layout_mode = 2
@@ -71,7 +75,8 @@ theme_override_constants/separation = 12
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-focus_neighbor_top = NodePath("../CreditsButton")
+focus_neighbor_top = NodePath("../AudioOptions/SFX")
+focus_neighbor_bottom = NodePath("../SelectStageButton")
 theme = ExtResource("3_qc6yc")
 text = "Start"
 script = ExtResource("4_ki3e0")
@@ -80,6 +85,8 @@ script = ExtResource("4_ki3e0")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../CreditsButton")
 theme = ExtResource("3_qc6yc")
 text = "Select Board"
 script = ExtResource("4_ki3e0")
@@ -88,10 +95,56 @@ script = ExtResource("4_ki3e0")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-focus_neighbor_bottom = NodePath("../StartButton")
+focus_neighbor_top = NodePath("../SelectStageButton")
+focus_neighbor_bottom = NodePath("../AudioOptions/SFX")
 theme = ExtResource("3_qc6yc")
 text = "Credits"
 script = ExtResource("4_ki3e0")
+
+[node name="AudioOptions" type="HBoxContainer" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 25
+script = ExtResource("5_is32b")
+
+[node name="SFX" type="Button" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2/AudioOptions" groups=["UIButton"]]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../CreditsButton")
+focus_neighbor_right = NodePath("../Music")
+focus_neighbor_bottom = NodePath("../../StartButton")
+theme_override_font_sizes/font_size = 28
+text = "
+"
+script = ExtResource("6_mmakm")
+
+[node name="Node2D" type="Node2D" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2/AudioOptions/SFX"]
+position = Vector2(25, 25)
+
+[node name="Sprite2D" type="Sprite2D" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2/AudioOptions/SFX/Node2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_jrgp0")
+
+[node name="Music" type="Button" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2/AudioOptions" groups=["UIButton"]]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+focus_neighbor_left = NodePath("../SFX")
+focus_neighbor_top = NodePath("../../CreditsButton")
+focus_neighbor_bottom = NodePath("../../StartButton")
+theme_override_font_sizes/font_size = 28
+script = ExtResource("6_mmakm")
+
+[node name="Node2D" type="Node2D" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2/AudioOptions/Music"]
+position = Vector2(25, 25)
+
+[node name="Sprite2D" type="Sprite2D" parent="Main/MarginContainer/VBoxContainer3/CenterContainer2/VBoxContainer2/AudioOptions/Music/Node2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_06imj")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Main"]
 visible = false

@@ -43,7 +43,7 @@ var _tween_cb: Tween
 
 
 func _ready() -> void:
-	if GameMgr.current_menu == GameMgr.Menus.CREDITS:
+	if GameMgr.current_menu == GameMgr.Menus.CREDITS: # For the game's ending
 		enter_main_menu(MainMenus.CREDITS)
 		
 	else:

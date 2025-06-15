@@ -9,8 +9,6 @@ signal credits_btn_pressed()
 @onready var select_stage_btn: Button = %SelectStageButton
 @onready var credits_btn: Button = %CreditsButton
 
-#@onready var ver_label: Label = %VerLabel
-
 
 func _ready() -> void:
 	start_btn.grab_focus()

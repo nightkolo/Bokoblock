@@ -26,7 +26,6 @@ var current_board: Board
 var current_board_id: int = -1
 var current_checkerboard_id: int = -1
 
-#var is_game_manager_resetting: bool = false ## @experimental
 var has_resetted_during_board_win: bool = false
 var game_has_ended: bool = false
 
@@ -58,7 +57,6 @@ func _ready() -> void:
 	
 	game_reset.connect(func():
 		GameLogic.self_destruct()
-		#_reset_game_manager()
 		get_tree().reload_current_scene()
 		)
 	
@@ -117,20 +115,6 @@ func goto_next_checkerboard() -> void:
 	await get_tree().create_timer(1.5).timeout
 	Audio.set_music()
 
-
-func goto_prev_stage() -> void:
-	if current_board:
-		return
-	
-	#_reset_game_manager()
-	GameLogic.self_destruct()
-	
-	var next_lvl_id := current_board_id - 1
-	var next_lvl_path := GameUtil.STAGE_FILE_BEGIN + str(next_lvl_id) + GameUtil.STAGE_FILE_END
-	
-	if next_lvl_id <= GameUtil.NUMBER_OF_BOARDS: 
-		get_tree().change_scene_to_file(next_lvl_path)
-
 #### Config
 
 signal reduce_motion_setting_set(is_on: bool)
@@ -163,7 +147,6 @@ var _game_music_muted: bool = false:
 	set(value):
 		AudioServer.set_bus_mute(Music_BUS_ID, value)
 		_game_music_muted = value
-		
 
 func set_game_sfx_muted(value: bool) -> void:
 	_game_sfx_muted = value
@@ -227,14 +210,5 @@ func process_waittime(wait: float = 0.05) -> void: ## @deprecated
 
 
 func self_destruct() -> void: ## @deprecated
-	#_reset_game_manager()
 	pass
 	
-
-#func _reset_game_manager() -> void:
-	#pass
-	#if !is_game_manager_resetting:
-		#is_game_manager_resetting = true
-		#
-		#await get_tree().create_timer(0.1).timeout
-		#is_game_manager_resetting = false
