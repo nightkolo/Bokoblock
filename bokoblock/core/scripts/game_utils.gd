@@ -22,7 +22,7 @@ const STAGE_FILE_END = ".tscn"
 
 static func get_board_complete_anim_waittime() -> float:
 	if is_board_completed():
-		return 2.25
+		return 2.2
 	else:
 		return 1.5
 

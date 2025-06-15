@@ -90,7 +90,7 @@ static var runtime_data: Dictionary = {
 	}
 }
 static var medal_data: Dictionary = {
-	# HARD_CODED - DO NOT MODIFY UNLESS YOU KNOW WHAT YOU'RE DOING.
+	# NOTE: HARD-CODED, DO NOT MODIFY UNLESS YOU KNOW WHAT YOU'RE DOING.
 	
 	# TODO: Possible issues with save data when versioning
 	
@@ -115,13 +115,11 @@ static var medal_data: Dictionary = {
 	
 	# Misc
 	"poke": false,
-	"curiosity": false
-}
-static var config_data: Dictionary = {
-	
+	"curiosity": false,
+	"halls": false
 }
 const DEFAULT_MEDAL_DATA = {
-	# HARD_CODED - DO NOT MODIFY UNLESS YOU KNOW WHAT YOU'RE DOING.
+	# NOTE: HARD-CODED, DO NOT MODIFY UNLESS YOU KNOW WHAT YOU'RE DOING.
 	
 	# TODO: Possible issues with save data when versioning
 	
@@ -146,7 +144,8 @@ const DEFAULT_MEDAL_DATA = {
 	
 	# Misc
 	"poke": false,
-	"curiosity": false
+	"curiosity": false,
+	"halls": false
 }
 const DEFAULT_GAME_DATA = {
 	"first_session": true,

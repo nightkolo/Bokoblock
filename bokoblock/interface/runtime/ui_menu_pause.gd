@@ -88,7 +88,6 @@ func update_options() -> void:
 		colorblind_btn.text = "Colorblind Mode: OFF"
 
 
-
 func update_text() -> void:
 	if GameMgr.get_reduce_motion_setting():
 		pause_info.text = GameplayUI.BBCODE_TXT_NO_MOTION + PAUSE_INFO_BEGIN + str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_board_id) + PAUSE_INFO_END

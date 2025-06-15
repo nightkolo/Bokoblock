@@ -1,4 +1,4 @@
-## Under Construction
+## @deprecated
 extends Area2D
 class_name SwitchBlocks
 
