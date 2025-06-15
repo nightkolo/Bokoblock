@@ -28,7 +28,7 @@ func slide_to_next_stage(scene: String) -> void:
 	is_transitioning = false
 
 
-func slide_to_credits(speed: float = 1.0):
+func slide_to_credits(speed: float = 1.0) -> void:
 	if is_transitioning:
 		return 
 	
@@ -43,9 +43,7 @@ func slide_to_credits(speed: float = 1.0):
 	GameMgr.menu_entered.emit(GameMgr.Menus.CREDITS)
 	get_tree().change_scene_to_file("res://interface/menus/main_menus_scene.tscn")
 	
-	#print(get_tree().root)
-	
-	anim.play(&"slide_out_2", -1, speed)
+	anim.play(&"slide_out_2", -1, 1.0)
 	
 	await anim.animation_finished
 	

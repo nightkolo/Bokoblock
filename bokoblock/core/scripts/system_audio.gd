@@ -3,8 +3,6 @@
 ## Under construction
 extends Node
 
-@onready var bus_GameSound: int = AudioServer.get_bus_index("GameSound")
-
 #var music_menu: AudioStreamPlayer ## @experimental
 @onready var music_stage: AudioStreamPlayer = $Music/StageMusic
 
@@ -12,10 +10,10 @@ extends Node
 @onready var game_paused: AudioStreamPlayer = $UI/GamePaused
 @onready var game_reset_01: AudioStreamPlayer = $UI/GameReset01
 @onready var game_reset_02: AudioStreamPlayer = $UI/GameReset02
-#@onready var game_start: AudioStreamPlayer = $UI/GameStart
-#@onready var menu_exit: AudioStreamPlayer = $UI/MenuExit
 @onready var stage_next: AudioStreamPlayer = $UI/StageNext
 @onready var stage_win: AudioStreamPlayer = $UI/StageWin
+
+@onready var blackpoint_consumed: AudioStreamPlayer = $SFX/BlackpointConsumed
 
 @onready var body_turn_1: AudioStreamPlayer = $SFX/BlockTurn1
 @onready var body_turn_2: AudioStreamPlayer = $SFX/BlockTurn2

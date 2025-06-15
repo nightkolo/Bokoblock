@@ -1,15 +1,22 @@
-## Under construction
-##
 ## Preferably use [url]res://object/objects/obj_blackpoint.tscn[\url].
 extends Area2D
 class_name Blackpoint
 
 @onready var sprite_shadow: Sprite2D = $Sprites/Shadow
 @onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var audio_entered: AudioStreamPlayer2D = $Aud/Enter
+@onready var audio_exited: AudioStreamPlayer2D = $Aud/Exit
 
 var is_landed_on: bool:
+	get:
+		return is_landed_on
 	set(value):
-		# TODO: SFX
+		if value != is_landed_on:
+			if value:
+				audio_entered.play()
+			else:
+				audio_exited.play()
+		
 		is_landed_on = value
 
 

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://djkkxbqs5usyy"
-path="res://.godot/imported/blackpoint_02.wav-e648be8984e5cdb26258b76afbeaad62.sample"
+path="res://.godot/imported/blackpoint_entered.wav-89d050974f7b0fb85f6d495867f7eb5f.sample"
 
 [deps]
 
-source_file="res://audio/sfx/blackpoint_02.wav"
-dest_files=["res://.godot/imported/blackpoint_02.wav-e648be8984e5cdb26258b76afbeaad62.sample"]
+source_file="res://audio/sfx/blackpoint_entered.wav"
+dest_files=["res://.godot/imported/blackpoint_entered.wav-89d050974f7b0fb85f6d495867f7eb5f.sample"]
 
 [params]
 

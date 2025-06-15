@@ -7,6 +7,8 @@ func _ready() -> void:
 	pivot_offset = size / 2
 	#size_flags_horizontal = SizeFlags.SIZE_SHRINK_CENTER
 	
+	self.add_to_group("UIButton")
+	
 	pressed.connect(anim_pressed)
 	mouse_entered.connect(anim_entered)
 	mouse_exited.connect(anim_exited)

@@ -4,45 +4,55 @@ extends Node
 signal input_turn(turn_to: float)
 signal input_move(move_to: Vector2)
 signal movement_input_made()
-#signal input_undo() ## @deprecated
 
 var last_input: GameLogic.TransformationType
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if GameMgr.current_menu == GameMgr.Menus.RUNTIME &&  !Trans.is_transitioning:
+	if GameMgr.current_menu == GameMgr.Menus.RUNTIME && !Trans.is_transitioning:
 		
 		if event.is_action_pressed("move_turn_left"):
-			_call_input_turn(-1.0)
+			call_input_turn(-1.0)
 			
 		if event.is_action_pressed("move_turn_right"):
-			_call_input_turn(1.0)
+			call_input_turn(1.0)
 		
 		if event.is_action_pressed("move_right"):
-			_call_input_move(Vector2.RIGHT)
+			call_input_move(Vector2.RIGHT)
 			
 		if event.is_action_pressed("move_left"):
-			_call_input_move(Vector2.LEFT)
+			call_input_move(Vector2.LEFT)
 			
 		if event.is_action_pressed("move_up"):
-			_call_input_move(Vector2.UP)
-		
+			call_input_move(Vector2.UP)
+			
 		if event.is_action_pressed("move_down"):
-			_call_input_move(Vector2.DOWN)
-		
+			call_input_move(Vector2.DOWN)
 
-# func _call_input_undo():
-# 	if !GameLogic.can_move():
-# 		return
+
+func _input(event: InputEvent) -> void: # Added for main menu easter egg
+	if GameMgr.current_menu == GameMgr.Menus.MENUS || GameMgr.current_menu == GameMgr.Menus.CREDITS:
+		
+		if event.is_action_pressed("move_turn_left"):
+			call_input_turn(-1.0)
+			
+		if event.is_action_pressed("move_turn_right"):
+			call_input_turn(1.0)
+		
+		if event.is_action_pressed("move_right"):
+			call_input_move(Vector2.RIGHT)
+			
+		if event.is_action_pressed("move_left"):
+			call_input_move(Vector2.LEFT)
+			
+		if event.is_action_pressed("move_up"):
+			call_input_move(Vector2.UP)
+			
+		if event.is_action_pressed("move_down"):
+			call_input_move(Vector2.DOWN)
 	
-# 	last_input = GameLogic.TransformationType.UNDO
 	
-# 	input_undo.emit()
-# 	GameLogic.bodies_moved.emit(false)
-# 	GameLogic.has_moved()
-	
-	
-func _call_input_move(move_to: Vector2 = Vector2.ZERO) -> void:
+func call_input_move(move_to: Vector2 = Vector2.ZERO) -> void:
 	if !GameLogic.can_move(): 
 		return
 	
@@ -54,7 +64,7 @@ func _call_input_move(move_to: Vector2 = Vector2.ZERO) -> void:
 	GameLogic.has_moved()
 
 
-func _call_input_turn(turn_to: float = 0.0) -> void:
+func call_input_turn(turn_to: float = 0.0) -> void:
 	if !GameLogic.can_move(): 
 		return
 	

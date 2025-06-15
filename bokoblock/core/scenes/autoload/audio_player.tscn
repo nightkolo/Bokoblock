@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://bnsy5pe5wp0l7"]
+[gd_scene load_steps=32 format=4 uid="uid://bnsy5pe5wp0l7"]
 
 [ext_resource type="Script" path="res://core/scripts/system_audio.gd" id="1_ukka2"]
 [ext_resource type="AudioStream" uid="uid://2ji8u08uk0kf" path="res://audio/music/stage_music.mp3" id="2_m6v6f"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://d2ktxscd3lhhb" path="res://audio/sounds/game_start.wav" id="6_012bo"]
 [ext_resource type="AudioStream" uid="uid://dwex32p0sitnk" path="res://audio/sounds/menu_exit.wav" id="12_50xne"]
 [ext_resource type="AudioStream" uid="uid://b4se80gex2rji" path="res://audio/sounds/checkerboard_complete.ogg" id="13_bpwbv"]
+[ext_resource type="AudioStream" uid="uid://djkkxbqs5usyy" path="res://audio/sfx/blackpoint_entered.wav" id="13_fgolr"]
 [ext_resource type="AudioStream" uid="uid://d1y2gytl4acu4" path="res://audio/sounds/stage_next.wav" id="13_x1h4r"]
 [ext_resource type="AudioStream" uid="uid://bcf6mjnff7d6p" path="res://audio/sfx/stage_win.wav" id="15_yp5gw"]
 [ext_resource type="AudioStream" uid="uid://3iyykkm2ueb5" path="res://audio/sfx/body_turn_click_01.ogg" id="16_2krml"]
@@ -101,6 +102,11 @@ volume_db = -8.8
 bus = &"UISound"
 
 [node name="SFX" type="Node" parent="."]
+
+[node name="BlackpointConsumed" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("13_fgolr")
+volume_db = -14.4
+bus = &"GameSound"
 
 [node name="BodyHappy01" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("17_dw84y")

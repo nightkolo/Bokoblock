@@ -139,6 +139,9 @@ func check_win() -> void:
 
 
 func _bodies_have_moved() -> void:
+	if GameMgr.current_menu != GameMgr.Menus.RUNTIME: # Added for main menu easter egg
+		return
+	
 	_prev_positions = []
 		
 	for body: Bokobody in GameLogic.current_bodies:
@@ -159,6 +162,9 @@ func _bodies_have_stopped() -> void:
 ## [br][br][b]Note:[/b] Used to be for the move counter and undo behaviour.
 ## But these features have been deprecated. The function just stands this way.
 func check_if_bodies_made_move() -> bool:
+	if GameMgr.current_menu != GameMgr.Menus.RUNTIME: # Added for main menu easter egg
+		return false
+	
 	if GameLogic.current_bodies.is_empty():
 		return false
 	
@@ -179,13 +185,15 @@ func body_entered_blackpoint() -> void:
 
 ## Called by [Bokobody] when it evaluates that it has entered the Blackpoints during the cool down period.
 func body_entered_blackpoints() -> void:
+	Audio.blackpoint_consumed.play()
+	
 	for body: Bokobody in current_bodies:
 		body.somebody_tripped_and_entered_the_blackpoints()
 
 
 func win_stage() -> void:
 	stage_won.emit()
-	print("Game over.")
+	#print("Game over.") This line has survived so much...
 
 
 func can_move() -> bool:

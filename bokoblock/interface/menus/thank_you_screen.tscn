@@ -6,12 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://cywoiajf7bxif" path="res://assets/interface/speech-bubble.png" id="3_ukmia"]
 [ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="5_hymxa"]
 
-[sub_resource type="FontVariation" id="FontVariation_ljwrp"]
+[sub_resource type="FontVariation" id="FontVariation_cn2h8"]
 spacing_top = -4
 spacing_bottom = -4
 
 [sub_resource type="LabelSettings" id="LabelSettings_puqv4"]
-font = SubResource("FontVariation_ljwrp")
+font = SubResource("FontVariation_cn2h8")
 font_size = 32
 
 [node name="ThankYouScreen" type="Control"]

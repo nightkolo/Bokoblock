@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://q6e8c82jp1nu"]
+[gd_scene load_steps=11 format=3 uid="uid://q6e8c82jp1nu"]
 
 [ext_resource type="Script" path="res://object/scripts/obj_blackpoint.gd" id="1_m8csp"]
 [ext_resource type="Texture2D" uid="uid://lhogvaaclniu" path="res://assets/objects/blackpoint-shadow.png" id="2_pys4l"]
 [ext_resource type="Texture2D" uid="uid://yg33k7j5aat3" path="res://assets/objects/blackpoint.png" id="3_nd3cd"]
+[ext_resource type="AudioStream" uid="uid://djkkxbqs5usyy" path="res://audio/sfx/blackpoint_entered.wav" id="4_4is3b"]
+[ext_resource type="AudioStream" uid="uid://gulbkk78kb46" path="res://audio/sfx/blackpoint_exited.ogg" id="5_584g2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u0xwx"]
 size = Vector2(40, 40)
@@ -86,3 +88,17 @@ scale_amount_min = 5.0
 scale_amount_max = 5.0
 color = Color(0, 0, 0, 1)
 color_ramp = SubResource("Gradient_8obck")
+
+[node name="Aud" type="Node2D" parent="."]
+
+[node name="Enter" type="AudioStreamPlayer2D" parent="Aud"]
+stream = ExtResource("4_4is3b")
+volume_db = -14.4
+panning_strength = 2.0
+bus = &"GameSound"
+
+[node name="Exit" type="AudioStreamPlayer2D" parent="Aud"]
+stream = ExtResource("5_584g2")
+volume_db = -14.4
+panning_strength = 2.0
+bus = &"GameSound"

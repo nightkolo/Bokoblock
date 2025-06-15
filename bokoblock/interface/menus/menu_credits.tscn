@@ -1,7 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://di8et7u8v2hel"]
+[gd_scene load_steps=13 format=3 uid="uid://di8et7u8v2hel"]
 
 [ext_resource type="Script" path="res://interface/interactors/menu_credits.gd" id="1_m2fj4"]
 [ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="2_741l2"]
+[ext_resource type="PackedScene" uid="uid://dkpq6f8l2i2t3" path="res://world/characters/character_chibi_boko.tscn" id="3_ob26w"]
+[ext_resource type="Texture2D" uid="uid://cywoiajf7bxif" path="res://assets/interface/speech-bubble.png" id="4_rsma4"]
+[ext_resource type="Script" path="res://interface/animators/anim_button.gd" id="5_xddtm"]
+
+[sub_resource type="FontVariation" id="FontVariation_ljwrp"]
+spacing_top = -4
+spacing_bottom = -4
+
+[sub_resource type="LabelSettings" id="LabelSettings_wo8ij"]
+font = SubResource("FontVariation_ljwrp")
+font_size = 24
 
 [sub_resource type="FontVariation" id="FontVariation_dsutm"]
 spacing_glyph = -1
@@ -32,7 +43,7 @@ shadow_color = Color(0, 0, 0, 0.5)
 shadow_offset = Vector2(6, 6)
 
 [sub_resource type="LabelSettings" id="LabelSettings_1tel5"]
-font_size = 32
+font_size = 28
 font_color = Color(1, 0.654902, 1, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
@@ -52,6 +63,176 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.25, 0.1, 0.25, 1)
 
+[node name="Main2" type="Node2D" parent="."]
+
+[node name="CharacterChibiBoko" parent="Main2" instance=ExtResource("3_ob26w")]
+position = Vector2(826, 588)
+scale = Vector2(0.4, 0.4)
+
+[node name="Messages" type="Node2D" parent="Main2"]
+
+[node name="Msg1" type="NinePatchRect" parent="Main2/Messages"]
+visible = false
+self_modulate = Color(1, 0.5, 1, 0.851)
+offset_left = 560.0
+offset_top = 434.0
+offset_right = 862.0
+offset_bottom = 494.0
+pivot_offset = Vector2(0, 24)
+texture = ExtResource("4_rsma4")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="Label" type="Label" parent="Main2/Messages/Msg1"]
+offset_left = 23.0
+offset_top = 18.0
+offset_right = 280.0
+offset_bottom = 44.0
+text = "Thank you for Playing"
+label_settings = SubResource("LabelSettings_wo8ij")
+horizontal_alignment = 1
+
+[node name="Msg2" type="NinePatchRect" parent="Main2/Messages"]
+visible = false
+self_modulate = Color(1, 0.5, 1, 0.851)
+offset_left = 560.0
+offset_top = 404.0
+offset_right = 862.0
+offset_bottom = 494.0
+pivot_offset = Vector2(0, 24)
+texture = ExtResource("4_rsma4")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="Label" type="Label" parent="Main2/Messages/Msg2"]
+offset_left = 21.0
+offset_top = 15.0
+offset_right = 286.0
+offset_bottom = 70.0
+text = "There's 00% chance
+of seeing this message."
+label_settings = SubResource("LabelSettings_wo8ij")
+horizontal_alignment = 1
+
+[node name="Msg3" type="NinePatchRect" parent="Main2/Messages"]
+visible = false
+self_modulate = Color(1, 0.5, 1, 0.851)
+offset_left = 560.0
+offset_top = 434.0
+offset_right = 862.0
+offset_bottom = 494.0
+pivot_offset = Vector2(0, 24)
+texture = ExtResource("4_rsma4")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="Label" type="Label" parent="Main2/Messages/Msg3"]
+offset_left = 23.0
+offset_top = 18.0
+offset_right = 280.0
+offset_bottom = 44.0
+text = "Msg 3"
+label_settings = SubResource("LabelSettings_wo8ij")
+horizontal_alignment = 1
+
+[node name="Msg4" type="NinePatchRect" parent="Main2/Messages"]
+visible = false
+self_modulate = Color(1, 0.5, 1, 0.851)
+offset_left = 560.0
+offset_top = 434.0
+offset_right = 862.0
+offset_bottom = 494.0
+pivot_offset = Vector2(0, 24)
+texture = ExtResource("4_rsma4")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="Label" type="Label" parent="Main2/Messages/Msg4"]
+offset_left = 23.0
+offset_top = 18.0
+offset_right = 280.0
+offset_bottom = 44.0
+text = "Msg 4"
+label_settings = SubResource("LabelSettings_wo8ij")
+horizontal_alignment = 1
+
+[node name="Msg5" type="NinePatchRect" parent="Main2/Messages"]
+visible = false
+self_modulate = Color(1, 0.5, 1, 0.851)
+offset_left = 560.0
+offset_top = 434.0
+offset_right = 862.0
+offset_bottom = 494.0
+pivot_offset = Vector2(0, 24)
+texture = ExtResource("4_rsma4")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="Label" type="Label" parent="Main2/Messages/Msg5"]
+offset_left = 23.0
+offset_top = 18.0
+offset_right = 280.0
+offset_bottom = 44.0
+text = "Msg 5"
+label_settings = SubResource("LabelSettings_wo8ij")
+horizontal_alignment = 1
+
+[node name="Msg6" type="NinePatchRect" parent="Main2/Messages"]
+visible = false
+self_modulate = Color(1, 0.5, 1, 0.851)
+offset_left = 560.0
+offset_top = 434.0
+offset_right = 862.0
+offset_bottom = 494.0
+pivot_offset = Vector2(0, 24)
+texture = ExtResource("4_rsma4")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="Label" type="Label" parent="Main2/Messages/Msg6"]
+offset_left = 23.0
+offset_top = 18.0
+offset_right = 280.0
+offset_bottom = 44.0
+text = "Msg 6"
+label_settings = SubResource("LabelSettings_wo8ij")
+horizontal_alignment = 1
+
+[node name="Msg7" type="NinePatchRect" parent="Main2/Messages"]
+visible = false
+self_modulate = Color(1, 0.5, 1, 0.851)
+offset_left = 560.0
+offset_top = 434.0
+offset_right = 862.0
+offset_bottom = 494.0
+pivot_offset = Vector2(0, 24)
+texture = ExtResource("4_rsma4")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="Label" type="Label" parent="Main2/Messages/Msg7"]
+offset_left = 23.0
+offset_top = 18.0
+offset_right = 280.0
+offset_bottom = 44.0
+text = "Msg 7"
+label_settings = SubResource("LabelSettings_wo8ij")
+horizontal_alignment = 1
+
 [node name="Main" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,7 +248,7 @@ theme_override_constants/margin_bottom = 100
 [node name="VBoxContainer2" type="VBoxContainer" parent="Main"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 40
+theme_override_constants/separation = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main/VBoxContainer2"]
 layout_mode = 2
@@ -75,7 +256,7 @@ theme_override_constants/separation = -5
 
 [node name="Author" type="Label" parent="Main/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
-text = "Programming, Level Design, Game Idea
+text = "Programming, Level Design, Game Idea,
 Art & Animation by:"
 label_settings = SubResource("LabelSettings_vltc8")
 
@@ -108,24 +289,22 @@ theme_override_constants/separation = -5
 
 [node name="Thanks" type="Label" parent="Main/VBoxContainer2/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
-text = "Special Thanks"
+text = "Special Thanks:"
 label_settings = SubResource("LabelSettings_vltc8")
 
 [node name="Kenney" type="Label" parent="Main/VBoxContainer2/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
-text = "Kenney.nl"
+text = "Kenney"
 label_settings = SubResource("LabelSettings_1tel5")
 
 [node name="Label3" type="Label" parent="Main/VBoxContainer2/HBoxContainer/VBoxContainer3"]
-visible = false
 layout_mode = 2
-text = "Person1"
+text = "YoStarYeahya"
 label_settings = SubResource("LabelSettings_1tel5")
 
 [node name="Label4" type="Label" parent="Main/VBoxContainer2/HBoxContainer/VBoxContainer3"]
-visible = false
 layout_mode = 2
-text = "Person1"
+text = "Zach"
 label_settings = SubResource("LabelSettings_1tel5")
 
 [node name="BackButton" type="Button" parent="Main" groups=["UIButton"]]
@@ -135,3 +314,4 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("2_741l2")
 text = "Back to Title"
+script = ExtResource("5_xddtm")

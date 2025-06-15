@@ -3,7 +3,7 @@ class_name BokobodyAnimationComponent
 
 signal somebody_entered_blackpoint_animation_finished()
 
-@onready var bokobody: Bokobody = get_parent() as Bokobody
+@onready var bokobody := get_parent()
 
 @export var particles_win: PackedScene = preload("res://world/world/particles_bokoblock_stage_complete.tscn")
 

@@ -28,6 +28,7 @@ var current_checkerboard_id: int = -1
 
 #var is_game_manager_resetting: bool = false ## @experimental
 var has_resetted_during_board_win: bool = false
+var game_has_ended: bool = false
 
 var saver_loader: SaverLoader = SaverLoader.new()
 
@@ -98,7 +99,6 @@ func goto_next_stage(force_progression: bool = false) -> void:
 			print("current_board.stage_progression is false, progression stopped.")
 			return
 	
-	#_reset_game_manager()
 	GameLogic.self_destruct()
 	
 	var next_lvl_id := current_board_id + 1
@@ -107,8 +107,8 @@ func goto_next_stage(force_progression: bool = false) -> void:
 	if next_lvl_id <= GameUtil.NUMBER_OF_BOARDS: 
 		Trans.slide_to_next_stage(next_lvl_path)
 	else:
-		Trans.slide_to_credits()
-		#Trans.slide_to_next_stage("res://interface/menus/main_menus_scene.tscn")
+		Trans.slide_to_credits(0.4)
+		game_has_ended = true
 
 
 func goto_next_checkerboard() -> void:

@@ -6,6 +6,7 @@ signal is_showing()
 
 var btns: Array[Node]
 var viewport: MarginContainer
+var viewport_extra: Node2D
 
 
 func _init() -> void:
@@ -14,6 +15,7 @@ func _init() -> void:
 	add_to_group("MenuScreen")
 	btns = get_tree().get_nodes_in_group("UIButton")
 	viewport = get_node_or_null("Main")
+	viewport_extra = get_node_or_null("Main2")
 	
 	visibility_changed.connect(func():
 		if visible:

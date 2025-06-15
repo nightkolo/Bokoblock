@@ -7,9 +7,6 @@ signal entered_cb_2()
 @export var texture_checkerboard_complete_checkmark: Texture = preload("res://assets/interface/checkerboard-complete-checkmark-02.png")
 @export var texture_checkerboard_uncomplete_checkmark: Texture = preload("res://assets/interface/checkerboard-uncomplete-checkmark-01.png")
 
-
-# TODO: make a MainMenus class like previously in Rabbitball, if necessary
-
 @onready var back_btn: Button = %BackButton
 @onready var btn_b_1: Button = %BtnB1
 
@@ -21,18 +18,11 @@ signal entered_cb_2()
 @onready var cb_1_check_sprite: Sprite2D = %CB1checkSprite
 @onready var cb_2_check_sprite: Sprite2D = %CB2checkSprite
 
-var cb_entered: int = 1
+var _cb_entered: int = 1
 
 
 func _ready() -> void:
 	display_data()
-	
-	#entered_cb_1.connect(func():
-		#print("entered_cb_1")
-		#)
-	#entered_cb_2.connect(func():
-		#print("entered_cb_2")
-		#)
 	
 	is_showing.connect(func():
 		btn_b_1.grab_focus()
@@ -60,21 +50,20 @@ func _ready() -> void:
 			board_btn.focus_entered.connect(_cb_2_entered)
 			board_btn.mouse_entered.connect(_cb_2_entered)
 		
-	
 	btn_b_1.grab_focus()
 
 
 func _cb_1_entered() -> void:
-	if cb_entered != 1:
+	if _cb_entered != 1:
 				
-		cb_entered = 1
+		_cb_entered = 1
 		entered_cb_1.emit()
 
 
 func _cb_2_entered() -> void:
-	if cb_entered != 2:
+	if _cb_entered != 2:
 	
-		cb_entered = 2
+		_cb_entered = 2
 		entered_cb_2.emit()
 
 
@@ -102,13 +91,14 @@ func goto_level(board_id: int) -> void:
 	if Trans.is_transitioning:
 		return
 	
+	Audio.game_start.play()
+	
 	GameUtil.disable_buttons(board_btns)
 	GameUtil.disable_buttons(btns)
 	
-	#await get_tree().create_timer(0.5).timeout
+	GameLogic.self_destruct()
 	
 	if (board_id >= 1 && board_id <= GameUtil.NUMBER_OF_BOARDS):
-		#Audio.game_start.play()
 		Trans.slide_to_scene(GameUtil.STAGE_FILE_BEGIN + str(board_id) + GameUtil.STAGE_FILE_END)
 
 	else:

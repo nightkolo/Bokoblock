@@ -15,6 +15,7 @@ func _on_pressed():
 			block.animator.anim_poke()
 			
 			if GameData.medal_data["poke"] == false: 
-				GameMgr.current_ui_handler.a_medal_has_been_unlocked()
+				if GameMgr.current_ui_handler:
+					GameMgr.current_ui_handler.a_medal_has_been_unlocked()
 			
 			await MedalMgr.unlock_a_medal("poke", NewgroundsIds.MedalId.CanYouPokeTheBlocks)
