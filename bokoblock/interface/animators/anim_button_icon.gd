@@ -8,16 +8,23 @@ var sprite: Sprite2D
 func _ready() -> void:
 	pivot_offset = size / 2
 	
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	self_modulate = Color(Color.WHITE, 0.0)
 	custom_minimum_size = Vector2.ONE * 50.0
 	
 	node_sprite = get_node_or_null("Node2D")
 	sprite = get_node_or_null("Node2D/Sprite2D")
 	
+	pressed.connect(anim_pressed)
 	mouse_entered.connect(anim_entered)
 	mouse_exited.connect(anim_exited)
 	focus_entered.connect(anim_entered)
 	focus_exited.connect(anim_exited)
+
+
+func anim_pressed() -> void:
+	Audio.ui_option_toggle.play()
 
 
 func anim_entered() -> void:

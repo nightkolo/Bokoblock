@@ -93,7 +93,7 @@ offset_left = 177.0
 offset_top = -291.0
 offset_right = 384.0
 offset_bottom = -219.0
-text = "Press [esc] to change
+text = "Press [esc] for
 accessibility options"
 label_settings = SubResource("LabelSettings_g1jc2")
 metadata/_edit_use_anchors_ = true

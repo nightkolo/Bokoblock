@@ -42,9 +42,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				
 				GameMgr.Menus.RUNTIME:
 					reset_stage()
-					
-		if event.is_action_pressed("skip_level"):
-			GameMgr.goto_next_stage()
 	
 	
 func _ready() -> void:
@@ -90,7 +87,7 @@ func a_medal_has_been_unlocked() -> void:
 	medal_unlocked_popup.anim_medal_unlocked()
 	
 	
-func the_checkerboard_has_been_checkered() -> void: ## ???
+func the_checkerboard_has_been_checkered() -> void:
 	checkerboard_complete_screen.open()
 
 	
@@ -104,7 +101,7 @@ func pause_or_unpause(pause: bool = !is_game_paused) -> void:
 		GameMgr.menu_entered.emit(GameMgr.Menus.PAUSE)
 		
 		Audio.game_paused.play()
-		Audio.set_music(Audio.original_music_db - 15.0)
+		Audio.set_music(Audio.original_music_db - 20.0)
 	else:
 		GameMgr.menu_entered.emit(GameMgr.Menus.RUNTIME)
 		
@@ -128,7 +125,7 @@ func reset_stage() -> void:
 		return
 	
 	if GameLogic.has_won:
-		## has_resetted_during_board_win is only set to false by GameMgr.
+		# has_resetted_during_board_win is only set to false by GameMgr.
 		GameMgr.has_resetted_during_board_win = true
 	
 	Audio.play_reset_sound()

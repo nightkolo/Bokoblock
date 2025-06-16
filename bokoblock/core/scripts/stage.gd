@@ -16,7 +16,7 @@ class_name Board
 		GameMgr.checkerboard_id = value
 		checkerboard_id = value
 @export_group("Miscellanous")
-@export var show_dev_ui: bool = false ## @experimental
+@export var show_dev_ui: bool = false ## @deprecated
 @export var custom_block_match: int = -1
 @export_category("Game")
 @export var stage_progression: bool = true
@@ -30,7 +30,6 @@ var _moves_counted: int = 0:
 	get:
 		return _moves_counted
 	set(value):
-		print(value)
 		_moves_counted = mini(999, value)
 
 

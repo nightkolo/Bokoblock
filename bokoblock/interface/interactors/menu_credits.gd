@@ -5,7 +5,7 @@ class_name CreditsScreen
 @onready var chibi_boko: CharacterChibiBoko = $Main2/CharacterChibiBoko
 @onready var messages: Node2D = $Main2/Messages
 
-@onready var kolo: Label = %Me
+@onready var kolo: Label = %Me ## @experimental
 
 
 func _ready() -> void:
@@ -15,16 +15,21 @@ func _ready() -> void:
 		for node: Node in messages.get_children():
 			node.visible = false
 		
-		if GameMgr.game_has_ended:
-			chibi_boko.pose_happy()
-			messages.get_children()[0].visible = true
+		chibi_boko.pose_happy()
+		messages.get_children()[0].visible = true
+
+		GameMgr.menu_entered.emit(GameMgr.Menus.CREDITS)
 			
-			GameMgr.game_has_ended = false
-		else:
-			GameMgr.menu_entered.emit(GameMgr.Menus.CREDITS)
-			
-			open_random_message()
-			
+		#if GameMgr.game_has_ended:
+			#chibi_boko.pose_happy()
+			#messages.get_children()[0].visible = true
+			#
+			#GameMgr.game_has_ended = false
+		#else:
+			#GameMgr.menu_entered.emit(GameMgr.Menus.CREDITS)
+			#
+			#open_random_message()
+		
 		back_btn.grab_focus()
 		)
 	
@@ -33,10 +38,9 @@ func _ready() -> void:
 		
 		back_button_pressed.emit()
 		)
-	
 
 
-func open_random_message() -> void:
+func open_random_message() -> void: ## @experimental
 	chibi_boko.pose_neutral()
 	
 	var count := messages.get_child_count()

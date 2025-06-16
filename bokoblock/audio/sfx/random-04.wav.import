@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cydkexxmojmdd"
-path="res://.godot/imported/swish-8.wav-b15a049f21060459a0c9fc211346d4d3.sample"
+uid="uid://b7i2ru8irnido"
+path="res://.godot/imported/random-04.wav-105a257bd43f79d327a4f6decd317124.sample"
 
 [deps]
 
-source_file="res://audio/sounds/swish-8.wav"
-dest_files=["res://.godot/imported/swish-8.wav-b15a049f21060459a0c9fc211346d4d3.sample"]
+source_file="res://audio/sfx/random-04.wav"
+dest_files=["res://.godot/imported/random-04.wav-105a257bd43f79d327a4f6decd317124.sample"]
 
 [params]
 

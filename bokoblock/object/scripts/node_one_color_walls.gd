@@ -17,6 +17,15 @@ var _previous_area_count: int
 func _ready() -> void:
 	_setup_node()
 	
+	GameMgr.colorblind_mode_setting_set.connect(func(_is_on: bool):
+		_setup_node()
+		)
+		
+	GameMgr.game_pause_toggled.connect(func(is_paused: bool):
+		if !is_paused:
+			_setup_node()
+		)
+	
 	has_been_entered.connect(func():
 		if emit_sfx && !Audio.one_color_wall_enter.playing:
 			Audio.one_color_wall_enter.play()
@@ -37,7 +46,7 @@ func _process(_delta: float) -> void:
 
 
 func _setup_node() -> void:
-	for wall in child_walls:
+	for wall: OneColorWall in child_walls:
 		wall.node_sprites.modulate = Color(Color.WHITE, 0.9)
 		wall.sprite_2d.self_modulate = GameUtil.set_boko_color(
 			what_im_looking_for, 1.0, 1.0
@@ -96,7 +105,6 @@ func _on_areas_entered(areas: Array[Area2D]) -> void:
 					
 					(area as Bokoblock).can_we_stop_moving_dad()
 					incorrect_entered.emit()
-	
 	
 	
 func _on_areas_exited(_areas: Array[Area2D]):

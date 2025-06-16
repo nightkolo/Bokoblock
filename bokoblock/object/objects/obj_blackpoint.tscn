@@ -93,12 +93,12 @@ color_ramp = SubResource("Gradient_8obck")
 
 [node name="Enter" type="AudioStreamPlayer2D" parent="Aud"]
 stream = ExtResource("4_4is3b")
-volume_db = -11.52
-panning_strength = 2.0
+volume_db = -9.167
+panning_strength = 2.5
 bus = &"GameSound"
 
 [node name="Exit" type="AudioStreamPlayer2D" parent="Aud"]
 stream = ExtResource("5_584g2")
-volume_db = -15.709
-panning_strength = 2.0
+volume_db = -11.667
+panning_strength = 2.5
 bus = &"GameSound"

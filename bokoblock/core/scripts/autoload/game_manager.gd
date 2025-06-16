@@ -30,7 +30,7 @@ var board_id: int = -1
 var checkerboard_id: int = -1
 
 var has_resetted_during_board_win: bool = false
-var game_has_ended: bool = false
+#var game_has_ended: bool = false
 
 var saver_loader: SaverLoader = SaverLoader.new()
 
@@ -109,7 +109,7 @@ func goto_next_stage(force_progression: bool = false) -> void:
 		Trans.slide_to_next_stage(next_lvl_path)
 	else:
 		Trans.slide_to_credits(0.4)
-		game_has_ended = true
+		#game_has_ended = true
 
 
 func goto_next_checkerboard() -> void:
@@ -191,6 +191,7 @@ func reset_game() -> void:
 
 func reset_game_data() -> void:
 	saver_loader.new_game()
+	saver_loader.new_game_medals()
 
 
 func save_game_data() -> void:
@@ -209,7 +210,7 @@ func load_game_medals_data() -> void:
 	saver_loader.load_medals()
 
 
-func process_waittime(wait: float = 0.05) -> void: ## @deprecated
+func process_waittime(wait: float = 0.05) -> void:
 	await get_tree().create_timer(wait).timeout
 
 

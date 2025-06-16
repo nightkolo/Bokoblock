@@ -25,7 +25,7 @@ func _ready() -> void:
 
 var t_clicked: Tween
 
-func anim_clicked():
+func anim_clicked() -> void:
 	var dur := 1.5
 
 	anim.play(&"clicked", -1, 1.25)
@@ -50,7 +50,7 @@ func anim_clicked():
 	anim_click_me()
 
 
-func anim_click_me():
+func anim_click_me() -> void:
 	var squeeze := Vector2(1.15, 0.85)
 	var dur := 1.5
 	var dur_loop := 0.2

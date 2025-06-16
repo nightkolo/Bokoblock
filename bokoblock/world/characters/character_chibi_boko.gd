@@ -362,7 +362,6 @@ func anim_bounce(back: bool = false) -> void:
 		tween_bounce.tween_property(node_body_2,"scale",Vector2.ONE,0.5)
 
 
-
 func _reset_tween(t: Tween) -> void:
 	if t:
 		t.kill()

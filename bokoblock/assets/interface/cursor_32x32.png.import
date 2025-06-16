@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqeat101us8ss"
-path="res://.godot/imported/world-terrain-tileset.png-46be6a6015c6f4e6f2c45814f6c76eb8.ctex"
+uid="uid://dej0n1pjodjyk"
+path="res://.godot/imported/cursor_32x32.png-615c936e0a649e9b3c80a8b6933a04b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tilemap/world-terrain-tileset.png"
-dest_files=["res://.godot/imported/world-terrain-tileset.png-46be6a6015c6f4e6f2c45814f6c76eb8.ctex"]
+source_file="res://assets/interface/cursor_32x32.png"
+dest_files=["res://.godot/imported/cursor_32x32.png-615c936e0a649e9b3c80a8b6933a04b8.ctex"]
 
 [params]
 

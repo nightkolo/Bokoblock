@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpujkicds0iny"]
+[gd_scene load_steps=8 format=3 uid="uid://dpujkicds0iny"]
 
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_w2k3w"]
 [ext_resource type="Script" path="res://interface/interactors/menu_start.gd" id="1_wuuvm"]
 [ext_resource type="StyleBox" uid="uid://bsppk7f7j58hb" path="res://core/resources/theme/button_block.tres" id="4_y7clw"]
-[ext_resource type="Script" path="res://interface/animators/anim_button_block.gd" id="6_2qulo"]
 [ext_resource type="PackedScene" uid="uid://wcao18gadugm" path="res://interface/ui/game_title_demo.tscn" id="8_pnkpd"]
 
 [sub_resource type="Gradient" id="Gradient_ab7aa"]
@@ -35,7 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.3, 0.125, 0.3, 1)
+color = Color(0.35, 0.15, 0.35, 1)
 
 [node name="Shade" type="Sprite2D" parent="."]
 position = Vector2(473, 360.5)
@@ -106,7 +105,6 @@ theme_override_styles/pressed = ExtResource("4_y7clw")
 theme_override_styles/normal = ExtResource("4_y7clw")
 text = "
 "
-script = ExtResource("6_2qulo")
 
 [node name="Label" type="RichTextLabel" parent="StartButton"]
 custom_minimum_size = Vector2(150, 0)

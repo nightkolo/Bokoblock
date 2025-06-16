@@ -50,7 +50,7 @@ var blackpoint_animating: bool = false
 var _bodies_stopped: int = 0
 var _prev_positions: Array[Transform2D]
 var _blackpoint_cool_down: bool = false
-var _blackpoint_cool_down_time: float = 0.08
+var _blackpoint_cool_down_time: float = 0.06
 
 
 static func set_win_condition(win_cond: WinCondition) -> void:
@@ -194,7 +194,7 @@ func body_entered_blackpoints() -> void:
 
 func win_stage() -> void:
 	stage_won.emit()
-	#print("Game over.") This line has survived so much...
+	#print("Game over.")
 
 
 func can_move() -> bool:

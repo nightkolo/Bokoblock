@@ -59,7 +59,7 @@ func _ready() -> void:
 
 func open() -> void:
 	GameMgr.menu_entered.emit(GameMgr.Menus.CHECKERBOARD_COMPLETE)
-	Audio.set_music( Audio.original_music_db - 15.0 )
+	Audio.set_music( Audio.original_music_db - 20.0 )
 	visible = true
 	
 	update_text()
@@ -73,7 +73,7 @@ func update_text() -> void:
 		cb_complete_info.text = GameplayUI.BBCODE_TXT + _INFO_BEGIN + str(GameMgr.checkerboard_id) + _INFO_END
 		
 
-func anim_shine():
+func anim_shine() -> void:
 	var tween_a = create_tween().set_loops()
 	var tween_b = create_tween().set_loops()
 	
@@ -94,8 +94,8 @@ func stop_anim_idle() -> void:
 	if tween_texture_pulse:
 		tween_texture_pulse.kill()
 		
+		
 var tween_click: Tween
-
 
 func anim_click() -> void:
 	var mag := 0.15
@@ -168,7 +168,7 @@ func anim_texture_spinning() -> void:
 	tween.kill()
 	
 
-func _anim_texture_landed():
+func _anim_texture_landed() -> void:
 	var dur_pop := 1.6
 	var dur_bg := 0.5
 	var delay_bg := 0.1

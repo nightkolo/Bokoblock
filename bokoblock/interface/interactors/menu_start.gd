@@ -14,6 +14,12 @@ func _ready() -> void:
 	start_btn.grab_focus()
 	
 	start_btn.pressed.connect(start_game)
+	start_btn.mouse_entered.connect(func():
+		Audio.ui_button_hover.play()
+		)
+	start_btn.focus_entered.connect(func():
+		Audio.ui_button_hover.play()
+		)
 
 
 func start_game() -> void:
@@ -24,4 +30,3 @@ func start_game() -> void:
 	GameLogic.self_destruct()
 	
 	Trans.slide_to_scene("res://world/game/levels/stage_0.tscn")
-	

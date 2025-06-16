@@ -87,7 +87,6 @@ func anim_click() -> void:
 	tween_click.tween_property(nine_patch_rect, "scale", Vector2.ONE, 0.8)
 	
 
-
 func anim_wake_up_boko() -> void:
 	var dur := 1.0
 	

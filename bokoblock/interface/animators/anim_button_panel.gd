@@ -8,17 +8,14 @@ func _ready() -> void:
 	
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
+	self.add_to_group("UIButton")
+	
 	pressed.connect(anim_pressed)
 	mouse_entered.connect(anim_entered)
 	mouse_exited.connect(anim_exited)
 	focus_entered.connect(anim_entered)
 	focus_exited.connect(anim_exited)
-	button_up.connect(func():
-		pass
-		)
-	button_down.connect(func():
-		pass
-		)
+	
 
 func anim_pressed() -> void:
 	var dur := 1.0

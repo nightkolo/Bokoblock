@@ -36,14 +36,17 @@ func slide_to_credits(speed: float = 1.0) -> void:
 	($Trans3 as Node2D).visible = true
 	
 	anim.play(&"slide_in_2", -1, speed)
-	Audio.lower_higher_music(1.0)
+	Audio.lower_higher_music(2.0)
+	Audio.off_on_ui_sound(4.0)
 	
 	await anim.animation_finished
 	
 	GameMgr.menu_entered.emit(GameMgr.Menus.CREDITS)
 	get_tree().change_scene_to_file("res://interface/menus/main_menus_scene.tscn")
 	
-	anim.play(&"slide_out_2", -1, 1.0)
+	await get_tree().create_timer(1.55).timeout
+	
+	anim.play(&"slide_out_2", -1, speed)
 	
 	await anim.animation_finished
 	

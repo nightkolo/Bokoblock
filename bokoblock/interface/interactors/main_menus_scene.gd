@@ -22,8 +22,8 @@ enum MainMenus {
 #### Juice
 
 @onready var checkerboard_main: TileMapLayer = %Checkerboard
-@onready var checkerboard_1: TileMapLayer = %Checkerboard1
-@onready var checkerboard_2: TileMapLayer = %Checkerboard2
+@onready var checkerboard_cb_1: TileMapLayer = %Checkerboard1
+@onready var checkerboard_cb_2: TileMapLayer = %Checkerboard2
 
 @onready var bokobody: Bokobody = %Bokobody
 
@@ -57,24 +57,21 @@ func _ready() -> void:
 	menu_title.select_board_btn_pressed.connect(func():
 		enter_main_menu(MainMenus.BOARD_SELECT)
 		GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
-		
-		menu_board_select.display_data()
 		)
 	
 	menu_title.credits_btn_pressed.connect(func():
 		enter_main_menu(MainMenus.CREDITS)
+		GameMgr.menu_entered.emit(GameMgr.Menus.CREDITS)
 		
-		if GameData.medal_data.has("curiosity") && GameMgr.current_medal_notifier:
-			if GameData.medal_data["curiosity"] == false: 
-				GameMgr.current_medal_notifier.anim_medal_unlocked()
-			
-		await MedalMgr.unlock_a_medal("curiosity", NewgroundsIds.MedalId.Curiosity)
+		_unlock_credits_medal()
 		)
 	
 	for menu: MainMenu in menus:
 		menu.back_button_pressed.connect(func():
 			enter_main_menu(MainMenus.TITLE)
 			GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
+			
+			menu_board_select.reset_popup.visible = false
 		)
 	
 	_apply_ui_juice()
@@ -92,9 +89,8 @@ func enter_main_menu(p_menu: MainMenus) -> void:
 func color_to_menu(p_menu: MainMenus) -> void:
 	if _tween_bg:
 		_tween_bg.kill()
+		
 	_tween_bg = get_tree().create_tween().set_parallel(true)
-	
-	ui_bg.node_texture_1.rotation_degrees = 180.0
 	
 	match p_menu:
 		
@@ -102,14 +98,18 @@ func color_to_menu(p_menu: MainMenus) -> void:
 			ui_bg.node_texture_1.rotation_degrees = -180.0
 			
 			_tween_bg.tween_property(ui_bg.texture_bg, "self_modulate", Color(0.22, 0.22, 0.35), transition_time)
-			_tween_bg.tween_property(checkerboard_main, "self_modulate", Color(0.7, 0.7, 0.735), transition_time)
+			_tween_bg.tween_property(checkerboard_main, "self_modulate", Color(0.71, 0.71, 0.74), transition_time)
 
 		MainMenus.BOARD_SELECT:
+			ui_bg.node_texture_1.rotation_degrees = 180.0
+			
 			_tween_bg.tween_property(ui_bg.texture_bg, "self_modulate", Color(0.45, 0.25, 0.45), transition_time)
 			
 		MainMenus.CREDITS:
-			_tween_bg.tween_property(ui_bg.texture_bg, "self_modulate", Color(0.3, 0.3, 0.3), transition_time)
-			_tween_bg.tween_property(checkerboard_main, "self_modulate", Color(Color.WHITE/2.0, 1.0), transition_time)
+			ui_bg.node_texture_1.rotation_degrees = 180.0
+			
+			_tween_bg.tween_property(ui_bg.texture_bg, "self_modulate", Color(0.5, 0.3, 0.3), transition_time)
+			_tween_bg.tween_property(checkerboard_main, "self_modulate", Color(Color.WHITE/1.8, 1.0), transition_time)
 			
 		_:
 			pass
@@ -126,6 +126,7 @@ func enter_menu(p_menu: MainMenus) -> void:
 	_disable_menu_buttons(menus)
 	
 	await _anim_fade_out()
+	
 	_reset_tween_fade_in()
 	_tween_fade_in = get_tree().create_tween()
 	
@@ -162,16 +163,21 @@ func enter_menu(p_menu: MainMenus) -> void:
 
 
 func trans_cam_to_menu_pos(p_menu: MainMenus) -> void:
-	#Audio.main_menu_trans.play()
+	Audio.swoosh.volume_db = -40.0
+	Audio.whoosh.volume_db = -40.0
+	
 	match p_menu:
 		
 		MainMenus.TITLE:
+			Audio.swoosh.play()
 			_anim_move_cam(Vector2.ZERO)
 		
 		MainMenus.BOARD_SELECT:
+			Audio.whoosh.play()
 			_anim_move_cam(Vector2(0.0, 720.0))
 			
 		MainMenus.CREDITS:
+			Audio.whoosh.play()
 			_anim_move_cam(Vector2(960.0, 0.0))
 
 
@@ -225,7 +231,23 @@ func _reset_tween_fade_in() -> void:
 		_tween_fade_in.kill()
 
 
-var tween_text: Tween
+func _unlock_credits_medal() -> void:
+	if GameData.medal_data.has("curiosity") && GameMgr.current_medal_notifier:
+		if GameData.medal_data["curiosity"] == false: 
+			GameMgr.current_medal_notifier.anim_medal_unlocked()
+		
+	await MedalMgr.unlock_a_medal("curiosity", NewgroundsIds.MedalId.Curiosity)
+
+
+func _unlock_halls_medal() -> void:
+	if GameData.medal_data.has("halls") && GameMgr.current_medal_notifier:
+		if GameData.medal_data["halls"] == false: 
+			GameMgr.current_medal_notifier.anim_medal_unlocked()
+		
+	await MedalMgr.unlock_a_medal("halls", NewgroundsIds.MedalId.RunningInTheHalls)
+
+
+#var tween_text: Tween
 
 func _apply_ui_juice() -> void:
 	# NOTE: This is all very hacky code.
@@ -241,16 +263,16 @@ func _apply_ui_juice() -> void:
 	PlayerInput.input_turn.connect(func(turn_to: float):
 		if onscreen.is_on_screen():
 			bokobody.turn(turn_to)
-			
-			menu_credits.kolo.pivot_offset = menu_credits.kolo.size / 2.0
-			menu_credits.kolo.rotation_degrees = 180.0 * -turn_to
-			
-			if tween_text:
-				tween_text.kill()
-			
-			tween_text = create_tween()
-			tween_text.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
-			tween_text.tween_property(menu_credits.kolo, "rotation_degrees", 0.0, 0.4)
+			#
+			#menu_credits.kolo.pivot_offset = menu_credits.kolo.size / 2.0
+			#menu_credits.kolo.rotation_degrees = 180.0 * -turn_to
+			#
+			#if tween_text:
+				#tween_text.kill()
+			#
+			#tween_text = create_tween()
+			#tween_text.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+			#tween_text.tween_property(menu_credits.kolo, "rotation_degrees", 0.0, 0.4)
 		)
 	
 	# TODO: Make board select screen seperate in GameMgr.Menus.
@@ -264,11 +286,7 @@ func _apply_ui_juice() -> void:
 			enter_main_menu(MainMenus.TITLE)
 			GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
 			
-			if GameData.medal_data.has("halls") && GameMgr.current_medal_notifier:
-				if GameData.medal_data["halls"] == false: 
-					GameMgr.current_medal_notifier.anim_medal_unlocked()
-				
-			await MedalMgr.unlock_a_medal("halls", NewgroundsIds.MedalId.RunningInTheHalls)
+			_unlock_halls_medal()
 		)
 	
 	credit_area.area_entered.connect(func(area: Area2D):
@@ -282,8 +300,8 @@ func _apply_ui_juice() -> void:
 			_tween_cb.kill()
 			
 		_tween_cb = create_tween().set_parallel(true)
-		_tween_cb.tween_property(checkerboard_1, "self_modulate", Color(Color.WHITE/1.25, 1.0), 0.2)
-		_tween_cb.tween_property(checkerboard_2, "self_modulate", Color(Color.WHITE/1.65, 1.0), 0.2)
+		_tween_cb.tween_property(checkerboard_cb_1, "self_modulate", Color(Color.WHITE/1.25, 1.0), 0.2)
+		_tween_cb.tween_property(checkerboard_cb_2, "self_modulate", Color(Color.WHITE/1.65, 1.0), 0.2)
 		)
 		
 	menu_board_select.entered_cb_2.connect(func():
@@ -291,8 +309,8 @@ func _apply_ui_juice() -> void:
 			_tween_cb.kill()
 			
 		_tween_cb = create_tween().set_parallel(true)
-		_tween_cb.tween_property(checkerboard_2, "self_modulate", Color(Color.WHITE/1.25, 1.0), 0.2)
-		_tween_cb.tween_property(checkerboard_1, "self_modulate", Color(Color.WHITE/1.65, 1.0), 0.2)
+		_tween_cb.tween_property(checkerboard_cb_2, "self_modulate", Color(Color.WHITE/1.25, 1.0), 0.2)
+		_tween_cb.tween_property(checkerboard_cb_1, "self_modulate", Color(Color.WHITE/1.65, 1.0), 0.2)
 		)
 
 

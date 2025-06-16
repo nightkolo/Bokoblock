@@ -34,7 +34,7 @@ func start_game() -> void:
 	_disable_buttons(btns)
 	GameMgr.self_destruct()
 	GameLogic.self_destruct()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.25).timeout
 	
 	Trans.slide_to_scene("res://world/game/levels/stage_0.tscn")
 

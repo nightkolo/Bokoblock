@@ -1,3 +1,4 @@
+## @deprecated
 class_name OneColorWall1
 extends CollisionShape2D
 

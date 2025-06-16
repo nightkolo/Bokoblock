@@ -5,8 +5,13 @@ signal back_button_pressed()
 signal is_showing()
 
 var btns: Array[Node]
-var viewport: MarginContainer
-var viewport_extra: Node2D
+var viewport: MarginContainer # Null check needed
+var viewport_extra: Node2D # Null check needed
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("game_cancel"):
+		back_button_pressed.emit()
 
 
 func _init() -> void:

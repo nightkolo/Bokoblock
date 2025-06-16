@@ -1,3 +1,4 @@
+## @deprecated
 extends CollisionShape2D
 class_name SwitchBlock
 

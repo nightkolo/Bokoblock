@@ -203,6 +203,7 @@ func stop_turning() -> void:
 
 
 #### Blackpoint
+
 func entered_blackpoint() -> void:
 	await get_tree().create_timer(0.05).timeout
 	
@@ -224,9 +225,11 @@ func somebody_tripped_and_entered_the_blackpoints() -> void:
 	transform = _previous_position
 	
 	returned_from_blackpoint.emit()
+
 ####
 
 #### One Color Wall
+
 func check_if_exited(blocks: Array[Bokoblock]) -> bool:
 	for block: Bokoblock in blocks:
 		if is_one_way_wall in block.get_overlapping_areas():
@@ -247,6 +250,7 @@ func _on_one_way_wall(_have_moved: bool) -> void:
 		Audio.one_color_wall_exit.play()
 		
 		GameLogic.state_checked.disconnect(_on_one_way_wall)
+		
 ####
 
 func stop_transforming() -> void:
@@ -275,9 +279,7 @@ func get_current_turn() -> int:
 
 
 func _has_stopped() -> void:
-	# Await used due to routine issues
-	
-	await get_tree().create_timer(0.04).timeout
+	await get_tree().create_timer(0.04).timeout # Await used due to routine issues
 	GameLogic.body_stopped.emit(self)
 
 

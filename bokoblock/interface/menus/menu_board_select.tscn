@@ -493,7 +493,7 @@ theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
 [node name="NinePatchRect" type="NinePatchRect" parent="ResetPopup/MarginContainer"]
-self_modulate = Color(1, 1, 1, 0.9)
+self_modulate = Color(1, 1, 1, 0.95)
 custom_minimum_size = Vector2(450, 300)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -560,6 +560,7 @@ text = "No
 script = ExtResource("8_8gut0")
 
 [node name="CB1check" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="CB1checkSprite" type="Sprite2D" parent="CB1check"]
 unique_name_in_owner = true
@@ -568,6 +569,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_uxgjx")
 
 [node name="CB2check" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="CB2checkSprite" type="Sprite2D" parent="CB2check"]
 unique_name_in_owner = true

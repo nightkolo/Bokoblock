@@ -1,5 +1,5 @@
+## @deprecated
 extends Control
-
 
 @onready var music_btn: Button = %MusicBtn
 @onready var sfx_btn: Button = %SFXBtn

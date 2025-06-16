@@ -242,7 +242,7 @@ func _show_letter() -> void:
 
 func play_speech(letter: String = "") -> void:
 	var aud := audio_speech.duplicate() as AudioStreamPlayer
-	aud.volume_db = -20.0
+	aud.volume_db = -15.0
 	aud.pitch_scale += randf_range(-0.1,0.1)
 	add_child(aud)
 	
@@ -368,5 +368,5 @@ func anim_waking_up(waking: float) -> void:
 	_tween = create_tween().set_parallel(true)
 	_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	
-	_tween.tween_property(cam, "zoom", _cam_zoom * (1.0 + (waking / 8.0)), 0.25)
+	_tween.tween_property(cam, "zoom", _cam_zoom * (1.0 + (waking / 4.0)), 0.25)
 	_tween.tween_property(bg_red, "self_modulate", Color(Color.WHITE, waking / 2.0), 0.25)

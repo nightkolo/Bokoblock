@@ -7,21 +7,21 @@ signal entered_cb_2()
 @export var texture_checkerboard_complete_checkmark: Texture = preload("res://assets/interface/checkerboard-complete-checkmark-02.png")
 @export var texture_checkerboard_uncomplete_checkmark: Texture = preload("res://assets/interface/checkerboard-uncomplete-checkmark-01.png")
 
-@onready var back_btn: Button = %BackButton
-@onready var btn_b_1: Button = %BtnB1
-
 @onready var board_btns: Array[Node] = get_tree().get_nodes_in_group("UIBoardButton")
 
-@onready var cb_1_check: Node2D = $CB1check
-@onready var cb_2_check: Node2D = $CB2check
-
-@onready var cb_1_check_sprite: Sprite2D = %CB1checkSprite
-@onready var cb_2_check_sprite: Sprite2D = %CB2checkSprite
+@onready var back_btn: Button = %BackButton
+@onready var btn_b_1: Button = %BtnB1
 
 @onready var reset_popup: Control = %ResetPopup
 @onready var progess_btn: Button = %ProgessBtn
 @onready var yes_progress_btn: Button = %YesProgressBtn
 @onready var no_progress_btn: Button = %NoProgressBtn
+
+@onready var cb_1_check: Node2D = %CB1check
+@onready var cb_2_check: Node2D = %CB2check
+
+@onready var cb_1_check_sprite: Sprite2D = %CB1checkSprite
+@onready var cb_2_check_sprite: Sprite2D = %CB2checkSprite
 
 var _cb_entered: int = 1
 
@@ -29,6 +29,7 @@ var _cb_entered: int = 1
 func _ready() -> void:
 	display_data()
 	
+	#### Reset popup
 	progess_btn.pressed.connect(func():
 		reset_popup.visible = true
 		
@@ -52,9 +53,12 @@ func _ready() -> void:
 		
 		progess_btn.grab_focus()
 		)
+	####
 	
 	is_showing.connect(func():
 		btn_b_1.grab_focus()
+		
+		display_data()
 		
 		for board_btn: BoardSelectButton in board_btns:
 			board_btn.display_data()
@@ -82,40 +86,6 @@ func _ready() -> void:
 	btn_b_1.grab_focus()
 
 
-func _cb_1_entered() -> void:
-	if _cb_entered != 1:
-				
-		_cb_entered = 1
-		entered_cb_1.emit()
-
-
-func _cb_2_entered() -> void:
-	if _cb_entered != 2:
-	
-		_cb_entered = 2
-		entered_cb_2.emit()
-
-
-func display_data() -> void:
-	if !GameData.runtime_data.has("101"):
-		push_warning("Cannot display data. Keys 101 not found in GameData.runtime_data.")
-		return
-	
-	if !GameData.runtime_data.has("102"):
-		push_warning("Cannot display data. Keys 102 not found in GameData.runtime_data.")
-		return
-		
-	if GameData.runtime_data["101"]["completed"] == true:
-		cb_1_check_sprite.texture = texture_checkerboard_complete_checkmark
-	else:
-		cb_1_check_sprite.texture = texture_checkerboard_uncomplete_checkmark
-		
-	if GameData.runtime_data["102"]["completed"] == true:
-		cb_2_check_sprite.texture = texture_checkerboard_complete_checkmark
-	else:
-		cb_2_check_sprite.texture = texture_checkerboard_uncomplete_checkmark
-
-
 func goto_level(board_id: int) -> void:
 	if Trans.is_transitioning:
 		return
@@ -134,4 +104,37 @@ func goto_level(board_id: int) -> void:
 		print('"Board CB-' + str(board_id) + '" is non-existent :(')
 		GameUtil.disable_buttons(board_btns, false)
 		GameUtil.disable_buttons(btns, false)
+
+
+func display_data() -> void:
+	if !GameData.runtime_data.has("101"):
+		push_warning("Cannot display data. Key 101 not found in GameData.runtime_data.")
+		return
+	
+	if !GameData.runtime_data.has("102"):
+		push_warning("Cannot display data. Key 102 not found in GameData.runtime_data.")
+		return
 		
+	if GameData.runtime_data["101"]["completed"] == true:
+		cb_1_check_sprite.texture = texture_checkerboard_complete_checkmark
+	else:
+		cb_1_check_sprite.texture = texture_checkerboard_uncomplete_checkmark
+		
+	if GameData.runtime_data["102"]["completed"] == true:
+		cb_2_check_sprite.texture = texture_checkerboard_complete_checkmark
+	else:
+		cb_2_check_sprite.texture = texture_checkerboard_uncomplete_checkmark
+
+
+func _cb_1_entered() -> void:
+	if _cb_entered != 1:
+				
+		_cb_entered = 1
+		entered_cb_1.emit()
+
+
+func _cb_2_entered() -> void:
+	if _cb_entered != 2:
+	
+		_cb_entered = 2
+		entered_cb_2.emit()

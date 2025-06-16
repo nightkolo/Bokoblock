@@ -1,8 +1,7 @@
-## Under construction
 extends CanvasLayer
 class_name UIBackground
 
-@export var spin: bool = true
+@export var spin: bool = true ## @experimental
 
 @onready var texture_bg: TextureRect = %TextureRect
 @onready var node_texture_1: Node2D = %Texture1
@@ -26,7 +25,7 @@ func spin_bg() -> void:
 	tween.tween_property(node_texture_2,"rotation", PI , 30.0).as_relative()
 
 
-func oscillate_bg() -> void:
+func oscillate_bg() -> void: ## @experimental
 	var mag := 10.0
 	var dur := 5.0
 	

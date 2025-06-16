@@ -139,7 +139,7 @@ bus = &"UISound"
 
 [node name="Click" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("12_cu4m8")
-volume_db = -20.0
+volume_db = -16.667
 bus = &"UISound"
 
 [node name="Cam" type="Camera2D" parent="."]
@@ -202,37 +202,37 @@ texture = ExtResource("7_80x24")
 
 [node name="BokoClick01" type="AudioStreamPlayer" parent="WakeUpBoko/BokoClick"]
 stream = ExtResource("8_kxy7w")
-volume_db = -30.0
+volume_db = -25.0
 bus = &"UISound"
 
 [node name="BokoClick02" type="AudioStreamPlayer" parent="WakeUpBoko/BokoClick"]
 stream = ExtResource("9_u1sj5")
-volume_db = -30.0
+volume_db = -25.0
 bus = &"UISound"
 
 [node name="BokoClick03" type="AudioStreamPlayer" parent="WakeUpBoko/BokoClick"]
 stream = ExtResource("10_abl03")
-volume_db = -30.0
+volume_db = -25.0
 bus = &"UISound"
 
 [node name="BokoClick04" type="AudioStreamPlayer" parent="WakeUpBoko/BokoClick"]
 stream = ExtResource("11_wc8jp")
-volume_db = -30.0
+volume_db = -25.0
 bus = &"UISound"
 
 [node name="BokoWake" type="Node" parent="WakeUpBoko"]
 
 [node name="BokoAwake01" type="AudioStreamPlayer" parent="WakeUpBoko/BokoWake"]
 stream = ExtResource("12_0ij6x")
-volume_db = -30.0
+volume_db = -25.0
 
 [node name="BokoAwake02" type="AudioStreamPlayer" parent="WakeUpBoko/BokoWake"]
 stream = ExtResource("13_bh06s")
-volume_db = -30.0
+volume_db = -25.0
 
 [node name="BokoAwake03" type="AudioStreamPlayer" parent="WakeUpBoko/BokoWake"]
 stream = ExtResource("14_pekh2")
-volume_db = -30.0
+volume_db = -25.0
 
 [node name="Label" type="Label" parent="WakeUpBoko"]
 offset_left = -144.0

@@ -1,4 +1,4 @@
-## @deprecated
+## @experimental
 extends Node2D
 
 signal has_moved(moved_to: Vector2)

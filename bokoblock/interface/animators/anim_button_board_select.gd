@@ -11,19 +11,15 @@ func _ready() -> void:
 	
 	GameMgr.game_data_saved.connect(display_data)
 	
-	pivot_offset = size / 2
+	self.add_to_group("UIBoardButton")
+	
+	pivot_offset = size / 2.0
 	
 	pressed.connect(anim_pressed)
 	mouse_entered.connect(anim_entered)
 	mouse_exited.connect(anim_exited)
 	focus_entered.connect(anim_entered)
 	focus_exited.connect(anim_exited)
-	button_up.connect(func():
-		pass
-		)
-	button_down.connect(func():
-		pass
-		)
 
 
 func display_data() -> void:
@@ -71,7 +67,6 @@ func anim_entered() -> void:
 	tween = create_tween().set_parallel(true)
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_property(self, "scale", scale_to, dur).set_trans(Tween.TRANS_ELASTIC)
-	
 	
 		
 func play_aud() -> void:

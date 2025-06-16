@@ -14,6 +14,9 @@ const MEDAL_SAVE_LOCATION = "user://medaldata.json"
 
 
 func save_medals() -> void:
+	if !GameMgr.ON_NEWGROUNDS_MIRROR:
+		return
+	
 	print("saving medals...")
 	
 	var file: FileAccess = FileAccess.open(MEDAL_SAVE_LOCATION, FileAccess.WRITE)
@@ -30,6 +33,9 @@ func save_medals() -> void:
 
 
 func load_medals() -> void:
+	if !GameMgr.ON_NEWGROUNDS_MIRROR:
+		return
+	
 	print("loading medals...")
 	
 	if not FileAccess.file_exists(MEDAL_SAVE_LOCATION):
@@ -57,6 +63,9 @@ func load_medals() -> void:
 
 
 func new_game_medals() -> void:
+	if !GameMgr.ON_NEWGROUNDS_MIRROR:
+		return
+	
 	print("starting new game medals...")
 	
 	GameData.medal_data = GameData.DEFAULT_MEDAL_DATA.duplicate(true)
@@ -111,6 +120,5 @@ func new_game() -> void:
 	print("starting new game...")
 	
 	GameData.runtime_data = GameData.DEFAULT_GAME_DATA.duplicate(true)
-	GameData.medal_data = GameData.DEFAULT_MEDAL_DATA.duplicate(true)
 	
 	save_game()

@@ -3,7 +3,7 @@ extends Node
 
 
 func _ready() -> void:
-	if not GameMgr.ON_NEWGROUNDS_MIRROR:
+	if !GameMgr.ON_NEWGROUNDS_MIRROR:
 		return
 	
 	# Medals are checkered when GameMgr.game_data_saved is emitted
@@ -24,8 +24,11 @@ func _ready() -> void:
 ## Unlocks the Newgrounds medals by their[br]
 ## [param medal_code]: The medal code (the game uses to store data) for the medal.[br]
 ## [param medal_id]: The medal ID (Newgrounds.io uses to unlock medals on newgrounds.com) for the medal.[br][br]
-## Must be called with [code]await[/code]
+## Must be called with [code]await[/code].
 func unlock_a_medal(medal_code: String, medal_id: int) -> void:
+	if !GameMgr.ON_NEWGROUNDS_MIRROR:
+		return
+	
 	if !GameData.medal_data.has(medal_code):
 		print("Could not find " + str(medal_code) + " in GameData.medal_data.")
 	
@@ -71,7 +74,7 @@ func check_player_stat_medals() -> void:
 	if GameData.runtime_data["moves_made"] > 200:
 		await unlock_a_medal("200moves", NewgroundsIds.MedalId.MoveKing)
 		
-	elif GameData.runtime_data["moves_made"] > 600:
+	if GameData.runtime_data["moves_made"] > 600:
 		await unlock_a_medal("600moves", NewgroundsIds.MedalId.MoveMaestro)
 
 
