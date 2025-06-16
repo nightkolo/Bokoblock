@@ -5,6 +5,7 @@ class_name Bokoblock
 signal starpoint_entered(has_entered: bool)
 signal blackpoint_entered(has_entered: bool)
 signal blackpoint_interacted()
+signal body_detected(body: Node2D) ## @experimental
 
 @export var boko_color: GameUtil.BokoColor
 @export_group("Modify")
@@ -157,6 +158,10 @@ func wall_detect(direction: Vector2) -> bool:
 	ray_cast.target_position = direction.sign() * GameUtil.TILE_SIZE
 	
 	ray_cast.force_raycast_update()
+	
+	if ray_cast.get_collider() != null:
+		body_detected.emit(ray_cast.get_collider())
+	
 	return ray_cast.is_colliding()
 
 

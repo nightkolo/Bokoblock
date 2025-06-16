@@ -21,7 +21,7 @@ func _ready() -> void:
 	var tween := create_tween()
 	tween.tween_property(self, "modulate", Color(Color.WHITE, 1.0), 1.0)
 	
-	match GameMgr.current_checkerboard_id:
+	match GameMgr.checkerboard_id:
 		
 		1:
 			sprite.texture = texture_yellow
@@ -31,7 +31,7 @@ func _ready() -> void:
 			sprite.texture = texture_purple
 			board_number.font_color = Color(Color.WHITE, 0.75)
 	
-	label.text = str(GameMgr.current_checkerboard_id) + "-" + str(GameMgr.current_board_id)
+	label.text = str(GameMgr.checkerboard_id) + "-" + str(GameMgr.board_id)
 
 
 func anim_idle() -> void:

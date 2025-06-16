@@ -43,7 +43,9 @@ var _tween_cb: Tween
 
 
 func _ready() -> void:
-	if GameMgr.current_menu == GameMgr.Menus.CREDITS: # For the game's ending
+	GameMgr.current_menu = self
+	
+	if GameMgr.menu_id == GameMgr.Menus.CREDITS: # For the game's ending
 		enter_main_menu(MainMenus.CREDITS)
 		
 	else:
@@ -62,6 +64,10 @@ func _ready() -> void:
 	menu_title.credits_btn_pressed.connect(func():
 		enter_main_menu(MainMenus.CREDITS)
 		
+		if GameData.medal_data.has("curiosity") && GameMgr.current_medal_notifier:
+			if GameData.medal_data["curiosity"] == false: 
+				GameMgr.current_medal_notifier.anim_medal_unlocked()
+			
 		await MedalMgr.unlock_a_medal("curiosity", NewgroundsIds.MedalId.Curiosity)
 		)
 	
@@ -219,6 +225,8 @@ func _reset_tween_fade_in() -> void:
 		_tween_fade_in.kill()
 
 
+var tween_text: Tween
+
 func _apply_ui_juice() -> void:
 	# NOTE: This is all very hacky code.
 	bokobody.no_move = false
@@ -233,6 +241,16 @@ func _apply_ui_juice() -> void:
 	PlayerInput.input_turn.connect(func(turn_to: float):
 		if onscreen.is_on_screen():
 			bokobody.turn(turn_to)
+			
+			menu_credits.kolo.pivot_offset = menu_credits.kolo.size / 2.0
+			menu_credits.kolo.rotation_degrees = 180.0 * -turn_to
+			
+			if tween_text:
+				tween_text.kill()
+			
+			tween_text = create_tween()
+			tween_text.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+			tween_text.tween_property(menu_credits.kolo, "rotation_degrees", 0.0, 0.4)
 		)
 	
 	# TODO: Make board select screen seperate in GameMgr.Menus.
@@ -242,24 +260,30 @@ func _apply_ui_juice() -> void:
 		)
 	
 	title_area.area_entered.connect(func(area: Area2D):
-		if area is Bokoblock && GameMgr.current_menu == GameMgr.Menus.CREDITS:
+		if area is Bokoblock && GameMgr.menu_id == GameMgr.Menus.CREDITS:
 			enter_main_menu(MainMenus.TITLE)
 			GameMgr.menu_entered.emit(GameMgr.Menus.MENUS)
+			
+			if GameData.medal_data.has("halls") && GameMgr.current_medal_notifier:
+				if GameData.medal_data["halls"] == false: 
+					GameMgr.current_medal_notifier.anim_medal_unlocked()
+				
+			await MedalMgr.unlock_a_medal("halls", NewgroundsIds.MedalId.RunningInTheHalls)
 		)
 	
 	credit_area.area_entered.connect(func(area: Area2D):
-		if area is Bokoblock && GameMgr.current_menu == GameMgr.Menus.MENUS:
+		if area is Bokoblock && GameMgr.menu_id == GameMgr.Menus.MENUS:
 			enter_main_menu(MainMenus.CREDITS)
 			GameMgr.menu_entered.emit(GameMgr.Menus.CREDITS)
-		)
+			)
 	
 	menu_board_select.entered_cb_1.connect(func():
 		if _tween_cb:
 			_tween_cb.kill()
 			
 		_tween_cb = create_tween().set_parallel(true)
-		_tween_cb.tween_property(checkerboard_1, "self_modulate", Color(Color.WHITE/1.3, 1.0), 0.2)
-		_tween_cb.tween_property(checkerboard_2, "self_modulate", Color(Color.WHITE/1.6, 1.0), 0.2)
+		_tween_cb.tween_property(checkerboard_1, "self_modulate", Color(Color.WHITE/1.25, 1.0), 0.2)
+		_tween_cb.tween_property(checkerboard_2, "self_modulate", Color(Color.WHITE/1.65, 1.0), 0.2)
 		)
 		
 	menu_board_select.entered_cb_2.connect(func():
@@ -267,8 +291,8 @@ func _apply_ui_juice() -> void:
 			_tween_cb.kill()
 			
 		_tween_cb = create_tween().set_parallel(true)
-		_tween_cb.tween_property(checkerboard_2, "self_modulate", Color(Color.WHITE/1.3, 1.0), 0.2)
-		_tween_cb.tween_property(checkerboard_1, "self_modulate", Color(Color.WHITE/1.6, 1.0), 0.2)
+		_tween_cb.tween_property(checkerboard_2, "self_modulate", Color(Color.WHITE/1.25, 1.0), 0.2)
+		_tween_cb.tween_property(checkerboard_1, "self_modulate", Color(Color.WHITE/1.65, 1.0), 0.2)
 		)
 
 

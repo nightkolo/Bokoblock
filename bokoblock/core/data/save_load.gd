@@ -111,5 +111,6 @@ func new_game() -> void:
 	print("starting new game...")
 	
 	GameData.runtime_data = GameData.DEFAULT_GAME_DATA.duplicate(true)
+	GameData.medal_data = GameData.DEFAULT_MEDAL_DATA.duplicate(true)
 	
 	save_game()

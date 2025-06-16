@@ -19,7 +19,7 @@ func _ready() -> void:
 		)
 	
 	progess_btn.pressed.connect(func():
-		$MarginContainer2.visible = true
+		$ResetPopup.visible = true
 		$MarginContainer.visible = false
 		
 		%NoProgressBtn.grab_focus()
@@ -27,13 +27,13 @@ func _ready() -> void:
 	yes_progress_btn.pressed.connect(func():
 		GameMgr.reset_game_data()
 		
-		$MarginContainer2.visible = false
+		$ResetPopup.visible = false
 		$MarginContainer.visible = true
 		
 		music_btn.grab_focus()
 		)
 	no_progress_btn.pressed.connect(func():
-		$MarginContainer2.visible = false
+		$ResetPopup.visible = false
 		$MarginContainer.visible = true
 		
 		music_btn.grab_focus()

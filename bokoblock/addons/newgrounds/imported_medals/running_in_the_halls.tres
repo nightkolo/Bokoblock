@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MedalResource" load_steps=2 format=3 uid="uid://bjlhm353xdsbb"]
+
+[ext_resource type="Script" path="res://addons/newgrounds/data/medal_resource.gd" id="1_unvp5"]
+
+[resource]
+script = ExtResource("1_unvp5")
+name = "Running in the Halls"
+description = "Discover the main menu easter egg."
+icon_url = "https://apifiles.ngfiles.com/icons/medal_secret.png"
+id = 85044
+secret = true
+unlocked = false
+value = 0
+difficulty = 3

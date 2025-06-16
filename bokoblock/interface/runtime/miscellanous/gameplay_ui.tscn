@@ -17,7 +17,6 @@ visible = false
 [node name="StageCompleteScreen" parent="." instance=ExtResource("3_nwfwq")]
 
 [node name="MedalUnlockedPopup" parent="." instance=ExtResource("4_t0cg6")]
-visible = false
 
 [node name="ResetScreen" type="MarginContainer" parent="."]
 visible = false

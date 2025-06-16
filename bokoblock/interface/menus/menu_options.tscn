@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://7inl4rvey7qc"]
+[gd_scene load_steps=12 format=3 uid="uid://7inl4rvey7qc"]
 
 [ext_resource type="Theme" uid="uid://vnjfeobf1xfo" path="res://core/resources/theme/theme_menus.tres" id="1_hj10e"]
 [ext_resource type="Script" path="res://interface/interactors/menu_options.gd" id="2_ihiog"]
@@ -8,15 +8,28 @@
 [ext_resource type="Theme" uid="uid://otrfm5jo3rs" path="res://core/resources/theme/theme_panel_button.tres" id="6_tkm45"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_panel.gd" id="7_y5njn"]
 
-[sub_resource type="FontVariation" id="FontVariation_181fw"]
+[sub_resource type="FontVariation" id="FontVariation_gj8xb"]
 spacing_top = -5
 spacing_bottom = -5
 
 [sub_resource type="LabelSettings" id="LabelSettings_1q4ik"]
-font = SubResource("FontVariation_181fw")
+font = SubResource("FontVariation_gj8xb")
 font_size = 32
 outline_size = 7
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.05)
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="FontVariation" id="FontVariation_bocch"]
+spacing_top = -5
+spacing_bottom = -5
+
+[sub_resource type="LabelSettings" id="LabelSettings_ljwrw"]
+font = SubResource("FontVariation_bocch")
+font_size = 24
+outline_size = 7
+outline_color = Color(0.4, 0.4, 0.4, 1)
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.05)
 shadow_offset = Vector2(4, 4)
@@ -97,8 +110,8 @@ theme = ExtResource("3_h7bsc")
 text = "Back to Board Select"
 script = ExtResource("4_laypp")
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-visible = false
+[node name="ResetPopup" type="MarginContainer" parent="."]
+z_index = 10
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -110,9 +123,9 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer2"]
+[node name="NinePatchRect" type="NinePatchRect" parent="ResetPopup"]
 self_modulate = Color(1, 1, 1, 0.9)
-custom_minimum_size = Vector2(450, 250)
+custom_minimum_size = Vector2(450, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -123,7 +136,7 @@ patch_margin_top = 48
 patch_margin_right = 48
 patch_margin_bottom = 48
 
-[node name="Content" type="MarginContainer" parent="MarginContainer2/NinePatchRect"]
+[node name="Content" type="MarginContainer" parent="ResetPopup/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -135,28 +148,41 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 40
 
-[node name="Label" type="Label" parent="MarginContainer2/NinePatchRect/Content"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ResetPopup/NinePatchRect/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ResetPopup/NinePatchRect/Content/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 0
-text = "Are you sure you want to Reset your Progress?"
+text = "Are you sure you want to Reset all your Progress?"
 label_settings = SubResource("LabelSettings_1q4ik")
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/NinePatchRect/Content"]
+[node name="Label2" type="Label" parent="ResetPopup/NinePatchRect/Content/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 10
+text = "(You can't undo this)"
+label_settings = SubResource("LabelSettings_ljwrw")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResetPopup/NinePatchRect/Content/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 10
 theme_override_constants/separation = 40
 
-[node name="YesProgressBtn" type="Button" parent="MarginContainer2/NinePatchRect/Content/HBoxContainer"]
+[node name="YesProgressBtn" type="Button" parent="ResetPopup/NinePatchRect/Content/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("6_tkm45")
 text = "Yes"
 script = ExtResource("7_y5njn")
 
-[node name="NoProgressBtn" type="Button" parent="MarginContainer2/NinePatchRect/Content/HBoxContainer"]
+[node name="NoProgressBtn" type="Button" parent="ResetPopup/NinePatchRect/Content/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("6_tkm45")

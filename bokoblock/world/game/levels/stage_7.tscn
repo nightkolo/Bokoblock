@@ -59,7 +59,7 @@ tile_set = ExtResource("5_h1hw8")
 [node name="ChibiBoko" parent="BoardWorld" instance=ExtResource("9_a8p3y")]
 position = Vector2(473, 383)
 info_text = "Watch out for
- One Color Walls!"
+ One Color Walls"
 
 [node name="BoardNumber" parent="BoardWorld" instance=ExtResource("10_0576i")]
 position = Vector2(653, 518)

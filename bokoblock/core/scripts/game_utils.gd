@@ -28,10 +28,10 @@ static func get_board_complete_anim_waittime() -> float:
 
 
 static func is_board_completed() -> bool:
-	if !GameData.runtime_data.has(str(GameMgr.current_board_id)):
+	if !GameData.runtime_data.has(str(GameMgr.board_id)):
 		return false
 		
-	return GameData.runtime_data[str(GameMgr.current_board_id)]["completed"] == true
+	return GameData.runtime_data[str(GameMgr.board_id)]["completed"] == true
 
 
 static func disable_buttons(btns: Array[Node], disable: bool = true) -> void:

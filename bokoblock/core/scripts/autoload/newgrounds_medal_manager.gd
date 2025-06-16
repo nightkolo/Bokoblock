@@ -60,10 +60,14 @@ func unlock_a_medal(medal_code: String, medal_id: int) -> void:
 	
 
 func update_player_moves_stats() -> void:
-	GameData.runtime_data["moves_made"] += 1
+	if GameData.runtime_data.has("moves_made"):
+		GameData.runtime_data["moves_made"] += 1
 
 
 func check_player_stat_medals() -> void:
+	if !GameData.runtime_data.has("moves_made"):
+		return
+
 	if GameData.runtime_data["moves_made"] > 200:
 		await unlock_a_medal("200moves", NewgroundsIds.MedalId.MoveKing)
 		
@@ -72,11 +76,13 @@ func check_player_stat_medals() -> void:
 
 
 func check_board_progression_medals() -> void:
-	if GameData.runtime_data["101"]["completed"] == true:
-		await unlock_a_medal("cb1_comp", NewgroundsIds.MedalId.Checkerboard1Complete)
-			
-	if GameData.runtime_data["102"]["completed"] == true:
-		await unlock_a_medal("cb2_comp", NewgroundsIds.MedalId.Checkerboard2Complete)
-	
-	if GameData.runtime_data["101"]["completed"] == true && GameData.runtime_data["102"]["completed"] == true:
-		await unlock_a_medal("game_comp", NewgroundsIds.MedalId.PokoApproves)
+	if GameData.runtime_data.has("101") && GameData.runtime_data.has("102"):
+
+		if GameData.runtime_data["101"]["completed"] == true:
+			await unlock_a_medal("cb1_comp", NewgroundsIds.MedalId.Checkerboard1Complete)
+				
+		if GameData.runtime_data["102"]["completed"] == true:
+			await unlock_a_medal("cb2_comp", NewgroundsIds.MedalId.Checkerboard2Complete)
+		
+		if GameData.runtime_data["101"]["completed"] == true && GameData.runtime_data["102"]["completed"] == true:
+			await unlock_a_medal("game_comp", NewgroundsIds.MedalId.PokoApproves)

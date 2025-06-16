@@ -60,12 +60,12 @@ func spin_light() -> void:
 	
 	await get_tree().create_timer(0.1).timeout
 	
-	if GameMgr.current_checkerboard_id == 1:
+	if GameMgr.checkerboard_id == 1:
 		light.self_modulate = Color(Color.WHITE, 0.1)
-	elif GameMgr.current_checkerboard_id == 2:
+	elif GameMgr.checkerboard_id == 2:
 		light.self_modulate = Color(Color.BLACK, 0.1)
 	
-	if BokoMath.is_even(GameMgr.current_board_id):
+	if BokoMath.is_even(GameMgr.board_id):
 		spin_dir = -1.0
 	else:
 		spin_dir = 1.0
@@ -83,7 +83,7 @@ func spin_bg() -> void:
 	
 	await get_tree().create_timer(0.1).timeout
 	
-	if BokoMath.is_even(GameMgr.current_board_id):
+	if BokoMath.is_even(GameMgr.board_id):
 		spin_dir = 1.0
 	else:
 		spin_dir = -1.0

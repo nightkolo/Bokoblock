@@ -9,7 +9,7 @@ var last_input: GameLogic.TransformationType
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if GameMgr.current_menu == GameMgr.Menus.RUNTIME && !Trans.is_transitioning:
+	if GameMgr.menu_id == GameMgr.Menus.RUNTIME && !Trans.is_transitioning:
 		
 		if event.is_action_pressed("move_turn_left"):
 			call_input_turn(-1.0)
@@ -31,7 +31,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _input(event: InputEvent) -> void: # Added for main menu easter egg
-	if GameMgr.current_menu == GameMgr.Menus.MENUS || GameMgr.current_menu == GameMgr.Menus.CREDITS:
+	if GameMgr.menu_id == GameMgr.Menus.MENUS || GameMgr.menu_id == GameMgr.Menus.CREDITS:
 		
 		if event.is_action_pressed("move_turn_left"):
 			call_input_turn(-1.0)

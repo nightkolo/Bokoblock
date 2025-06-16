@@ -30,8 +30,8 @@ func _process(_delta: float) -> void:
 		has_won_label.text = "has_won: " + str(GameLogic.has_won)
 		win_checked_label.text = "win_checked: " + str(GameLogic.win_checked)
 		are_bodies_moving_label.text = "are_bodies_moving: " + str(GameLogic.are_bodies_moving)
-		board_id_label.text = "board_id: " + str(GameMgr.current_board_id)
-		world_id_label.text = "WORLD_ID: " + str(GameMgr.current_checkerboard_id)
+		board_id_label.text = "board_id: " + str(GameMgr.board_id)
+		world_id_label.text = "WORLD_ID: " + str(GameMgr.checkerboard_id)
 	
 	
 	else:

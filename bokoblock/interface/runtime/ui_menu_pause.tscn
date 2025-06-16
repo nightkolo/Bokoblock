@@ -34,7 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.2)
+color = Color(1, 1, 1, 0.25)
 
 [node name="PauseMenuAgain" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -138,7 +138,7 @@ focus_neighbor_top = NodePath("../../../ReturnButton")
 focus_neighbor_bottom = NodePath("../ReduceMotionButton")
 theme = ExtResource("7_qn642")
 theme_override_font_sizes/font_size = 28
-text = "Colorblind Mode: OFF"
+text = "Readable Colors: OFF"
 script = ExtResource("8_ibupf")
 
 [node name="ReduceMotionButton" type="Button" parent="PauseMenuAgain/GodILoveControlNodes/Content/VBoxContainer/VBoxContainer/VBoxContainer2/VBoxContainer" groups=["UIButton"]]

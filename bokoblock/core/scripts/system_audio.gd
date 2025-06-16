@@ -116,13 +116,19 @@ func play_reset_sound() -> void:
 
 
 func play_body_move() -> void:
+	if GameMgr.current_menu:
+		if !GameMgr.current_menu.onscreen.is_on_screen(): # For main menu easter egg
+			return
+	
 	var aud: AudioStreamPlayer = body_moving[randi() % body_moving.size()]
 	aud.pitch_scale = 0.8 + ((randf() - 0.5) / 2)
 	aud.play()
 
 
 func play_body_turn(turn_to: float = signf(randf() - 0.5)):
-	# TODO: Edit the pitch of sounds before-hand
+	if GameMgr.current_menu:
+		if GameMgr.current_menu.onscreen.is_on_screen(): # For main menu easter egg
+			return
 	
 	if turn_to > 0.0:
 		body_turn_1.pitch_scale = 1.0 + ((randf() - 0.5) / 8.0)

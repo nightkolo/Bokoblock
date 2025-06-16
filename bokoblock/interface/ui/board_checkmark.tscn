@@ -1,14 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dng5ay1uw2ybo"]
+[gd_scene load_steps=3 format=3 uid="uid://dng5ay1uw2ybo"]
 
 [ext_resource type="Texture2D" uid="uid://c5o3tp552dhc0" path="res://assets/interface/board-complete-checkmark.png" id="1_koeh8"]
+[ext_resource type="Script" path="res://interface/animators/board_checkmark.gd" id="1_vg7bk"]
 
 [node name="Bcheck" type="Node2D"]
+script = ExtResource("1_vg7bk")
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(69, 77)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
 z_index = 1
-position = Vector2(0, -25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_koeh8")
+offset = Vector2(0, -50)

@@ -1,16 +1,18 @@
-extends MarginContainer
+extends CanvasLayer
 class_name MedalUnlockedPopup
 
-@onready var label: Label = $Label
+@onready var label: Label = %Label
 
 var _tween: Tween
 
 
 func _ready() -> void:
+	GameMgr.current_medal_notifier = self
+	
 	visible = false
 	
 
-func anim_medal_unlocked():
+func anim_medal_unlocked() -> void:
 	var dur := 1.0
 	
 	if _tween:

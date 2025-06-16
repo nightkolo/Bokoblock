@@ -8,7 +8,7 @@ class_name SwitchBlocks
 
 signal has_opened(is_open: bool)
 
-@export var switch_type_decorator: GameUtil.SwitchTypeDecorator
+#@export var switch_type_decorator: GameUtil.SwitchTypeDecorator
 @export_group("Assets")
 @export var texture_cross: Texture = preload("res://assets/objects/switch-block-head-cross.png")
 @export var texture_square: Texture = preload("res://assets/objects/switch-block-head-square.png")
@@ -36,14 +36,15 @@ func _ready() -> void:
 
 
 func _setup_node():
-	for switch_block: SwitchBlock in child_switch_blocks:
-		match switch_type_decorator:
-			
-			GameUtil.SwitchTypeDecorator.Cross:
-				switch_block.sprite_head.texture = texture_cross
-				
-			GameUtil.SwitchTypeDecorator.Square:
-				switch_block.sprite_head.texture = texture_square
+	pass
+	#for switch_block: SwitchBlock in child_switch_blocks:
+		#match switch_type_decorator:
+			#
+			#GameUtil.SwitchTypeDecorator.Cross:
+				#switch_block.sprite_head.texture = texture_cross
+				#
+			#GameUtil.SwitchTypeDecorator.Square:
+				#switch_block.sprite_head.texture = texture_square
 
 
 func open(open_or_close: bool = !is_open) -> void:

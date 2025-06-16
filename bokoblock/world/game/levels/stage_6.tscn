@@ -61,8 +61,8 @@ tile_set = ExtResource("5_ffj0r")
 
 [node name="ChibiBoko" parent="BoardWorld" instance=ExtResource("8_1yyig")]
 position = Vector2(472, 488)
-info_text = "Angry Blocks have
- an attitude..."
+info_text = "Angry Blocks turn
+ the other way around"
 
 [node name="BoardNumber" parent="BoardWorld" instance=ExtResource("10_3ieox")]
 position = Vector2(337, 545)

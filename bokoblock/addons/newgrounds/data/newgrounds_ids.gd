@@ -20,12 +20,13 @@ enum MedalId {
 	LocomoteReaper = 84985,
 	MoveMaestro = 84988,
 	YourMovesArePrecious = 84981,
+	CanYouPokeTheBlocks = 84989,
 	Checkerboard2Complete = 84979,
-	WatchYourStep = 84984,	
+	WatchYourStep = 84984,
 	BlackIsYourEnemy = 84986,
 	CountYourSteps = 84983,
+	RunningInTheHalls = 85044,
 	PokoApproves = 84980,
-	CanYouPokeTheBlocks = 84989,
 
 }
 
@@ -40,11 +41,12 @@ class MedalIdsToResource:
 		84985: "res://addons/newgrounds/imported_medals/locomote_reaper.tres",
 		84988: "res://addons/newgrounds/imported_medals/move_maestro.tres",
 		84981: "res://addons/newgrounds/imported_medals/your_moves_are_precious.tres",
+		84989: "res://addons/newgrounds/imported_medals/can_you_poke_the_blocks.tres",
 		84979: "res://addons/newgrounds/imported_medals/checkerboard_2_complete.tres",
 		84984: "res://addons/newgrounds/imported_medals/watch_your_step.tres",
 		84986: "res://addons/newgrounds/imported_medals/black_is_your_enemy.tres",
 		84983: "res://addons/newgrounds/imported_medals/count_your_steps.tres",
+		85044: "res://addons/newgrounds/imported_medals/running_in_the_halls.tres",
 		84980: "res://addons/newgrounds/imported_medals/poko_approves.tres",
-		84989: "res://addons/newgrounds/imported_medals/can_you_poke_the_blocks.tres",
 
 	}

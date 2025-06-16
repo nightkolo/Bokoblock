@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=4 uid="uid://cjg8hlehfw02w"]
+[gd_scene load_steps=21 format=4 uid="uid://cjg8hlehfw02w"]
 
 [ext_resource type="Script" path="res://interface/interactors/main_menus_scene.gd" id="1_2rt8a"]
 [ext_resource type="Script" path="res://interface/animators/ui_background.gd" id="2_a5acc"]
 [ext_resource type="Texture2D" uid="uid://b5vh0nswyrv70" path="res://assets/backgrounds/bg-main.png" id="3_2cpjf"]
+[ext_resource type="PackedScene" uid="uid://cpj5rph2x2wgj" path="res://interface/runtime/overlay/medal_unlocked_popup.tscn" id="4_xvmyf"]
 [ext_resource type="PackedScene" uid="uid://d2hyhl2j3cera" path="res://interface/menus/menu_title_screen.tscn" id="5_nf347"]
 [ext_resource type="PackedScene" uid="uid://p28ce2q4mws" path="res://interface/menus/menu_board_select.tscn" id="6_t1hg8"]
 [ext_resource type="PackedScene" uid="uid://di8et7u8v2hel" path="res://interface/menus/menu_credits.tscn" id="7_mgwmq"]
@@ -207,7 +208,6 @@ collision_layer = 0
 collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BoardObjects/TitleArea"]
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_s2u48")
 
 [node name="CreditArea" type="Area2D" parent="BoardObjects"]
@@ -217,5 +217,6 @@ collision_layer = 0
 collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BoardObjects/CreditArea"]
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_s2u48")
+
+[node name="MedalUnlockedPopup" parent="." instance=ExtResource("4_xvmyf")]

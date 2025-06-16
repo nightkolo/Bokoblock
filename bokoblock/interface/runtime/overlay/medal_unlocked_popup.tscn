@@ -11,7 +11,11 @@ shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.298)
 shadow_offset = Vector2(5, 5)
 
-[node name="MedalUnlockedPopup" type="MarginContainer"]
+[node name="MedalUnlockedPopup" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_fgwg5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -22,9 +26,9 @@ theme_override_constants/margin_left = 120
 theme_override_constants/margin_top = 120
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 120
-script = ExtResource("1_fgwg5")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8

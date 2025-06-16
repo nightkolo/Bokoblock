@@ -5,6 +5,8 @@ class_name CreditsScreen
 @onready var chibi_boko: CharacterChibiBoko = $Main2/CharacterChibiBoko
 @onready var messages: Node2D = $Main2/Messages
 
+@onready var kolo: Label = %Me
+
 
 func _ready() -> void:
 	back_btn.grab_focus()
@@ -31,6 +33,7 @@ func _ready() -> void:
 		
 		back_button_pressed.emit()
 		)
+	
 
 
 func open_random_message() -> void:

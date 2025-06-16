@@ -12,6 +12,7 @@ signal game_medals_data_saved()
 signal game_medals_data_loaded()
 
 enum Menus {
+	## Board select and title screens are MENUS = 0
 	MENUS = 0,
 	PAUSE = 1,
 	CHECKERBOARD_COMPLETE = 2,
@@ -20,11 +21,13 @@ enum Menus {
 	RUNTIME = 99
 }
 
-var current_menu: Menus = Menus.START
-var current_ui_handler: GameplayUI
-var current_board: Board
-var current_board_id: int = -1
-var current_checkerboard_id: int = -1
+var current_ui_handler: GameplayUI # Null check needed
+var current_menu: MainMenusUI # Null check needed
+var current_board: Board # Null check needed
+var current_medal_notifier: MedalUnlockedPopup # Null check needed
+var menu_id: Menus = Menus.START
+var board_id: int = -1
+var checkerboard_id: int = -1
 
 var has_resetted_during_board_win: bool = false
 var game_has_ended: bool = false
@@ -52,7 +55,7 @@ func _ready() -> void:
 		)
 	
 	menu_entered.connect(func(entered: Menus):
-		current_menu = entered
+		menu_id = entered
 		)
 	
 	game_reset.connect(func():
@@ -78,13 +81,13 @@ func session_change(s: NewgroundsSession) -> void:
 
 func stage_complete() -> void:
 	@warning_ignore("integer_division")
-	if current_board_id / current_checkerboard_id == 10:
-		open_checkerboard_complete_screen()
+	if board_id / checkerboard_id == 10:
+		checkerboard_complete()
 	else:
 		goto_next_stage()
 
 
-func open_checkerboard_complete_screen() -> void:
+func checkerboard_complete() -> void:
 	if current_ui_handler:
 		current_ui_handler.the_checkerboard_has_been_checkered()
 
@@ -99,7 +102,7 @@ func goto_next_stage(force_progression: bool = false) -> void:
 	
 	GameLogic.self_destruct()
 	
-	var next_lvl_id := current_board_id + 1
+	var next_lvl_id := board_id + 1
 	var next_lvl_path := GameUtil.STAGE_FILE_BEGIN + str(next_lvl_id) + GameUtil.STAGE_FILE_END
 	
 	if next_lvl_id <= GameUtil.NUMBER_OF_BOARDS: 
@@ -112,8 +115,9 @@ func goto_next_stage(force_progression: bool = false) -> void:
 func goto_next_checkerboard() -> void:
 	goto_next_stage(true)
 	
-	await get_tree().create_timer(1.5).timeout
-	Audio.set_music()
+	if board_id + 1 <= GameUtil.NUMBER_OF_BOARDS:
+		await get_tree().create_timer(1.5).timeout
+		Audio.set_music()
 
 #### Config
 

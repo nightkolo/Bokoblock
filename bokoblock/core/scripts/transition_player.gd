@@ -36,7 +36,7 @@ func slide_to_credits(speed: float = 1.0) -> void:
 	($Trans3 as Node2D).visible = true
 	
 	anim.play(&"slide_in_2", -1, speed)
-	Audio.lower_higher_music(0.3)
+	Audio.lower_higher_music(1.0)
 	
 	await anim.animation_finished
 	

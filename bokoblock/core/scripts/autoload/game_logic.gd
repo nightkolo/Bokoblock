@@ -117,10 +117,11 @@ func check_win() -> void:
 			match_amount = GameLogic.current_starpoints.size()
 			
 		WinCondition.MATCH_ALL_BLOCKS:
-			if GameMgr.current_board.custom_block_match < 0:
-				match_amount = GameLogic.current_blocks.size()
-			else:
-				match_amount = GameMgr.current_board.custom_block_match
+			if GameMgr.current_board:
+				if GameMgr.current_board.custom_block_match < 0:
+					match_amount = GameLogic.current_blocks.size()
+				else:
+					match_amount = GameMgr.current_board.custom_block_match
 	
 	if match_amount == 0:
 		win_checked = true
@@ -139,7 +140,7 @@ func check_win() -> void:
 
 
 func _bodies_have_moved() -> void:
-	if GameMgr.current_menu != GameMgr.Menus.RUNTIME: # Added for main menu easter egg
+	if GameMgr.menu_id != GameMgr.Menus.RUNTIME: # Added for main menu easter egg
 		return
 	
 	_prev_positions = []
@@ -162,7 +163,7 @@ func _bodies_have_stopped() -> void:
 ## [br][br][b]Note:[/b] Used to be for the move counter and undo behaviour.
 ## But these features have been deprecated. The function just stands this way.
 func check_if_bodies_made_move() -> bool:
-	if GameMgr.current_menu != GameMgr.Menus.RUNTIME: # Added for main menu easter egg
+	if GameMgr.menu_id != GameMgr.Menus.RUNTIME: # Added for main menu easter egg
 		return false
 	
 	if GameLogic.current_bodies.is_empty():

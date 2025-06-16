@@ -106,7 +106,7 @@ position = Vector2(293, 518)
 what_im_happy_with = 1
 
 [node name="Bokobody" type="Node2D" parent="BoardObjects"]
-position = Vector2(383, 428)
+position = Vector2(383, 473)
 script = ExtResource("7_hbjuo")
 
 [node name="Block" parent="BoardObjects/Bokobody" instance=ExtResource("8_dcm4r")]
@@ -121,7 +121,7 @@ position = Vector2(-45, 0)
 boko_color = 1
 
 [node name="Bokobody2" type="Node2D" parent="BoardObjects"]
-position = Vector2(518, 428)
+position = Vector2(518, 383)
 script = ExtResource("7_hbjuo")
 
 [node name="Block" parent="BoardObjects/Bokobody2" instance=ExtResource("8_dcm4r")]

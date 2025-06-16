@@ -3,11 +3,13 @@ class_name BoardSelectButton
 
 var tween: Tween
 var board_id: int = 0
-var board_checkmark: PackedScene = preload("res://interface/ui/board_checkmark.tscn")
+@onready var bcheck: Node2D = $Bcheck
 
 
 func _ready() -> void:
 	display_data()
+	
+	GameMgr.game_data_saved.connect(display_data)
 	
 	pivot_offset = size / 2
 	
@@ -37,9 +39,7 @@ func display_data() -> void:
 		push_warning("Cannot display data. Key %s is out of bounds from GameUtil.NUMBER_OF_BOARDS." % board_num)
 		return
 	
-	if GameData.runtime_data[board_num]["completed"] == true:
-		var check := board_checkmark.instantiate()
-		add_child(check)
+	bcheck.visible = GameData.runtime_data[board_num]["completed"] == true
 
 
 func anim_pressed() -> void:

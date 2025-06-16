@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://p28ce2q4mws"]
+[gd_scene load_steps=17 format=3 uid="uid://p28ce2q4mws"]
 
 [ext_resource type="Script" path="res://interface/interactors/menu_stage_select.gd" id="2_px0gl"]
 [ext_resource type="Script" path="res://interface/animators/anim_button.gd" id="4_4wpgq"]
+[ext_resource type="PackedScene" uid="uid://dng5ay1uw2ybo" path="res://interface/ui/board_checkmark.tscn" id="4_hujqj"]
 [ext_resource type="StyleBox" uid="uid://bnu8j1ich1ikq" path="res://core/resources/theme/button_block_board_select.tres" id="4_kjkkr"]
 [ext_resource type="Theme" uid="uid://croyx1o13jqlf" path="res://core/resources/theme/button_menus_menus.tres" id="5_aeiv1"]
 [ext_resource type="Script" path="res://interface/animators/anim_button_board_select.gd" id="5_mqg4w"]
+[ext_resource type="Texture2D" uid="uid://dt6jjx51bd4md" path="res://assets/interface/ui-panel.png" id="6_gpkii"]
+[ext_resource type="Theme" uid="uid://otrfm5jo3rs" path="res://core/resources/theme/theme_panel_button.tres" id="7_by2t6"]
+[ext_resource type="Script" path="res://interface/animators/anim_button_panel.gd" id="8_8gut0"]
 [ext_resource type="Texture2D" uid="uid://brjdidnn4ra3m" path="res://assets/interface/checkerboard-uncomplete-checkmark-01.png" id="8_uxgjx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uodmc"]
@@ -25,10 +29,36 @@ shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.568627)
 shadow_offset = Vector2(5, 5)
 
+[sub_resource type="FontVariation" id="FontVariation_181fw"]
+spacing_top = -5
+spacing_bottom = -5
+
+[sub_resource type="LabelSettings" id="LabelSettings_asqr0"]
+font = SubResource("FontVariation_181fw")
+font_size = 32
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.05)
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="FontVariation" id="FontVariation_3r6h2"]
+spacing_top = -5
+spacing_bottom = -5
+
+[sub_resource type="LabelSettings" id="LabelSettings_51x2u"]
+font = SubResource("FontVariation_3r6h2")
+font_size = 24
+outline_size = 7
+outline_color = Color(0.4, 0.4, 0.4, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.05)
+shadow_offset = Vector2(4, 4)
+
 [node name="MenuStageSelect" type="CanvasLayer"]
 script = ExtResource("2_px0gl")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BG" type="ColorRect" parent="."]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -95,6 +125,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "1"
 script = ExtResource("5_mqg4w")
 
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer/BtnB1" instance=ExtResource("4_hujqj")]
+
 [node name="BtnB2" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -106,6 +138,8 @@ theme_override_styles/pressed = ExtResource("4_kjkkr")
 theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "2"
 script = ExtResource("5_mqg4w")
+
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer/BtnB2" instance=ExtResource("4_hujqj")]
 
 [node name="BtnB3" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
@@ -119,6 +153,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "3"
 script = ExtResource("5_mqg4w")
 
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer/BtnB3" instance=ExtResource("4_hujqj")]
+
 [node name="BtnB4" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -130,6 +166,8 @@ theme_override_styles/pressed = ExtResource("4_kjkkr")
 theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "4"
 script = ExtResource("5_mqg4w")
+
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer/BtnB4" instance=ExtResource("4_hujqj")]
 
 [node name="BtnB5" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
@@ -143,6 +181,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "5"
 script = ExtResource("5_mqg4w")
 
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer/BtnB5" instance=ExtResource("4_hujqj")]
+
 [node name="BtnB6" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -154,6 +194,8 @@ theme_override_styles/pressed = ExtResource("4_kjkkr")
 theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "6"
 script = ExtResource("5_mqg4w")
+
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer/BtnB6" instance=ExtResource("4_hujqj")]
 
 [node name="BtnB7" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
@@ -167,6 +209,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "7"
 script = ExtResource("5_mqg4w")
 
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer/BtnB7" instance=ExtResource("4_hujqj")]
+
 [node name="BtnB8" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -178,6 +222,8 @@ theme_override_styles/pressed = ExtResource("4_kjkkr")
 theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "8"
 script = ExtResource("5_mqg4w")
+
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer/BtnB8" instance=ExtResource("4_hujqj")]
 
 [node name="BtnB9" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
@@ -191,6 +237,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "9"
 script = ExtResource("5_mqg4w")
 
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer/BtnB9" instance=ExtResource("4_hujqj")]
+
 [node name="BtnB10" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -203,6 +251,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "10
 "
 script = ExtResource("5_mqg4w")
+
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer/BtnB10" instance=ExtResource("4_hujqj")]
 
 [node name="Label2" type="Label" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
@@ -227,6 +277,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "11"
 script = ExtResource("5_mqg4w")
 
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2/BtnB11" instance=ExtResource("4_hujqj")]
+
 [node name="BtnB12" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -238,6 +290,8 @@ theme_override_styles/pressed = ExtResource("4_kjkkr")
 theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "12"
 script = ExtResource("5_mqg4w")
+
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2/BtnB12" instance=ExtResource("4_hujqj")]
 
 [node name="BtnB13" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
@@ -251,6 +305,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "13"
 script = ExtResource("5_mqg4w")
 
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2/BtnB13" instance=ExtResource("4_hujqj")]
+
 [node name="BtnB14" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -262,6 +318,8 @@ theme_override_styles/pressed = ExtResource("4_kjkkr")
 theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "14"
 script = ExtResource("5_mqg4w")
+
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2/BtnB14" instance=ExtResource("4_hujqj")]
 
 [node name="BtnB15" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
@@ -275,6 +333,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "15"
 script = ExtResource("5_mqg4w")
 
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2/BtnB15" instance=ExtResource("4_hujqj")]
+
 [node name="BtnB16" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -286,6 +346,8 @@ theme_override_styles/pressed = ExtResource("4_kjkkr")
 theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "16"
 script = ExtResource("5_mqg4w")
+
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2/BtnB16" instance=ExtResource("4_hujqj")]
 
 [node name="BtnB17" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
@@ -299,6 +361,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "17"
 script = ExtResource("5_mqg4w")
 
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2/BtnB17" instance=ExtResource("4_hujqj")]
+
 [node name="BtnB18" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -311,6 +375,8 @@ theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "18"
 script = ExtResource("5_mqg4w")
 
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2/BtnB18" instance=ExtResource("4_hujqj")]
+
 [node name="BtnB19" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -322,6 +388,8 @@ theme_override_styles/pressed = ExtResource("4_kjkkr")
 theme_override_styles/normal = ExtResource("4_kjkkr")
 text = "19"
 script = ExtResource("5_mqg4w")
+
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2/BtnB19" instance=ExtResource("4_hujqj")]
 
 [node name="BtnB20" type="Button" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2" groups=["UIBoardButton"]]
 custom_minimum_size = Vector2(75, 75)
@@ -336,12 +404,28 @@ text = "20
 "
 script = ExtResource("5_mqg4w")
 
-[node name="BackButton" type="Button" parent="Main/VBoxContainer" groups=["UIButton"]]
+[node name="Bcheck" parent="Main/VBoxContainer/CenterContainer/VBoxContainer2/VBoxContainer/GridContainer2/BtnB20" instance=ExtResource("4_hujqj")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -5
+
+[node name="BackButton" type="Button" parent="Main/VBoxContainer/VBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_bottom = NodePath("../ProgessBtn")
 theme = ExtResource("5_aeiv1")
 text = "Back to Title"
+script = ExtResource("4_4wpgq")
+
+[node name="ProgessBtn" type="Button" parent="Main/VBoxContainer/VBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../BackButton")
+theme = ExtResource("5_aeiv1")
+text = "Reset Progress"
 script = ExtResource("4_4wpgq")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Main"]
@@ -376,12 +460,104 @@ bbcode_enabled = true
 text = "[font_size=24.0][color=#FFFFFFBF]Music by [color=#FFFFFFFF]Avizura"
 fit_content = true
 
-[node name="ColorRect2" type="ColorRect" parent="."]
+[node name="ResetPopup" type="Control" parent="."]
+unique_name_in_owner = true
 visible = false
-offset_left = 117.0
-offset_top = 197.0
-offset_right = 250.0
-offset_bottom = 593.0
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="ResetPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.25)
+
+[node name="MarginContainer" type="MarginContainer" parent="ResetPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ResetPopup/MarginContainer"]
+self_modulate = Color(1, 1, 1, 0.9)
+custom_minimum_size = Vector2(450, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("6_gpkii")
+region_rect = Rect2(0, 0, 144, 144)
+patch_margin_left = 48
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 48
+
+[node name="Content" type="MarginContainer" parent="ResetPopup/MarginContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ResetPopup/MarginContainer/NinePatchRect/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ResetPopup/MarginContainer/NinePatchRect/Content/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Are you sure you want to Reset all your Progress?"
+label_settings = SubResource("LabelSettings_asqr0")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="ResetPopup/MarginContainer/NinePatchRect/Content/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 10
+text = "(You can't undo this)"
+label_settings = SubResource("LabelSettings_51x2u")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResetPopup/MarginContainer/NinePatchRect/Content/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_constants/separation = 40
+
+[node name="YesProgressBtn" type="Button" parent="ResetPopup/MarginContainer/NinePatchRect/Content/VBoxContainer/HBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("7_by2t6")
+text = "Yes"
+script = ExtResource("8_8gut0")
+
+[node name="NoProgressBtn" type="Button" parent="ResetPopup/MarginContainer/NinePatchRect/Content/VBoxContainer/HBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("7_by2t6")
+text = "No
+"
+script = ExtResource("8_8gut0")
 
 [node name="CB1check" type="Node2D" parent="."]
 

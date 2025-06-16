@@ -18,11 +18,40 @@ signal entered_cb_2()
 @onready var cb_1_check_sprite: Sprite2D = %CB1checkSprite
 @onready var cb_2_check_sprite: Sprite2D = %CB2checkSprite
 
+@onready var reset_popup: Control = %ResetPopup
+@onready var progess_btn: Button = %ProgessBtn
+@onready var yes_progress_btn: Button = %YesProgressBtn
+@onready var no_progress_btn: Button = %NoProgressBtn
+
 var _cb_entered: int = 1
 
 
 func _ready() -> void:
 	display_data()
+	
+	progess_btn.pressed.connect(func():
+		reset_popup.visible = true
+		
+		no_progress_btn.grab_focus()
+		)
+	yes_progress_btn.pressed.connect(func():
+		GameMgr.reset_game_data()
+		
+		GameUtil.disable_buttons(btns)
+		await get_tree().create_timer(0.2).timeout
+		
+		display_data()
+		reset_popup.visible = false
+		
+		GameUtil.disable_buttons(btns, false)
+		
+		progess_btn.grab_focus()
+		)
+	no_progress_btn.pressed.connect(func():
+		reset_popup.visible = false
+		
+		progess_btn.grab_focus()
+		)
 	
 	is_showing.connect(func():
 		btn_b_1.grab_focus()
@@ -76,12 +105,12 @@ func display_data() -> void:
 		push_warning("Cannot display data. Keys 102 not found in GameData.runtime_data.")
 		return
 		
-	if GameData.runtime_data["101"]["completed"]:
+	if GameData.runtime_data["101"]["completed"] == true:
 		cb_1_check_sprite.texture = texture_checkerboard_complete_checkmark
 	else:
 		cb_1_check_sprite.texture = texture_checkerboard_uncomplete_checkmark
 		
-	if GameData.runtime_data["102"]["completed"]:
+	if GameData.runtime_data["102"]["completed"] == true:
 		cb_2_check_sprite.texture = texture_checkerboard_complete_checkmark
 	else:
 		cb_2_check_sprite.texture = texture_checkerboard_uncomplete_checkmark

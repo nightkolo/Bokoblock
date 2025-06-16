@@ -19,7 +19,7 @@ enum BokoPoses {
 	"[font_size=48][shake rate=20.0 level=10]Wha- huh?",
 
 	"Oh, a new specimen,
-I've heard [rainbow freq=0.4 sat=0.2 val=1.0 speed=0.5][font_size=36]great[/font_size][/rainbow] things about you.",
+I've heard [rainbow freq=0.4 sat=0.2 val=1.0 speed=0.5][font_size=36]marvelous[/font_size][/rainbow] things about you.",
 	
 	"[color=lightgray]Why hello there![/color]
 My name is [color=yellow][wave amp=25.0 freq=5.0 connected=0.0][font_size=35]Poko[/font_size][/wave][/color],
@@ -32,9 +32,9 @@ call me... [i]uhhh",
 	"Don't worry,
 I got no mouth, so I won't bite",
 	
-	"I’ll be your guide, guru, and occasionally confused observer!",
+	"[font_size=30]I’ll be your tutor, cheerleader, and occasionally confused observer!",
 	
-	"Get your fingers ready,
+	"Get yourself ready,
 Let's slide onto
 Board 1-1!"
 ]

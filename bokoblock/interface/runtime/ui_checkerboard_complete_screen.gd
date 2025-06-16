@@ -68,9 +68,9 @@ func open() -> void:
 
 func update_text() -> void:
 	if GameMgr.get_reduce_motion_setting():
-		cb_complete_info.text = GameplayUI.BBCODE_TXT_NO_MOTION + _INFO_BEGIN + str(GameMgr.current_checkerboard_id) + _INFO_END
+		cb_complete_info.text = GameplayUI.BBCODE_TXT_NO_MOTION + _INFO_BEGIN + str(GameMgr.checkerboard_id) + _INFO_END
 	else:
-		cb_complete_info.text = GameplayUI.BBCODE_TXT + _INFO_BEGIN + str(GameMgr.current_checkerboard_id) + _INFO_END
+		cb_complete_info.text = GameplayUI.BBCODE_TXT + _INFO_BEGIN + str(GameMgr.checkerboard_id) + _INFO_END
 		
 
 func anim_shine():

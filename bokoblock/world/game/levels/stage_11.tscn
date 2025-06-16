@@ -57,7 +57,7 @@ tile_set = ExtResource("8_r4vcy")
 position = Vector2(248, 338)
 info_text = "Sad Blocks
  turn a little
- different"
+ different..."
 
 [node name="BoardNumber" parent="StageWorld" instance=ExtResource("10_ag7f4")]
 position = Vector2(473, 473)

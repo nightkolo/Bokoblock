@@ -7,13 +7,13 @@ class_name Board
 	get:
 		return board_id
 	set(value):
-		GameMgr.current_board_id = value
+		GameMgr.board_id = value
 		board_id = value
 @export var checkerboard_id: int = -1:
 	get:
 		return checkerboard_id
 	set(value):
-		GameMgr.current_checkerboard_id = value
+		GameMgr.checkerboard_id = value
 		checkerboard_id = value
 @export_group("Miscellanous")
 @export var show_dev_ui: bool = false ## @experimental
@@ -30,11 +30,13 @@ var _moves_counted: int = 0:
 	get:
 		return _moves_counted
 	set(value):
+		print(value)
 		_moves_counted = mini(999, value)
 
 
 func _ready() -> void:
 	GameMgr.current_board = self
+	GameMgr.current_menu = null
 	GameMgr.menu_entered.emit(GameMgr.Menus.RUNTIME)
 	@warning_ignore("static_called_on_instance")
 	GameLogic.set_win_condition(win_condition)
